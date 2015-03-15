@@ -1,0 +1,8 @@
+npm install hexo -g
+hexo init
+npm install
+npm install hexo-deployer-git --save
+hexo g
+hexo s
+localhost:4000
+hexo d
