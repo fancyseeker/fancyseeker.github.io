@@ -3,11 +3,11 @@
 ## Source: https://github.com/hexojs/hexo/
 
 # Site
-title: Hexo
-subtitle:
+title: FancySeeker
+subtitle: Welcome, my friends.
 description:
-author: John Doe
-language:
+author: He Chen
+language: zh-CN
 timezone:
 
 # URL
@@ -67,4 +67,7 @@ theme: landscape
 # Deployment
 ## Docs: http://hexo.io/docs/deployment.html
 deploy:
-  type:
+  type: git
+  repo: git@github.com:fancyseeker/fancyseeker.github.io.git
+  branch: master
+  message: hexo deploy
