@@ -10,7 +10,9 @@
 
 .article-date
   @extend $block-caption
-  float: left
+  float: right
+  font-size: 1.5em
+  margin-top: 5px
 
 .article-category
   float: left
@@ -27,6 +29,9 @@
 
 .article-header
   padding: article-padding article-padding 0
+  padding-bottom: article-padding
+  background-color: #dedede
+  box-shadow: 0 1px 3px #c3c3c3
 
 .article-title
   text-decoration: none
@@ -202,14 +207,16 @@
 #article-nav-newer
   @media mq-normal
     float: left
-    text-align: right
+    text-align: left
     padding-right: 20px
+    padding-left: 1px
 
 #article-nav-older
   @media mq-normal
     float: right
-    text-align: left
+    text-align: right
     padding-left: 20px
+    padding-right: 1px
 
 .article-nav-caption
   text-transform: uppercase
