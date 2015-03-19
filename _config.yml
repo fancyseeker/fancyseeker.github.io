@@ -71,3 +71,6 @@ deploy:
   repo: git@github.com:fancyseeker/fancyseeker.github.io.git
   branch: master
   message: hexo deploy
+
+# add duoshuo comment
+duoshuo_shortname: fancyseeker
