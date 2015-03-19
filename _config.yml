@@ -71,7 +71,7 @@ theme: landscape
 deploy:
   type: git
   repo: git@github.com:fancyseeker/fancyseeker.github.io.git
-  branch: gh-pages
+  branch: master
   message: hexo deploy
 
 # add duoshuo comment
