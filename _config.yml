@@ -6,13 +6,13 @@
 title: FancySeeker
 subtitle: Welcome, my friends.
 description:
-author: He Chen
+author: fancyseeker
 language: zh-CN
 timezone:
 
 # URL
 ## If your site is put in a subdirectory, set url as 'http://yoursite.com/child' and root as '/child/'
-url: http://yoursite.com
+url: http://fancyseeker.github.io
 root: /
 permalink: :year/:month/:day/:title/
 permalink_defaults:
@@ -73,4 +73,4 @@ deploy:
   message: hexo deploy
 
 # add duoshuo comment
-duoshuo_shortname: fancyseeker
+duoshuo_shortname: fancyseeker.githu.io
