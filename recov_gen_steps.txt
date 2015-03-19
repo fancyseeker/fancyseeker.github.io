@@ -6,3 +6,6 @@ hexo g
 hexo s
 localhost:4000
 hexo d
+
+# 摘要插件
+npm install git://github.com/vfasky/hexo-summarizer.git
