@@ -65,7 +65,7 @@ plugins:
 - hexo-summarizer
 
 ## Themes: http://hexo.io/themes/
-theme: landscape
+theme: landscape-plus
 
 # Deployment
 ## Docs: http://hexo.io/docs/deployment.html
