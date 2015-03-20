@@ -76,4 +76,4 @@ deploy:
   message: hexo deploy
 
 # add duoshuo comment
-duoshuo_shortname: fancyseeker.githu.io
+duoshuo_shortname: fancyseeker
