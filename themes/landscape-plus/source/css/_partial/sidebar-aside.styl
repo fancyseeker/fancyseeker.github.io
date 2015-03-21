@@ -29,15 +29,29 @@
       list-style: disc
 
 #toc
+  .toc-child
+    padding-left: 1em
 
 .toc-article
-  background: orange
   margin: block-margin 0
-  border-radius: 5px
+  border-left: 3px solid #dedede
+  text-decoration: none
 #toc-title
-  padding: 10px 15px
+  padding: 0 15px
   font-size: 1.5em
-  background-color: #96D1E3
-  border-radius: 5px 5px 0 0
+  font-weight: bold
+  text-shadow: 0 1px #fff
+  color: #c7c7c7
 #toc-content
   padding: 10px 15px
+  padding-bottom: 0
+  a
+    font-size: 1.2em
+    font-weight: bold
+    line-height: 1.5em
+    text-shadow: 0 1px #fff
+    color: #c7c7c7
+    text-decoration: none
+    &:hover
+      text-decoration: underline
+      color: color-link
