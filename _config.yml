@@ -61,9 +61,6 @@ pagination_dir: page
 
 # Extensions
 ## Plugins: http://hexo.io/plugins/
-plugins:
-- hexo-summarizer
-
 ## Themes: http://hexo.io/themes/
 theme: landscape-plus
 
