@@ -3,5 +3,10 @@
     <% theme.widgets.forEach(function(widget){ %>
     <%- partial('_widget/' + widget) %>
     <% }) %>
+    <% } else if (is_post()) { %>
+    <div id="toc" class="toc-article">
+        <strong class="toc-title"><%= __('contents') %></strong>
+        <%- toc(page.content) %>
+    </div>
     <% } %>
 </aside>
