@@ -29,7 +29,12 @@
     <%- partial('_partial/header', null, {cache: !config.relative_link}) %>
     <div class="outer">
       <section id="main"><%- body %></section>
-      <% if (theme.sidebar && theme.sidebar !== 'bottom'){ %>
+      <% if (is_post()){ %>
+      <div id="toc" class="toc-article">
+          <div id="toc-title"><%= __('contents') %></div>
+          <div id="toc-content"><%- toc(page.content) %></div>
+      </div>
+    <% } else if (theme.sidebar && theme.sidebar !== 'bottom'){ %>
       <%- partial('_partial/sidebar', null, {cache: !config.relative_link}) %>
       <% } %>
     </div>

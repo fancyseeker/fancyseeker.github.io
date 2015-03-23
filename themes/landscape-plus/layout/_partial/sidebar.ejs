@@ -1,12 +1,5 @@
 <aside id="sidebar"<% if (theme.sidebar === 'bottom'){ %> class="outer"<% } %>>
-    <% if (is_home()) { %>
     <% theme.widgets.forEach(function(widget){ %>
     <%- partial('_widget/' + widget) %>
     <% }) %>
-    <% } else if (is_post() && !page.notoc) { %>
-    <div id="toc" class="toc-article">
-        <div id="toc-title"><%= __('contents') %></div>
-        <div id="toc-content"><%- toc(page.content) %></div>
-    </div>
-    <% } %>
 </aside>
