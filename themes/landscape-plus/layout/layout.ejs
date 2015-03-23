@@ -30,10 +30,12 @@
     <div class="outer">
       <section id="main"><%- body %></section>
       <% if (is_post()){ %>
+      <div id="toc-wrap">
       <div id="toc" class="toc-article">
           <div id="toc-title"><%= __('contents') %></div>
           <div id="toc-content"><%- toc(page.content) %></div>
       </div>
+  </div>
     <% } else if (theme.sidebar && theme.sidebar !== 'bottom'){ %>
       <%- partial('_partial/sidebar', null, {cache: !config.relative_link}) %>
       <% } %>
