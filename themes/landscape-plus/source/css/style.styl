@@ -27,6 +27,8 @@ html, body, #container
 
 body
   background: color-background
+  background-image: url('images/roughcloth.png')
+  background-repeat: repeat
   font: font-size/line-height font-sans
   -webkit-text-size-adjust: 100%
 
@@ -63,6 +65,8 @@ body
   transition: 0.2s ease-out
   z-index: 1
   background: color-background
+  background-image: url('images/roughcloth.png')
+  background-repeat: repeat
   .mobile-nav-on &
     left: mobile-nav-width
 
@@ -98,12 +102,11 @@ if sidebar
     padding-left: 1em 
 
 .toc-article
-  border-left: 3px solid #dedede
+  border-left: 2px solid #dedede
   text-decoration: none
 #toc-title
   padding: 0 15px
   font-size: 1.5em
-  font-weight: bold
   text-shadow: 0 1px #fff
   color: #c7c7c7
 #toc-content
@@ -111,7 +114,6 @@ if sidebar
   padding-bottom: 0
   a
     font-size: 1.2em
-    font-weight: bold
     line-height: 1.5em
     text-shadow: 0 1px #fff
     color: #c7c7c7
