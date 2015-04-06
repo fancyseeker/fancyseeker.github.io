@@ -536,7 +536,7 @@ body {
 }
 #search-form-wrap {
   position: absolute;
-  top: 15px;
+  top: 11px;
   width: 150px;
   height: 30px;
   right: -150px;
@@ -557,7 +557,7 @@ body {
   margin-left: 100px;
 }
 @media screen and (max-width: 479px) {
-  margin-bottom: 20px {
+  #search-form-wrap {
     width: 100%;
     right: -100%;
   }
