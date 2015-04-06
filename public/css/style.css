@@ -388,13 +388,25 @@ body {
   right: 0;
   height: 40px;
 }
+#header-img {
+  margin-top: 30px;
+  height: 90%;
+  width: 282px;
+  position: absolute;
+  right: 12%;
+  background: url("images/board.png");
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  background-size: cover;
+}
 #header-outer {
   height: 100%;
   position: relative;
 }
 #header-inner {
-  position: relative;
+  position: absolute;
   overflow: hidden;
+  bottom: 0px;
 }
 #banner {
   position: absolute;
@@ -437,21 +449,18 @@ body {
   text-decoration: none;
   color: #fff;
   font-weight: 300;
-  text-shadow: 2px 2px 5px rgba(0,0,0,0.3);
 }
 #logo {
   font-size: 40px;
   line-height: 40px;
   letter-spacing: 2px;
   padding: 5px 10px;
-  -webkit-border-radius: 5px;
-  border-radius: 5px;
 }
 #subtitle {
   font-size: 16px;
   line-height: 16px;
   letter-spacing: 1px;
-  color: #c7c7c7;
+  color: rgba(255,255,255,0.7);
   text-decoration: none;
 }
 #subtitle-wrap {
@@ -460,7 +469,6 @@ body {
 }
 #main-nav {
   float: left;
-  margin-left: -15px;
 }
 .nav-icon,
 .main-nav-link {
@@ -477,7 +485,7 @@ body {
   -ms-transition: opacity 0.2s;
   transition: opacity 0.2s;
   display: block;
-  padding: 20px 15px;
+  padding: 15px 15px;
 }
 .nav-icon:hover,
 .main-nav-link:hover {
@@ -491,7 +499,7 @@ body {
   font-size: 14px;
   width: 14px;
   height: 14px;
-  padding: 20px 15px;
+  padding: 15px 15px;
   position: relative;
   cursor: pointer;
 }
@@ -504,6 +512,11 @@ body {
     display: none;
   }
 }
+.main-nav-link:hover {
+  background: rgba(255,255,255,0.2);
+  padding-bottom: 12px;
+  border-bottom: 3px solid rgba(255,255,255,0.8);
+}
 #main-nav-toggle {
   display: none;
 }
@@ -514,10 +527,6 @@ body {
   #main-nav-toggle {
     display: block;
   }
-}
-#sub-nav {
-  float: right;
-  margin-right: -15px;
 }
 #nav-rss-link:before {
   content: "\f09e";
@@ -541,13 +550,14 @@ body {
   transition: 0.2s ease-out;
 }
 #search-form-wrap.on {
+  position: relative;
   opacity: 1;
   -ms-filter: none;
   filter: none;
-  right: 0;
+  margin-left: 100px;
 }
 @media screen and (max-width: 479px) {
-  #search-form-wrap {
+  margin-bottom: 20px {
     width: 100%;
     right: -100%;
   }
@@ -1433,6 +1443,7 @@ pre .javascript .function {
 #toc {
   margin: 50px 0;
   float: left;
+  font-weight: bold;
   background-color: rgba(229,229,229,0.2);
   -webkit-border-radius: 10px;
   border-radius: 10px;
@@ -1457,7 +1468,6 @@ pre .javascript .function {
   padding: 10px 15px;
 }
 #toc-content a {
-  font-size: 1.2em;
   line-height: 1.5em;
   text-shadow: 0 1px #fff;
   color: #b5b5b5;
