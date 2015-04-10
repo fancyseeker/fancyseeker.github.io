@@ -8,18 +8,22 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="新年各种繁琐的事情解决完，终于能有点时间折腾下电脑了。自从装完fedora 17后一直感觉fedora 17登陆界面的背景不怎么好看，遂换之。本文仅作备忘使用。
 
-切换至root1$ su -
-切换至背景配置目录下1# cd /usr/share/backgrounds/beefy-miracle/default/
-注意路径中的beefy-miracle为fedora 17的代号，如果fedora">
+切换至root
+1$ su -
+切换至背景配置目录下
+1# cd /usr/share/backgrounds/beefy-miracle/default/
+注意路径中的beefy-miracle为fedora 17的代号，如果fedo">
 <meta property="og:type" content="article">
 <meta property="og:title" content="fedora 17 更换登陆背景图片">
 <meta property="og:url" content="http://fancyseeker.github.io/2013/02/20/f17bg/index.html">
 <meta property="og:site_name" content="FancySeeker">
 <meta property="og:description" content="新年各种繁琐的事情解决完，终于能有点时间折腾下电脑了。自从装完fedora 17后一直感觉fedora 17登陆界面的背景不怎么好看，遂换之。本文仅作备忘使用。
 
-切换至root1$ su -
-切换至背景配置目录下1# cd /usr/share/backgrounds/beefy-miracle/default/
-注意路径中的beefy-miracle为fedora 17的代号，如果fedora">
+切换至root
+1$ su -
+切换至背景配置目录下
+1# cd /usr/share/backgrounds/beefy-miracle/default/
+注意路径中的beefy-miracle为fedora 17的代号，如果fedo">
 <meta property="og:image" content="/img/f17bg/beefy-miracle.png">
 <meta property="og:image" content="/img/f17bg/bmbg.png">
 <meta property="og:image" content="/img/f17bg/my_wallpaper.jpg">
@@ -27,9 +31,11 @@
 <meta name="twitter:title" content="fedora 17 更换登陆背景图片">
 <meta name="twitter:description" content="新年各种繁琐的事情解决完，终于能有点时间折腾下电脑了。自从装完fedora 17后一直感觉fedora 17登陆界面的背景不怎么好看，遂换之。本文仅作备忘使用。
 
-切换至root1$ su -
-切换至背景配置目录下1# cd /usr/share/backgrounds/beefy-miracle/default/
-注意路径中的beefy-miracle为fedora 17的代号，如果fedora">
+切换至root
+1$ su -
+切换至背景配置目录下
+1# cd /usr/share/backgrounds/beefy-miracle/default/
+注意路径中的beefy-miracle为fedora 17的代号，如果fedo">
   
     <link rel="alternative" href="/atom.xml" title="FancySeeker" type="application/atom+xml">
   
@@ -113,48 +119,62 @@
       
        <!--<p>新年各种繁琐的事情解决完，终于能有点时间折腾下电脑了。自从装完fedora 17后一直感觉fedora 17登陆界面的背景不怎么好看，遂换之。本文仅作备忘使用。</p>
 <p><img src="/img/f17bg/beefy-miracle.png" alt="Beefy Miracle 默认背景图片"></p>
-<h1 id="切换至root">切换至root</h1><figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$ </span>su -</span><br></pre></td></tr></table></figure>
-<h1 id="切换至背景配置目录下">切换至背景配置目录下</h1><figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"># cd <span class="regexp">/usr/</span>share<span class="regexp">/backgrounds/</span>beefy-miracle<span class="regexp">/default/</span></span><br></pre></td></tr></table></figure>
-<p>注意路径中的<code>beefy-miracle</code>为fedora 17的代号，如果fedora的版本为15那么代号就为<code>Lovelock</code>，16的话就是<code>Verne</code>，根据自己的fedora版本而定。<br>有关fedora各版本的代号参见：<a href="http://zh.wikipedia.org/wiki/Fedora" target="_blank" rel="external"></a> 中 <code>发布历史</code> 一节。</p>
+<h1>切换至root</h1>
+<figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$ </span>su -</span><br></pre></td></tr></table></figure>
+<h1>切换至背景配置目录下</h1>
+<figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"># cd <span class="regexp">/usr/</span>share<span class="regexp">/backgrounds/</span>beefy-miracle<span class="regexp">/default/</span></span><br></pre></td></tr></table></figure>
+<p>注意路径中的<code>beefy-miracle</code>为fedora 17的代号，如果fedora的版本为15那么代号就为<code>Lovelock</code>，16的话就是<code>Verne</code>，根据自己的fedora版本而定。<br>
+有关fedora各版本的代号参见：<a href="http://zh.wikipedia.org/wiki/Fedora" target="_blank" rel="external"></a> 中 <code>发布历史</code> 一节。</p>
 <p>在<code>default</code>目录下，我们可以发现有一个<code>beefy-miracle.xml</code>文件和<code>normalish</code>, <code>standard</code>, <code>wide</code> 三个文件夹。</p>
 <p><img src="/img/f17bg/bmbg.png" alt="default目录"></p>
 <p>此处的<code>beefy-miracle.xml</code>文件记录了背景图片的配置信息。我们可以打开看一下里面的内容：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- Wide <span class="number">16</span>:<span class="number">10</span> --&gt;</span><br><span class="line">/usr/share/backgrounds/beefy-miracle/default/wide/my_wallpaper.jpg</span><br><span class="line">&lt;!-- Standard <span class="number">4</span>:<span class="number">3</span> --&gt;</span><br><span class="line">/usr/share/backgrounds/beefy-miracle/default/standard/beefy-miracle.png</span><br><span class="line">&lt;!-- Normalish <span class="number">5</span>:<span class="number">4</span> --&gt;</span><br><span class="line">/usr/share/backgrounds/beefy-miracle/default/normalish/beefy-miracle.png</span><br></pre></td></tr></table></figure>
 <p>这里我们主要关注下<code>file</code>标签内的内容。可以清楚的看到, <code>size</code> 标签内的指定了不同屏幕长宽比下的背景图片的路径。</p>
-<p><code>wide</code>文件夹下的背景图像为16:10的, <code>standard</code>文件夹下为4:3的, <code>normalish</code>文件夹下为5:4 的。(等等，好像缺了点什么，16:9的到哪去了，我的笔记本是16:9的啊，这不科学= =)<br>那么，如果长宽比是16:9的同学，先暂且把16:9和16:10看成一样的吧，因为它们都是<code>wide</code>的嘛 :-D</p>
-<h1 id="替换背景图片">替换背景图片</h1><p>接下来思路就很清晰了，我们只要把对应文件夹下的图片替换成我们自定义的图片或者更改<code>beefy-miracle.xml</code>文件中对应的路径即可。</p>
-<p>由于本人的屏幕长宽比为16:9，所以我选了一张个人认为还算好看的16:9壁纸，将其放到 <code>/usr/share/backgrounds/beefy-miracle/default/wide/</code>目录下，并命名为<code>my_wallpaper.jgp</code>(对，你没有看错，jpg文件也是可以的！) 然后再将<code>beefy-miracle.xml</code>文件中对应的路径作如下修改：<br><figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="regexp">/usr/</span>share<span class="regexp">/backgrounds/</span>beefy-miracle<span class="regexp">/default/</span>wide<span class="regexp">/my_wallpaper.jpg</span></span><br></pre></td></tr></table></figure></p>
-<h1 id="重启X_Windows">重启X Windows</h1><p>按<code>Ctrl + Alt + Backspace</code>重启 X Window，即可看到新的登陆背景啦～</p>
+<p><code>wide</code>文件夹下的背景图像为16:10的, <code>standard</code>文件夹下为4:3的, <code>normalish</code>文件夹下为5:4 的。(等等，好像缺了点什么，16:9的到哪去了，我的笔记本是16:9的啊，这不科学= =)<br>
+那么，如果长宽比是16:9的同学，先暂且把16:9和16:10看成一样的吧，因为它们都是<code>wide</code>的嘛 :-D</p>
+<h1>替换背景图片</h1>
+<p>接下来思路就很清晰了，我们只要把对应文件夹下的图片替换成我们自定义的图片或者更改<code>beefy-miracle.xml</code>文件中对应的路径即可。</p>
+<p>由于本人的屏幕长宽比为16:9，所以我选了一张个人认为还算好看的16:9壁纸，将其放到 <code>/usr/share/backgrounds/beefy-miracle/default/wide/</code>目录下，并命名为<code>my_wallpaper.jgp</code>(对，你没有看错，jpg文件也是可以的！) 然后再将<code>beefy-miracle.xml</code>文件中对应的路径作如下修改：</p>
+<figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="regexp">/usr/</span>share<span class="regexp">/backgrounds/</span>beefy-miracle<span class="regexp">/default/</span>wide<span class="regexp">/my_wallpaper.jpg</span></span><br></pre></td></tr></table></figure>
+<h1>重启X Windows</h1>
+<p>按<code>Ctrl + Alt + Backspace</code>重启 X Window，即可看到新的登陆背景啦～</p>
 <p>最后，贴一下我的登陆背景图片作为本文结尾吧～</p>
 <p><img src="/img/f17bg/my_wallpaper.jpg" alt=""></p>
-<p>(此壁纸来源于国外壁纸网站: <del><a href="http://wallbase.cc" target="_blank" rel="external">http://wallbase.cc</a></del>(wallbase已经停止服务) <a href="http://alpha.wallhaven.cc" target="_blank" rel="external">http://alpha.wallhaven.cc</a> 个人认为是个相当不错的壁纸网站，推荐之)</p>
+<p>(此壁纸来源于国外壁纸网站: <s><a href="http://wallbase.cc" target="_blank" rel="external">http://wallbase.cc</a></s>(wallbase已经停止服务) <a href="http://alpha.wallhaven.cc" target="_blank" rel="external">http://alpha.wallhaven.cc</a> 个人认为是个相当不错的壁纸网站，推荐之)</p>
 -->
             
             
                 <p>新年各种繁琐的事情解决完，终于能有点时间折腾下电脑了。自从装完fedora 17后一直感觉fedora 17登陆界面的背景不怎么好看，遂换之。本文仅作备忘使用。</p>
 <p><img src="/img/f17bg/beefy-miracle.png" alt="Beefy Miracle 默认背景图片"></p>
-<h1 id="切换至root">切换至root</h1><figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$ </span>su -</span><br></pre></td></tr></table></figure>
-<h1 id="切换至背景配置目录下">切换至背景配置目录下</h1><figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"># cd <span class="regexp">/usr/</span>share<span class="regexp">/backgrounds/</span>beefy-miracle<span class="regexp">/default/</span></span><br></pre></td></tr></table></figure>
-<p>注意路径中的<code>beefy-miracle</code>为fedora 17的代号，如果fedora的版本为15那么代号就为<code>Lovelock</code>，16的话就是<code>Verne</code>，根据自己的fedora版本而定。<br>有关fedora各版本的代号参见：<a href="http://zh.wikipedia.org/wiki/Fedora" target="_blank" rel="external"></a> 中 <code>发布历史</code> 一节。</p>
+<h1>切换至root</h1>
+<figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$ </span>su -</span><br></pre></td></tr></table></figure>
+<h1>切换至背景配置目录下</h1>
+<figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"># cd <span class="regexp">/usr/</span>share<span class="regexp">/backgrounds/</span>beefy-miracle<span class="regexp">/default/</span></span><br></pre></td></tr></table></figure>
+<p>注意路径中的<code>beefy-miracle</code>为fedora 17的代号，如果fedora的版本为15那么代号就为<code>Lovelock</code>，16的话就是<code>Verne</code>，根据自己的fedora版本而定。<br>
+有关fedora各版本的代号参见：<a href="http://zh.wikipedia.org/wiki/Fedora" target="_blank" rel="external"></a> 中 <code>发布历史</code> 一节。</p>
 <p>在<code>default</code>目录下，我们可以发现有一个<code>beefy-miracle.xml</code>文件和<code>normalish</code>, <code>standard</code>, <code>wide</code> 三个文件夹。</p>
 <p><img src="/img/f17bg/bmbg.png" alt="default目录"></p>
 <p>此处的<code>beefy-miracle.xml</code>文件记录了背景图片的配置信息。我们可以打开看一下里面的内容：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- Wide <span class="number">16</span>:<span class="number">10</span> --&gt;</span><br><span class="line">/usr/share/backgrounds/beefy-miracle/default/wide/my_wallpaper.jpg</span><br><span class="line">&lt;!-- Standard <span class="number">4</span>:<span class="number">3</span> --&gt;</span><br><span class="line">/usr/share/backgrounds/beefy-miracle/default/standard/beefy-miracle.png</span><br><span class="line">&lt;!-- Normalish <span class="number">5</span>:<span class="number">4</span> --&gt;</span><br><span class="line">/usr/share/backgrounds/beefy-miracle/default/normalish/beefy-miracle.png</span><br></pre></td></tr></table></figure>
 <p>这里我们主要关注下<code>file</code>标签内的内容。可以清楚的看到, <code>size</code> 标签内的指定了不同屏幕长宽比下的背景图片的路径。</p>
-<p><code>wide</code>文件夹下的背景图像为16:10的, <code>standard</code>文件夹下为4:3的, <code>normalish</code>文件夹下为5:4 的。(等等，好像缺了点什么，16:9的到哪去了，我的笔记本是16:9的啊，这不科学= =)<br>那么，如果长宽比是16:9的同学，先暂且把16:9和16:10看成一样的吧，因为它们都是<code>wide</code>的嘛 :-D</p>
-<h1 id="替换背景图片">替换背景图片</h1><p>接下来思路就很清晰了，我们只要把对应文件夹下的图片替换成我们自定义的图片或者更改<code>beefy-miracle.xml</code>文件中对应的路径即可。</p>
-<p>由于本人的屏幕长宽比为16:9，所以我选了一张个人认为还算好看的16:9壁纸，将其放到 <code>/usr/share/backgrounds/beefy-miracle/default/wide/</code>目录下，并命名为<code>my_wallpaper.jgp</code>(对，你没有看错，jpg文件也是可以的！) 然后再将<code>beefy-miracle.xml</code>文件中对应的路径作如下修改：<br><figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="regexp">/usr/</span>share<span class="regexp">/backgrounds/</span>beefy-miracle<span class="regexp">/default/</span>wide<span class="regexp">/my_wallpaper.jpg</span></span><br></pre></td></tr></table></figure></p>
-<h1 id="重启X_Windows">重启X Windows</h1><p>按<code>Ctrl + Alt + Backspace</code>重启 X Window，即可看到新的登陆背景啦～</p>
+<p><code>wide</code>文件夹下的背景图像为16:10的, <code>standard</code>文件夹下为4:3的, <code>normalish</code>文件夹下为5:4 的。(等等，好像缺了点什么，16:9的到哪去了，我的笔记本是16:9的啊，这不科学= =)<br>
+那么，如果长宽比是16:9的同学，先暂且把16:9和16:10看成一样的吧，因为它们都是<code>wide</code>的嘛 :-D</p>
+<h1>替换背景图片</h1>
+<p>接下来思路就很清晰了，我们只要把对应文件夹下的图片替换成我们自定义的图片或者更改<code>beefy-miracle.xml</code>文件中对应的路径即可。</p>
+<p>由于本人的屏幕长宽比为16:9，所以我选了一张个人认为还算好看的16:9壁纸，将其放到 <code>/usr/share/backgrounds/beefy-miracle/default/wide/</code>目录下，并命名为<code>my_wallpaper.jgp</code>(对，你没有看错，jpg文件也是可以的！) 然后再将<code>beefy-miracle.xml</code>文件中对应的路径作如下修改：</p>
+<figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="regexp">/usr/</span>share<span class="regexp">/backgrounds/</span>beefy-miracle<span class="regexp">/default/</span>wide<span class="regexp">/my_wallpaper.jpg</span></span><br></pre></td></tr></table></figure>
+<h1>重启X Windows</h1>
+<p>按<code>Ctrl + Alt + Backspace</code>重启 X Window，即可看到新的登陆背景啦～</p>
 <p>最后，贴一下我的登陆背景图片作为本文结尾吧～</p>
 <p><img src="/img/f17bg/my_wallpaper.jpg" alt=""></p>
-<p>(此壁纸来源于国外壁纸网站: <del><a href="http://wallbase.cc" target="_blank" rel="external">http://wallbase.cc</a></del>(wallbase已经停止服务) <a href="http://alpha.wallhaven.cc" target="_blank" rel="external">http://alpha.wallhaven.cc</a> 个人认为是个相当不错的壁纸网站，推荐之)</p>
+<p>(此壁纸来源于国外壁纸网站: <s><a href="http://wallbase.cc" target="_blank" rel="external">http://wallbase.cc</a></s>(wallbase已经停止服务) <a href="http://alpha.wallhaven.cc" target="_blank" rel="external">http://alpha.wallhaven.cc</a> 个人认为是个相当不错的壁纸网站，推荐之)</p>
 
             
       
     </div>
     <footer class="article-footer">
       
-        <a data-url="http://fancyseeker.github.io/2013/02/20/f17bg/" data-id="ci8aw1o9p001ykadyhuy5b5t8" class="article-share-link" data-share="baidu">分享到</a>
+        <a data-url="http://fancyseeker.github.io/2013/02/20/f17bg/" data-id="ci8azd315002298dyx10nnjia" class="article-share-link" data-share="baidu">分享到</a>
       
 
       
@@ -206,7 +226,7 @@
           <div id="toc-wrap">
             <div id="toc" class="toc-article">
               <div id="toc-title">目录</div>
-              <div id="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#切换至root"><span class="toc-number">1.</span> <span class="toc-text">切换至root</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#切换至背景配置目录下"><span class="toc-number">2.</span> <span class="toc-text">切换至背景配置目录下</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#替换背景图片"><span class="toc-number">3.</span> <span class="toc-text">替换背景图片</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#重启X_Windows"><span class="toc-number">4.</span> <span class="toc-text">重启X Windows</span></a></li></ol></div>
+              <div id="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#undefined"><span class="toc-number">1.</span> <span class="toc-text">切换至root</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#undefined"><span class="toc-number">2.</span> <span class="toc-text">切换至背景配置目录下</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#undefined"><span class="toc-number">3.</span> <span class="toc-text">替换背景图片</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#undefined"><span class="toc-number">4.</span> <span class="toc-text">重启X Windows</span></a></li></ol></div>
             </div>
           </div>
         

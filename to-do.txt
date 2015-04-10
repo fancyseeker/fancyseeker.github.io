@@ -7,3 +7,6 @@ table border style
 code block color style
 write abstract for every post
 article position center
+code line on/off
+note for blog: http://hahack.com/ http://wzpan.github.io/hexo-theme-wixo/
+http://hexo.io/hexo-theme-phase/2012/12/07/gallery/

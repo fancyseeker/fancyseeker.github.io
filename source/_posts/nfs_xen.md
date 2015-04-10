@@ -106,16 +106,20 @@ $sudo /etc/init.d/nfs-kernel-server restart
 ```
 
 网上一些帖子里说由于NFS是一个RPC程序，使用它前，需要通过portmap映射好端口故需要重启portmap服务
+
 ```
 $ sudo /etc/init.d/portmap restart
-``` 
-但是本人的Mint 16上并未发现有portmap服务，故忽略，最后也能成功执行NFS。
+```
 
+
+但是本人的Mint 16上并未发现有portmap服务，故忽略，最后也能成功执行NFS。
 最后，查看目录是否已经共享，
+
 ```
 $ showmount -e localhost  #查询本机nfs共享目录情况
 $ showmount -a localhost  #查询本机共享目录连接情况
 ```
+
 通过 `$ showmount -e`  显示出共享出来的目录，如果结果中有你之前在exports文件中指定的目录，那么NFS服务器端的共享文件夹就成功发布了，即指定网段内的主机可以发现这个共享文件夹了。
 
 ## NFS客户机挂载共享目录

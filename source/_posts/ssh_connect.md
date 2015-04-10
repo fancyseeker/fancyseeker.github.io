@@ -19,7 +19,7 @@ SSH客户机: Windows 7 64bit    PuTTY
 # 安装启动SSH服务
 
 在CentOS上查看是否安装了ssh相关的包.
-```
+```bash
 [fancyseeker@localhost ~]$ rpm -qa | grep ssh
 openssh-5.3p1-94.el6.x86_64
 openssh-askpass-5.3p1-94.el6.x86_64
@@ -29,20 +29,20 @@ openssh-clients-5.3p1-94.el6.x86_64
 openssh-ldap-5.3p1-94.el6.x86_64
 ```
 如果没有安装, 那么需要手动安装下
-```
+```shell
 # yum install openssh*
 ```
 
 2. 设置开机启动SSH服务
-```
+```shell
 # chkconfig sshd on
 ```
 3. 开启SSH服务
-```
+```shell
 # /etc/init.d/sshd start
 ```
 4. 查看SSH服务运行状态
-```
+```shell
 # /etc/init.d/sshd status
 ```
 
@@ -55,7 +55,7 @@ SSH服务配置 SSH服务的配置文件主要有2个, 分别为 `/etc/ssh/ssh_c
 ## ssh_config配置文件
 
 这里我们先对`ssh_config`配置文件进行修改, 添加或修改如下几项
-```
+```bash
 # 使用RSA算法进行安全验证
 RSAAuthentication yes
 # 关闭密码验证
