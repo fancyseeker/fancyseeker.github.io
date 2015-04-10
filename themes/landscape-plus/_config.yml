@@ -12,21 +12,25 @@ mathjax: false
 # Sidebar
 sidebar: right
 widgets:
+- recent_posts
 - category
 - tag
 - tagcloud
 - archive
-- recent_posts
-- links
+
+# - links
 
 # Links
 links:
-  主题作者: http://xiguabaobao.com
-  热前端: http://reqianduan.com
+  #主题作者: http://xiguabaobao.com
+  #热前端: http://reqianduan.com
 
+# Plugin
+plugin:
+- hexo-generator-feed
 # Miscellaneous
 google_analytics:
-favicon: /favicon.png
+favicon: /favicon.ico
 twitter:
 google_plus:
 fb_admins: 
