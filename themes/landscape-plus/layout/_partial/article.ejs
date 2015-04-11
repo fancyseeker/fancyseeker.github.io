@@ -6,7 +6,9 @@
           <div class="article-meta">
             <%- partial('post/category') %>
             <%- partial('post/date', {class_name: 'article-date', date_format: null}) %>
-            <p class="article-author">fancyseeker</p>
+            <p class="article-time">
+                <%- partial('post/time', {class_name: 'article-time', time_format: null}) %>
+            </p>
           </div>
         
         <%- partial('post/title', {class_name: 'article-title'}) %>
