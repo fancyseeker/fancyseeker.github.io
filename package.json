@@ -16,6 +16,7 @@
     "hexo-renderer-markdown-it": "^3.3.0",
     "hexo-renderer-stylus": "^0.2.0",
     "hexo-server": "^0.1.2",
-    "hexo-summarizer": "file:../../../../tmp/npm-20893-8c193b63/git-cache-2ad9c5176f44/a60bfa48ac13d6dfb867ff9d478e32e9b844a32a"
+    "hexo-summarizer": "file:../../../../tmp/npm-20893-8c193b63/git-cache-2ad9c5176f44/a60bfa48ac13d6dfb867ff9d478e32e9b844a32a",
+    "hexo-tag-bootstrap": "0.0.8"
   }
 }
