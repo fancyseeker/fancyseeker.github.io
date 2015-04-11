@@ -2,7 +2,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title"><%= __('tagcloud') %></h3>
     <div class="widget tagcloud">
-      <%- tagcloud() %>
+        <%- list_tags(site.tags, {show_count: true, class: "wtag"}) %>
     </div>
   </div>
 <% } %>
