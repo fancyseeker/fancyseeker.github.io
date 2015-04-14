@@ -38,7 +38,7 @@ tags: [vim]
 |[nerdtree](https://github.com/scrooloose/nerdtree)| 一款用于浏览文件或目录的插件，效果相当于嵌入Vim内的资源管理器。|
 |[taglist](https://github.com/vim-scripts/taglist.vim)| 用于显示程序中的符号列表，并进行简单的查看插件。|
 |[winmanager](https://github.com/vim-scripts/winmanager)| Vim窗口管理插件，主要用于将nerdtree和taglist整齐的安放在一个“侧边栏”中。|
-|[a.vim](https://github.com/vim-scripts/a.vim)| 用于快速的在*.c/*.cpp和*.h文件之间进行切换。|
+|[a.vim](https://github.com/vim-scripts/a.vim)| 用于快速的在`*.c/*.cpp`和`*.h`文件之间进行切换。|
 |[OmniCppComplete](https://github.com/vim-scripts/OmniCppComplete)| 老牌C/C++自动补全插件，不过似乎存在更好的插件，未研究。|
  
 ---
@@ -75,14 +75,13 @@ nerdtree
 |--syntax/
 |--README.markdown
 ```
-
+<br />
 ```
 ctrlp
 |--autoload/
 |--doc/
 |--plugin/
 |--readme.md
-[/ezcol_1half_end]
 ```
 
 当安装这两个插件时候，二者都放到了 `～/.vim/` 文件夹下，其中 `autoload`，`doc`，`plugin` 目录整合到了一起。当要删除 `ctrlp` 插件的时候，需要到删除 `ctrlp` 对应的文件，就要到 `autoload`，`doc`，`plugin` 目录中一个个找属于 `ctrlp` 插件的文件进行删除，可想而知是多么的麻烦。同时无法自动更新插件，需要通过下载覆盖来进行手动更新。

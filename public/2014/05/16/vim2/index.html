@@ -165,7 +165,7 @@
 </tr>
 <tr>
 <td style="text-align:left"><a href="https://github.com/vim-scripts/a.vim" target="_blank" rel="external">a.vim</a></td>
-<td style="text-align:left">用于快速的在*.c/<em>.cpp和</em>.h文件之间进行切换。</td>
+<td style="text-align:left">用于快速的在<code>*.c/*.cpp</code>和<code>*.h</code>文件之间进行切换。</td>
 </tr>
 <tr>
 <td style="text-align:left"><a href="https://github.com/vim-scripts/OmniCppComplete" target="_blank" rel="external">OmniCppComplete</a></td>
@@ -190,7 +190,8 @@
 <p>传统的插件安装方式存在一些弊端。首先，所有插件不加区分和归类的直接丢到 <code>～/.vim/</code> 文件夹下，非常混乱；其次，插件的管理不方便，比如要想删除一个插件，那么必须要到 <code>～/.vim/</code> 文件夹下找到插件对应的文件一一删除，如果想要更新插件，那么就必须重新下载新版本的插件再次安装。</p>
 <p>让我们举个例子直观感受下传统的插件安装方式：以下是<code>nerdtree</code>和<code>ctrlp</code>插件解压得到的文件和文件夹。</p>
 <figure class="highlight 1c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">nerdtree</span><br><span class="line"><span class="string">|--autoload/</span></span><br><span class="line"><span class="string">|--doc/</span></span><br><span class="line"><span class="string">|--lib/</span></span><br><span class="line"><span class="string">|--nerdtree_plugin/</span></span><br><span class="line"><span class="string">|--plugin/</span></span><br><span class="line"><span class="string">|--syntax/</span></span><br><span class="line"><span class="string">|--README.markdown</span></span><br></pre></td></tr></table></figure>
-<figure class="highlight 1c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">ctrlp</span><br><span class="line"><span class="string">|--autoload/</span></span><br><span class="line"><span class="string">|--doc/</span></span><br><span class="line"><span class="string">|--plugin/</span></span><br><span class="line"><span class="string">|--readme.md</span></span><br><span class="line">[/ezcol_1half_end]</span><br></pre></td></tr></table></figure>
+<p><br></p>
+<figure class="highlight 1c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">ctrlp</span><br><span class="line"><span class="string">|--autoload/</span></span><br><span class="line"><span class="string">|--doc/</span></span><br><span class="line"><span class="string">|--plugin/</span></span><br><span class="line"><span class="string">|--readme.md</span></span><br></pre></td></tr></table></figure>
 <p>当安装这两个插件时候，二者都放到了 <code>～/.vim/</code> 文件夹下，其中 <code>autoload</code>，<code>doc</code>，<code>plugin</code> 目录整合到了一起。当要删除 <code>ctrlp</code> 插件的时候，需要到删除 <code>ctrlp</code> 对应的文件，就要到 <code>autoload</code>，<code>doc</code>，<code>plugin</code> 目录中一个个找属于 <code>ctrlp</code> 插件的文件进行删除，可想而知是多么的麻烦。同时无法自动更新插件，需要通过下载覆盖来进行手动更新。</p>
 <p>仔细观察不难看出，传统的插件安装方式的弊端主要源自于其混乱的插件管理方式。那么很自然的，人们就会希望能够将插件各自分开来进行存放，同时尽量避免手动的管理插件。这也是为什么后来会出现多款优秀的基于包(bundle)的插件管理工具的原因。</p>
 <h2>插件管理工具–Vundle</h2>
@@ -596,7 +597,7 @@
 </tr>
 <tr>
 <td style="text-align:left"><a href="https://github.com/vim-scripts/a.vim" target="_blank" rel="external">a.vim</a></td>
-<td style="text-align:left">用于快速的在*.c/<em>.cpp和</em>.h文件之间进行切换。</td>
+<td style="text-align:left">用于快速的在<code>*.c/*.cpp</code>和<code>*.h</code>文件之间进行切换。</td>
 </tr>
 <tr>
 <td style="text-align:left"><a href="https://github.com/vim-scripts/OmniCppComplete" target="_blank" rel="external">OmniCppComplete</a></td>
@@ -621,7 +622,8 @@
 <p>传统的插件安装方式存在一些弊端。首先，所有插件不加区分和归类的直接丢到 <code>～/.vim/</code> 文件夹下，非常混乱；其次，插件的管理不方便，比如要想删除一个插件，那么必须要到 <code>～/.vim/</code> 文件夹下找到插件对应的文件一一删除，如果想要更新插件，那么就必须重新下载新版本的插件再次安装。</p>
 <p>让我们举个例子直观感受下传统的插件安装方式：以下是<code>nerdtree</code>和<code>ctrlp</code>插件解压得到的文件和文件夹。</p>
 <figure class="highlight 1c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">nerdtree</span><br><span class="line"><span class="string">|--autoload/</span></span><br><span class="line"><span class="string">|--doc/</span></span><br><span class="line"><span class="string">|--lib/</span></span><br><span class="line"><span class="string">|--nerdtree_plugin/</span></span><br><span class="line"><span class="string">|--plugin/</span></span><br><span class="line"><span class="string">|--syntax/</span></span><br><span class="line"><span class="string">|--README.markdown</span></span><br></pre></td></tr></table></figure>
-<figure class="highlight 1c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">ctrlp</span><br><span class="line"><span class="string">|--autoload/</span></span><br><span class="line"><span class="string">|--doc/</span></span><br><span class="line"><span class="string">|--plugin/</span></span><br><span class="line"><span class="string">|--readme.md</span></span><br><span class="line">[/ezcol_1half_end]</span><br></pre></td></tr></table></figure>
+<p><br></p>
+<figure class="highlight 1c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">ctrlp</span><br><span class="line"><span class="string">|--autoload/</span></span><br><span class="line"><span class="string">|--doc/</span></span><br><span class="line"><span class="string">|--plugin/</span></span><br><span class="line"><span class="string">|--readme.md</span></span><br></pre></td></tr></table></figure>
 <p>当安装这两个插件时候，二者都放到了 <code>～/.vim/</code> 文件夹下，其中 <code>autoload</code>，<code>doc</code>，<code>plugin</code> 目录整合到了一起。当要删除 <code>ctrlp</code> 插件的时候，需要到删除 <code>ctrlp</code> 对应的文件，就要到 <code>autoload</code>，<code>doc</code>，<code>plugin</code> 目录中一个个找属于 <code>ctrlp</code> 插件的文件进行删除，可想而知是多么的麻烦。同时无法自动更新插件，需要通过下载覆盖来进行手动更新。</p>
 <p>仔细观察不难看出，传统的插件安装方式的弊端主要源自于其混乱的插件管理方式。那么很自然的，人们就会希望能够将插件各自分开来进行存放，同时尽量避免手动的管理插件。这也是为什么后来会出现多款优秀的基于包(bundle)的插件管理工具的原因。</p>
 <h2>插件管理工具–Vundle</h2>
@@ -975,7 +977,7 @@
     </div>
     <footer class="article-footer">
       
-        <a data-url="http://fancyseeker.github.io/2014/05/16/vim2/" data-id="ci8cqefd70009jgdy7lrfrwa6" class="article-share-link" data-share="baidu">分享到</a>
+        <a data-url="http://fancyseeker.github.io/2014/05/16/vim2/" data-id="ci8gx625v0009eadynbyftyub" class="article-share-link" data-share="baidu">分享到</a>
       
 
       
