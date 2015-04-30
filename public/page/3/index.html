@@ -105,14 +105,21 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-       <!--<h1 id="Background">Background</h1><p>最近由于项目上的需要, 在VMware上装上了CentOS. 由于学校的校园网无法访问国外的源, 所以CentOS默认的源无法使用, 于是装完系统的第一件事情自然是配源. 对于国内用户来说163的源和sohu的源速度都不错更新的也快, 对于校园网用户来说, 校园网内比较好的源有上海交大(sjtu), 中科大(ustc)… 呵呵, 不知道东北大学(neu)的算不算, 不过我用起来速度也不错.</p>
-<p>之前我自己在配Fedora和CentOS的源的时候都是直接google, 然后从网上直接select—copy—paste到本地的repo文件的. 经常找个合适的源文件要找半天, 最令人失望的是有时还不能正常使用. 俗话说的好, “自己动手, 丰衣足食”嘛. 所以花了点时间研究了下yum源配置文件的问题, 发现还是蛮简单的.</p>
-<h1 id="Yum与repo文件简介">Yum与repo文件简介</h1><p><a href="http://en.wikipedia.org/wiki/Yellowdog_Updater,_Modified" target="_blank" rel="external">Yum(Yellow dog Updater, Modified)</a>是一个在Fedora和RedHat以及SUSE、CentOS中的Shell前端软件包管理器。基於RPM包管理，能够从指定的服务器自动下载RPM包并且安装，可以自动处理依赖性关系，并且一次安装所有依赖的软件包，无须繁琐地一次次下载、安装。</p>
-<p>在通过yum更新或者下载软件包的时候, yum需要从”源”获得软件包的信息, 所谓的”源”, 在我理解看来就是一个规范化的软件包下载点, 之所以说它是规范化的是因为”源”中有一个列表和一些信息,用于记录”源”中软件的发布情况, 这样yum就可以通过列表获取软件包的信息,进而判断一个是否在”源”中存在指定软件或者当前的软件包过期需要升级等等.</p>
-<p>repo文件, 由于yum需要利用”源”来获取软件包, 那么很自然的, 在本地机器上自然需要有描述”源”信息的文件, 这就是repo文件. repo文件存放在<code>/etc/yum.repo.d/</code>目录下, 通过root权限对其进行访问或者修改.<br><img src="/img/repo_config/repofile.png" alt="yum.repo.d"></p>
-<h1 id="repo源配置文件解析">repo源配置文件解析</h1><p>这里以网易的163源中的fedora源配置文件作为例子, 简单讲述下repo文件的结构.<br>实际上, 获得163的源配置文件是件很容易的事情. 登陆<a href="http://mirrors.163.com/" target="_blank" rel="external">网易的镜像服务器</a></p>
+       <!--<h1>Background</h1>
+<p>最近由于项目上的需要, 在VMware上装上了CentOS. 由于学校的校园网无法访问国外的源, 所以CentOS默认的源无法使用, 于是装完系统的第一件事情自然是配源. 对于国内用户来说163的源和sohu的源速度都不错更新的也快, 对于校园网用户来说, 校园网内比较好的源有上海交大(sjtu), 中科大(ustc)… 呵呵, 不知道东北大学(neu)的算不算, 不过我用起来速度也不错.</p>
+<p>之前我自己在配Fedora和CentOS的源的时候都是直接google, 然后从网上直接select–copy–paste到本地的repo文件的. 经常找个合适的源文件要找半天, 最令人失望的是有时还不能正常使用. 俗话说的好, &quot;自己动手, 丰衣足食&quot;嘛. 所以花了点时间研究了下yum源配置文件的问题, 发现还是蛮简单的.</p>
+<h1>Yum与repo文件简介</h1>
+<p><a href="http://en.wikipedia.org/wiki/Yellowdog_Updater,_Modified" target="_blank" rel="external">Yum(Yellow dog Updater, Modified)</a>是一个在Fedora和RedHat以及SUSE、CentOS中的Shell前端软件包管理器。基於RPM包管理，能够从指定的服务器自动下载RPM包并且安装，可以自动处理依赖性关系，并且一次安装所有依赖的软件包，无须繁琐地一次次下载、安装。</p>
+<p>在通过yum更新或者下载软件包的时候, yum需要从&quot;源&quot;获得软件包的信息, 所谓的&quot;源&quot;, 在我理解看来就是一个规范化的软件包下载点, 之所以说它是规范化的是因为&quot;源&quot;中有一个列表和一些信息,用于记录&quot;源&quot;中软件的发布情况, 这样yum就可以通过列表获取软件包的信息,进而判断一个是否在&quot;源&quot;中存在指定软件或者当前的软件包过期需要升级等等.</p>
+<p>repo文件, 由于yum需要利用&quot;源&quot;来获取软件包, 那么很自然的, 在本地机器上自然需要有描述&quot;源&quot;信息的文件, 这就是repo文件. repo文件存放在<code>/etc/yum.repo.d/</code>目录下, 通过root权限对其进行访问或者修改.<br>
+<img src="/img/repo_config/repofile.png" alt="yum.repo.d"></p>
+<h1>repo源配置文件解析</h1>
+<p>这里以网易的163源中的fedora源配置文件作为例子, 简单讲述下repo文件的结构.<br>
+实际上, 获得163的源配置文件是件很容易的事情. 登陆<a href="http://mirrors.163.com/" target="_blank" rel="external">网易的镜像服务器</a></p>
 <p><img src="/img/repo_config/163mirror.png" alt="163 mirror"></p>
-<p>可以看到, 网易很人性化的在每个系统条目后面都添加了对应的使用帮助, 点击即可显示:<br><img src="/img/repo_config/fedorarepo.png" alt="fedora mirror"><br>按照网页指示的, 我们下载对应的<a href="http://mirrors.163.com/.help/fedora-163.repo" target="_blank" rel="external">fedora-163.repo</a>文件下来看看.</p>
+<p>可以看到, 网易很人性化的在每个系统条目后面都添加了对应的使用帮助, 点击即可显示:<br>
+<img src="/img/repo_config/fedorarepo.png" alt="fedora mirror"><br>
+按照网页指示的, 我们下载对应的<a href="http://mirrors.163.com/.help/fedora-163.repo" target="_blank" rel="external">fedora-163.repo</a>文件下来看看.</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">[fedora]</span><br><span class="line">name=Fedora <span class="variable">$releasever</span> - <span class="variable">$basearch</span> - <span class="number">164</span>.com</span><br><span class="line">failovermethod=priority</span><br><span class="line">baseurl=http://mirrors.<span class="number">163</span>.com/fedora/releases/<span class="variable">$releasever</span>/Everything/<span class="variable">$basearch</span>/os/</span><br><span class="line">mirrorlist=https://mirrors.fedoraproject.org/metalink?repo=fedora-<span class="variable">$releasever</span>&amp;arch=<span class="variable">$basearch</span></span><br><span class="line">enabled=<span class="number">1</span></span><br><span class="line">metadata_expire=<span class="number">7</span>d</span><br><span class="line">gpgcheck=<span class="number">1</span></span><br><span class="line">gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-fedora-<span class="variable">$basearch</span></span><br><span class="line"></span><br><span class="line">[fedora-debuginfo]</span><br><span class="line">name=Fedora <span class="variable">$releasever</span> - <span class="variable">$basearch</span> - Debug - <span class="number">163</span>.com</span><br><span class="line">failovermethod=priority</span><br><span class="line">baseurl=http://mirrors.<span class="number">163</span>.com/fedora/releases/<span class="variable">$releasever</span>/Everything/<span class="variable">$basearch</span>/debug/</span><br><span class="line">mirrorlist=https://mirrors.fedoraproject.org/metalink?repo=fedora-debug-<span class="variable">$releasever</span>&amp;arch=<span class="variable">$basearch</span></span><br><span class="line">enabled=<span class="number">0</span></span><br><span class="line">metadata_expire=<span class="number">7</span>d</span><br><span class="line">gpgcheck=<span class="number">1</span></span><br><span class="line">gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-fedora-<span class="variable">$basearch</span></span><br><span class="line"></span><br><span class="line">[fedora-source]</span><br><span class="line">name=Fedora <span class="variable">$releasever</span> - Source - <span class="number">163</span>.com</span><br><span class="line">failovermethod=priority</span><br><span class="line">baseurl=http://mirrors.<span class="number">163</span>.com/fedora/releases/<span class="variable">$releasever</span>/Everything/<span class="built_in">source</span>/SRPMS/</span><br><span class="line">mirrorlist=https://mirrors.fedoraproject.org/metalink?repo=fedora-source-<span class="variable">$releasever</span>&amp;arch=<span class="variable">$basearch</span></span><br><span class="line">enabled=<span class="number">0</span></span><br><span class="line">metadata_expire=<span class="number">7</span>d</span><br><span class="line">gpgcheck=<span class="number">1</span></span><br><span class="line">gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-fedora-<span class="variable">$basearch</span></span><br></pre></td></tr></table></figure>
 <p>可以很明显的看到, repo文件分为若干个不同的节, 每节的内容类似.以上述文件为例,我们对其进行简要的分析.</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#注:"#"后面的内容为repo文件的注释内容.</span></span><br><span class="line">[fedora]        <span class="comment">#中括号内部的是软件源的名称,由yum提取识别</span></span><br><span class="line"></span><br><span class="line">name=Fedora <span class="variable">$releasever</span> - <span class="variable">$basearch</span> - <span class="number">164</span>.com   </span><br><span class="line"><span class="comment">#name字段给出了软件仓库的名称,只是为了方便阅读,可随意填写</span></span><br><span class="line"></span><br><span class="line">failovermethod=priority</span><br><span class="line"><span class="comment">#failovermethod 有两个值,priority是默认值,表示当baseurl中有多个地址时,</span></span><br><span class="line"><span class="comment">#从列出的baseurl中顺序选择镜像服务器地址,roundrobin表示在列出的服务器中随机选择</span></span><br><span class="line"></span><br><span class="line">baseurl=http://mirrors.<span class="number">163</span>.com/fedora/releases/<span class="variable">$releasever</span>/Everything/<span class="variable">$basearch</span>/os/     </span><br><span class="line"><span class="comment">#baseurl给出源的镜像服务器地址,yum就是通过它来访问镜像服务器的</span></span><br><span class="line">.</span><br><span class="line">mirrorlist=https://mirrors.fedoraproject.org/metalink?repo=fedora-<span class="variable">$releasever</span>&amp;arch=<span class="variable">$basearch</span>    </span><br><span class="line"><span class="comment">#mirrorlist给出镜像服务器的列表,作用不大,可注释掉.</span></span><br><span class="line"></span><br><span class="line">enabled=<span class="number">1</span>       <span class="comment">#enable有两个值,1代表当前软件源启用,0代表禁用.</span></span><br><span class="line"></span><br><span class="line">metadata_expire=<span class="number">7</span>d      </span><br><span class="line"><span class="comment">#此字段用于指定yum的元数据即metadata的过期时间,默认单位为秒,</span></span><br><span class="line"><span class="comment">#可以通过加后缀来更改单位,例如h代表小时,m代表分钟,d代表天.</span></span><br><span class="line"><span class="comment">#此处的值为7d即代表当yum更新了一次metadata后,在7天之内,它不会在主动更新metadata.</span></span><br><span class="line"></span><br><span class="line">gpgcheck=<span class="number">1</span>      </span><br><span class="line"><span class="comment">#gpgcheck有两个值,1和0,当值为1的时候,代表对下载的rpm包进行gpg校验,以确保包的有效性和安全性.</span></span><br><span class="line"></span><br><span class="line">gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-fedora-<span class="variable">$basearch</span>     </span><br><span class="line"><span class="comment">#定义用于校验的gpg密钥信息</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#以下的两个软件源相对来说不是很常用,看他们的enable值就知道了=_=,格式和上述的软件源相同,故不再赘述,做注释也很累的有没有!</span></span><br><span class="line">[fedora-debuginfo]</span><br><span class="line">name=Fedora <span class="variable">$releasever</span> - <span class="variable">$basearch</span> - Debug - <span class="number">163</span>.com</span><br><span class="line">failovermethod=priority</span><br><span class="line">baseurl=http://mirrors.<span class="number">163</span>.com/fedora/releases/<span class="variable">$releasever</span>/Everything/<span class="variable">$basearch</span>/debug/</span><br><span class="line">mirrorlist=https://mirrors.fedoraproject.org/metalink?repo=fedora-debug-<span class="variable">$releasever</span>&amp;arch=<span class="variable">$basearch</span></span><br><span class="line">enabled=<span class="number">0</span></span><br><span class="line">metadata_expire=<span class="number">7</span>d</span><br><span class="line">gpgcheck=<span class="number">1</span></span><br><span class="line">gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-fedora-<span class="variable">$basearch</span></span><br><span class="line"></span><br><span class="line">[fedora-source]</span><br><span class="line">name=Fedora <span class="variable">$releasever</span> - Source - <span class="number">163</span>.com</span><br><span class="line">failovermethod=priority</span><br><span class="line">baseurl=http://mirrors.<span class="number">163</span>.com/fedora/releases/<span class="variable">$releasever</span>/Everything/<span class="built_in">source</span>/SRPMS/</span><br><span class="line">mirrorlist=https://mirrors.fedoraproject.org/metalink?repo=fedora-source-<span class="variable">$releasever</span>&amp;arch=<span class="variable">$basearch</span></span><br><span class="line">enabled=<span class="number">0</span></span><br><span class="line">metadata_expire=<span class="number">7</span>d</span><br><span class="line">gpgcheck=<span class="number">1</span></span><br><span class="line">gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-fedora-<span class="variable">$basearch</span></span><br></pre></td></tr></table></figure>
@@ -120,38 +127,62 @@
 <figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="label">$man</span> yum.<span class="keyword">conf</span></span><br></pre></td></tr></table></figure>
 <p>在man手册yum.conf(5)中找到关于这几个变量的解释.节选一部分如下:</p>
 <blockquote>
-<p>VARIABLES<br>There are a number of variables you can use to ease maintenance of yum’s configuration files. They are available in the values of several options including name, baseurl and commands.</p>
-<pre><code>$releasever This will be replaced <span class="keyword">with</span> the value <span class="keyword">of</span> the version <span class="keyword">of</span> the <span class="keyword">package</span> listed <span class="keyword">in</span> distroverpkg. This defaults <span class="keyword">to</span> the version <span class="keyword">of</span> `redhat-<span class="keyword">release</span>' <span class="keyword">package</span>.
+<p>VARIABLES<br>
+There are a number of variables you can use to ease maintenance of yum’s configuration files. They are available in the values of several options including name, baseurl and commands.</p>
+<pre><code>$releasever This will be replaced with the value of the version of the package listed in distroverpkg. This defaults to the version of `redhat-release' package.
 
-$arch This will be replaced <span class="keyword">with</span> your <span class="keyword">architecture</span> as listed by os.uname()[<span class="number">4</span>] <span class="keyword">in</span> Python.
+$arch This will be replaced with your architecture as listed by os.uname()[4] in Python.
 
-$basearch This will be replaced <span class="keyword">with</span> your base <span class="keyword">architecture</span> <span class="keyword">in</span> yum. <span class="keyword">For</span> example, <span class="keyword">if</span> your $arch <span class="keyword">is</span> i686 your $basearch will be i386.
-</code></pre></blockquote>
-<p>简单的说明下man手册中关于各个变量的解释<br><code>$releasever</code>:该变量将会被替换成具体的系统发行版本,比如我的系统为fedora 17,那么变量$releasever的值就为17.</p>
+$basearch This will be replaced with your base architecture in yum. For example, if your $arch is i686 your $basearch will be i386.
+</code></pre>
+</blockquote>
+<p>简单的说明下man手册中关于各个变量的解释<br>
+<code>$releasever</code>:该变量将会被替换成具体的系统发行版本,比如我的系统为fedora 17,那么变量$releasever的值就为17.</p>
 <p><code>$arch</code>:该变量会被替换成系统对应的架构,一般情况下$arch的值为i686(32位系统)或者x86_64(64位系统),当然,如果你的电脑是古董级的,有可能出现什么i386或者i486之类的值,或者你用的是PowerPC架构的处理器,$arch的值会是ppc = =.</p>
 <p><code>$basearch</code>: basearch顾名思义就是基础架构啦,man手册中的解释是yum中对应的基础架构,我的理解是不管你用的是686,586还是486的CPU,只要是32位的都属于基础的i386架构,这里所谓的base,指的应该就是这个意思.</p>
-<p>关于这几个变量,有意思的是它们无法直接在终端下利用<code>echo $variable</code>方式输出得到.我找到一个比较方便的办法就是通过执行:<br><figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="label">$uname</span> -<span class="literal">r</span></span><br></pre></td></tr></table></figure></p>
-<p>来间接得到<code>$releasever</code>和<code>$arch</code>的值.例如我执行<code>uname -r</code>命令得到的结果就是: <code>3.6.8-2.fc17.x86_64</code><br>所以针对我的电脑, <code>$releasever</code>的值为17, <code>$arch</code>的值为x86_64(我的系统是64bit的)</p>
+<p>关于这几个变量,有意思的是它们无法直接在终端下利用<code>echo $variable</code>方式输出得到.我找到一个比较方便的办法就是通过执行:</p>
+<figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="label">$uname</span> -<span class="literal">r</span></span><br></pre></td></tr></table></figure>
+<p>来间接得到<code>$releasever</code>和<code>$arch</code>的值.例如我执行<code>uname -r</code>命令得到的结果就是: <code>3.6.8-2.fc17.x86_64</code><br>
+所以针对我的电脑, <code>$releasever</code>的值为17, <code>$arch</code>的值为x86_64(我的系统是64bit的)</p>
 <p>常用源及其目录组织结构</p>
 <p>在掌握了repo文件后,我们现在要开始自己动手配置源了,毕竟本片文章的题目还涉及到源配置的问题嘛,不讲怎么配源肯定是对不起观众的XD.</p>
-<p>首先介绍几个国内比较知名的源:<br><a href="http://mirrors.163.com/" target="_blank" rel="external">网易163</a><br><a href="http://mirrors.sohu.com/" target="_blank" rel="external">搜狐sohu</a></p>
-<p>校园网下比较好的源有:<br><a href="ftp://ftp.sjtu.edu.cn/" target="_blank" rel="external">上海交大sjtu</a><br><a href="http://mirrors.ustc.edu.cn/" target="_blank" rel="external">中科大ustc</a><br><a href="http://mirror.neu.edu.cn/" target="_blank" rel="external">东北大学neu</a></p>
-<p>其中比较推荐的是163的源和上海交大的源,因为他们相对来说更新及时,比较全面,同时速度也快.顺便说以下,<strong>在这些源中,163,sohu和中科大的源是有包含帮助页面的,从而可以在帮助页面下直接下载到对应的repo文件,不需要做任何修改,直接放到对应位置然后运行yum makecache就可以了.</strong>但是其他的一些源就没有相应的repo文件下载,所以需要我们自行配置repo文件.(这里不得不吐槽下,如果他们都弄个repo文件方便大家下载,我就不用这么辛苦的码字写文章了=_=b)</p>
+<p>首先介绍几个国内比较知名的源:<br>
+<a href="http://mirrors.163.com/" target="_blank" rel="external">网易163</a><br>
+<a href="http://mirrors.sohu.com/" target="_blank" rel="external">搜狐sohu</a></p>
+<p>校园网下比较好的源有:<br>
+<a href="ftp://ftp.sjtu.edu.cn/" target="_blank" rel="external">上海交大sjtu</a><br>
+<a href="http://mirrors.ustc.edu.cn/" target="_blank" rel="external">中科大ustc</a><br>
+<a href="http://mirror.neu.edu.cn/" target="_blank" rel="external">东北大学neu</a></p>
+<p>其中比较推荐的是163的源和上海交大的源,因为他们相对来说更新及时,比较全面,同时速度也快.顺便说以下,**在这些源中,163,sohu和中科大的源是有包含帮助页面的,从而可以在帮助页面下直接下载到对应的repo文件,不需要做任何修改,直接放到对应位置然后运行yum makecache就可以了.**但是其他的一些源就没有相应的repo文件下载,所以需要我们自行配置repo文件.(这里不得不吐槽下,如果他们都弄个repo文件方便大家下载,我就不用这么辛苦的码字写文章了=_=b)</p>
 <p>自行配置源的思路很简单,就是更改repo文件中对应的字段的值.其中,对我们来说最重要的字段自然是baseurl字段了.正如前文说过的,yum通过baseurl字段给出的地址找到源镜像服务器,进而从镜像服务器下载软件包.</p>
-<p>从上文的示例repo文件中,我们可以看到baseurl字段通常是如下形式:<br><code>baseurl=http://mirrors.163.com/fedora/releases/$releasever/Everything/$basearch/os/</code><br>很明显的,如果用具体的值带入其中的变量,那么baseurl给出的是一个网址.<br>以本人电脑为例,<code>$releasever=17</code>, <code>$basearch=x86_64</code>,那么得到的网址是:<br><code>http://mirrors.163.com/fedora/releases/17/Everything/x86_64/os/</code><br>我们不妨打开对应的网址,你会发现,居然成功打开了,而且网页还有Packages和repodata两个文件夹,这两个文件夹下面还有好多东西,很神奇有没有~</p>
-<p>很显然的,yum就是在根据这个网址找到需要的软件包的.所以,我们的目的就是要让yum找到镜像源服务器的对应目录.这不禁让我们联想到,如果163的源需要的软件包在以上给出的目录下,那么像上海交大那样的源很可能也有一样的目录结构,因此我们不妨在上海交大的源服务器上找找是不是也有类似 <code>/fedora/releases/17/Everything/x86_64/os/</code>这样的目录.很容易的,我们就找到了类似的目录:<br><code>ftp://ftp.sjtu.edu.cn/fedora/linux/releases/17/Everything/x86_64/os/</code><br>通过查看其它的一些镜像源服务器,我们都可以发现实际上它们的目录结构都是差不多的.</p>
+<p>从上文的示例repo文件中,我们可以看到baseurl字段通常是如下形式:<br>
+<code>baseurl=http://mirrors.163.com/fedora/releases/$releasever/Everything/$basearch/os/</code><br>
+很明显的,如果用具体的值带入其中的变量,那么baseurl给出的是一个网址.<br>
+以本人电脑为例,<code>$releasever=17</code>, <code>$basearch=x86_64</code>,那么得到的网址是:<br>
+<code>http://mirrors.163.com/fedora/releases/17/Everything/x86_64/os/</code><br>
+我们不妨打开对应的网址,你会发现,居然成功打开了,而且网页还有Packages和repodata两个文件夹,这两个文件夹下面还有好多东西,很神奇有没有~</p>
+<p>很显然的,yum就是在根据这个网址找到需要的软件包的.所以,我们的目的就是要让yum找到镜像源服务器的对应目录.这不禁让我们联想到,如果163的源需要的软件包在以上给出的目录下,那么像上海交大那样的源很可能也有一样的目录结构,因此我们不妨在上海交大的源服务器上找找是不是也有类似 <code>/fedora/releases/17/Everything/x86_64/os/</code>这样的目录.很容易的,我们就找到了类似的目录:<br>
+<code>ftp://ftp.sjtu.edu.cn/fedora/linux/releases/17/Everything/x86_64/os/</code><br>
+通过查看其它的一些镜像源服务器,我们都可以发现实际上它们的目录结构都是差不多的.</p>
 <p>修改repo文件</p>
-<p>我们已经知道镜像源服务器的目录结构都是相似,因此我们可以利用已有的repo文件,适当的进行下修改,得到一个新的repo文件,从而达到配置新的软件源的目的.<br>这里以163的源配置文件为基础,进行适当修改,得到上海交大的源配置文件.</p>
-<p>以下为163源配置文件中的一节<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">[fedora]</span><br><span class="line">name=Fedora <span class="variable">$releasever</span> - <span class="variable">$basearch</span> - <span class="number">163</span>.com</span><br><span class="line">failovermethod=priority</span><br><span class="line">baseurl=http://mirrors.<span class="number">163</span>.com/fedora/releases/<span class="variable">$releasever</span>/Everything/<span class="variable">$basearch</span>/os/</span><br><span class="line">mirrorlist=https://mirrors.fedoraproject.org/metalink?repo=fedora-<span class="variable">$releasever</span>&amp;arch=<span class="variable">$basearch</span></span><br><span class="line">enabled=<span class="number">1</span></span><br><span class="line">metadata_expire=<span class="number">7</span>d</span><br><span class="line">gpgcheck=<span class="number">1</span></span><br><span class="line">gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-fedora-<span class="variable">$basearch</span></span><br></pre></td></tr></table></figure></p>
+<p>我们已经知道镜像源服务器的目录结构都是相似,因此我们可以利用已有的repo文件,适当的进行下修改,得到一个新的repo文件,从而达到配置新的软件源的目的.<br>
+这里以163的源配置文件为基础,进行适当修改,得到上海交大的源配置文件.</p>
+<p>以下为163源配置文件中的一节</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">[fedora]</span><br><span class="line">name=Fedora <span class="variable">$releasever</span> - <span class="variable">$basearch</span> - <span class="number">163</span>.com</span><br><span class="line">failovermethod=priority</span><br><span class="line">baseurl=http://mirrors.<span class="number">163</span>.com/fedora/releases/<span class="variable">$releasever</span>/Everything/<span class="variable">$basearch</span>/os/</span><br><span class="line">mirrorlist=https://mirrors.fedoraproject.org/metalink?repo=fedora-<span class="variable">$releasever</span>&amp;arch=<span class="variable">$basearch</span></span><br><span class="line">enabled=<span class="number">1</span></span><br><span class="line">metadata_expire=<span class="number">7</span>d</span><br><span class="line">gpgcheck=<span class="number">1</span></span><br><span class="line">gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-fedora-<span class="variable">$basearch</span></span><br></pre></td></tr></table></figure>
 <p>以下为修改后上海交大源配置文件中的一节</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">[fedora-sjtu]</span><br><span class="line">name=Fedora <span class="variable">$releasever</span> - <span class="variable">$basearch</span> - sjtu</span><br><span class="line">baseurl=http://ftp.sjtu.edu.cn/fedora/linux/releases/<span class="variable">$releasever</span>/Fedora/<span class="variable">$basearch</span>/os/</span><br><span class="line">mirrorlist=https://mirrors.fedoraproject.org/metalink?repo=fedora-<span class="variable">$releasever</span>&amp;arch=<span class="variable">$basearch</span></span><br><span class="line">enabled=<span class="number">1</span></span><br><span class="line">metadata_expire=<span class="number">7</span>d</span><br><span class="line">gpgcheck=<span class="number">1</span></span><br><span class="line">gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-fedora-<span class="variable">$basearch</span></span><br></pre></td></tr></table></figure>
 <p>通过对比我们不难发现,实际上就只对几处进行了修改.</p>
-<p>将中括号中更改为对应的软件源名字,例子中<code>fedora</code>-&gt;<code>fedora-sjtu</code>(不改也是可以的,仅仅是为了便于识别)<br>name字段更改为对应的软件源名字(同样的,那么的更改也是非必须的,仅仅是为了便于识别)<br>baserul字段更改为新的镜像源服务器地址.这是最关键的一处更改,为了获得正确的地址,最好之前先通过浏览器访问下对应的地址查看是否正确,同时合理的利用<code>$releasever</code>, <code>$basearch</code>等变量可以方便的应对当系统升级或者其他情况带来的版本变更所导致的baserul错误等问题.<br>除了以上给出的节之外,repo文件里还记录了一些不常用的软件仓库信息,它们一般都是不启用的(<code>enable</code>字段值为0),例如debuginfo等,具体的更改方法都是一样的.童鞋们可自行参照以上的例子进行更改.</p>
+<p>将中括号中更改为对应的软件源名字,例子中<code>fedora</code>-&gt;<code>fedora-sjtu</code>(不改也是可以的,仅仅是为了便于识别)<br>
+name字段更改为对应的软件源名字(同样的,那么的更改也是非必须的,仅仅是为了便于识别)<br>
+baserul字段更改为新的镜像源服务器地址.这是最关键的一处更改,为了获得正确的地址,最好之前先通过浏览器访问下对应的地址查看是否正确,同时合理的利用<code>$releasever</code>, <code>$basearch</code>等变量可以方便的应对当系统升级或者其他情况带来的版本变更所导致的baserul错误等问题.<br>
+除了以上给出的节之外,repo文件里还记录了一些不常用的软件仓库信息,它们一般都是不启用的(<code>enable</code>字段值为0),例如debuginfo等,具体的更改方法都是一样的.童鞋们可自行参照以上的例子进行更改.</p>
 <p><strong>最后,只需要将repo文件放入/etc/yum.repo.d/目录下,然后利用root权限运行</strong></p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#yum makecache</span></span><br></pre></td></tr></table></figure>
 <p><strong>更新yum的元数据,新的软件源即可正常使用了.</strong></p>
-<h1 id="结束语">结束语</h1><p>至此,整个源配置过程结束,由于本人对ubuntu和Debian系的接触比较少,不太了解apt-get的源配置方法,就不丢人现眼啦.在这里只是简单介绍了下RedHat系的fedora和CentOS的源配置问题.由于linux distribution的更新速度很快,所以文中难免存在一些不足之处,还望指出.希望本文章能让大家了解源配置的过程,更快的配置自己需要的源.</p>
-<h1 id="参考资料">参考资料</h1><ul>
+<h1>结束语</h1>
+<p>至此,整个源配置过程结束,由于本人对ubuntu和Debian系的接触比较少,不太了解apt-get的源配置方法,就不丢人现眼啦.在这里只是简单介绍了下RedHat系的fedora和CentOS的源配置问题.由于linux distribution的更新速度很快,所以文中难免存在一些不足之处,还望指出.希望本文章能让大家了解源配置的过程,更快的配置自己需要的源.</p>
+<h1>参考资料</h1>
+<ul>
 <li>yum的具体介绍参见wiki页面:<a href="http://en.wikipedia.org/wiki/Yellowdog_Updater,_Modified" target="_blank" rel="external">Yellowdog Updater, Modified</a></li>
 <li>repo文件解析可参考这篇帖子:<a href="http://bbs.fedora-zh.org/showthread.php?1376-%E5%B8%A6%E4%BD%A0%E8%AE%A4%E8%AF%86repo%E6%96%87%E4%BB%B6" target="_blank" rel="external">带你认识repo文件</a></li>
 <li>变量$releasever和$basearch的讨论可以查看这篇帖子: <a href="http://unix.stackexchange.com/questions/19701/yum-how-can-i-view-variables-like-releasever-basearch-yum0" target="_blank" rel="external">Yum: How can I view variables like$releasever, $basearch &amp; $YUM0?</a></li>
@@ -160,7 +191,7 @@ $basearch This will be replaced <span class="keyword">with</span> your base <spa
 -->
             
             
-                <h1 id="Background">Background</h1><p>最近由于项目上的需要, 在VMware上装上了CentOS. 由于学校的校园网无法访问国外的源, 所以CentOS默认的源无法使用, 于是装完系统的第一件事情自然是配源. 对于国内用户来说163的源和sohu的源速度都不错更新的也快, 对于校园网用户来说, 校园网内比较好的源有上海交大(sjtu), 中科大(ustc)… 呵呵, 不知道东北大学(neu)的算不算, 不过我用起来速度也不错.</p>
+                <h1>Background</h1>
                 
                 <p class="article-more-link">
                     <a href="/2012/12/14/repo_config/#more">Read More</a>
@@ -171,7 +202,7 @@ $basearch This will be replaced <span class="keyword">with</span> your base <spa
     </div>
     <footer class="article-footer">
       
-        <a data-url="http://fancyseeker.github.io/2012/12/14/repo_config/" data-id="ci93sefi40019wkdyj7u4hob9" class="article-share-link" data-share="baidu">分享到</a>
+        <a data-url="http://fancyseeker.github.io/2012/12/14/repo_config/" data-id="ci93spi2y0019fgdym69p8ke5" class="article-share-link" data-share="baidu">分享到</a>
       
 
       
@@ -219,7 +250,7 @@ $basearch This will be replaced <span class="keyword">with</span> your base <spa
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>沈阳又下雪了, 那种轻飘飘漫天飞舞的雪. 今天下午难得去了一趟图书馆, 看看闲书. 晚饭后手里握着一大杯热腾腾的绿茶回到宿舍, 像现在这样, 坐在电脑前, 一边喝着热茶, 一边更更博客, 颇为惬意, 顺道思考下自己这个网站未来的一些走向问题.<br>
+        <p>沈阳又下雪了, 那种轻飘飘漫天飞舞的雪. 今天下午难得去了一趟图书馆, 看看闲书. 晚饭后手里握着一大杯热腾腾的绿茶回到宿舍, 像现在这样, 坐在电脑前, 一边喝着热茶, 一边更更博客, 颇为惬意, 顺道思考下自己这个网站未来的一些走向问题.</p>
         
           <p class="article-more-link">
             <a href="/2012/11/16/blog/#more">Read More</a>
@@ -229,7 +260,7 @@ $basearch This will be replaced <span class="keyword">with</span> your base <spa
     </div>
     <footer class="article-footer">
       
-        <a data-url="http://fancyseeker.github.io/2012/11/16/blog/" data-id="ci93sefjc002iwkdyblg5pd6m" class="article-share-link" data-share="baidu">分享到</a>
+        <a data-url="http://fancyseeker.github.io/2012/11/16/blog/" data-id="ci93spi39002ifgdyplvo676z" class="article-share-link" data-share="baidu">分享到</a>
       
 
       
@@ -287,7 +318,7 @@ $basearch This will be replaced <span class="keyword">with</span> your base <spa
     </div>
     <footer class="article-footer">
       
-        <a data-url="http://fancyseeker.github.io/2012/11/05/google/" data-id="ci93sefin001uwkdym4c92wt2" class="article-share-link" data-share="baidu">分享到</a>
+        <a data-url="http://fancyseeker.github.io/2012/11/05/google/" data-id="ci93spi33001ufgdyccatkuro" class="article-share-link" data-share="baidu">分享到</a>
       
 
       
@@ -335,7 +366,7 @@ $basearch This will be replaced <span class="keyword">with</span> your base <spa
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>本文详细描述了拆解ASUS N61ja笔记本并进行清灰等一系列维护操作的经过, N61系列机型模具类似, 可参考本文进行拆机.<br>
+        <p>本文详细描述了拆解ASUS N61ja笔记本并进行清灰等一系列维护操作的经过, N61系列机型模具类似, 可参考本文进行拆机.</p>
         
           <p class="article-more-link">
             <a href="/2012/11/03/asus-n61/#more">Read More</a>
@@ -345,7 +376,7 @@ $basearch This will be replaced <span class="keyword">with</span> your base <spa
     </div>
     <footer class="article-footer">
       
-        <a data-url="http://fancyseeker.github.io/2012/11/03/asus-n61/" data-id="ci93sefft0000wkdyeidd9do3" class="article-share-link" data-share="baidu">分享到</a>
+        <a data-url="http://fancyseeker.github.io/2012/11/03/asus-n61/" data-id="ci93spi200000fgdyq0cf1z7q" class="article-share-link" data-share="baidu">分享到</a>
       
 
       
@@ -403,7 +434,7 @@ $basearch This will be replaced <span class="keyword">with</span> your base <spa
     </div>
     <footer class="article-footer">
       
-        <a data-url="http://fancyseeker.github.io/2012/10/23/cncc2012/" data-id="ci93sefj50029wkdyctmmmwno" class="article-share-link" data-share="baidu">分享到</a>
+        <a data-url="http://fancyseeker.github.io/2012/10/23/cncc2012/" data-id="ci93spi370029fgdyk8nywff1" class="article-share-link" data-share="baidu">分享到</a>
       
 
       
