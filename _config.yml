@@ -91,9 +91,9 @@ markdown:
     - markdown-it-footnote
     - markdown-it-sup
     - markdown-it-sub
-  #anchors:
-    #level: 2
-    #collisionSuffix: 'v'
-    #permalink: false
-    #permalinkClass: header-anchor
+  anchors:
+    level: 2
+    collisionSuffix: 'v'
+    permalink: true
+    permalinkClass: header-anchor
     #permalinkSymbol: ¶

@@ -6,21 +6,18 @@
   
   <title>SSH连接认证原理概述 | FancySeeker</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="SSH简要介绍
-SSH的英文全称为Secure Shell，是IETF（Internet Engineering Task Force）的Network Working Group所制定的一族协议，其目的是要在非安全网络上提供安全的远程登录和其他安全网络服务。[1]用于在主机之间建立起安全连接, 并加密传输内容, 以达到安全的远程访问, 操作以及数据传输的目的.
-SSH主要有两个特点: 1. 安全">
+  <meta name="description" content="SSH简要介绍SSH的英文全称为Secure Shell，是IETF（Internet Engineering Task Force）的Network Working Group所制定的一族协议，其目的是要在非安全网络上提供安全的远程登录和其他安全网络服务。[1]用于在主机之间建立起安全连接, 并加密传输内容, 以达到安全的远程访问, 操作以及数据传输的目的.
+SSH主要有两个特点: 1. 安全性">
 <meta property="og:type" content="article">
 <meta property="og:title" content="SSH连接认证原理概述">
 <meta property="og:url" content="http://fancyseeker.github.io/2013/12/30/ssh_overview/index.html">
 <meta property="og:site_name" content="FancySeeker">
-<meta property="og:description" content="SSH简要介绍
-SSH的英文全称为Secure Shell，是IETF（Internet Engineering Task Force）的Network Working Group所制定的一族协议，其目的是要在非安全网络上提供安全的远程登录和其他安全网络服务。[1]用于在主机之间建立起安全连接, 并加密传输内容, 以达到安全的远程访问, 操作以及数据传输的目的.
-SSH主要有两个特点: 1. 安全">
+<meta property="og:description" content="SSH简要介绍SSH的英文全称为Secure Shell，是IETF（Internet Engineering Task Force）的Network Working Group所制定的一族协议，其目的是要在非安全网络上提供安全的远程登录和其他安全网络服务。[1]用于在主机之间建立起安全连接, 并加密传输内容, 以达到安全的远程访问, 操作以及数据传输的目的.
+SSH主要有两个特点: 1. 安全性">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="SSH连接认证原理概述">
-<meta name="twitter:description" content="SSH简要介绍
-SSH的英文全称为Secure Shell，是IETF（Internet Engineering Task Force）的Network Working Group所制定的一族协议，其目的是要在非安全网络上提供安全的远程登录和其他安全网络服务。[1]用于在主机之间建立起安全连接, 并加密传输内容, 以达到安全的远程访问, 操作以及数据传输的目的.
-SSH主要有两个特点: 1. 安全">
+<meta name="twitter:description" content="SSH简要介绍SSH的英文全称为Secure Shell，是IETF（Internet Engineering Task Force）的Network Working Group所制定的一族协议，其目的是要在非安全网络上提供安全的远程登录和其他安全网络服务。[1]用于在主机之间建立起安全连接, 并加密传输内容, 以达到安全的远程访问, 操作以及数据传输的目的.
+SSH主要有两个特点: 1. 安全性">
   
     <link rel="alternative" href="/atom.xml" title="FancySeeker" type="application/atom+xml">
   
@@ -109,48 +106,37 @@ SSH主要有两个特点: 1. 安全">
     
     <div class="article-entry" itemprop="articleBody">
       
-       <!--<h1>SSH简要介绍</h1>
-<p>SSH的英文全称为Secure Shell，是IETF（Internet Engineering Task Force）的Network Working Group所制定的一族协议，其目的是要在非安全网络上提供安全的远程登录和其他安全网络服务。<sup><a href="http://blog.csdn.net/oncoding/article/details/4365062" target="_blank" rel="external">[1]</a></sup>用于在主机之间建立起安全连接, 并加密传输内容, 以达到安全的远程访问, 操作以及数据传输的目的.</p>
+       <!--<h1 id="SSH简要介绍">SSH简要介绍</h1><p>SSH的英文全称为Secure Shell，是IETF（Internet Engineering Task Force）的Network Working Group所制定的一族协议，其目的是要在非安全网络上提供安全的远程登录和其他安全网络服务。<sup><a href="http://blog.csdn.net/oncoding/article/details/4365062" target="_blank" rel="external">[1]</a></sup>用于在主机之间建立起安全连接, 并加密传输内容, 以达到安全的远程访问, 操作以及数据传输的目的.</p>
 <p>SSH主要有两个特点: 1. 安全性 2. 传输速度快</p>
 <p>为什么要强调SSH的安全特性, 因为传统的网络服务程序，如 FTP、POP 和 Telnet 其本质上都是不安全的；因为它们在网络上用明文传送数据、用户帐号和用户口令，很容易受到中间人（man-in-the-middle）攻击方式的攻击。就是存在另一个人或者一台机器冒充真正的服务器接收用户传给服务器的数据，然后再冒充用户把数据传给真正的服务器。 而 SSH 是目前较可靠，专为远程登录会话和其他网络服务提供安全性的协议。利用 SSH 协议可以有效防止远程管理过程中的信息泄露问题。透过 SSH 可以对所有传输的数据进行加密，也能够防止 DNS 欺骗和 IP 欺骗。<sup><a href="http://biaobiaoqi.me/blog/2013/04/19/use-ssh/" target="_blank" rel="external">[2]</a></sup></p>
 <p>SSH的传输速度快是因为SSH传输的数据都是经过压缩的, 自然传输速度快.</p>
-<h1>SSH认证原理简述</h1>
-<p>在介绍SSH具体的认证原理之前, 先简单的介绍下关于公钥和密钥加密的概念.所谓的公钥加密 (public-key cryptography)，或非对称密钥加密 (asymmetric key cryptography) 是一类广泛使用的加密算法。这类算法使用一对(pair)密钥即<strong>公钥 (public key)</strong> 和<strong>私钥 (private key)</strong>。 其中公钥可以随便分发，只用于加密 (encryption)，私钥则只由一人持有，只用于解密。通过公钥加密过的密文使用密钥可以轻松解密, 但根据公钥来猜测私钥却十分困难.</p>
+<h1 id="SSH认证原理简述">SSH认证原理简述</h1><p>在介绍SSH具体的认证原理之前, 先简单的介绍下关于公钥和密钥加密的概念.所谓的公钥加密 (public-key cryptography)，或非对称密钥加密 (asymmetric key cryptography) 是一类广泛使用的加密算法。这类算法使用一对(pair)密钥即<strong>公钥 (public key)</strong> 和<strong>私钥 (private key)</strong>。 其中公钥可以随便分发，只用于加密 (encryption)，私钥则只由一人持有，只用于解密。通过公钥加密过的密文使用密钥可以轻松解密, 但根据公钥来猜测私钥却十分困难.</p>
 <p>因此, 我们可以很容易的发现这么一个事实, 一个消息在用公钥加密后, 哪怕在传输中被人截获, 如果没有私钥, 是无法解密获得其内容的, 只有拥有私钥的人才能成功解密消息. 所以私钥应该由消息的接收方紧紧攥在手里, 不应让他人得知.</p>
 <p>公钥加密的关键点在于，一方面，公钥加密是可逆的，但是不能用公钥推断出私钥。显然数学上，已知一个公钥是能够算出对应私钥的，但是只要设计足够好的加密算法（以及使用足够复杂的密钥对），使得不能在可以接受的时间内破译即可。</p>
 <p>RSA<sup><a href="http://zh.wikipedia.org/wiki/RSA%E5%8A%A0%E5%AF%86%E6%BC%94%E7%AE%97%E6%B3%95" target="_blank" rel="external">[3]</a></sup> 是一种常见的公钥加密算法。RSA 的工作原理依赖于如下事实：破译 RSA 私钥需要对某些极大的整数进行因数分解，而目前尚未找到快速的对极大整数作因数分解的算法。换言之，如果有人找到了这样的算法，那么全世界的 RSA 加密都会失效。</p>
 <p>RSA是由Ron Rivest, Adi Shamir, Leonard Adleman三人在1978年首次提出的.三人并因此项工作荣获了2002年<a href="http://en.wikipedia.org/wiki/Turing_award" target="_blank" rel="external">Turing Award</a>. Rivest还是<a href="http://book.douban.com/subject/1885170/" target="_blank" rel="external">算法导论</a>的作者之一, 书中在31章对RSA系统的原理进行了简要说明, 系统实现中利用到了数论中的<a href="http://en.wikipedia.org/wiki/Euler%E2%80%93Fermat_theorem" target="_blank" rel="external">Euler-Fermat theorem</a>.<sup><a href="https://wiki.tuna.tsinghua.edu.cn/SshKeyHowto" target="_blank" rel="external">[4]</a></sup></p>
-<p>一个基于RSA的<strong>公钥</strong>大概如下所示</p>
-<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">ssh-rsa AAAAB3NzaC1yc2EAAAABIwAAAQEAvSkEZ0fKXRqQ<span class="regexp">/DkjCfsAETsQgV8OR/</span>RVQmwBk/J5IWoknf8Dr</span><br><span class="line">y5kOs+<span class="number">1</span>bnx9zaf8oIcVuXf0jRxTccLBOXiReFJE4aD2rWO33sqA0M4qP1ESYhsU4yokRA0IMDJ62JUv2cWVJg</span><br><span class="line">GpeQriol2t7mH8E6aB8OiJ+NgRbh6+<span class="regexp">/0LbtQs40VA2+W5PtaBwT4sjv9LOHIdzQcsEeCM8MIHqmXHst7/</span>JuVI</span><br><span class="line">i7wLCxB7Ur8qtwZ2/Ii8Ckjfo6mikWmSh6mRMq9qn0FkMkPCcpm8o4f1zJWOuf+RnjPpopFTqIa8JssMHJMuQ</span><br><span class="line">cCm3EHDkBHjLk/SkidWOzqOtSvUeGKieWiijuw== username<span class="annotation">@localhost</span>.localdomain</span><br></pre></td></tr></table></figure>
-<p>与之配对的<strong>私钥</strong>形如</p>
-<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">-----BEGIN RSA PRIVATE KEY-----</span><br><span class="line">MIIEpAIBAAKCAQEAvSkEZ0fKXRqQ<span class="regexp">/DkjCfsAETsQgV8OR/</span>RVQmwBk/J5IWoknf8D</span><br><span class="line">ry5kOs+<span class="number">1</span>bnx9zaf8oIcVuXf0jRxTccLBOXiReFJE4aD2rWO33sqA0M4qP1ESYhsU</span><br><span class="line"><span class="number">4</span>yokRA0IMDJ62JUv2cWVJgGpeQriol2t7mH8E6aB8OiJ+NgRbh6+/<span class="number">0</span>LbtQs40VA2</span><br><span class="line">+W5PtaBwT4sjv9LOHIdzQcsEeCM8MIHqmXHst7<span class="regexp">/JuVIi7wLCxB7Ur8qtwZ2/</span>Ii8C</span><br><span class="line">kjfo6mikWmSh6mRMq9qn0FkMkPCcpm8o4f1zJWOuf+RnjPpopFTqIa8JssMHJMuQ</span><br><span class="line">cCm3EHDkBHjLk/SkidWOzqOtSvUeGKieWiijuwIBIwKCAQEAjITesx9jIJdkY5go</span><br><span class="line">qFQOrbbZD6Wy1l27ra9RoRqF3k7ZX2z7bDEXQaGcuHm8iiUEzwVDVpOfuUg9/LyP</span><br><span class="line">icdHffP4p5wk9dUMPxoWjHvk3pP/BwzNsBCtOd3LkYSVxXYji9SaroTkS0nqL3jK</span><br><span class="line">WVAaV72FGVxJPINAJer0SJgQ7OJ7f0kZJYoPwG0VpMTLOsmulH7/M5e9i+kwDLmH</span><br><span class="line">+TMvJ3y8gXjc<span class="regexp">/Sj5UqN/</span>JQIY+h07UxYGvoju<span class="regexp">/isqFHh8OmahsjJ3Nb3QsUEkC/</span>Kj</span><br><span class="line">cKG2K+mUzTe<span class="regexp">/4/</span>XQuqMadrjX82QF2b2gL+cdvUAwLn55boXmrtUzxEPo4xxiDNzY</span><br><span class="line">AbYxSwKBgQDxIkaa+EPSJXYej<span class="regexp">/5YzJLJLVsnb9ygqe/</span><span class="number">0</span>fM0x022J6Z+<span class="number">0</span>Yq9AIwJ7</span><br><span class="line">N7dvMgNSROLoJ17Oij/N7aoiAZy1KHg1vOoqx6T6BClay8I1+dOsbY6Fi0QbkZeI</span><br><span class="line">Rr6CDueq5PBR8j/oghNhQeFfJUEICBFU6Z7+uFwxuAtQqqdFHyDhSwKBgQDI0nX6</span><br><span class="line">Jz9oW+Y+dXAvhpL8Yln0R45ufiqatkTQgGbeZ70XlKeR7VzQiXecy/XDteJCMlnv</span><br><span class="line"><span class="number">4</span>BhjHL967nSAmrCza13I3eXIYxbzypeNC57bVVXM9BBTg5f4nWwTN+I8Gd/BA5Y8</span><br><span class="line">mekQPBuSyAOp7ULAecjKZrD9Jhw1vybT/aYxUQKBgQDcdxv7ZqRoXMPEK+E7PrIX</span><br><span class="line">BOWgZkYPPEkaC7RKz+<span class="number">8</span>fAXwSo15mhmirK6BlqhGqTZxB+BwqjQcirWhZmxLuxeo/</span><br><span class="line">wqo1vdiqEm7z7X5dPC8+kA1G5bqc3OJQtbV+OYNaaupZjQc6+pVgPDvEtFi24s4E</span><br><span class="line">fdMyB6S/vjY7H67gHHXVSwKBgQC3m9mUQSQHpHq8wyS9vN4olG+AQWxHw88uXYC+</span><br><span class="line">oUgbzI+gh+mp/ZawCKff0GurnvrALgkV1DON0SQYn4B1lL7P7SKLw5BCLrXmNZHg</span><br><span class="line">Cp<span class="regexp">/eeegL19RpnOK3a1t/</span>SQlbhV7cWw0ENPJX<span class="regexp">/HD7OocBwvszoouxvPmW/</span>kWte5E2</span><br></pre></td></tr></table></figure>
+<p>一个基于RSA的<strong>公钥</strong>大概如下所示<br><figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">ssh-rsa AAAAB3NzaC1yc2EAAAABIwAAAQEAvSkEZ0fKXRqQ<span class="regexp">/DkjCfsAETsQgV8OR/</span>RVQmwBk/J5IWoknf8Dr</span><br><span class="line">y5kOs+<span class="number">1</span>bnx9zaf8oIcVuXf0jRxTccLBOXiReFJE4aD2rWO33sqA0M4qP1ESYhsU4yokRA0IMDJ62JUv2cWVJg</span><br><span class="line">GpeQriol2t7mH8E6aB8OiJ+NgRbh6+<span class="regexp">/0LbtQs40VA2+W5PtaBwT4sjv9LOHIdzQcsEeCM8MIHqmXHst7/</span>JuVI</span><br><span class="line">i7wLCxB7Ur8qtwZ2/Ii8Ckjfo6mikWmSh6mRMq9qn0FkMkPCcpm8o4f1zJWOuf+RnjPpopFTqIa8JssMHJMuQ</span><br><span class="line">cCm3EHDkBHjLk/SkidWOzqOtSvUeGKieWiijuw== username<span class="annotation">@localhost</span>.localdomain</span><br></pre></td></tr></table></figure></p>
+<p>与之配对的<strong>私钥</strong>形如<br><figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">-----BEGIN RSA PRIVATE KEY-----</span><br><span class="line">MIIEpAIBAAKCAQEAvSkEZ0fKXRqQ<span class="regexp">/DkjCfsAETsQgV8OR/</span>RVQmwBk/J5IWoknf8D</span><br><span class="line">ry5kOs+<span class="number">1</span>bnx9zaf8oIcVuXf0jRxTccLBOXiReFJE4aD2rWO33sqA0M4qP1ESYhsU</span><br><span class="line"><span class="number">4</span>yokRA0IMDJ62JUv2cWVJgGpeQriol2t7mH8E6aB8OiJ+NgRbh6+/<span class="number">0</span>LbtQs40VA2</span><br><span class="line">+W5PtaBwT4sjv9LOHIdzQcsEeCM8MIHqmXHst7<span class="regexp">/JuVIi7wLCxB7Ur8qtwZ2/</span>Ii8C</span><br><span class="line">kjfo6mikWmSh6mRMq9qn0FkMkPCcpm8o4f1zJWOuf+RnjPpopFTqIa8JssMHJMuQ</span><br><span class="line">cCm3EHDkBHjLk/SkidWOzqOtSvUeGKieWiijuwIBIwKCAQEAjITesx9jIJdkY5go</span><br><span class="line">qFQOrbbZD6Wy1l27ra9RoRqF3k7ZX2z7bDEXQaGcuHm8iiUEzwVDVpOfuUg9/LyP</span><br><span class="line">icdHffP4p5wk9dUMPxoWjHvk3pP/BwzNsBCtOd3LkYSVxXYji9SaroTkS0nqL3jK</span><br><span class="line">WVAaV72FGVxJPINAJer0SJgQ7OJ7f0kZJYoPwG0VpMTLOsmulH7/M5e9i+kwDLmH</span><br><span class="line">+TMvJ3y8gXjc<span class="regexp">/Sj5UqN/</span>JQIY+h07UxYGvoju<span class="regexp">/isqFHh8OmahsjJ3Nb3QsUEkC/</span>Kj</span><br><span class="line">cKG2K+mUzTe<span class="regexp">/4/</span>XQuqMadrjX82QF2b2gL+cdvUAwLn55boXmrtUzxEPo4xxiDNzY</span><br><span class="line">AbYxSwKBgQDxIkaa+EPSJXYej<span class="regexp">/5YzJLJLVsnb9ygqe/</span><span class="number">0</span>fM0x022J6Z+<span class="number">0</span>Yq9AIwJ7</span><br><span class="line">N7dvMgNSROLoJ17Oij/N7aoiAZy1KHg1vOoqx6T6BClay8I1+dOsbY6Fi0QbkZeI</span><br><span class="line">Rr6CDueq5PBR8j/oghNhQeFfJUEICBFU6Z7+uFwxuAtQqqdFHyDhSwKBgQDI0nX6</span><br><span class="line">Jz9oW+Y+dXAvhpL8Yln0R45ufiqatkTQgGbeZ70XlKeR7VzQiXecy/XDteJCMlnv</span><br><span class="line"><span class="number">4</span>BhjHL967nSAmrCza13I3eXIYxbzypeNC57bVVXM9BBTg5f4nWwTN+I8Gd/BA5Y8</span><br><span class="line">mekQPBuSyAOp7ULAecjKZrD9Jhw1vybT/aYxUQKBgQDcdxv7ZqRoXMPEK+E7PrIX</span><br><span class="line">BOWgZkYPPEkaC7RKz+<span class="number">8</span>fAXwSo15mhmirK6BlqhGqTZxB+BwqjQcirWhZmxLuxeo/</span><br><span class="line">wqo1vdiqEm7z7X5dPC8+kA1G5bqc3OJQtbV+OYNaaupZjQc6+pVgPDvEtFi24s4E</span><br><span class="line">fdMyB6S/vjY7H67gHHXVSwKBgQC3m9mUQSQHpHq8wyS9vN4olG+AQWxHw88uXYC+</span><br><span class="line">oUgbzI+gh+mp/ZawCKff0GurnvrALgkV1DON0SQYn4B1lL7P7SKLw5BCLrXmNZHg</span><br><span class="line">Cp<span class="regexp">/eeegL19RpnOK3a1t/</span>SQlbhV7cWw0ENPJX<span class="regexp">/HD7OocBwvszoouxvPmW/</span>kWte5E2</span><br></pre></td></tr></table></figure></p>
 <p>SSH 连接是 <code>C/S</code> 模型, 客户端发出连接申请, 服务器对客户端进行验证, 再考虑是否接受连接申请.</p>
-<h1>SSH具体认证过程</h1>
-<p>SSH提供了两种认证的方式, 分别为:</p>
-<h2>Password认证</h2>
-<p>即账号口令验证, SSH的实现方式是,</p>
+<h1 id="SSH具体认证过程">SSH具体认证过程</h1><p>SSH提供了两种认证的方式, 分别为:</p>
+<h2 id="Password认证">Password认证</h2><p>即账号口令验证, SSH的实现方式是,</p>
 <ol>
 <li>客户端向 ssh 服务器发出请求, 服务器将自己的公钥返回给客户端;</li>
 <li>客户端用服务器的公钥加密自己的登录密码, 再将信息发送给服务器;</li>
 <li>服务器接收到客户端传送的密码, 用自己的私钥解码, 如果结果正确, 则同意登录, 建立起连接.</li>
 </ol>
 <p>这种方式还是存在漏洞, 中间人可以假扮成服务器, 骗取客户端的密码.<sup><a href="http://biaobiaoqi.me/blog/2013/04/19/use-ssh/" target="_blank" rel="external">[2]</a></sup>而且在每次登陆的时候都需要输入密码, 所以一般不采用该验证方式.</p>
-<h2>Public Key认证</h2>
-<p>Public Key认证利用公钥私钥对进行认证, 在请求连接时不需要输入密码, 并且由于整个请求连接和通信过程全程加密, 因此安全性高.</p>
+<h2 id="Public_Key认证">Public Key认证</h2><p>Public Key认证利用公钥私钥对进行认证, 在请求连接时不需要输入密码, 并且由于整个请求连接和通信过程全程加密, 因此安全性高.</p>
 <p>SSH协议第二版中有RSA和DSA两种算法认证, 其中RSA加密验证比较常用. RSA加密验证方式，充分利用了非对称加密体系的优势，不需要在网络传输密码，完全杜绝了中间人攻击的可能。</p>
 <p>认证的具体步骤如下:</p>
-<h3>准备工作</h3>
-<ol>
-<li>
-<p>客户端先使用 <code>ssh-keygen</code> 命令, 生成公钥和私钥. 按照默认配置, 私钥会被保存在<code>~/.ssh/id_rsa</code> 中, 公钥则在<code>~/.ssh/id_rsa.pub</code> 中.</p>
+<h3 id="准备工作">准备工作</h3><ol>
+<li><p>客户端先使用 <code>ssh-keygen</code> 命令, 生成公钥和私钥. 按照默认配置, 私钥会被保存在<code>~/.ssh/id_rsa</code> 中, 公钥则在<code>~/.ssh/id_rsa.pub</code> 中.</p>
 </li>
-<li>
-<p>客户端通过安全的方式(一般通过scp(Secure Copy Protocol)方式或者U盘拷贝的方式)将公钥发送给服务器. 在服务器端, 将客户端发的公钥写入到<code>~/.ssh/authorized_keys</code> 文件末尾.</p>
+<li><p>客户端通过安全的方式(一般通过scp(Secure Copy Protocol)方式或者U盘拷贝的方式)将公钥发送给服务器. 在服务器端, 将客户端发的公钥写入到<code>~/.ssh/authorized_keys</code> 文件末尾.</p>
 </li>
 </ol>
 <p><em>(其实公钥和私钥不是必须在客户端生成, 在服务器端生成也是可以的, 在哪生成的对公钥和私钥并没有任何影响, 重要的是二者是配对的, 而准备阶段其实是要保证这么一个事实, 即服务器端握有公钥, 并在对应账户的家目录下的<code>.ssh/authorized_keys</code>文件中保存以便验证程序访问. 请求端握有私钥. 至于为什么要将公钥和私钥这么分配, 接下来将会解释.)</em></p>
-<h3>建立连接</h3>
-<p>在建立连接的时候, 涉及到2对密钥, 其中一对为准备阶段产生并分配好的密钥对, 另一对为服务器在接收到一个连接请求时生成的密钥对. 为了讲述方便, 我们将这两组密钥对表示如下</p>
+<h3 id="建立连接">建立连接</h3><p>在建立连接的时候, 涉及到2对密钥, 其中一对为准备阶段产生并分配好的密钥对, 另一对为服务器在接收到一个连接请求时生成的密钥对. 为了讲述方便, 我们将这两组密钥对表示如下</p>
 <table>
 <thead>
 <tr>
@@ -183,75 +169,58 @@ SSH主要有两个特点: 1. 安全">
 <p>①服务器生成随机数(称之为challenge) <code>x</code>, 并用 <code>PubC</code> 加密后生成结果 <code>s(x)</code>, 发送给客户端.</p>
 <p>②客户端使用 <code>PrvC</code> 解密 <code>s(x)</code> 得到 <code>x</code>, 再将<code>x</code>用<code>PubS</code>加密发送回服务器端.</p>
 <p>③服务器端使用<code>PrvS</code>解密得到<code>x</code>, 进行核对, 如果正确则链接正式成立.</p>
-<ol start="2">
+<ol>
 <li><strong>通信加密</strong></li>
 </ol>
-<p>在请求连接前, 服务器端和客户端拥有的密钥为</p>
-<figure class="highlight asciidoc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="header">Server          |           Client</span><br><span class="line">--------------------------------------</span></span><br><span class="line">PubC            |            PrvC</span><br></pre></td></tr></table></figure>
+<p>在请求连接前, 服务器端和客户端拥有的密钥为<br><figure class="highlight asciidoc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="header">Server          |           Client</span><br><span class="line">--------------------------------------</span></span><br><span class="line">PubC            |            PrvC</span><br></pre></td></tr></table></figure></p>
 <p>①客户端发出申请. 服务器会产生一组 <code>session</code> 密钥对, 即<code>PubS</code>和<code>PrvS</code>.</p>
-<p>此时服务器端和客户端拥有的密钥如下所示</p>
-<figure class="highlight asciidoc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="header">Server           |           Client</span><br><span class="line">-------------------------------------</span></span><br><span class="line">PubC             |            PrvC</span><br><span class="line">PubS             |</span><br><span class="line">PrvS             |</span><br></pre></td></tr></table></figure>
+<p>此时服务器端和客户端拥有的密钥如下所示<br><figure class="highlight asciidoc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="header">Server           |           Client</span><br><span class="line">-------------------------------------</span></span><br><span class="line">PubC             |            PrvC</span><br><span class="line">PubS             |</span><br><span class="line">PrvS             |</span><br></pre></td></tr></table></figure></p>
 <p>②服务器端利用客户端的公钥<code>PubC</code>对 <code>session</code> 公钥PubS进行加密后发送给客户端.</p>
-<p>③客户端用自己的密钥<code>PrvC</code>解密信息，得到 <code>session</code> 公钥<code>PubS</code>。</p>
-<figure class="highlight asciidoc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="header">Server           |           Client</span><br><span class="line">-------------------------------------</span></span><br><span class="line">PubC             |            PubS</span><br><span class="line">PrvS             |            PrvC</span><br><span class="line">PubS             |</span><br></pre></td></tr></table></figure>
+<p>③客户端用自己的密钥<code>PrvC</code>解密信息，得到 <code>session</code> 公钥<code>PubS</code>。<br><figure class="highlight asciidoc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="header">Server           |           Client</span><br><span class="line">-------------------------------------</span></span><br><span class="line">PubC             |            PubS</span><br><span class="line">PrvS             |            PrvC</span><br><span class="line">PubS             |</span><br></pre></td></tr></table></figure></p>
 <p>④之后的数据交互，都通过对方方公钥加密，对方收到信息后，用其私钥解密，实现安全加密过程。<sup><a href="http://biaobiaoqi.me/blog/2013/04/19/use-ssh/" target="_blank" rel="external">[2]</a><a href="http://tech.idv2.com/2006/10/21/ssh-rsa-auth/" target="_blank" rel="external">[5]</a></sup></p>
-<h1>参考引用</h1>
-<p>至此, 关于SSH原理性部分的讲解结束. 以下是相关的参考引用出处:</p>
+<h1 id="参考引用">参考引用</h1><p>至此, 关于SSH原理性部分的讲解结束. 以下是相关的参考引用出处:</p>
 <ol>
 <li><a href="http://blog.csdn.net/oncoding/article/details/4365062" target="_blank" rel="external">SSH协议基础</a></li>
 <li><a href="http://biaobiaoqi.me/blog/2013/04/19/use-ssh/" target="_blank" rel="external">SSH原理和使用</a></li>
 <li><a href="http://zh.wikipedia.org/wiki/RSA%E5%8A%A0%E5%AF%86%E6%BC%94%E7%AE%97%E6%B3%95" target="_blank" rel="external">RSA加密算法</a></li>
 <li><a href="https://wiki.tuna.tsinghua.edu.cn/SshKeyHowto" target="_blank" rel="external">使用 RSA 密钥对进行 SSH 登录验证</a></li>
-<li><a href="http://tech.idv2.com/2006/10/21/ssh-rsa-auth/" target="_blank" rel="external">ssh 公钥方式认证攻略</a><br>
-<a href="http://en.flossmanuals.net/circumvention-tools-zh/advanced-techniques/ssh/" target="_blank" rel="external">SSH隧道加密技术</a><br>
-<a href="http://zh.wikipedia.org/wiki/MD5" target="_blank" rel="external">MD5 wikipedia</a></li>
+<li><a href="http://tech.idv2.com/2006/10/21/ssh-rsa-auth/" target="_blank" rel="external">ssh 公钥方式认证攻略</a><br><a href="http://en.flossmanuals.net/circumvention-tools-zh/advanced-techniques/ssh/" target="_blank" rel="external">SSH隧道加密技术</a><br><a href="http://zh.wikipedia.org/wiki/MD5" target="_blank" rel="external">MD5 wikipedia</a></li>
 </ol>
 <p>关于SSH的具体配置以及在windows下通过SSH远程登录Linux服务器的详细操作过程请看下一篇文章<a href="">SSH配置-在Windows下远程登陆Linux服务器Shell</a>.</p>
 -->
             
             
-                <h1>SSH简要介绍</h1>
-<p>SSH的英文全称为Secure Shell，是IETF（Internet Engineering Task Force）的Network Working Group所制定的一族协议，其目的是要在非安全网络上提供安全的远程登录和其他安全网络服务。<sup><a href="http://blog.csdn.net/oncoding/article/details/4365062" target="_blank" rel="external">[1]</a></sup>用于在主机之间建立起安全连接, 并加密传输内容, 以达到安全的远程访问, 操作以及数据传输的目的.</p>
+                <h1 id="SSH简要介绍">SSH简要介绍</h1><p>SSH的英文全称为Secure Shell，是IETF（Internet Engineering Task Force）的Network Working Group所制定的一族协议，其目的是要在非安全网络上提供安全的远程登录和其他安全网络服务。<sup><a href="http://blog.csdn.net/oncoding/article/details/4365062" target="_blank" rel="external">[1]</a></sup>用于在主机之间建立起安全连接, 并加密传输内容, 以达到安全的远程访问, 操作以及数据传输的目的.</p>
 <p>SSH主要有两个特点: 1. 安全性 2. 传输速度快</p>
 <p>为什么要强调SSH的安全特性, 因为传统的网络服务程序，如 FTP、POP 和 Telnet 其本质上都是不安全的；因为它们在网络上用明文传送数据、用户帐号和用户口令，很容易受到中间人（man-in-the-middle）攻击方式的攻击。就是存在另一个人或者一台机器冒充真正的服务器接收用户传给服务器的数据，然后再冒充用户把数据传给真正的服务器。 而 SSH 是目前较可靠，专为远程登录会话和其他网络服务提供安全性的协议。利用 SSH 协议可以有效防止远程管理过程中的信息泄露问题。透过 SSH 可以对所有传输的数据进行加密，也能够防止 DNS 欺骗和 IP 欺骗。<sup><a href="http://biaobiaoqi.me/blog/2013/04/19/use-ssh/" target="_blank" rel="external">[2]</a></sup></p>
 <p>SSH的传输速度快是因为SSH传输的数据都是经过压缩的, 自然传输速度快.</p>
-<h1>SSH认证原理简述</h1>
-<p>在介绍SSH具体的认证原理之前, 先简单的介绍下关于公钥和密钥加密的概念.所谓的公钥加密 (public-key cryptography)，或非对称密钥加密 (asymmetric key cryptography) 是一类广泛使用的加密算法。这类算法使用一对(pair)密钥即<strong>公钥 (public key)</strong> 和<strong>私钥 (private key)</strong>。 其中公钥可以随便分发，只用于加密 (encryption)，私钥则只由一人持有，只用于解密。通过公钥加密过的密文使用密钥可以轻松解密, 但根据公钥来猜测私钥却十分困难.</p>
+<h1 id="SSH认证原理简述">SSH认证原理简述</h1><p>在介绍SSH具体的认证原理之前, 先简单的介绍下关于公钥和密钥加密的概念.所谓的公钥加密 (public-key cryptography)，或非对称密钥加密 (asymmetric key cryptography) 是一类广泛使用的加密算法。这类算法使用一对(pair)密钥即<strong>公钥 (public key)</strong> 和<strong>私钥 (private key)</strong>。 其中公钥可以随便分发，只用于加密 (encryption)，私钥则只由一人持有，只用于解密。通过公钥加密过的密文使用密钥可以轻松解密, 但根据公钥来猜测私钥却十分困难.</p>
 <p>因此, 我们可以很容易的发现这么一个事实, 一个消息在用公钥加密后, 哪怕在传输中被人截获, 如果没有私钥, 是无法解密获得其内容的, 只有拥有私钥的人才能成功解密消息. 所以私钥应该由消息的接收方紧紧攥在手里, 不应让他人得知.</p>
 <p>公钥加密的关键点在于，一方面，公钥加密是可逆的，但是不能用公钥推断出私钥。显然数学上，已知一个公钥是能够算出对应私钥的，但是只要设计足够好的加密算法（以及使用足够复杂的密钥对），使得不能在可以接受的时间内破译即可。</p>
 <p>RSA<sup><a href="http://zh.wikipedia.org/wiki/RSA%E5%8A%A0%E5%AF%86%E6%BC%94%E7%AE%97%E6%B3%95" target="_blank" rel="external">[3]</a></sup> 是一种常见的公钥加密算法。RSA 的工作原理依赖于如下事实：破译 RSA 私钥需要对某些极大的整数进行因数分解，而目前尚未找到快速的对极大整数作因数分解的算法。换言之，如果有人找到了这样的算法，那么全世界的 RSA 加密都会失效。</p>
 <p>RSA是由Ron Rivest, Adi Shamir, Leonard Adleman三人在1978年首次提出的.三人并因此项工作荣获了2002年<a href="http://en.wikipedia.org/wiki/Turing_award" target="_blank" rel="external">Turing Award</a>. Rivest还是<a href="http://book.douban.com/subject/1885170/" target="_blank" rel="external">算法导论</a>的作者之一, 书中在31章对RSA系统的原理进行了简要说明, 系统实现中利用到了数论中的<a href="http://en.wikipedia.org/wiki/Euler%E2%80%93Fermat_theorem" target="_blank" rel="external">Euler-Fermat theorem</a>.<sup><a href="https://wiki.tuna.tsinghua.edu.cn/SshKeyHowto" target="_blank" rel="external">[4]</a></sup></p>
-<p>一个基于RSA的<strong>公钥</strong>大概如下所示</p>
-<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">ssh-rsa AAAAB3NzaC1yc2EAAAABIwAAAQEAvSkEZ0fKXRqQ<span class="regexp">/DkjCfsAETsQgV8OR/</span>RVQmwBk/J5IWoknf8Dr</span><br><span class="line">y5kOs+<span class="number">1</span>bnx9zaf8oIcVuXf0jRxTccLBOXiReFJE4aD2rWO33sqA0M4qP1ESYhsU4yokRA0IMDJ62JUv2cWVJg</span><br><span class="line">GpeQriol2t7mH8E6aB8OiJ+NgRbh6+<span class="regexp">/0LbtQs40VA2+W5PtaBwT4sjv9LOHIdzQcsEeCM8MIHqmXHst7/</span>JuVI</span><br><span class="line">i7wLCxB7Ur8qtwZ2/Ii8Ckjfo6mikWmSh6mRMq9qn0FkMkPCcpm8o4f1zJWOuf+RnjPpopFTqIa8JssMHJMuQ</span><br><span class="line">cCm3EHDkBHjLk/SkidWOzqOtSvUeGKieWiijuw== username<span class="annotation">@localhost</span>.localdomain</span><br></pre></td></tr></table></figure>
-<p>与之配对的<strong>私钥</strong>形如</p>
-<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">-----BEGIN RSA PRIVATE KEY-----</span><br><span class="line">MIIEpAIBAAKCAQEAvSkEZ0fKXRqQ<span class="regexp">/DkjCfsAETsQgV8OR/</span>RVQmwBk/J5IWoknf8D</span><br><span class="line">ry5kOs+<span class="number">1</span>bnx9zaf8oIcVuXf0jRxTccLBOXiReFJE4aD2rWO33sqA0M4qP1ESYhsU</span><br><span class="line"><span class="number">4</span>yokRA0IMDJ62JUv2cWVJgGpeQriol2t7mH8E6aB8OiJ+NgRbh6+/<span class="number">0</span>LbtQs40VA2</span><br><span class="line">+W5PtaBwT4sjv9LOHIdzQcsEeCM8MIHqmXHst7<span class="regexp">/JuVIi7wLCxB7Ur8qtwZ2/</span>Ii8C</span><br><span class="line">kjfo6mikWmSh6mRMq9qn0FkMkPCcpm8o4f1zJWOuf+RnjPpopFTqIa8JssMHJMuQ</span><br><span class="line">cCm3EHDkBHjLk/SkidWOzqOtSvUeGKieWiijuwIBIwKCAQEAjITesx9jIJdkY5go</span><br><span class="line">qFQOrbbZD6Wy1l27ra9RoRqF3k7ZX2z7bDEXQaGcuHm8iiUEzwVDVpOfuUg9/LyP</span><br><span class="line">icdHffP4p5wk9dUMPxoWjHvk3pP/BwzNsBCtOd3LkYSVxXYji9SaroTkS0nqL3jK</span><br><span class="line">WVAaV72FGVxJPINAJer0SJgQ7OJ7f0kZJYoPwG0VpMTLOsmulH7/M5e9i+kwDLmH</span><br><span class="line">+TMvJ3y8gXjc<span class="regexp">/Sj5UqN/</span>JQIY+h07UxYGvoju<span class="regexp">/isqFHh8OmahsjJ3Nb3QsUEkC/</span>Kj</span><br><span class="line">cKG2K+mUzTe<span class="regexp">/4/</span>XQuqMadrjX82QF2b2gL+cdvUAwLn55boXmrtUzxEPo4xxiDNzY</span><br><span class="line">AbYxSwKBgQDxIkaa+EPSJXYej<span class="regexp">/5YzJLJLVsnb9ygqe/</span><span class="number">0</span>fM0x022J6Z+<span class="number">0</span>Yq9AIwJ7</span><br><span class="line">N7dvMgNSROLoJ17Oij/N7aoiAZy1KHg1vOoqx6T6BClay8I1+dOsbY6Fi0QbkZeI</span><br><span class="line">Rr6CDueq5PBR8j/oghNhQeFfJUEICBFU6Z7+uFwxuAtQqqdFHyDhSwKBgQDI0nX6</span><br><span class="line">Jz9oW+Y+dXAvhpL8Yln0R45ufiqatkTQgGbeZ70XlKeR7VzQiXecy/XDteJCMlnv</span><br><span class="line"><span class="number">4</span>BhjHL967nSAmrCza13I3eXIYxbzypeNC57bVVXM9BBTg5f4nWwTN+I8Gd/BA5Y8</span><br><span class="line">mekQPBuSyAOp7ULAecjKZrD9Jhw1vybT/aYxUQKBgQDcdxv7ZqRoXMPEK+E7PrIX</span><br><span class="line">BOWgZkYPPEkaC7RKz+<span class="number">8</span>fAXwSo15mhmirK6BlqhGqTZxB+BwqjQcirWhZmxLuxeo/</span><br><span class="line">wqo1vdiqEm7z7X5dPC8+kA1G5bqc3OJQtbV+OYNaaupZjQc6+pVgPDvEtFi24s4E</span><br><span class="line">fdMyB6S/vjY7H67gHHXVSwKBgQC3m9mUQSQHpHq8wyS9vN4olG+AQWxHw88uXYC+</span><br><span class="line">oUgbzI+gh+mp/ZawCKff0GurnvrALgkV1DON0SQYn4B1lL7P7SKLw5BCLrXmNZHg</span><br><span class="line">Cp<span class="regexp">/eeegL19RpnOK3a1t/</span>SQlbhV7cWw0ENPJX<span class="regexp">/HD7OocBwvszoouxvPmW/</span>kWte5E2</span><br></pre></td></tr></table></figure>
+<p>一个基于RSA的<strong>公钥</strong>大概如下所示<br><figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">ssh-rsa AAAAB3NzaC1yc2EAAAABIwAAAQEAvSkEZ0fKXRqQ<span class="regexp">/DkjCfsAETsQgV8OR/</span>RVQmwBk/J5IWoknf8Dr</span><br><span class="line">y5kOs+<span class="number">1</span>bnx9zaf8oIcVuXf0jRxTccLBOXiReFJE4aD2rWO33sqA0M4qP1ESYhsU4yokRA0IMDJ62JUv2cWVJg</span><br><span class="line">GpeQriol2t7mH8E6aB8OiJ+NgRbh6+<span class="regexp">/0LbtQs40VA2+W5PtaBwT4sjv9LOHIdzQcsEeCM8MIHqmXHst7/</span>JuVI</span><br><span class="line">i7wLCxB7Ur8qtwZ2/Ii8Ckjfo6mikWmSh6mRMq9qn0FkMkPCcpm8o4f1zJWOuf+RnjPpopFTqIa8JssMHJMuQ</span><br><span class="line">cCm3EHDkBHjLk/SkidWOzqOtSvUeGKieWiijuw== username<span class="annotation">@localhost</span>.localdomain</span><br></pre></td></tr></table></figure></p>
+<p>与之配对的<strong>私钥</strong>形如<br><figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">-----BEGIN RSA PRIVATE KEY-----</span><br><span class="line">MIIEpAIBAAKCAQEAvSkEZ0fKXRqQ<span class="regexp">/DkjCfsAETsQgV8OR/</span>RVQmwBk/J5IWoknf8D</span><br><span class="line">ry5kOs+<span class="number">1</span>bnx9zaf8oIcVuXf0jRxTccLBOXiReFJE4aD2rWO33sqA0M4qP1ESYhsU</span><br><span class="line"><span class="number">4</span>yokRA0IMDJ62JUv2cWVJgGpeQriol2t7mH8E6aB8OiJ+NgRbh6+/<span class="number">0</span>LbtQs40VA2</span><br><span class="line">+W5PtaBwT4sjv9LOHIdzQcsEeCM8MIHqmXHst7<span class="regexp">/JuVIi7wLCxB7Ur8qtwZ2/</span>Ii8C</span><br><span class="line">kjfo6mikWmSh6mRMq9qn0FkMkPCcpm8o4f1zJWOuf+RnjPpopFTqIa8JssMHJMuQ</span><br><span class="line">cCm3EHDkBHjLk/SkidWOzqOtSvUeGKieWiijuwIBIwKCAQEAjITesx9jIJdkY5go</span><br><span class="line">qFQOrbbZD6Wy1l27ra9RoRqF3k7ZX2z7bDEXQaGcuHm8iiUEzwVDVpOfuUg9/LyP</span><br><span class="line">icdHffP4p5wk9dUMPxoWjHvk3pP/BwzNsBCtOd3LkYSVxXYji9SaroTkS0nqL3jK</span><br><span class="line">WVAaV72FGVxJPINAJer0SJgQ7OJ7f0kZJYoPwG0VpMTLOsmulH7/M5e9i+kwDLmH</span><br><span class="line">+TMvJ3y8gXjc<span class="regexp">/Sj5UqN/</span>JQIY+h07UxYGvoju<span class="regexp">/isqFHh8OmahsjJ3Nb3QsUEkC/</span>Kj</span><br><span class="line">cKG2K+mUzTe<span class="regexp">/4/</span>XQuqMadrjX82QF2b2gL+cdvUAwLn55boXmrtUzxEPo4xxiDNzY</span><br><span class="line">AbYxSwKBgQDxIkaa+EPSJXYej<span class="regexp">/5YzJLJLVsnb9ygqe/</span><span class="number">0</span>fM0x022J6Z+<span class="number">0</span>Yq9AIwJ7</span><br><span class="line">N7dvMgNSROLoJ17Oij/N7aoiAZy1KHg1vOoqx6T6BClay8I1+dOsbY6Fi0QbkZeI</span><br><span class="line">Rr6CDueq5PBR8j/oghNhQeFfJUEICBFU6Z7+uFwxuAtQqqdFHyDhSwKBgQDI0nX6</span><br><span class="line">Jz9oW+Y+dXAvhpL8Yln0R45ufiqatkTQgGbeZ70XlKeR7VzQiXecy/XDteJCMlnv</span><br><span class="line"><span class="number">4</span>BhjHL967nSAmrCza13I3eXIYxbzypeNC57bVVXM9BBTg5f4nWwTN+I8Gd/BA5Y8</span><br><span class="line">mekQPBuSyAOp7ULAecjKZrD9Jhw1vybT/aYxUQKBgQDcdxv7ZqRoXMPEK+E7PrIX</span><br><span class="line">BOWgZkYPPEkaC7RKz+<span class="number">8</span>fAXwSo15mhmirK6BlqhGqTZxB+BwqjQcirWhZmxLuxeo/</span><br><span class="line">wqo1vdiqEm7z7X5dPC8+kA1G5bqc3OJQtbV+OYNaaupZjQc6+pVgPDvEtFi24s4E</span><br><span class="line">fdMyB6S/vjY7H67gHHXVSwKBgQC3m9mUQSQHpHq8wyS9vN4olG+AQWxHw88uXYC+</span><br><span class="line">oUgbzI+gh+mp/ZawCKff0GurnvrALgkV1DON0SQYn4B1lL7P7SKLw5BCLrXmNZHg</span><br><span class="line">Cp<span class="regexp">/eeegL19RpnOK3a1t/</span>SQlbhV7cWw0ENPJX<span class="regexp">/HD7OocBwvszoouxvPmW/</span>kWte5E2</span><br></pre></td></tr></table></figure></p>
 <p>SSH 连接是 <code>C/S</code> 模型, 客户端发出连接申请, 服务器对客户端进行验证, 再考虑是否接受连接申请.</p>
-<h1>SSH具体认证过程</h1>
-<p>SSH提供了两种认证的方式, 分别为:</p>
-<h2>Password认证</h2>
-<p>即账号口令验证, SSH的实现方式是,</p>
+<h1 id="SSH具体认证过程">SSH具体认证过程</h1><p>SSH提供了两种认证的方式, 分别为:</p>
+<h2 id="Password认证">Password认证</h2><p>即账号口令验证, SSH的实现方式是,</p>
 <ol>
 <li>客户端向 ssh 服务器发出请求, 服务器将自己的公钥返回给客户端;</li>
 <li>客户端用服务器的公钥加密自己的登录密码, 再将信息发送给服务器;</li>
 <li>服务器接收到客户端传送的密码, 用自己的私钥解码, 如果结果正确, 则同意登录, 建立起连接.</li>
 </ol>
 <p>这种方式还是存在漏洞, 中间人可以假扮成服务器, 骗取客户端的密码.<sup><a href="http://biaobiaoqi.me/blog/2013/04/19/use-ssh/" target="_blank" rel="external">[2]</a></sup>而且在每次登陆的时候都需要输入密码, 所以一般不采用该验证方式.</p>
-<h2>Public Key认证</h2>
-<p>Public Key认证利用公钥私钥对进行认证, 在请求连接时不需要输入密码, 并且由于整个请求连接和通信过程全程加密, 因此安全性高.</p>
+<h2 id="Public_Key认证">Public Key认证</h2><p>Public Key认证利用公钥私钥对进行认证, 在请求连接时不需要输入密码, 并且由于整个请求连接和通信过程全程加密, 因此安全性高.</p>
 <p>SSH协议第二版中有RSA和DSA两种算法认证, 其中RSA加密验证比较常用. RSA加密验证方式，充分利用了非对称加密体系的优势，不需要在网络传输密码，完全杜绝了中间人攻击的可能。</p>
 <p>认证的具体步骤如下:</p>
-<h3>准备工作</h3>
-<ol>
-<li>
-<p>客户端先使用 <code>ssh-keygen</code> 命令, 生成公钥和私钥. 按照默认配置, 私钥会被保存在<code>~/.ssh/id_rsa</code> 中, 公钥则在<code>~/.ssh/id_rsa.pub</code> 中.</p>
+<h3 id="准备工作">准备工作</h3><ol>
+<li><p>客户端先使用 <code>ssh-keygen</code> 命令, 生成公钥和私钥. 按照默认配置, 私钥会被保存在<code>~/.ssh/id_rsa</code> 中, 公钥则在<code>~/.ssh/id_rsa.pub</code> 中.</p>
 </li>
-<li>
-<p>客户端通过安全的方式(一般通过scp(Secure Copy Protocol)方式或者U盘拷贝的方式)将公钥发送给服务器. 在服务器端, 将客户端发的公钥写入到<code>~/.ssh/authorized_keys</code> 文件末尾.</p>
+<li><p>客户端通过安全的方式(一般通过scp(Secure Copy Protocol)方式或者U盘拷贝的方式)将公钥发送给服务器. 在服务器端, 将客户端发的公钥写入到<code>~/.ssh/authorized_keys</code> 文件末尾.</p>
 </li>
 </ol>
 <p><em>(其实公钥和私钥不是必须在客户端生成, 在服务器端生成也是可以的, 在哪生成的对公钥和私钥并没有任何影响, 重要的是二者是配对的, 而准备阶段其实是要保证这么一个事实, 即服务器端握有公钥, 并在对应账户的家目录下的<code>.ssh/authorized_keys</code>文件中保存以便验证程序访问. 请求端握有私钥. 至于为什么要将公钥和私钥这么分配, 接下来将会解释.)</em></p>
-<h3>建立连接</h3>
-<p>在建立连接的时候, 涉及到2对密钥, 其中一对为准备阶段产生并分配好的密钥对, 另一对为服务器在接收到一个连接请求时生成的密钥对. 为了讲述方便, 我们将这两组密钥对表示如下</p>
+<h3 id="建立连接">建立连接</h3><p>在建立连接的时候, 涉及到2对密钥, 其中一对为准备阶段产生并分配好的密钥对, 另一对为服务器在接收到一个连接请求时生成的密钥对. 为了讲述方便, 我们将这两组密钥对表示如下</p>
 <table>
 <thead>
 <tr>
@@ -284,28 +253,22 @@ SSH主要有两个特点: 1. 安全">
 <p>①服务器生成随机数(称之为challenge) <code>x</code>, 并用 <code>PubC</code> 加密后生成结果 <code>s(x)</code>, 发送给客户端.</p>
 <p>②客户端使用 <code>PrvC</code> 解密 <code>s(x)</code> 得到 <code>x</code>, 再将<code>x</code>用<code>PubS</code>加密发送回服务器端.</p>
 <p>③服务器端使用<code>PrvS</code>解密得到<code>x</code>, 进行核对, 如果正确则链接正式成立.</p>
-<ol start="2">
+<ol>
 <li><strong>通信加密</strong></li>
 </ol>
-<p>在请求连接前, 服务器端和客户端拥有的密钥为</p>
-<figure class="highlight asciidoc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="header">Server          |           Client</span><br><span class="line">--------------------------------------</span></span><br><span class="line">PubC            |            PrvC</span><br></pre></td></tr></table></figure>
+<p>在请求连接前, 服务器端和客户端拥有的密钥为<br><figure class="highlight asciidoc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="header">Server          |           Client</span><br><span class="line">--------------------------------------</span></span><br><span class="line">PubC            |            PrvC</span><br></pre></td></tr></table></figure></p>
 <p>①客户端发出申请. 服务器会产生一组 <code>session</code> 密钥对, 即<code>PubS</code>和<code>PrvS</code>.</p>
-<p>此时服务器端和客户端拥有的密钥如下所示</p>
-<figure class="highlight asciidoc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="header">Server           |           Client</span><br><span class="line">-------------------------------------</span></span><br><span class="line">PubC             |            PrvC</span><br><span class="line">PubS             |</span><br><span class="line">PrvS             |</span><br></pre></td></tr></table></figure>
+<p>此时服务器端和客户端拥有的密钥如下所示<br><figure class="highlight asciidoc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="header">Server           |           Client</span><br><span class="line">-------------------------------------</span></span><br><span class="line">PubC             |            PrvC</span><br><span class="line">PubS             |</span><br><span class="line">PrvS             |</span><br></pre></td></tr></table></figure></p>
 <p>②服务器端利用客户端的公钥<code>PubC</code>对 <code>session</code> 公钥PubS进行加密后发送给客户端.</p>
-<p>③客户端用自己的密钥<code>PrvC</code>解密信息，得到 <code>session</code> 公钥<code>PubS</code>。</p>
-<figure class="highlight asciidoc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="header">Server           |           Client</span><br><span class="line">-------------------------------------</span></span><br><span class="line">PubC             |            PubS</span><br><span class="line">PrvS             |            PrvC</span><br><span class="line">PubS             |</span><br></pre></td></tr></table></figure>
+<p>③客户端用自己的密钥<code>PrvC</code>解密信息，得到 <code>session</code> 公钥<code>PubS</code>。<br><figure class="highlight asciidoc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="header">Server           |           Client</span><br><span class="line">-------------------------------------</span></span><br><span class="line">PubC             |            PubS</span><br><span class="line">PrvS             |            PrvC</span><br><span class="line">PubS             |</span><br></pre></td></tr></table></figure></p>
 <p>④之后的数据交互，都通过对方方公钥加密，对方收到信息后，用其私钥解密，实现安全加密过程。<sup><a href="http://biaobiaoqi.me/blog/2013/04/19/use-ssh/" target="_blank" rel="external">[2]</a><a href="http://tech.idv2.com/2006/10/21/ssh-rsa-auth/" target="_blank" rel="external">[5]</a></sup></p>
-<h1>参考引用</h1>
-<p>至此, 关于SSH原理性部分的讲解结束. 以下是相关的参考引用出处:</p>
+<h1 id="参考引用">参考引用</h1><p>至此, 关于SSH原理性部分的讲解结束. 以下是相关的参考引用出处:</p>
 <ol>
 <li><a href="http://blog.csdn.net/oncoding/article/details/4365062" target="_blank" rel="external">SSH协议基础</a></li>
 <li><a href="http://biaobiaoqi.me/blog/2013/04/19/use-ssh/" target="_blank" rel="external">SSH原理和使用</a></li>
 <li><a href="http://zh.wikipedia.org/wiki/RSA%E5%8A%A0%E5%AF%86%E6%BC%94%E7%AE%97%E6%B3%95" target="_blank" rel="external">RSA加密算法</a></li>
 <li><a href="https://wiki.tuna.tsinghua.edu.cn/SshKeyHowto" target="_blank" rel="external">使用 RSA 密钥对进行 SSH 登录验证</a></li>
-<li><a href="http://tech.idv2.com/2006/10/21/ssh-rsa-auth/" target="_blank" rel="external">ssh 公钥方式认证攻略</a><br>
-<a href="http://en.flossmanuals.net/circumvention-tools-zh/advanced-techniques/ssh/" target="_blank" rel="external">SSH隧道加密技术</a><br>
-<a href="http://zh.wikipedia.org/wiki/MD5" target="_blank" rel="external">MD5 wikipedia</a></li>
+<li><a href="http://tech.idv2.com/2006/10/21/ssh-rsa-auth/" target="_blank" rel="external">ssh 公钥方式认证攻略</a><br><a href="http://en.flossmanuals.net/circumvention-tools-zh/advanced-techniques/ssh/" target="_blank" rel="external">SSH隧道加密技术</a><br><a href="http://zh.wikipedia.org/wiki/MD5" target="_blank" rel="external">MD5 wikipedia</a></li>
 </ol>
 <p>关于SSH的具体配置以及在windows下通过SSH远程登录Linux服务器的详细操作过程请看下一篇文章<a href="">SSH配置-在Windows下远程登陆Linux服务器Shell</a>.</p>
 
@@ -314,7 +277,7 @@ SSH主要有两个特点: 1. 安全">
     </div>
     <footer class="article-footer">
       
-        <a data-url="http://fancyseeker.github.io/2013/12/30/ssh_overview/" data-id="ci8gx626h0010eadywidhwrg6" class="article-share-link" data-share="baidu">分享到</a>
+        <a data-url="http://fancyseeker.github.io/2013/12/30/ssh_overview/" data-id="ci93sefht0010wkdyork5hwrv" class="article-share-link" data-share="baidu">分享到</a>
       
 
       
@@ -367,7 +330,7 @@ SSH主要有两个特点: 1. 安全">
           <div id="toc-wrap">
             <div id="toc" class="toc-article">
               <div id="toc-title">目录</div>
-              <div id="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#undefined"><span class="toc-number">1.</span> <span class="toc-text">SSH简要介绍</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#undefined"><span class="toc-number">2.</span> <span class="toc-text">SSH认证原理简述</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#undefined"><span class="toc-number">3.</span> <span class="toc-text">SSH具体认证过程</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#undefined"><span class="toc-number">3.1.</span> <span class="toc-text">Password认证</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#undefined"><span class="toc-number">3.2.</span> <span class="toc-text">Public Key认证</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">3.2.1.</span> <span class="toc-text">准备工作</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">3.2.2.</span> <span class="toc-text">建立连接</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#undefined"><span class="toc-number">4.</span> <span class="toc-text">参考引用</span></a></li></ol></div>
+              <div id="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#SSH简要介绍"><span class="toc-number">1.</span> <span class="toc-text">SSH简要介绍</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#SSH认证原理简述"><span class="toc-number">2.</span> <span class="toc-text">SSH认证原理简述</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#SSH具体认证过程"><span class="toc-number">3.</span> <span class="toc-text">SSH具体认证过程</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Password认证"><span class="toc-number">3.1.</span> <span class="toc-text">Password认证</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Public_Key认证"><span class="toc-number">3.2.</span> <span class="toc-text">Public Key认证</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#准备工作"><span class="toc-number">3.2.1.</span> <span class="toc-text">准备工作</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#建立连接"><span class="toc-number">3.2.2.</span> <span class="toc-text">建立连接</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#参考引用"><span class="toc-number">4.</span> <span class="toc-text">参考引用</span></a></li></ol></div>
             </div>
           </div>
         
