@@ -107,19 +107,19 @@
     <div class="article-entry" itemprop="articleBody">
       
        <!--<p>我想对于每一个在Linux或Mac再或Windows工作下的同学，肯定都非常的熟悉，或者至少听说过Vim。Vim博大精深，非一文可蔽之，但是我希望可以以一个简单并广阔的视角来叙述Vim，从一个使用者的角度来从头到脚地讲述我为何选择Vim，如何使用Vim以及如何用好Vim的。以此来给各位同学提供一个完整的使用Vim的视角，同时能够依照本文的介绍，了解整个配置的过程进而能配置属于自己的Vim。<a id="more"></a></p>
-<h1>作者的吐槽</h1>
+<h1 id="作者的吐槽">作者的吐槽</h1>
 <p>我想对于每一个在Linux或Mac再或Windows工作下的同学，肯定都非常的熟悉，或者至少听说过Vim。Vim是一款强大的编辑器，其最显著的一个特性就是提高了效率的同时解放了程序员双手，呃，保守点说是解放了程序员操作鼠标的手，从而一定程序上缓解了腕关节疼痛和肩周炎等不良症状。利用Vim，程序员，或者一般的电脑操作人员可以在编辑文本时脱离鼠标，只依靠键盘，且仅依靠键盘中主要区域(不包括方向键及小键盘区域)来进行快速高效的编辑。</p>
 <p>我想，我之所以在这里介绍Vim，不是因为说Vim很cool，人人都说它好，说它牛bi，用Vim的人逼格怎么怎么高，而只是单纯的因为我喜欢这款工具，喜欢这种屏幕能跟随键盘，键盘能跟随大脑的操作体验，Vim让我的注意力全都集中在文本编辑中，而不需要时不时动一下鼠标，时不时切换窗口的多余操作来影响我工作的前后一致性。</p>
 <p>我在此介绍Vim，目的很明确，是让更多的人喜欢上它，人们为什么会喜欢一件东西，就我看来原因很简单，无非是两点：1.简单 2.好用。而当我回想我初学Vim乃至现在偶尔配置Vim的过程中，我在网上找到的绝大部分资料，里面的内容虽然是在教你如何掌握用好Vim，但基本都在间接的告诉你Vim是个多么多么复杂的东西，学习使用它你要付出多么多么巨大的时间精力，而当你还没有真正感受到Vim的高效甚至都还没开始尝试使用Vim时，就已经被繁多的键位操作，复杂的.vimrc配置文件以及数不清的插件淹没了。我并不擅长讲故事，但是就我看来，一篇好的文章，看起来应该像一个完整的故事，有起因，有过渡，有主体，有结果。而我所google到的绝大部分文章，里面包含的仅仅是一堆无聊的命令参数，一些文档的翻译以及零散的铺垫，讨论问题非常的狭小和具体，往往是诸如某个插件如何使用，某个问题如何解决，如何把Vim配置成×××，又如何把Vim配置成×××之类的博文。我经常就纳闷，我连Vim的基本操作都没弄明白呢，我看“把Vim配置成×××”有什么用？我连这插件干嘛的我用不用的到都不知道，我看“×××插件使用教程”干嘛？</p>
 <p>诚然，Vim博大精深，非一文可蔽之，但是我希望可以以一个简单并广阔的视角来叙述Vim，从一个使用者的角度来从头到脚地讲述我为何选择Vim，如何使用Vim以及如何用好Vim的。以此来给各位同学提供一个完整的使用Vim的视角，同时能够依照本文的介绍，了解整个配置的过程进而能配置属于自己的Vim。</p>
-<h1>为何选择Vim</h1>
+<h1 id="为何选择vim">为何选择Vim</h1>
 <p>对于Vim，我见过很多人，每每提及，总是像描述巫师手中的魔杖一样形容Vim是多么多么神奇，多么多么高端，但当真正开始编辑文件时，不是用notepad就是用gedit，然后紧接着就是连串行云流水的鼠标滑动。当然，我不是说鼠标操作有什么问题，我一直认为鼠标是现代操作系统，至少是桌面操作系统中不可或缺的一部分，甚至在将来，还会有各式各样鼠标的升级替代品出现，比如触控，立体控制，脑电波控制等等。但是对于文本编辑这一块，我想鼠标的操作仅仅满足了基本的需求，效率较低而且严重影响了编辑体验。想想看，当你打开一份文本文档，想要进行修改时要采取的操作。首先，右手要拖动鼠标，移动到要修改的地方，点击，然后把右手移回到键盘，将手指和键位对应上，最后才能开始输入。这个过程看起来似乎非常的流畅，事实上也真的是很流畅，但是仔细回想下你是否遇到过在移动光标，修改文档，或是编辑代码时，你的右手是不是要频繁的离开主键位区，操作鼠标或是方向键来进行定位，然后再返回继续被中断的输入。右手就这样来来回回不停游走于主键位，方向键和鼠标之间，长此以往，程序员自然就有了一支健壮的右手(这个解释我觉得比较正能量= =)。如果你也发现里面有些不对劲的话，那我想，我们应该坐下来好好聊聊Vim。</p>
 <p>归根结底，鼠标这个东西是面向图形的，而非面向文本的，且不说GUI和CLI的纷争向来已久，单纯从编辑文本这方面来说，我觉得Vim还是略胜其它图形化编辑器一筹的，在谈论之前我们先看看几张Vim编辑时的gif图片直观感受下。</p>
 <p><img src="/img/vim1/vim-indro1.gif" alt=""></p>
 <p><img src="/img/vim1/vim-intro2.gif" alt=""></p>
 <p>我们可以注意到，在操作Vim的过程中，在没有鼠标介入的情况下完成了诸如光标移动，自动补齐，窗口切换，目录更改等操作。在熟悉了基本的Vim的操作之后，就能仅依靠键盘实现精准的光标定位以及增删改查等一系列文本编辑操作。当然，Vim的强大不仅限于此，Vim的优点在于其高度的可扩展性和定制性，可以说，Vim提供了一个Ecosystem，通过各式各样的插件可以让其针对不同场合进行有效的扩展。</p>
 <p>到这里，相信你已经对Vim有了个大致的直观印象，或许还有一些跃跃欲试。那么接下来，我们来看看Vim的基本操作。</p>
-<h1>Vim基本操作</h1>
+<h1 id="vim基本操作">Vim基本操作</h1>
 <h2 id="vim学习基础资料">Vim学习基础资料</h2>
 <p>关于Vim的基本操作，在本文中并不赘述，因为随手一google一抓一大把，虽然介绍Vim基本操作的文章很多，但是其中质量低下，同质化的文章占了绝大多数，对于一个刚接触Vim的人而言，避免太早接触高级功能以及复杂插件，对非必要的知识进行有效的屏蔽，只关注Vim最核心的部分是愉快并快速了解Vim的有效途径。本文一方面不想在介绍Vim基本操作这方面重复造轮子，另一方面熟悉Vim的基本操作又是高效利用Vim的关键。因此，本文在此推荐了一些学习Vim基础的优秀资源，帮助读者快速上手体验Vim。</p>
 <ul>
@@ -150,25 +150,25 @@
 <p>对于键位映射，可能细心的读者会注意到存在 <code>nnoremap</code>，<code>inoremap</code>，<code>map</code>，<code>nmap</code>，<code>imap</code> 等一些用于键位映射的设置指令。这里简单讲解下，它们都用于进行键盘映射，只是适用的模式不同，像 <code>map</code> 就作用于Normal，Visual和操作符等待模式下，而 <code>nmap</code> 就只作用于Normal模式下。同理，<code>imap</code> 就只作用于Insert模式下。至于 <code>noremap</code> 则表示对map后得到的序列，不再进行递归的映射，比如我把a映射成了ab，又把b映射成了bc。若我采用的是map方式，当我输入a时，得到的实际是abc，但是如果采用 <code>noremap</code>，则不会对得到的序列进行再次映射，因此当我输入a时，得到的是ab。而 <code>nnoremap</code> 则表示只在Normal模式才有效，<code>inoremap</code> 表示只在Insert模式下映射才生效。关于Vim键位映射更详细的介绍，请参见<a href="http://www.douban.com/group/topic/10866937/" target="_blank" rel="external">VIM :map</a></p>
 <h3 id="配色方案">配色方案</h3>
 <p>如果你设置了语法高亮，即在vimrc中设置了 <code>syntax on</code>，那么Vim会很聪明的根据你打开的文件扩展名对文件内容进行特定的高亮处理。Vim自带了若干个配色方案，可以在 <code>/usr/share/vim/vim74/colors/</code> 下找到，在上面的vimrc文件中，本人将色彩方案设定为了 <code>torte</code>，即 <code>colorscheme torte</code>。不过话说回来，配色方案这东西每个人的喜好千差万别，其中<a href="https://github.com/altercation/solarized" target="_blank" rel="external">Solarized</a>和<a href="http://winterdom.com/2008/08/molokaiforvim" target="_blank" rel="external">molokai</a>相对而言比较受欢迎。当然，除此之外还有很多种配色方案，在google code上有个 <a href="https://code.google.com/p/vimcolorschemetest/" target="_blank" rel="external">vimcolorschemetest</a> 项目，罗列了428个配色方案，并给出了示意图。什么？你已经把全部的配色的方案都浏览了一遍并确定没有一款适合你的？那么，你应该尝试下自己写一个配色方案，不过那听起来有点麻烦，不如就到这个网站上看一下吧：<a href="http://bytefluent.com/vivify/" target="_blank" rel="external">A ColorScheme Editor for Vim</a>，这回可以随心所欲的DIY自己的配色方案了╮(╯▽╰)╭</p>
-<h1>总结</h1>
+<h1 id="总结-v2">总结</h1>
 <p>至此, 我想你已经对Vim有了大致的了解, 并能根据自己的需要适当的配置vimrc文件, 可能还渐渐适应或是喜欢上Vim了. 如果你还想知道Vim插件相关的内容以及如何配置使用插件,请参见 <a href="">Vim(2) – Vim插件介绍及配置</a>.</p>
 -->
             
             
                 <p>我想对于每一个在Linux或Mac再或Windows工作下的同学，肯定都非常的熟悉，或者至少听说过Vim。Vim博大精深，非一文可蔽之，但是我希望可以以一个简单并广阔的视角来叙述Vim，从一个使用者的角度来从头到脚地讲述我为何选择Vim，如何使用Vim以及如何用好Vim的。以此来给各位同学提供一个完整的使用Vim的视角，同时能够依照本文的介绍，了解整个配置的过程进而能配置属于自己的Vim。<a id="more"></a></p>
-<h1>作者的吐槽</h1>
+<h1 id="作者的吐槽">作者的吐槽</h1>
 <p>我想对于每一个在Linux或Mac再或Windows工作下的同学，肯定都非常的熟悉，或者至少听说过Vim。Vim是一款强大的编辑器，其最显著的一个特性就是提高了效率的同时解放了程序员双手，呃，保守点说是解放了程序员操作鼠标的手，从而一定程序上缓解了腕关节疼痛和肩周炎等不良症状。利用Vim，程序员，或者一般的电脑操作人员可以在编辑文本时脱离鼠标，只依靠键盘，且仅依靠键盘中主要区域(不包括方向键及小键盘区域)来进行快速高效的编辑。</p>
 <p>我想，我之所以在这里介绍Vim，不是因为说Vim很cool，人人都说它好，说它牛bi，用Vim的人逼格怎么怎么高，而只是单纯的因为我喜欢这款工具，喜欢这种屏幕能跟随键盘，键盘能跟随大脑的操作体验，Vim让我的注意力全都集中在文本编辑中，而不需要时不时动一下鼠标，时不时切换窗口的多余操作来影响我工作的前后一致性。</p>
 <p>我在此介绍Vim，目的很明确，是让更多的人喜欢上它，人们为什么会喜欢一件东西，就我看来原因很简单，无非是两点：1.简单 2.好用。而当我回想我初学Vim乃至现在偶尔配置Vim的过程中，我在网上找到的绝大部分资料，里面的内容虽然是在教你如何掌握用好Vim，但基本都在间接的告诉你Vim是个多么多么复杂的东西，学习使用它你要付出多么多么巨大的时间精力，而当你还没有真正感受到Vim的高效甚至都还没开始尝试使用Vim时，就已经被繁多的键位操作，复杂的.vimrc配置文件以及数不清的插件淹没了。我并不擅长讲故事，但是就我看来，一篇好的文章，看起来应该像一个完整的故事，有起因，有过渡，有主体，有结果。而我所google到的绝大部分文章，里面包含的仅仅是一堆无聊的命令参数，一些文档的翻译以及零散的铺垫，讨论问题非常的狭小和具体，往往是诸如某个插件如何使用，某个问题如何解决，如何把Vim配置成×××，又如何把Vim配置成×××之类的博文。我经常就纳闷，我连Vim的基本操作都没弄明白呢，我看“把Vim配置成×××”有什么用？我连这插件干嘛的我用不用的到都不知道，我看“×××插件使用教程”干嘛？</p>
 <p>诚然，Vim博大精深，非一文可蔽之，但是我希望可以以一个简单并广阔的视角来叙述Vim，从一个使用者的角度来从头到脚地讲述我为何选择Vim，如何使用Vim以及如何用好Vim的。以此来给各位同学提供一个完整的使用Vim的视角，同时能够依照本文的介绍，了解整个配置的过程进而能配置属于自己的Vim。</p>
-<h1>为何选择Vim</h1>
+<h1 id="为何选择vim">为何选择Vim</h1>
 <p>对于Vim，我见过很多人，每每提及，总是像描述巫师手中的魔杖一样形容Vim是多么多么神奇，多么多么高端，但当真正开始编辑文件时，不是用notepad就是用gedit，然后紧接着就是连串行云流水的鼠标滑动。当然，我不是说鼠标操作有什么问题，我一直认为鼠标是现代操作系统，至少是桌面操作系统中不可或缺的一部分，甚至在将来，还会有各式各样鼠标的升级替代品出现，比如触控，立体控制，脑电波控制等等。但是对于文本编辑这一块，我想鼠标的操作仅仅满足了基本的需求，效率较低而且严重影响了编辑体验。想想看，当你打开一份文本文档，想要进行修改时要采取的操作。首先，右手要拖动鼠标，移动到要修改的地方，点击，然后把右手移回到键盘，将手指和键位对应上，最后才能开始输入。这个过程看起来似乎非常的流畅，事实上也真的是很流畅，但是仔细回想下你是否遇到过在移动光标，修改文档，或是编辑代码时，你的右手是不是要频繁的离开主键位区，操作鼠标或是方向键来进行定位，然后再返回继续被中断的输入。右手就这样来来回回不停游走于主键位，方向键和鼠标之间，长此以往，程序员自然就有了一支健壮的右手(这个解释我觉得比较正能量= =)。如果你也发现里面有些不对劲的话，那我想，我们应该坐下来好好聊聊Vim。</p>
 <p>归根结底，鼠标这个东西是面向图形的，而非面向文本的，且不说GUI和CLI的纷争向来已久，单纯从编辑文本这方面来说，我觉得Vim还是略胜其它图形化编辑器一筹的，在谈论之前我们先看看几张Vim编辑时的gif图片直观感受下。</p>
 <p><img src="/img/vim1/vim-indro1.gif" alt=""></p>
 <p><img src="/img/vim1/vim-intro2.gif" alt=""></p>
 <p>我们可以注意到，在操作Vim的过程中，在没有鼠标介入的情况下完成了诸如光标移动，自动补齐，窗口切换，目录更改等操作。在熟悉了基本的Vim的操作之后，就能仅依靠键盘实现精准的光标定位以及增删改查等一系列文本编辑操作。当然，Vim的强大不仅限于此，Vim的优点在于其高度的可扩展性和定制性，可以说，Vim提供了一个Ecosystem，通过各式各样的插件可以让其针对不同场合进行有效的扩展。</p>
 <p>到这里，相信你已经对Vim有了个大致的直观印象，或许还有一些跃跃欲试。那么接下来，我们来看看Vim的基本操作。</p>
-<h1>Vim基本操作</h1>
+<h1 id="vim基本操作">Vim基本操作</h1>
 <h2 id="vim学习基础资料">Vim学习基础资料</h2>
 <p>关于Vim的基本操作，在本文中并不赘述，因为随手一google一抓一大把，虽然介绍Vim基本操作的文章很多，但是其中质量低下，同质化的文章占了绝大多数，对于一个刚接触Vim的人而言，避免太早接触高级功能以及复杂插件，对非必要的知识进行有效的屏蔽，只关注Vim最核心的部分是愉快并快速了解Vim的有效途径。本文一方面不想在介绍Vim基本操作这方面重复造轮子，另一方面熟悉Vim的基本操作又是高效利用Vim的关键。因此，本文在此推荐了一些学习Vim基础的优秀资源，帮助读者快速上手体验Vim。</p>
 <ul>
@@ -199,7 +199,7 @@
 <p>对于键位映射，可能细心的读者会注意到存在 <code>nnoremap</code>，<code>inoremap</code>，<code>map</code>，<code>nmap</code>，<code>imap</code> 等一些用于键位映射的设置指令。这里简单讲解下，它们都用于进行键盘映射，只是适用的模式不同，像 <code>map</code> 就作用于Normal，Visual和操作符等待模式下，而 <code>nmap</code> 就只作用于Normal模式下。同理，<code>imap</code> 就只作用于Insert模式下。至于 <code>noremap</code> 则表示对map后得到的序列，不再进行递归的映射，比如我把a映射成了ab，又把b映射成了bc。若我采用的是map方式，当我输入a时，得到的实际是abc，但是如果采用 <code>noremap</code>，则不会对得到的序列进行再次映射，因此当我输入a时，得到的是ab。而 <code>nnoremap</code> 则表示只在Normal模式才有效，<code>inoremap</code> 表示只在Insert模式下映射才生效。关于Vim键位映射更详细的介绍，请参见<a href="http://www.douban.com/group/topic/10866937/" target="_blank" rel="external">VIM :map</a></p>
 <h3 id="配色方案">配色方案</h3>
 <p>如果你设置了语法高亮，即在vimrc中设置了 <code>syntax on</code>，那么Vim会很聪明的根据你打开的文件扩展名对文件内容进行特定的高亮处理。Vim自带了若干个配色方案，可以在 <code>/usr/share/vim/vim74/colors/</code> 下找到，在上面的vimrc文件中，本人将色彩方案设定为了 <code>torte</code>，即 <code>colorscheme torte</code>。不过话说回来，配色方案这东西每个人的喜好千差万别，其中<a href="https://github.com/altercation/solarized" target="_blank" rel="external">Solarized</a>和<a href="http://winterdom.com/2008/08/molokaiforvim" target="_blank" rel="external">molokai</a>相对而言比较受欢迎。当然，除此之外还有很多种配色方案，在google code上有个 <a href="https://code.google.com/p/vimcolorschemetest/" target="_blank" rel="external">vimcolorschemetest</a> 项目，罗列了428个配色方案，并给出了示意图。什么？你已经把全部的配色的方案都浏览了一遍并确定没有一款适合你的？那么，你应该尝试下自己写一个配色方案，不过那听起来有点麻烦，不如就到这个网站上看一下吧：<a href="http://bytefluent.com/vivify/" target="_blank" rel="external">A ColorScheme Editor for Vim</a>，这回可以随心所欲的DIY自己的配色方案了╮(╯▽╰)╭</p>
-<h1>总结</h1>
+<h1 id="总结-v2">总结</h1>
 <p>至此, 我想你已经对Vim有了大致的了解, 并能根据自己的需要适当的配置vimrc文件, 可能还渐渐适应或是喜欢上Vim了. 如果你还想知道Vim插件相关的内容以及如何配置使用插件,请参见 <a href="">Vim(2) – Vim插件介绍及配置</a>.</p>
 
             
@@ -260,7 +260,7 @@
           <div id="toc-wrap">
             <div id="toc" class="toc-article">
               <div id="toc-title">目录</div>
-              <div id="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#undefined"><span class="toc-number">1.</span> <span class="toc-text">作者的吐槽</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#undefined"><span class="toc-number">2.</span> <span class="toc-text">为何选择Vim</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#undefined"><span class="toc-number">3.</span> <span class="toc-text">Vim基本操作</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#vim学习基础资料"><span class="toc-number">3.1.</span> <span class="toc-text">Vim学习基础资料</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#vimrc文件"><span class="toc-number">3.2.</span> <span class="toc-text">vimrc文件</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#键位映射"><span class="toc-number">3.2.1.</span> <span class="toc-text">键位映射</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#配色方案"><span class="toc-number">3.2.2.</span> <span class="toc-text">配色方案</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#undefined"><span class="toc-number">4.</span> <span class="toc-text">总结</span></a></li></ol></div>
+              <div id="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#作者的吐槽"><span class="toc-number">1.</span> <span class="toc-text">作者的吐槽</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#为何选择vim"><span class="toc-number">2.</span> <span class="toc-text">为何选择Vim</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#vim基本操作"><span class="toc-number">3.</span> <span class="toc-text">Vim基本操作</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#vim学习基础资料"><span class="toc-number">3.1.</span> <span class="toc-text">Vim学习基础资料</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#vimrc文件"><span class="toc-number">3.2.</span> <span class="toc-text">vimrc文件</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#键位映射"><span class="toc-number">3.2.1.</span> <span class="toc-text">键位映射</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#配色方案"><span class="toc-number">3.2.2.</span> <span class="toc-text">配色方案</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#总结-v2"><span class="toc-number">4.</span> <span class="toc-text">总结</span></a></li></ol></div>
             </div>
           </div>
         

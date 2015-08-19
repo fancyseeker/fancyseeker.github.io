@@ -109,15 +109,15 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-       <!--<h1>Background</h1>
+       <!--<h1 id="background-v2">Background</h1>
 <p>最近由于项目上的需要, 在VMware上装上了CentOS. 由于学校的校园网无法访问国外的源, 所以CentOS默认的源无法使用, 于是装完系统的第一件事情自然是配源. 对于国内用户来说163的源和sohu的源速度都不错更新的也快, 对于校园网用户来说, 校园网内比较好的源有上海交大(sjtu), 中科大(ustc)… 呵呵, 不知道东北大学(neu)的算不算, 不过我用起来速度也不错.</p>
 <p>之前我自己在配Fedora和CentOS的源的时候都是直接google, 然后从网上直接select–copy–paste到本地的repo文件的. 经常找个合适的源文件要找半天, 最令人失望的是有时还不能正常使用. 俗话说的好, &quot;自己动手, 丰衣足食&quot;嘛. 所以花了点时间研究了下yum源配置文件的问题, 发现还是蛮简单的.</p>
-<h1>Yum与repo文件简介</h1>
+<h1 id="yum与repo文件简介">Yum与repo文件简介</h1>
 <p><a href="http://en.wikipedia.org/wiki/Yellowdog_Updater,_Modified" target="_blank" rel="external">Yum(Yellow dog Updater, Modified)</a>是一个在Fedora和RedHat以及SUSE、CentOS中的Shell前端软件包管理器。基於RPM包管理，能够从指定的服务器自动下载RPM包并且安装，可以自动处理依赖性关系，并且一次安装所有依赖的软件包，无须繁琐地一次次下载、安装。</p>
 <p>在通过yum更新或者下载软件包的时候, yum需要从&quot;源&quot;获得软件包的信息, 所谓的&quot;源&quot;, 在我理解看来就是一个规范化的软件包下载点, 之所以说它是规范化的是因为&quot;源&quot;中有一个列表和一些信息,用于记录&quot;源&quot;中软件的发布情况, 这样yum就可以通过列表获取软件包的信息,进而判断一个是否在&quot;源&quot;中存在指定软件或者当前的软件包过期需要升级等等.</p>
 <p>repo文件, 由于yum需要利用&quot;源&quot;来获取软件包, 那么很自然的, 在本地机器上自然需要有描述&quot;源&quot;信息的文件, 这就是repo文件. repo文件存放在<code>/etc/yum.repo.d/</code>目录下, 通过root权限对其进行访问或者修改.<br>
 <img src="/img/repo_config/repofile.png" alt="yum.repo.d"></p>
-<h1>repo源配置文件解析</h1>
+<h1 id="repo源配置文件解析">repo源配置文件解析</h1>
 <p>这里以网易的163源中的fedora源配置文件作为例子, 简单讲述下repo文件的结构.<br>
 实际上, 获得163的源配置文件是件很容易的事情. 登陆<a href="http://mirrors.163.com/" target="_blank" rel="external">网易的镜像服务器</a></p>
 <p><img src="/img/repo_config/163mirror.png" alt="163 mirror"></p>
@@ -183,9 +183,9 @@ baserul字段更改为新的镜像源服务器地址.这是最关键的一处更
 <p><strong>最后,只需要将repo文件放入/etc/yum.repo.d/目录下,然后利用root权限运行</strong></p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#yum makecache</span></span><br></pre></td></tr></table></figure>
 <p><strong>更新yum的元数据,新的软件源即可正常使用了.</strong></p>
-<h1>结束语</h1>
+<h1 id="结束语">结束语</h1>
 <p>至此,整个源配置过程结束,由于本人对ubuntu和Debian系的接触比较少,不太了解apt-get的源配置方法,就不丢人现眼啦.在这里只是简单介绍了下RedHat系的fedora和CentOS的源配置问题.由于linux distribution的更新速度很快,所以文中难免存在一些不足之处,还望指出.希望本文章能让大家了解源配置的过程,更快的配置自己需要的源.</p>
-<h1>参考资料</h1>
+<h1 id="参考资料-v2">参考资料</h1>
 <ul>
 <li>yum的具体介绍参见wiki页面:<a href="http://en.wikipedia.org/wiki/Yellowdog_Updater,_Modified" target="_blank" rel="external">Yellowdog Updater, Modified</a></li>
 <li>repo文件解析可参考这篇帖子:<a href="http://bbs.fedora-zh.org/showthread.php?1376-%E5%B8%A6%E4%BD%A0%E8%AE%A4%E8%AF%86repo%E6%96%87%E4%BB%B6" target="_blank" rel="external">带你认识repo文件</a></li>
@@ -195,15 +195,15 @@ baserul字段更改为新的镜像源服务器地址.这是最关键的一处更
 -->
             
             
-                <h1>Background</h1>
+                <h1 id="background-v2">Background</h1>
 <p>最近由于项目上的需要, 在VMware上装上了CentOS. 由于学校的校园网无法访问国外的源, 所以CentOS默认的源无法使用, 于是装完系统的第一件事情自然是配源. 对于国内用户来说163的源和sohu的源速度都不错更新的也快, 对于校园网用户来说, 校园网内比较好的源有上海交大(sjtu), 中科大(ustc)… 呵呵, 不知道东北大学(neu)的算不算, 不过我用起来速度也不错.</p>
 <p>之前我自己在配Fedora和CentOS的源的时候都是直接google, 然后从网上直接select–copy–paste到本地的repo文件的. 经常找个合适的源文件要找半天, 最令人失望的是有时还不能正常使用. 俗话说的好, &quot;自己动手, 丰衣足食&quot;嘛. 所以花了点时间研究了下yum源配置文件的问题, 发现还是蛮简单的.</p>
-<h1>Yum与repo文件简介</h1>
+<h1 id="yum与repo文件简介">Yum与repo文件简介</h1>
 <p><a href="http://en.wikipedia.org/wiki/Yellowdog_Updater,_Modified" target="_blank" rel="external">Yum(Yellow dog Updater, Modified)</a>是一个在Fedora和RedHat以及SUSE、CentOS中的Shell前端软件包管理器。基於RPM包管理，能够从指定的服务器自动下载RPM包并且安装，可以自动处理依赖性关系，并且一次安装所有依赖的软件包，无须繁琐地一次次下载、安装。</p>
 <p>在通过yum更新或者下载软件包的时候, yum需要从&quot;源&quot;获得软件包的信息, 所谓的&quot;源&quot;, 在我理解看来就是一个规范化的软件包下载点, 之所以说它是规范化的是因为&quot;源&quot;中有一个列表和一些信息,用于记录&quot;源&quot;中软件的发布情况, 这样yum就可以通过列表获取软件包的信息,进而判断一个是否在&quot;源&quot;中存在指定软件或者当前的软件包过期需要升级等等.</p>
 <p>repo文件, 由于yum需要利用&quot;源&quot;来获取软件包, 那么很自然的, 在本地机器上自然需要有描述&quot;源&quot;信息的文件, 这就是repo文件. repo文件存放在<code>/etc/yum.repo.d/</code>目录下, 通过root权限对其进行访问或者修改.<br>
 <img src="/img/repo_config/repofile.png" alt="yum.repo.d"></p>
-<h1>repo源配置文件解析</h1>
+<h1 id="repo源配置文件解析">repo源配置文件解析</h1>
 <p>这里以网易的163源中的fedora源配置文件作为例子, 简单讲述下repo文件的结构.<br>
 实际上, 获得163的源配置文件是件很容易的事情. 登陆<a href="http://mirrors.163.com/" target="_blank" rel="external">网易的镜像服务器</a></p>
 <p><img src="/img/repo_config/163mirror.png" alt="163 mirror"></p>
@@ -269,9 +269,9 @@ baserul字段更改为新的镜像源服务器地址.这是最关键的一处更
 <p><strong>最后,只需要将repo文件放入/etc/yum.repo.d/目录下,然后利用root权限运行</strong></p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#yum makecache</span></span><br></pre></td></tr></table></figure>
 <p><strong>更新yum的元数据,新的软件源即可正常使用了.</strong></p>
-<h1>结束语</h1>
+<h1 id="结束语">结束语</h1>
 <p>至此,整个源配置过程结束,由于本人对ubuntu和Debian系的接触比较少,不太了解apt-get的源配置方法,就不丢人现眼啦.在这里只是简单介绍了下RedHat系的fedora和CentOS的源配置问题.由于linux distribution的更新速度很快,所以文中难免存在一些不足之处,还望指出.希望本文章能让大家了解源配置的过程,更快的配置自己需要的源.</p>
-<h1>参考资料</h1>
+<h1 id="参考资料-v2">参考资料</h1>
 <ul>
 <li>yum的具体介绍参见wiki页面:<a href="http://en.wikipedia.org/wiki/Yellowdog_Updater,_Modified" target="_blank" rel="external">Yellowdog Updater, Modified</a></li>
 <li>repo文件解析可参考这篇帖子:<a href="http://bbs.fedora-zh.org/showthread.php?1376-%E5%B8%A6%E4%BD%A0%E8%AE%A4%E8%AF%86repo%E6%96%87%E4%BB%B6" target="_blank" rel="external">带你认识repo文件</a></li>
@@ -337,7 +337,7 @@ baserul字段更改为新的镜像源服务器地址.这是最关键的一处更
           <div id="toc-wrap">
             <div id="toc" class="toc-article">
               <div id="toc-title">目录</div>
-              <div id="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#undefined"><span class="toc-number">1.</span> <span class="toc-text">Background</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#undefined"><span class="toc-number">2.</span> <span class="toc-text">Yum与repo文件简介</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#undefined"><span class="toc-number">3.</span> <span class="toc-text">repo源配置文件解析</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#undefined"><span class="toc-number">4.</span> <span class="toc-text">结束语</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#undefined"><span class="toc-number">5.</span> <span class="toc-text">参考资料</span></a></li></ol></div>
+              <div id="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#background-v2"><span class="toc-number">1.</span> <span class="toc-text">Background</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#yum与repo文件简介"><span class="toc-number">2.</span> <span class="toc-text">Yum与repo文件简介</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#repo源配置文件解析"><span class="toc-number">3.</span> <span class="toc-text">repo源配置文件解析</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#结束语"><span class="toc-number">4.</span> <span class="toc-text">结束语</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#参考资料-v2"><span class="toc-number">5.</span> <span class="toc-text">参考资料</span></a></li></ol></div>
             </div>
           </div>
         

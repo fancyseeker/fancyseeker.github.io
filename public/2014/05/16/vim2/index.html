@@ -111,7 +111,7 @@
     <div class="article-entry" itemprop="articleBody">
       
        <!--<p>单独的Vim本身在文本编辑方面已经足够强大，但是针对一些特殊的场合还有很多可以提高和改进的空间，这也是插件的意义所在。你用Vim写脚本吗？你用Vim写C/C++吗？你用Vim写HTML、CSS、javascript吗？你用Vim写Ruby吗？你用Vim看项目代码吗…那么各式各样的Vim插件总有一款或几款可以满足你的需求。<a id="more"></a></p>
-<h1>前言</h1>
+<h1 id="前言-v2">前言</h1>
 <p>掌握Vim确实没有什么捷径，如果非要说有的话，那便是唯手熟而。当你渐渐习惯用hjkl来移动光标，自如的在各个模式下切换，会用一些基本的指令，心里还不那么排斥Vim的话，那么我想接下来要做的就是在实际使用过程中进一步打磨你的Vim，让Vim真正融入到你的生活工作中去了。</p>
 <p>单独的Vim本身在文本编辑方面已经足够强大，但是针对一些特殊的场合还有很多可以提高和改进的空间，这也是插件的意义所在。你用Vim写脚本吗？你用Vim写C/C++吗？你用Vim写HTML、CSS、javascript吗？你用Vim写Ruby吗？你用Vim看项目代码吗…那么各式各样的Vim插件总有一款或几款可以满足你的需求。由于插件不属于“标准的”Vim集合，且每个人的工作内容不同因此不同人拥有不同的插件集也是很正常的事情，也正因此，网络上才会有花样繁多的Vim配置方案，多到让人眼花缭乱却无从下手。</p>
 <p>本人的主要工作环境是Linux Mint，采用C/C++进行开发附带python和一些shell脚本，这里以本人的Vim插件配置举例，讲解在配置Vim插件过程中的一般性和部分具体性方法。首先上张图来看看吧～<br>
@@ -121,7 +121,7 @@
 <p>所谓的buffer，实际上是Vim用于保存工作中的文件信息的，每个打开的文件都对应一个buffer，对文件的操作会保存在buffer中，当关闭文件的时候，根据用户的选择，可以将buffer中的修改内容写入硬盘，或是丢弃buffer中的修改内容。其实文件buffer的概念随处可见，最经常看到的就是你打开文本文档或者Word并输入一些内容后，在没有保存的情况下就关闭程序，会出现是否保存或者放弃保存直接退出的提示，而这些修改的内容就是暂存在buffer中的。只是在windows下，文本文档和word的文件缓存是看不到的(word会定时将缓存写入隐藏的临时文件来保存进度防止意外断电)，而对于Vim，我们则称文件缓存为Buffer。</p>
 <p>从上图中的buffer显示条中可以看到，Vim一共打开了4个文件，即有4个对应的buffer，每个buffer有自己的编号(这个编号是Vim定的，保证唯一，但是可能不是顺序的)。</p>
 <hr>
-<h1>插件概览</h1>
+<h1 id="插件概览">插件概览</h1>
 <p>本人安装的Vim插件包括以下几个：</p>
 <table>
 <thead>
@@ -174,7 +174,7 @@
 </tbody>
 </table>
 <hr>
-<h1>插件安装</h1>
+<h1 id="插件安装">插件安装</h1>
 <p>插件的安装方式大致上分为两种：传统的安装方式和基于包管理的插件安装方式。</p>
 <h2 id="传统的安装方式-不推荐">传统的安装方式(不推荐)</h2>
 <p>我们先来介绍一下传统的安装方式是什么样的。插件实际上是由vim脚本和少数其它类型的文件组成，插件一般位于用户家目录的 <code>.vim</code> 文件夹下，即 <code>～/.vim/</code> (如果没有，请自行创建)。</p>
@@ -233,7 +233,7 @@
 <p>至此，插件就已经安装完成了。接下来还需要对每个插件进行单独的配置。</p>
 <p>注：就插件管理而言，Vundle已经做的足够优秀，但是事情往往可以变得更好。尽管可能遇到的机会不多，但是试想一下，如果你新买了一台电脑，或是电脑硬盘故障导致数据丢失了又或者你在操作一台不常用的电脑，是不是每次都要安装Vundle，更要命的是每次都要修改vimrc文件，要知道vimrc文件里面出了基本的vim设置外还有相当大一部分的插件设置，对Vim环境进行恢复的代价还是略大了点。因此，我们总希望我们的Vim配置能够保存在云端，以便我们随时可以通过一条简单的命令就可以把一切恢复到熟悉的模样。要想完成这点，需要在配置完Vim和插件后，将 <code>./.vim/</code> 目录以及 <code>./.vimrc</code> 文件都托管到自己github的上，具体方法在接下来的文章会讲到，现在，让我们先专注于把插件配置好: - )</p>
 <hr>
-<h1>插件配置及使用</h1>
+<h1 id="插件配置及使用">插件配置及使用</h1>
 <p>在使用插件的过程中，往往会涉及到很多插件的具体命令，而这些命令往往比较长，并且夹杂着大小写，输入起来比较繁琐，因此往往使用键位绑定和映射来解决这个问题，简单点说就是设置快捷键。而Vim中的操作相当的多，不用说单个的按键了，即便是像 <code>ctrl+××</code>，<code>alt+××</code> 或是 <code>ctrl+shift+××</code> 这样的组合键都有对应的操作，因此我们会经常看到vimrc文件中采用 <code>&lt;leader&gt;</code>键和其它按键配合进行键盘映射。vimrc文件中的 <code>&lt;leader&gt;</code>实际上也是一个按键，默认为回车键上方的<code>\</code>键，可以根据用户需要修改。本人就将 <code>&lt;leader&gt;</code> 设置成了逗号<code>,</code>。修改 <code>&lt;leader&gt;</code>键只需要在vimrc文件中添加：</p>
 <figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">" leader键</span><br><span class="line"></span><span class="keyword">let</span> mapleader=<span class="string">","</span></span><br><span class="line"><span class="keyword">let</span> <span class="variable">g:mapleader</span>=<span class="string">","</span></span><br></pre></td></tr></table></figure>
 <p>注：插件的具体配置信息一般都是记录在vimrc文件中，以下介绍插件的配置语句全是添加在 <code>～/.vimrc</code> 文件中的。</p>
@@ -497,7 +497,7 @@
 <h2 id="omnicppcomplete">OmniCppComplete</h2>
 <p>老牌的C/C++自动补全插件了，目前似乎存在更好的自动补全插件，例如 <code>YouCompleteMe</code> 和 <code>Neocomplete</code>。这里就不再对OmniCppComplete进行叙述了。</p>
 <hr>
-<h1>Vim及插件集的备份</h1>
+<h1 id="vim及插件集的备份">Vim及插件集的备份</h1>
 <p>经过了上面这么多道复杂的工序后，我们现在手里的Vim似乎更加完善了。在讲解的最后部分，让我们来聊聊如何对Vim的环境来进行备份。</p>
 <p>目前我们对Vim的配置主要涉及vimrc文件和插件集，对于有多台电脑或者经常四处跑的同学来说，肯定能理解同步环境的意义，如果能将我们在本地配置好的Vim环境都保存在某个服务器上，那么不管在哪里，用哪台电脑，只要能联网，我们就可以通过网络迅速的恢复/搭建好我们的Vim环境。这里不得不称赞一下github，实在是广大程序员的福音，即便不是程序员，合理的使用github也能省去不少麻烦。利用git，我们可以在github服务器上建立一个项目，专门用来存放我们的Vim配置文件以及插件，然后将本地配置好的Vim环境全都发送至服务器端，等需要的时候，直接从服务器端取回即可，不需要再进行额外的配置，可以说是非常的方便。我们接下来讲讲具体的步骤。</p>
 <h2 id="建立github帐号">建立Github帐号</h2>
@@ -536,14 +536,14 @@
 <p>自此，备份过程结束。如果想要恢复备份的话，只需要 <code>$ git clone https://github.com/你的用户名/你的vim项目.git</code> 将github上的vim项目拷贝至本地, 之后再 <code>mv 你的vim项目名 ~/.vim</code> 即可。如果你又给你的Vim做了修改或者添加了新的插件的话，那么只要重新执行上述过程中的git add、git commit、git push操作即可。</p>
 <p>对于git的基本操作，可以参见这个<a href="http://happycasts.net/episodes/7?autoplay=true" target="_blank" rel="external">视频</a>。</p>
 <hr>
-<h1>总结</h1>
+<h1 id="总结">总结</h1>
 <p>Vim真的是一款非常强大的文本编辑工具，搭配上适当的插件之后更是如虎添翼，但是过多的插件又会让Vim变得非常的臃肿，甚至反应速度会变慢，而且也违背Unix的KISS(keep it simple, stupid)原则。在网上也有部分人认为不应该使用Vim插件，避免对插件过渡依赖。就我个人而言，我需要的只是一个高效的工具，来帮我完成特定的任务，至于这个工具是复杂，是简单，是不是需要恪守一些原则我不是很在意，我真正关心的是这个工具能否高效的完成我的任务。正如白猫黑猫的道理一样。因此，对于Vim，我一直本着让Vim来适应我的习惯和需求而非让我去适应Vim的想法来使用它的，如果不添加任何插件，那我想在很多时候Vim就不是那么的好用，如果添加了许多的插件，那么Vim的响应速度会很慢而且其中大部分插件只是会偶尔的用到或根本不用。这是一个trade-off的过程，总之自己用的顺手，用的舒坦才是最重要的。</p>
 <p>这篇文章亦是我心血来潮之作，介绍Vim及其插件的文章可谓成千上万，而且Vim本身以及绝大部分的插件都正在不断的发展和完善中，可能现在流行的插件，过不了多久就被另外一个新兴的插件给替代了，同样的，现在写的关于Vim插件的相关文章也会因为时间的流逝而慢慢过时而变得没有意义。即便如此，我依然还是很开心的把这一大篇的文章给写完了，为何如此？只是最近使用Vim开代码，添加新的插件的时候，回想起自己当初刚接触Vim时茫然无措的情景，而上网找到的资料要不是早就过时的，要不就是存在错误或者轻描淡写草草带过的，只有极少数负责任的博主的几篇优秀的博文真正帮到了我。而我所能做的，也只是将我目前所知道，尽可能认真的阐述出来，或许能帮到一些人。学习、记录、分享，不亦乐乎。</p>
 -->
             
             
                 <p>单独的Vim本身在文本编辑方面已经足够强大，但是针对一些特殊的场合还有很多可以提高和改进的空间，这也是插件的意义所在。你用Vim写脚本吗？你用Vim写C/C++吗？你用Vim写HTML、CSS、javascript吗？你用Vim写Ruby吗？你用Vim看项目代码吗…那么各式各样的Vim插件总有一款或几款可以满足你的需求。<a id="more"></a></p>
-<h1>前言</h1>
+<h1 id="前言-v2">前言</h1>
 <p>掌握Vim确实没有什么捷径，如果非要说有的话，那便是唯手熟而。当你渐渐习惯用hjkl来移动光标，自如的在各个模式下切换，会用一些基本的指令，心里还不那么排斥Vim的话，那么我想接下来要做的就是在实际使用过程中进一步打磨你的Vim，让Vim真正融入到你的生活工作中去了。</p>
 <p>单独的Vim本身在文本编辑方面已经足够强大，但是针对一些特殊的场合还有很多可以提高和改进的空间，这也是插件的意义所在。你用Vim写脚本吗？你用Vim写C/C++吗？你用Vim写HTML、CSS、javascript吗？你用Vim写Ruby吗？你用Vim看项目代码吗…那么各式各样的Vim插件总有一款或几款可以满足你的需求。由于插件不属于“标准的”Vim集合，且每个人的工作内容不同因此不同人拥有不同的插件集也是很正常的事情，也正因此，网络上才会有花样繁多的Vim配置方案，多到让人眼花缭乱却无从下手。</p>
 <p>本人的主要工作环境是Linux Mint，采用C/C++进行开发附带python和一些shell脚本，这里以本人的Vim插件配置举例，讲解在配置Vim插件过程中的一般性和部分具体性方法。首先上张图来看看吧～<br>
@@ -553,7 +553,7 @@
 <p>所谓的buffer，实际上是Vim用于保存工作中的文件信息的，每个打开的文件都对应一个buffer，对文件的操作会保存在buffer中，当关闭文件的时候，根据用户的选择，可以将buffer中的修改内容写入硬盘，或是丢弃buffer中的修改内容。其实文件buffer的概念随处可见，最经常看到的就是你打开文本文档或者Word并输入一些内容后，在没有保存的情况下就关闭程序，会出现是否保存或者放弃保存直接退出的提示，而这些修改的内容就是暂存在buffer中的。只是在windows下，文本文档和word的文件缓存是看不到的(word会定时将缓存写入隐藏的临时文件来保存进度防止意外断电)，而对于Vim，我们则称文件缓存为Buffer。</p>
 <p>从上图中的buffer显示条中可以看到，Vim一共打开了4个文件，即有4个对应的buffer，每个buffer有自己的编号(这个编号是Vim定的，保证唯一，但是可能不是顺序的)。</p>
 <hr>
-<h1>插件概览</h1>
+<h1 id="插件概览">插件概览</h1>
 <p>本人安装的Vim插件包括以下几个：</p>
 <table>
 <thead>
@@ -606,7 +606,7 @@
 </tbody>
 </table>
 <hr>
-<h1>插件安装</h1>
+<h1 id="插件安装">插件安装</h1>
 <p>插件的安装方式大致上分为两种：传统的安装方式和基于包管理的插件安装方式。</p>
 <h2 id="传统的安装方式-不推荐">传统的安装方式(不推荐)</h2>
 <p>我们先来介绍一下传统的安装方式是什么样的。插件实际上是由vim脚本和少数其它类型的文件组成，插件一般位于用户家目录的 <code>.vim</code> 文件夹下，即 <code>～/.vim/</code> (如果没有，请自行创建)。</p>
@@ -665,7 +665,7 @@
 <p>至此，插件就已经安装完成了。接下来还需要对每个插件进行单独的配置。</p>
 <p>注：就插件管理而言，Vundle已经做的足够优秀，但是事情往往可以变得更好。尽管可能遇到的机会不多，但是试想一下，如果你新买了一台电脑，或是电脑硬盘故障导致数据丢失了又或者你在操作一台不常用的电脑，是不是每次都要安装Vundle，更要命的是每次都要修改vimrc文件，要知道vimrc文件里面出了基本的vim设置外还有相当大一部分的插件设置，对Vim环境进行恢复的代价还是略大了点。因此，我们总希望我们的Vim配置能够保存在云端，以便我们随时可以通过一条简单的命令就可以把一切恢复到熟悉的模样。要想完成这点，需要在配置完Vim和插件后，将 <code>./.vim/</code> 目录以及 <code>./.vimrc</code> 文件都托管到自己github的上，具体方法在接下来的文章会讲到，现在，让我们先专注于把插件配置好: - )</p>
 <hr>
-<h1>插件配置及使用</h1>
+<h1 id="插件配置及使用">插件配置及使用</h1>
 <p>在使用插件的过程中，往往会涉及到很多插件的具体命令，而这些命令往往比较长，并且夹杂着大小写，输入起来比较繁琐，因此往往使用键位绑定和映射来解决这个问题，简单点说就是设置快捷键。而Vim中的操作相当的多，不用说单个的按键了，即便是像 <code>ctrl+××</code>，<code>alt+××</code> 或是 <code>ctrl+shift+××</code> 这样的组合键都有对应的操作，因此我们会经常看到vimrc文件中采用 <code>&lt;leader&gt;</code>键和其它按键配合进行键盘映射。vimrc文件中的 <code>&lt;leader&gt;</code>实际上也是一个按键，默认为回车键上方的<code>\</code>键，可以根据用户需要修改。本人就将 <code>&lt;leader&gt;</code> 设置成了逗号<code>,</code>。修改 <code>&lt;leader&gt;</code>键只需要在vimrc文件中添加：</p>
 <figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">" leader键</span><br><span class="line"></span><span class="keyword">let</span> mapleader=<span class="string">","</span></span><br><span class="line"><span class="keyword">let</span> <span class="variable">g:mapleader</span>=<span class="string">","</span></span><br></pre></td></tr></table></figure>
 <p>注：插件的具体配置信息一般都是记录在vimrc文件中，以下介绍插件的配置语句全是添加在 <code>～/.vimrc</code> 文件中的。</p>
@@ -929,7 +929,7 @@
 <h2 id="omnicppcomplete">OmniCppComplete</h2>
 <p>老牌的C/C++自动补全插件了，目前似乎存在更好的自动补全插件，例如 <code>YouCompleteMe</code> 和 <code>Neocomplete</code>。这里就不再对OmniCppComplete进行叙述了。</p>
 <hr>
-<h1>Vim及插件集的备份</h1>
+<h1 id="vim及插件集的备份">Vim及插件集的备份</h1>
 <p>经过了上面这么多道复杂的工序后，我们现在手里的Vim似乎更加完善了。在讲解的最后部分，让我们来聊聊如何对Vim的环境来进行备份。</p>
 <p>目前我们对Vim的配置主要涉及vimrc文件和插件集，对于有多台电脑或者经常四处跑的同学来说，肯定能理解同步环境的意义，如果能将我们在本地配置好的Vim环境都保存在某个服务器上，那么不管在哪里，用哪台电脑，只要能联网，我们就可以通过网络迅速的恢复/搭建好我们的Vim环境。这里不得不称赞一下github，实在是广大程序员的福音，即便不是程序员，合理的使用github也能省去不少麻烦。利用git，我们可以在github服务器上建立一个项目，专门用来存放我们的Vim配置文件以及插件，然后将本地配置好的Vim环境全都发送至服务器端，等需要的时候，直接从服务器端取回即可，不需要再进行额外的配置，可以说是非常的方便。我们接下来讲讲具体的步骤。</p>
 <h2 id="建立github帐号">建立Github帐号</h2>
@@ -968,7 +968,7 @@
 <p>自此，备份过程结束。如果想要恢复备份的话，只需要 <code>$ git clone https://github.com/你的用户名/你的vim项目.git</code> 将github上的vim项目拷贝至本地, 之后再 <code>mv 你的vim项目名 ~/.vim</code> 即可。如果你又给你的Vim做了修改或者添加了新的插件的话，那么只要重新执行上述过程中的git add、git commit、git push操作即可。</p>
 <p>对于git的基本操作，可以参见这个<a href="http://happycasts.net/episodes/7?autoplay=true" target="_blank" rel="external">视频</a>。</p>
 <hr>
-<h1>总结</h1>
+<h1 id="总结">总结</h1>
 <p>Vim真的是一款非常强大的文本编辑工具，搭配上适当的插件之后更是如虎添翼，但是过多的插件又会让Vim变得非常的臃肿，甚至反应速度会变慢，而且也违背Unix的KISS(keep it simple, stupid)原则。在网上也有部分人认为不应该使用Vim插件，避免对插件过渡依赖。就我个人而言，我需要的只是一个高效的工具，来帮我完成特定的任务，至于这个工具是复杂，是简单，是不是需要恪守一些原则我不是很在意，我真正关心的是这个工具能否高效的完成我的任务。正如白猫黑猫的道理一样。因此，对于Vim，我一直本着让Vim来适应我的习惯和需求而非让我去适应Vim的想法来使用它的，如果不添加任何插件，那我想在很多时候Vim就不是那么的好用，如果添加了许多的插件，那么Vim的响应速度会很慢而且其中大部分插件只是会偶尔的用到或根本不用。这是一个trade-off的过程，总之自己用的顺手，用的舒坦才是最重要的。</p>
 <p>这篇文章亦是我心血来潮之作，介绍Vim及其插件的文章可谓成千上万，而且Vim本身以及绝大部分的插件都正在不断的发展和完善中，可能现在流行的插件，过不了多久就被另外一个新兴的插件给替代了，同样的，现在写的关于Vim插件的相关文章也会因为时间的流逝而慢慢过时而变得没有意义。即便如此，我依然还是很开心的把这一大篇的文章给写完了，为何如此？只是最近使用Vim开代码，添加新的插件的时候，回想起自己当初刚接触Vim时茫然无措的情景，而上网找到的资料要不是早就过时的，要不就是存在错误或者轻描淡写草草带过的，只有极少数负责任的博主的几篇优秀的博文真正帮到了我。而我所能做的，也只是将我目前所知道，尽可能认真的阐述出来，或许能帮到一些人。学习、记录、分享，不亦乐乎。</p>
 
@@ -1030,7 +1030,7 @@
           <div id="toc-wrap">
             <div id="toc" class="toc-article">
               <div id="toc-title">目录</div>
-              <div id="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#undefined"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#undefined"><span class="toc-number">2.</span> <span class="toc-text">插件概览</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#undefined"><span class="toc-number">3.</span> <span class="toc-text">插件安装</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#传统的安装方式-不推荐"><span class="toc-number">3.1.</span> <span class="toc-text">传统的安装方式(不推荐)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#插件管理工具-vundle"><span class="toc-number">3.2.</span> <span class="toc-text">插件管理工具–Vundle</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#vundle的优点"><span class="toc-number">3.2.1.</span> <span class="toc-text">Vundle的优点</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#安装配置vundle"><span class="toc-number">3.2.2.</span> <span class="toc-text">安装配置Vundle</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#undefined"><span class="toc-number">4.</span> <span class="toc-text">插件配置及使用</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#nerdtree"><span class="toc-number">4.1.</span> <span class="toc-text">nerdtree</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#taglist"><span class="toc-number">4.2.</span> <span class="toc-text">taglist</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#winmanager"><span class="toc-number">4.3.</span> <span class="toc-text">winmanager</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#vim-airline"><span class="toc-number">4.4.</span> <span class="toc-text">vim-airline</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#vim-airline字体补丁"><span class="toc-number">4.4.1.</span> <span class="toc-text">vim-airline字体补丁</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#vim-airline设置"><span class="toc-number">4.4.2.</span> <span class="toc-text">vim-airline设置</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#vim-bbye"><span class="toc-number">4.5.</span> <span class="toc-text">vim-Bbye</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ctrlp"><span class="toc-number">4.6.</span> <span class="toc-text">ctrlp</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#nerdcommenter"><span class="toc-number">4.7.</span> <span class="toc-text">nerdcommenter</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#a-vim"><span class="toc-number">4.8.</span> <span class="toc-text">a.vim</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#omnicppcomplete"><span class="toc-number">4.9.</span> <span class="toc-text">OmniCppComplete</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#undefined"><span class="toc-number">5.</span> <span class="toc-text">Vim及插件集的备份</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#建立github帐号"><span class="toc-number">5.1.</span> <span class="toc-text">建立Github帐号</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#新建github项目"><span class="toc-number">5.2.</span> <span class="toc-text">新建Github项目</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#操作本地仓库"><span class="toc-number">5.3.</span> <span class="toc-text">操作本地仓库</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#同步本地仓库至远端仓库"><span class="toc-number">5.4.</span> <span class="toc-text">同步本地仓库至远端仓库</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#undefined"><span class="toc-number">6.</span> <span class="toc-text">总结</span></a></li></ol></div>
+              <div id="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#前言-v2"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#插件概览"><span class="toc-number">2.</span> <span class="toc-text">插件概览</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#插件安装"><span class="toc-number">3.</span> <span class="toc-text">插件安装</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#传统的安装方式-不推荐"><span class="toc-number">3.1.</span> <span class="toc-text">传统的安装方式(不推荐)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#插件管理工具-vundle"><span class="toc-number">3.2.</span> <span class="toc-text">插件管理工具–Vundle</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#vundle的优点"><span class="toc-number">3.2.1.</span> <span class="toc-text">Vundle的优点</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#安装配置vundle"><span class="toc-number">3.2.2.</span> <span class="toc-text">安装配置Vundle</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#插件配置及使用"><span class="toc-number">4.</span> <span class="toc-text">插件配置及使用</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#nerdtree"><span class="toc-number">4.1.</span> <span class="toc-text">nerdtree</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#taglist"><span class="toc-number">4.2.</span> <span class="toc-text">taglist</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#winmanager"><span class="toc-number">4.3.</span> <span class="toc-text">winmanager</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#vim-airline"><span class="toc-number">4.4.</span> <span class="toc-text">vim-airline</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#vim-airline字体补丁"><span class="toc-number">4.4.1.</span> <span class="toc-text">vim-airline字体补丁</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#vim-airline设置"><span class="toc-number">4.4.2.</span> <span class="toc-text">vim-airline设置</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#vim-bbye"><span class="toc-number">4.5.</span> <span class="toc-text">vim-Bbye</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ctrlp"><span class="toc-number">4.6.</span> <span class="toc-text">ctrlp</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#nerdcommenter"><span class="toc-number">4.7.</span> <span class="toc-text">nerdcommenter</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#a-vim"><span class="toc-number">4.8.</span> <span class="toc-text">a.vim</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#omnicppcomplete"><span class="toc-number">4.9.</span> <span class="toc-text">OmniCppComplete</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#vim及插件集的备份"><span class="toc-number">5.</span> <span class="toc-text">Vim及插件集的备份</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#建立github帐号"><span class="toc-number">5.1.</span> <span class="toc-text">建立Github帐号</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#新建github项目"><span class="toc-number">5.2.</span> <span class="toc-text">新建Github项目</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#操作本地仓库"><span class="toc-number">5.3.</span> <span class="toc-text">操作本地仓库</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#同步本地仓库至远端仓库"><span class="toc-number">5.4.</span> <span class="toc-text">同步本地仓库至远端仓库</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#总结"><span class="toc-number">6.</span> <span class="toc-text">总结</span></a></li></ol></div>
             </div>
           </div>
         

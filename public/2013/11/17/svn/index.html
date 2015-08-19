@@ -106,15 +106,15 @@ SVN是一个优秀的版本管理工具，并且适用于小型的团队开发�
     
     <div class="article-entry" itemprop="articleBody">
       
-       <!--<h1>SVN简介</h1>
+       <!--<h1 id="svn简介">SVN简介</h1>
 <p>SVN是一个优秀的版本管理工具，并且适用于小型的团队开发。SVN可以独立服务器运行或者借助Apache运行，所谓独立运行是指在服务器上配置好SVN服务器后，网内的计算机可以利用诸如TortoiseSVN这样的SVN客户端软件通过SVN协议(svn://<strong><em>.</em></strong>.<strong><em>.</em></strong>)对服务器进行签出(checkout)提交(commit)等操作。若SVN借助Apache运行，则可通过浏览器的http协议直接访问服务器对应地址下的代码。</p>
 <p>本文先讲述如何单独配置SVN服务器，之后再讲述如何添加Apache的http访问支持。</p>
 <hr>
-<h1>安装环境</h1>
+<h1 id="安装环境">安装环境</h1>
 <p>Fedora 19 / CentOS 6.4<br>
 (Windows也可当作SVN服务器，貌似配置过程很简单，不过从稳定性上考虑，还是选用CentOS作为服务器更为理想)</p>
 <hr>
-<h1>SVN服务器配置</h1>
+<h1 id="svn服务器配置">SVN服务器配置</h1>
 <h2 id="安装subversion包">安装subversion包</h2>
 <figure class="highlight vala"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor"># yum install subversion</span></span><br></pre></td></tr></table></figure>
 <h2 id="初始化版本仓库-repositories">初始化版本仓库(Repositories)</h2>
@@ -163,7 +163,7 @@ SVN是一个优秀的版本管理工具，并且适用于小型的团队开发�
 如果能顺利 check out revision 则表明独立SVN服务器配置已成功。<br>
 这时不论是在服务器本机上还是其它客户端机器，均能使用SVN服务。对于客户端操作系统为Windows的计算机，可以安装TortoiseSVN进行相应的客户端操作。</p>
 <hr>
-<h1>为SVN服务器添加HTTP支持</h1>
+<h1 id="为svn服务器添加http支持">为SVN服务器添加HTTP支持</h1>
 <p>经过上面的配置过程后，SVN服务器已经可以正常使用，但是，只能通过SVN协议，无法通过http协议访问。为SVN服务器添加HTTP支持可以使得用户能用浏览器通过HTTP协议直接查看仓库内容，同时也可以在代码签出提交时使用HTTP协议。</p>
 <h2 id="安装必要包">安装必要包</h2>
 <figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install httpd mod_dav_svn mod_perl  <span class="keyword">perl</span>* ntsysv <span class="keyword">vim</span>-enhanced</span><br></pre></td></tr></table></figure>
@@ -198,20 +198,20 @@ SVN是一个优秀的版本管理工具，并且适用于小型的团队开发�
 <p>在浏览器地址栏输入 <code>http://your_svn_server_ip/project</code>，在弹出的身份确认框中输入用户名密码，能通过浏览器查看SVN仓库。<br>
 同时可以通过http协议执行svn操作</p>
 <figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">$ svn co <span class="string">http:</span><span class="comment">//your_svn_server_ip/project</span></span><br><span class="line">Authentication <span class="string">realm:</span> &lt;<span class="string">http:</span><span class="comment">//58.154.190.***:80&gt; svn for project</span></span><br><span class="line">Password <span class="keyword">for</span> <span class="string">'chen'</span>: </span><br><span class="line">Authentication <span class="string">realm:</span> &lt;<span class="string">http:</span><span class="comment">//58.154.190.***:80&gt; svn for project</span></span><br><span class="line"><span class="string">Username:</span> admin</span><br><span class="line">Password <span class="keyword">for</span> <span class="string">'admin'</span>:</span><br></pre></td></tr></table></figure>
-<h1>参考资料</h1>
+<h1 id="参考资料">参考资料</h1>
 <p><a href="http://www.ha97.com/4467.html" target="_blank" rel="external">（总结）CentOS Linux搭建SVN Server配置详解</a></p>
 -->
             
             
-                <h1>SVN简介</h1>
+                <h1 id="svn简介">SVN简介</h1>
 <p>SVN是一个优秀的版本管理工具，并且适用于小型的团队开发。SVN可以独立服务器运行或者借助Apache运行，所谓独立运行是指在服务器上配置好SVN服务器后，网内的计算机可以利用诸如TortoiseSVN这样的SVN客户端软件通过SVN协议(svn://<strong><em>.</em></strong>.<strong><em>.</em></strong>)对服务器进行签出(checkout)提交(commit)等操作。若SVN借助Apache运行，则可通过浏览器的http协议直接访问服务器对应地址下的代码。</p>
 <p>本文先讲述如何单独配置SVN服务器，之后再讲述如何添加Apache的http访问支持。</p>
 <hr>
-<h1>安装环境</h1>
+<h1 id="安装环境">安装环境</h1>
 <p>Fedora 19 / CentOS 6.4<br>
 (Windows也可当作SVN服务器，貌似配置过程很简单，不过从稳定性上考虑，还是选用CentOS作为服务器更为理想)</p>
 <hr>
-<h1>SVN服务器配置</h1>
+<h1 id="svn服务器配置">SVN服务器配置</h1>
 <h2 id="安装subversion包">安装subversion包</h2>
 <figure class="highlight vala"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor"># yum install subversion</span></span><br></pre></td></tr></table></figure>
 <h2 id="初始化版本仓库-repositories">初始化版本仓库(Repositories)</h2>
@@ -260,7 +260,7 @@ SVN是一个优秀的版本管理工具，并且适用于小型的团队开发�
 如果能顺利 check out revision 则表明独立SVN服务器配置已成功。<br>
 这时不论是在服务器本机上还是其它客户端机器，均能使用SVN服务。对于客户端操作系统为Windows的计算机，可以安装TortoiseSVN进行相应的客户端操作。</p>
 <hr>
-<h1>为SVN服务器添加HTTP支持</h1>
+<h1 id="为svn服务器添加http支持">为SVN服务器添加HTTP支持</h1>
 <p>经过上面的配置过程后，SVN服务器已经可以正常使用，但是，只能通过SVN协议，无法通过http协议访问。为SVN服务器添加HTTP支持可以使得用户能用浏览器通过HTTP协议直接查看仓库内容，同时也可以在代码签出提交时使用HTTP协议。</p>
 <h2 id="安装必要包">安装必要包</h2>
 <figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install httpd mod_dav_svn mod_perl  <span class="keyword">perl</span>* ntsysv <span class="keyword">vim</span>-enhanced</span><br></pre></td></tr></table></figure>
@@ -295,7 +295,7 @@ SVN是一个优秀的版本管理工具，并且适用于小型的团队开发�
 <p>在浏览器地址栏输入 <code>http://your_svn_server_ip/project</code>，在弹出的身份确认框中输入用户名密码，能通过浏览器查看SVN仓库。<br>
 同时可以通过http协议执行svn操作</p>
 <figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">$ svn co <span class="string">http:</span><span class="comment">//your_svn_server_ip/project</span></span><br><span class="line">Authentication <span class="string">realm:</span> &lt;<span class="string">http:</span><span class="comment">//58.154.190.***:80&gt; svn for project</span></span><br><span class="line">Password <span class="keyword">for</span> <span class="string">'chen'</span>: </span><br><span class="line">Authentication <span class="string">realm:</span> &lt;<span class="string">http:</span><span class="comment">//58.154.190.***:80&gt; svn for project</span></span><br><span class="line"><span class="string">Username:</span> admin</span><br><span class="line">Password <span class="keyword">for</span> <span class="string">'admin'</span>:</span><br></pre></td></tr></table></figure>
-<h1>参考资料</h1>
+<h1 id="参考资料">参考资料</h1>
 <p><a href="http://www.ha97.com/4467.html" target="_blank" rel="external">（总结）CentOS Linux搭建SVN Server配置详解</a></p>
 
             
@@ -356,7 +356,7 @@ SVN是一个优秀的版本管理工具，并且适用于小型的团队开发�
           <div id="toc-wrap">
             <div id="toc" class="toc-article">
               <div id="toc-title">目录</div>
-              <div id="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#undefined"><span class="toc-number">1.</span> <span class="toc-text">SVN简介</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#undefined"><span class="toc-number">2.</span> <span class="toc-text">安装环境</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#undefined"><span class="toc-number">3.</span> <span class="toc-text">SVN服务器配置</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#安装subversion包"><span class="toc-number">3.1.</span> <span class="toc-text">安装subversion包</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#初始化版本仓库-repositories"><span class="toc-number">3.2.</span> <span class="toc-text">初始化版本仓库(Repositories)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#用户管理及权限设置"><span class="toc-number">3.3.</span> <span class="toc-text">用户管理及权限设置</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#添加用户"><span class="toc-number">3.3.1.</span> <span class="toc-text">添加用户</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#用户访问策略配置"><span class="toc-number">3.3.2.</span> <span class="toc-text">用户访问策略配置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#svn全局配置文件"><span class="toc-number">3.3.3.</span> <span class="toc-text">SVN全局配置文件</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#启动svn服务器"><span class="toc-number">3.4.</span> <span class="toc-text">启动SVN服务器</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#在防火墙中开放svn端口"><span class="toc-number">3.5.</span> <span class="toc-text">在防火墙中开放SVN端口</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#测试svn服务器"><span class="toc-number">3.6.</span> <span class="toc-text">测试SVN服务器</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#undefined"><span class="toc-number">4.</span> <span class="toc-text">为SVN服务器添加HTTP支持</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#安装必要包"><span class="toc-number">4.1.</span> <span class="toc-text">安装必要包</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#转换svn明文密码为http要求的加密格式"><span class="toc-number">4.2.</span> <span class="toc-text">转换SVN明文密码为HTTP要求的加密格式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#修改http-conf-使得http支持svn"><span class="toc-number">4.3.</span> <span class="toc-text">修改http.conf，使得http支持SVN</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#在防火墙中开放httpd服务的80端口"><span class="toc-number">4.4.</span> <span class="toc-text">在防火墙中开放httpd服务的80端口</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#重启httpd服务"><span class="toc-number">4.5.</span> <span class="toc-text">重启httpd服务</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#通过浏览器测试"><span class="toc-number">4.6.</span> <span class="toc-text">通过浏览器测试</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#undefined"><span class="toc-number">5.</span> <span class="toc-text">参考资料</span></a></li></ol></div>
+              <div id="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#svn简介"><span class="toc-number">1.</span> <span class="toc-text">SVN简介</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#安装环境"><span class="toc-number">2.</span> <span class="toc-text">安装环境</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#svn服务器配置"><span class="toc-number">3.</span> <span class="toc-text">SVN服务器配置</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#安装subversion包"><span class="toc-number">3.1.</span> <span class="toc-text">安装subversion包</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#初始化版本仓库-repositories"><span class="toc-number">3.2.</span> <span class="toc-text">初始化版本仓库(Repositories)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#用户管理及权限设置"><span class="toc-number">3.3.</span> <span class="toc-text">用户管理及权限设置</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#添加用户"><span class="toc-number">3.3.1.</span> <span class="toc-text">添加用户</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#用户访问策略配置"><span class="toc-number">3.3.2.</span> <span class="toc-text">用户访问策略配置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#svn全局配置文件"><span class="toc-number">3.3.3.</span> <span class="toc-text">SVN全局配置文件</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#启动svn服务器"><span class="toc-number">3.4.</span> <span class="toc-text">启动SVN服务器</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#在防火墙中开放svn端口"><span class="toc-number">3.5.</span> <span class="toc-text">在防火墙中开放SVN端口</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#测试svn服务器"><span class="toc-number">3.6.</span> <span class="toc-text">测试SVN服务器</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#为svn服务器添加http支持"><span class="toc-number">4.</span> <span class="toc-text">为SVN服务器添加HTTP支持</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#安装必要包"><span class="toc-number">4.1.</span> <span class="toc-text">安装必要包</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#转换svn明文密码为http要求的加密格式"><span class="toc-number">4.2.</span> <span class="toc-text">转换SVN明文密码为HTTP要求的加密格式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#修改http-conf-使得http支持svn"><span class="toc-number">4.3.</span> <span class="toc-text">修改http.conf，使得http支持SVN</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#在防火墙中开放httpd服务的80端口"><span class="toc-number">4.4.</span> <span class="toc-text">在防火墙中开放httpd服务的80端口</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#重启httpd服务"><span class="toc-number">4.5.</span> <span class="toc-text">重启httpd服务</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#通过浏览器测试"><span class="toc-number">4.6.</span> <span class="toc-text">通过浏览器测试</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#参考资料"><span class="toc-number">5.</span> <span class="toc-text">参考资料</span></a></li></ol></div>
             </div>
           </div>
         

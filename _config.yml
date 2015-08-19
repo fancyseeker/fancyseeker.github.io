@@ -92,7 +92,7 @@ markdown:
     - markdown-it-sup
     - markdown-it-sub
   anchors:
-    level: 2
+    level: 1
     collisionSuffix: 'v'
     permalink: false
     permalinkClass: header-anchor

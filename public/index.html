@@ -105,7 +105,7 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-       <!--<h1>前言</h1>
+       <!--<h1 id="前言-v3">前言</h1>
 <p>网络上关于介绍Mutt的文章很多, 相信最有名的应该算是王垠的<a href="http://www.ctex.org/documents/shredder/mutt_frame.html" target="_blank" rel="external">Mutt使用指南</a>了吧, 这是我看过诸多讲述Mutt文章中讲的最好的, 为什么? 因为这篇文章真的只讲Mutt啊! 当然, 最后我还是无法根据这篇文章把我的Mutt配置用起来就是了. 除此之外, 网上遍布了各式各样的形如<code>(从零配置)?mutt+(getmail|fetchmail)+(msmtp|esmtp)(+procmail)?收发邮件</code>之类的文章, 那为什么我还要再造一个轮子, 哦不, 是再写这一篇文章来给互联网添加冗余的信息呢?</p>
 <ul>
 <li>
@@ -119,15 +119,16 @@
 </li>
 </ul>
 <p>综上, 可以看到, 我需要用Mutt来阅读邮件列表, 之所以选Mutt而不使用传统的邮件客户端或是常用的邮箱是因为其在阅读邮件列表时表现不佳, 缺乏效率. 而当我要着说配置Mutt的时候, 网络上的诸多文章仅仅只能起到参考的作用, 我希望能做到自己来定制Mutt并且是真的了解为什么这么配才去配, 而不是随手拿来一个配置文件就用. 再者, 就是本人有些许强迫症, 像Mutt和其它的一些在Unix-like环境下运行的Tools具有极强定制性的工具, 总是希望能将其尽可能的配置到顺手为止. 因此, 我才花时间来写下这篇文章, 一方面记录自己的配置过程, 方便以后回顾用, 另一方面, 若能顺便帮助下有需要的人, 那也算是意外收获了吧.</p>
-<h1>Why: 为什么使用Mutt</h1>
+<h1 id="why-为什么使用mutt">Why: 为什么使用Mutt</h1>
 <p>如上文所述, 从阅读邮件的角度来说, 有很多很好用的邮箱, Gmail就是本人很喜欢的邮箱, 并且一直在用, 除了一些不可控的原因影响其用户体验外, 其它方面确实表现的很好. 那为什么我还要花这么大的力气去配置Mutt呢? Mutt跟其它的邮箱相比, 到底有哪些好处呢?</p>
 <p>邮件归类<br>
 Thread模式条理清晰<br>
 高亮嵌套引用<br>
 Patch高亮</p>
-<h1>What: Mutt是什么</h1>
+<h1 id="what-mutt是什么">What: Mutt是什么</h1>
 <p>Mutt工具的定位, 负责的事情, 因此需要其它工具来一起完成任务, 关系图.<br>
 MTA MUA MDA spool 基础知识</p>
+<h2 id="mutt简介">Mutt简介</h2>
 <p>Mutt是什么? 或者说Mutt是什么样子的? 根据<a href="http://www.mutt.org" target="_blank" rel="external">Mutt官网</a>上的介绍, Mutt是Unix系统环境下一个小巧但是强大的文本邮件客户端. 小是显而易见的, 功能强大对于本人而言主要体现在以下几个<a href="http://www.mutt.org/#Features" target="_blank" rel="external">Mutt Feature</a>:</p>
 <ul>
 <li>支持配色</li>
@@ -153,15 +154,102 @@ MTA MUA MDA spool 基础知识</p>
 </li>
 </ol>
 <p>诚然Mutt有很多优点, 但是Mutt仅仅只是一个邮件客户端, 那么问题来了, 什么是邮件客户端(Mail Client)? 通常我们认为一个邮件客户端应该像Outlook和Thunderbird那样, 能收能发能整理能查找. 但是很遗憾的, Mutt跟他们并不一样, Mutt是Unix环境下的small and powerful的邮件客户端, 按照Unix大多工具的尿性, 一般只会提供小而精的功能, 并不会做大而全的封装. Mutt也是一样, <strong>Mutt只管理邮件, 而不负责邮件的收发</strong>. 详细点说, Mutt做的事情只是从本机上的某个位置读取邮件, 或是把邮件存放到本机上的某个位置, 此外, 还负责邮件的阅读, 查找, 标记等事务, 与其说Mutt是一个邮件客户端, 不如说<strong>Mutt是一个邮件管理工具</strong>.</p>
+<h2 id="email工作原理">Email工作原理</h2>
 <p>说到这里, 我们就不得不简单的讲一下Email的工作原理了<sup><a href="http://ccm.net/contents/116-how-email-works-mta-mda-mua" target="_blank" rel="external">[x]</a></sup>.<br>
 <img src="/img/mutt/how_email_works.png" alt="Email的工作原理"></p>
-<h1>How: 配置Mutt</h1>
-<h1>Misc:</h1>
+<p>从上面的原理图中, 我们可以看到整个邮件发送接收的过程. 首先, 邮件在MUA(Mail User Agent)中编辑完成, 交由MTA(Mail Transfer Agent)进行发送, 在发送的过程中, 邮件会在多个路由和MTA服务器中中转, 邮件从一个MTA服务器被传输到另一个MTA服务器, 其中使用的是名为<a href="https://zh.wikipedia.org/zh/%E7%AE%80%E5%8D%95%E9%82%AE%E4%BB%B6%E4%BC%A0%E8%BE%93%E5%8D%8F%E8%AE%AE" target="_blank" rel="external">SMTP</a>的邮件传输协议. 当邮件到达收件人所处的网络中的MTA时, MTA将邮件交给邮件服务器, 邮件服务器负责将邮件发送给指定用户的信箱中, 邮件服务器在分发邮件的时候, 具有MDA(Mail Delivery Agent)的功能, 其中可能会包含防火墙, 过滤垃圾邮件, 屏蔽黑名单等功能, 我们常见的网络邮箱的工作模式大致是这样的.</p>
+<p>另外, 如果我们使用的是邮件客户端来接收邮件的话, 客户端还需要负责从远端的信箱中拖取邮件到本地的信箱中. 这里就需要使用MRA(Mail Retrieval Agent)来完成从远端信箱收取邮件至本地的操作, 在MRA取邮件的时候, 涉及到这么一个问题, 是单纯的将远端邮箱的邮件复制来呢, 还是让本机的信箱跟远端的信箱保持同步呢, 根据收取方式的不同, 区分了两种主流的收取邮件协议<a href="https://zh.wikipedia.org/wiki/%E9%83%B5%E5%B1%80%E5%8D%94%E5%AE%9A" target="_blank" rel="external">POP3</a>和<a href="https://zh.wikipedia.org/wiki/IMAP" target="_blank" rel="external">IMAP</a>. 在邮件到达本地后, 有时在本机上, 会再次对邮件进行一部分分拣和过滤, 例如将来自邮件列表的邮件放到一个特定的文件夹中, 将包含特定文字的邮件放到垃圾邮件文件中等, 这些功能, 是通过本地的MDA来完成的. 最后, 邮件到达了特定的文件夹, MUA, 即邮件客户端从特定文件夹读取邮件, 并解码邮件格式, 展示给用户阅读. 而Mutt, 在整个邮件收发过程中, 做的也就是这个部分的事情!</p>
+<h2 id="mutt与msmtp-getmail和procmail的关系">Mutt与msmtp, getmail和procmail的关系</h2>
+<p>解释了半天, 相信大家已经被各种M*A给整懵了吧. 以下对邮件发送过程中的各个部分(Agent)做下简要的解释:</p>
+<ul>
+<li>
+<p><strong>MUA(Mail User Agent)</strong>: 邮件客户端, 负责邮件的管理, 阅读等. 一些集成度较高的MUA会带有收发邮件乃至过滤邮件的功能如Outlook和Thunderbird, Mutt也带有简单的发送邮件功能, 不过一般不采用.</p>
+</li>
+<li>
+<p><strong>MTA(Mail Transfer Agent)</strong>: 邮件传送代理, 负责邮件的发送, 处理发送过程中的主机识别, 路由跳转等问题. 对于用户而言MTA就是负责从本地发送邮件的部件. 常见的MTA有sendmail, emstp, msmtp.</p>
+</li>
+<li>
+<p><strong>MRA(Mail Retrieval Agent)</strong>: 邮件收取代理, 负责从远端的邮件服务器收取邮件至本地文件夹. 常见的MRA有fetchmail, getmail.</p>
+</li>
+<li>
+<p><strong>MDA(Mail Delivery Agent)</strong>: 邮件分发代理, 负责根据规则过滤邮件并将邮件投放到不同的文件夹中. 常见的MDA有procmail.</p>
+</li>
+</ul>
+<p>之所以讲了这么多Email的工作原理, 主要是为了两件事情.</p>
+<ol>
+<li>明确Mutt在整个邮件收发过程中的位置.</li>
+<li>解释为什么在配置Mutt的时候需要额外安装配置msmtp, getmail乃至procmail.</li>
+</ol>
+<p>当弄明白了Email的工作原理后, 其实也就不难理解为什么在网上搜索Mutt相关资料的时候, 跳出来的都是mutt+getmail+msmtp+procmail之类的文章了. 因为光一个Mutt, 根本无法完成最基本的邮件收发功能啊, 必须需要靠msmtp来发邮件, 靠getmail来收邮件, 如果还需要自定义一些邮件分类过滤行为的话, 还需要procmail来帮忙. 因此, 现在我们在谈论Mutt的时候, 我们其实实在谈论mutt+getmail+msmtp这一串东西.</p>
+<h1 id="how-搭建mutt环境">How: 搭建Mutt环境</h1>
+<p>在明白了为什么用Mutt, 什么是Mutt, 已经Mutt与msmtp, getmail和procmail的关系之后, 接下来, 我们来了解下如何配置Mutt以及msmtp和getmail, 在这节中我们先不介绍procmail, 因为很多的邮箱反垃圾邮件和防火墙已经做的很好了, 用不着用户自定义规则来反垃圾邮件. Mutt+msmtp+getmail已经可以完成基础的收发管理邮件的功能.</p>
+<h2 id="安装mutt-msmtp和getmail">安装Mutt, msmtp和getmail</h2>
+<p>这步没什么好说的, 直接apt-get</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo apt-get install mutt msmtp getmail4</span><br></pre></td></tr></table></figure>
+<h2 id="配置mutt">配置Mutt</h2>
+<p>Mutt的配置主要分为2个部分: 一个是muttrc文件, 另一个是信箱目录的组织.</p>
+<h3 id="muttrc文件">muttrc文件</h3>
+<p>我们先来看一下基本的muttrc配置文件. 在用户的<code>$HOME</code>目录下创建并编辑<code>.muttrc</code>文件.</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ vim ~/.muttrc</span><br></pre></td></tr></table></figure>
+<p>一个本的muttrc文件如下所示:</p>
+<figure class="highlight vala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor"># 设置发信人名称</span></span><br><span class="line"><span class="keyword">set</span> realname = <span class="string">"Your Name"</span></span><br><span class="line"></span><br><span class="line"><span class="preprocessor"># 设置邮件发送程序</span></span><br><span class="line"><span class="keyword">set</span> sendmail = <span class="string">"/usr/bin/msmtp"</span></span><br><span class="line"></span><br><span class="line"><span class="preprocessor"># 默认的发信地址</span></span><br><span class="line"><span class="keyword">set</span> from = <span class="string">"yourmail@mail.com"</span></span><br><span class="line"></span><br><span class="line"><span class="preprocessor"># 在发送邮件时使用from域作为msmtp发送邮件的sender, 否则使用的是user@localhost</span></span><br><span class="line"><span class="keyword">set</span> envelope_from = yes</span><br><span class="line"></span><br><span class="line"><span class="preprocessor"># mutt自动生成from地址</span></span><br><span class="line"><span class="keyword">set</span> use_from = yes</span><br><span class="line"></span><br><span class="line"><span class="preprocessor"># 设置编辑时使用的编辑器</span></span><br><span class="line"><span class="keyword">set</span> editor = <span class="string">"vim"</span></span><br><span class="line"></span><br><span class="line"><span class="preprocessor"># 建立信箱, 默认信箱是inbox, 所有新邮件都会被默认发送到inbox文件夹中</span></span><br><span class="line"><span class="preprocessor"># 告知mutt邮件的存放格式(format), maildir格式要求相关文件夹下必须有tmp, new, cur这3个子目录</span></span><br><span class="line"><span class="keyword">set</span> mbox_type = maildir</span><br><span class="line"><span class="preprocessor"># 存放邮件的根目录, 在muttrc文件中用"+"或者"="表示</span></span><br><span class="line"><span class="keyword">set</span> folder = <span class="string">"~/.mail"</span></span><br><span class="line"><span class="preprocessor"># 接收到的邮件默认存放的位置, 系统会自动创建该目录, 而其它的目录需要手动创建</span></span><br><span class="line"><span class="keyword">set</span> spoolfile = <span class="string">"+inbox"</span></span><br><span class="line"><span class="preprocessor"># 从收件箱(inbox)保存的邮件存放位置</span></span><br><span class="line"><span class="keyword">set</span> mbox = <span class="string">"+mbox"</span></span><br><span class="line"><span class="preprocessor"># 延迟发送(postpone)邮件的存放位置</span></span><br><span class="line"><span class="keyword">set</span> postponed = <span class="string">"+postponed"</span></span><br><span class="line"><span class="preprocessor"># 已发送的邮件存放的位置</span></span><br><span class="line"><span class="keyword">set</span> record = <span class="string">"+sent"</span></span><br><span class="line"></span><br><span class="line"><span class="preprocessor"># 设置终端显示时采用的字符集</span></span><br><span class="line"><span class="keyword">set</span> charset = <span class="string">"utf-8"</span></span><br><span class="line"></span><br><span class="line"><span class="preprocessor"># 设置发送字符集, 根据linux内核邮件列表推荐设置</span></span><br><span class="line"><span class="keyword">set</span> send_charset = <span class="string">"us-ascii:utf-8"</span></span><br><span class="line"></span><br><span class="line"><span class="preprocessor"># 回信时引用原文是否加入原文的邮件头</span></span><br><span class="line"><span class="keyword">set</span> header = no</span><br><span class="line"></span><br><span class="line"><span class="preprocessor"># 将inbox中已读邮件自动移动到mbox文件夹中(ask-yes表示会询问, yes则直接移动)</span></span><br><span class="line"><span class="keyword">set</span> move = ask-yes</span><br><span class="line"></span><br><span class="line"><span class="preprocessor"># 在信件内容窗口(pager)滚动到底部时, 不自动跳到下一封邮件</span></span><br><span class="line"><span class="keyword">set</span> pager_stop</span><br><span class="line"></span><br><span class="line"><span class="preprocessor"># 告知mutt订阅的邮件列表,以便开启相关特性,便于阅读邮件列表</span></span><br><span class="line">subscribe xen-devel@lists.xen.org xen-devel@lists.xensource.com xen-devel@lists.xenproject.org</span><br></pre></td></tr></table></figure>
+<h3 id="指定msmtp作为邮件发送工具">指定msmtp作为邮件发送工具</h3>
+<p>由于我们采用msmtp来发送邮件, 需要告知Mutt, 以便在发送邮件的时候, Mutt可以将邮件交给msmtp进行发送. 因此, 需要指定邮件发送工具路径.</p>
+<figure class="highlight actionscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">set</span> sendmail = <span class="string">"/usr/bin/msmtp"</span></span><br></pre></td></tr></table></figure>
+<h3 id="设置信箱目录">设置信箱目录</h3>
+<p>另外, 我们看到在muttrc配置文件中设置了很多信箱文件夹, 如下:</p>
+<figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">set</span> mbox_type = maildir</span><br><span class="line"><span class="keyword">set</span> folder = <span class="string">"~/.mail"</span></span><br><span class="line"><span class="keyword">set</span> spoolfile = <span class="string">"+inbox"</span></span><br><span class="line"><span class="keyword">set</span> mbox = <span class="string">"+mbox"</span></span><br><span class="line"><span class="keyword">set</span> postponed = <span class="string">"+postponed"</span></span><br><span class="line"><span class="keyword">set</span> <span class="type">record</span> = <span class="string">"+sent"</span></span><br></pre></td></tr></table></figure>
+<p>这里就有必要解释下其意思了. 首先, 我们看到的是<code>mbox_type</code>这个变量, 这是用来设置邮件储存格式的, 通常将其设置为<code>maildir</code>格式<sup><a href="http://dev.mutt.org/trac/wiki/MaildirFormat" target="_blank" rel="external">[x]</a></sup>. <code>maildir</code>格式要求每个信箱文件下要包含3个子文件夹, 分别为<code>cur</code>, <code>new</code>, <code>tmp</code>.</p>
+<p>说到邮件储存格式, 我们就来简单了解下Mutt管理邮件的方式. 事实上, 我们通过Mutt看到的邮件, 都是以文件的形式保存在特定的目录中的, 一封邮件就是一个文件. Mutt做的事情就是从特定的信箱目录中读取邮件, 解码文件, 然后展示内容给用户. 在把邮件从一个信箱移动到另一个信箱的时候, Mutt实际上是将邮件文件从一个目录移动或是复制到另一个目录中, 就是这么简单!</p>
+<p>接着我们看一下变量<code>$folder</code>, 该变量即指定了Mutt读取操作邮件的&quot;根目录&quot;, 例如, 示例配置文件中, 将其设置为<code>~/.mail</code>目录, 那么在打开Mutt的时候, Mutt会默认从该目录下去读取操作邮件文件.</p>
+<p>在信箱组织方面, 一般建议设置<code>$spoolfile</code>, <code>$mbox</code>, <code>$postponed</code> 和 <code>$record</code>这四个变量. 当然, 也可以都不设置, 但是Mutt会默认在<code>$folder</code>变量指定的目录下建立<code>inbox</code>目录, 并将全部的邮件都一股脑放到这个目录下. 这里, 我们都对其进行了设置, 当然, 设置前要确保这些指定目录已经建立好了, 并且每个目录下已经建立了<code>cur</code>, <code>new</code>, <code>tmp</code>这三个子目录.</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">$ mkdir ~/.mail</span><br><span class="line">$ cd ~/.mail</span><br><span class="line">$ mkdir inbox mbox postponed sent</span><br><span class="line">$ cd ~/.mail/inbox</span><br><span class="line">$ mkdir cur new tmp</span><br><span class="line"><span class="keyword">...</span></span><br></pre></td></tr></table></figure>
+<p>这里我们简要的介绍下各个目录的功能<sup><a href="http://dev.mutt.org/trac/wiki/MuttGuide/Folders" target="_blank" rel="external">[x]</a></sup></p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">muttrc中变量</th>
+<th style="text-align:left">设置的目录</th>
+<th style="text-align:left">功能</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><code>$spoolfile</code></td>
+<td style="text-align:left">inbox</td>
+<td style="text-align:left">最基本的一个目录, 默认所有的新邮件都会存放在这个目录下</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>$mbox</code></td>
+<td style="text-align:left">mbox</td>
+<td style="text-align:left">已读邮件会被移动至该目录下(需要设置<code>$move</code>变量)</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>$postponed</code></td>
+<td style="text-align:left">postponed</td>
+<td style="text-align:left">推迟发送的邮件会被保存在这里</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>$record</code></td>
+<td style="text-align:left">sent</td>
+<td style="text-align:left">已发送的邮件会被保存在这里</td>
+</tr>
+</tbody>
+</table>
+<p>P.S. 在指定信箱目录的时候我们使用了<code>+</code>符号, 在muttrc文件中, <code>+</code>号代表<code>$folder</code>变量, 例如示例中设置了<code>$folder</code>变量为<code>~/.mail</code>目录, 那么<code>+inbox</code>表示的就是<code>~/.mail/inbox</code>目录<sup><a href="http://dev.mutt.org/trac/wiki/MuttGuide/Folders" target="_blank" rel="external">[x]</a></sup>.</p>
+<h3 id="mutt其它配置项">Mutt其它配置项</h3>
+<figure class="highlight dos"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">set</span> <span class="built_in">move</span> = ask-yes</span><br></pre></td></tr></table></figure>
+<p><code>$move</code>变量有四个值, 分别为<code>yes</code>, <code>no</code>, <code>ask-yes</code>和<code>ask-no</code>. <code>$move</code>变量的意义在于指定是否将已读的邮件自动移动到<code>mbox</code>目录中. 默认是不移动, 此处将其设置为<code>ask-yes</code>, 即表示自动将已读邮件移动至<code>mbox</code>目录中, 但是在移动前会提示用户是否执行. 这样可以保持<code>inbox</code>目录的整洁, 避免每次打开mutt, 上来就看到一堆已经读过的邮件.</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="operator"><span class="keyword">set</span> <span class="keyword">charset</span> = <span class="string">"utf-8"</span></span><br><span class="line"><span class="keyword">set</span> send_charset = <span class="string">"us-ascii:utf-8"</span></span></span><br></pre></td></tr></table></figure>
+<p>这里主要是字符集的设置, 因为本人使用Mutt来阅读以及回复邮件列表, 因此需要设置通用的字符集来避免收信人接受到乱码邮件的问题, 此处的设置是参考Linux内核邮件列表对邮件客户端的建议<a href="http://git.kernel.org/cgit/linux/kernel/git/torvalds/linux.git/tree/Documentation/email-clients.txt?id=HEAD" target="_blank" rel="external">设置</a></p>
+<p>关于其它项的配置, 注释已经写的比较详细了, 就不再赘述了. 最后, 实际上Mutt是带有简单的收发邮件模块的, 因此有些用户可能需要在<code>.muttrc</code>文件中写入邮箱的账户和明文密码, 因此, 最好还是需要将<code>.muttrc</code>的权限设置为600.</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ chmod 600 ~/.muttrc</span><br></pre></td></tr></table></figure>
+<h1 id="misc">Misc:</h1>
 <p>配置procmail 配色 键位绑定</p>
 -->
             
             
-                <h1>前言</h1>
+                <h1 id="前言-v3">前言</h1>
                 
                 <p class="article-more-link">
                     <a href="/2015/08/19/mutt/#more">Read More</a>
@@ -220,7 +308,7 @@ MTA MUA MDA spool 基础知识</p>
     
     <div class="article-entry" itemprop="articleBody">
       
-       <!--<h1>first</h1>
+       <!--<h1 id="first">first</h1>
 <p>like_this_underline_</p>
 <p>this is <code>inline</code> block</p>
 <p><em>italic</em></p>
@@ -251,7 +339,7 @@ test<ins>Inserted</ins></p>
 -->
             
             
-                <h1>first</h1>
+                <h1 id="first">first</h1>
                 
                 <p class="article-more-link">
                     <a href="/2015/04/10/test-markdown-it/#more">Read More</a>
@@ -400,7 +488,7 @@ WP是如此的完善, 有着自己的一套生态, 但是就是这种高大全�
     
     <div class="article-entry" itemprop="articleBody">
       
-       <!--<h1>Background</h1>
+       <!--<h1 id="background-v3">Background</h1>
 <p>趁着虚拟机在安装guest os的时候抽空写一篇小短文吧。这篇文章主要介绍利用NFS在Xen的host os和guest os中共享文件夹。众所周知的，VMware是很容易在宿主机(Host)的windows和客户机(Guest)中共享文件夹的，点几下按钮的事情。但是同样的事情到了Linux下的Xen上，就变得有点麻烦，因为Xen没有提供Host和Guest之间的共享手段，所以用户就需要利用其它方法来实现虚拟机和宿主机共享文件夹这事。</p>
 <p>首先，让我们来介绍一下故事的背景。故事的起因是本人想要阅读下内核代码，觉得单纯的读很枯燥，想顺带改改内核代码试试看效果，但改内核这事也不好直接在物理机上进行，所以自然而然的想到了放到虚拟机中取执行修改的内核。但是代码的修改又需要在Host机上进行(因为嫌麻烦Guest没有配置相对应的工具嘛)，这样就不免要涉及到将Host修改后的代码放入到Guest中编译安装的过程，很自然的，需要实现Host与Guest之间的文件共享机制。</p>
 <p><strong>实验环境：</strong><br>
@@ -412,7 +500,7 @@ WP是如此的完善, 有着自己的一套生态, 但是就是这种高大全�
 <li>利用NFS实现虚拟化平台中Host与Guest，或是Guest与Guest之间的文件共享。</li>
 </ol>
 <hr>
-<h1>NFS的介绍及配置</h1>
+<h1 id="nfs的介绍及配置">NFS的介绍及配置</h1>
 <h2 id="nfs介绍">NFS介绍</h2>
 <p>NFS(Network File System)是FreeBSD支持的文件系统中的一种主要用于在Linux机器之间提供文件共享服务，其基本的原理类似与C/S模式，即服务器/客户端模式，一台提供共享文件夹的计算机充当服务器，其它若干台计算机作为客户机来访问这个共享文件夹。因此，在配置NFS的时候，思路的就很简单。首先，针对共享文件夹所在的机器，进行相关的NFS配置，以便将共享文件夹发布(export)给指定网络内的机器以及设定对应的权限控制，这样指定网络内的计算机就都能看到这个共享文件夹，然后将网络上的共享文件夹挂载(mount)到自己的文件系统下便可以进行访问了。通过这种export/mount模式，NFS便实现了文件共享机制。</p>
 <p>事实上，在文件共享方面，还有一个更知名(或者说使用者更多)的服务，那便是Samba服务，而NFS则显得相对小众点(或者说使用者多为Linux管理员一类的)，之所以是这样，就是因为NFS只用于Linux与Linux系统之间的文件共享，而Samba则可用于Linux与Windows之间，Linux与Linux之间的文件共享。从Windows和Linux的用户基数的对比上就可以看出其中端倪。虽然Samba看起来比NFS功能强大，但是NFS也有自身优势，相比于Samba，NFS显得更加轻量级也更稳定点，当然，配置起来也更简单点。</p>
@@ -536,7 +624,7 @@ WP是如此的完善, 有着自己的一套生态, 但是就是这种高大全�
 <p>然后执行 <code># mount -a</code> 即可。</p>
 <p>至此，NFS的配置和使用过程讲解结束，目前未涉及到半点虚拟机的内容，接下来，我们来讲讲如何将NFS用与虚拟机中Host与Guest共享文件。</p>
 <hr>
-<h1>采用NFS实现Xen中Host与Guest的文件共享</h1>
+<h1 id="采用nfs实现xen中host与guest的文件共享">采用NFS实现Xen中Host与Guest的文件共享</h1>
 <p>Xen并未提供在宿主机Host与客户机Guest之间的文件共享方式。因此，我们不得不自己动手来完成这个事情。</p>
 <p>如果说仅仅实现了Xen中的Host与Guest的文件共享，我想也未免太针对了，事实上，利用NFS我们可以完成任意台Linux主机之间的文件共享，哪怕这些Linux主机中包含有虚拟的计算机。不管是在Xen中，还是在VMware中又或者是在Virtual Box中，只要Host是Linux系统，Guest也是Linux系统，Host和Guest在网络上能互相查找到对方，那么便可利用NFS完成文件共享。那么，显然的，如果Host机或者Guest机中有Windows系统机器，NFS就不再适用了，这时候你就需要Samba。</p>
 <p>我们注意到，利用NFS来进行文件共享，有2个主要的要求：</p>
@@ -566,7 +654,7 @@ WP是如此的完善, 有着自己的一套生态, 但是就是这种高大全�
 -->
             
             
-                <h1>Background</h1>
+                <h1 id="background-v3">Background</h1>
                 
                 <p class="article-more-link">
                     <a href="/2014/06/16/nfs_xen/#more">Read More</a>
