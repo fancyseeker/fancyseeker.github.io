@@ -7,9 +7,11 @@ tags: [google, search engine, trick]
 
 like_this_underline_
 
+this is `inline` block
+
 *italic*
 
-http://www.baidu.com
+http://www.google.com
 
 ~~strikethrough~~
 
@@ -22,7 +24,7 @@ puts markdown.to_html
 | Name | Description          |
 | ------------- | ----------- |
 | Help      | ~~Display the~~ help window.|
-| Close     | _Closes_ a window     |
+| **Close**     | _Closes_ a window     |
 
 test<sub>H2O</sub>
 test<sup>x2</sup>

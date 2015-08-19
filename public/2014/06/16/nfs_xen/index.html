@@ -223,9 +223,9 @@
 </table>
 <p>修改完成之后输入：<code># exportfs –rv</code> 来使配置文件生效。</p>
 <p>重启NFS服务</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo /etc/init.d/nfs-kernel-server restart</span><br></pre></td></tr></table></figure>
+<figure class="highlight puppet"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo /etc/init.d/nfs-<span class="built_in">kernel</span>-server <span class="literal">restart</span></span><br></pre></td></tr></table></figure>
 <p>网上一些帖子里说由于NFS是一个RPC程序，使用它前，需要通过portmap映射好端口故需要重启portmap服务</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo /etc/init.d/portmap restart</span><br></pre></td></tr></table></figure>
+<figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$ </span>sudo /etc/init.d/portmap restart</span><br></pre></td></tr></table></figure>
 <p>但是本人的Mint 16上并未发现有portmap服务，故忽略，最后也能成功执行NFS。<br>
 最后，查看目录是否已经共享，</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ showmount <span class="operator">-e</span> localhost  <span class="comment">#查询本机nfs共享目录情况</span></span><br><span class="line">$ showmount <span class="operator">-a</span> localhost  <span class="comment">#查询本机共享目录连接情况</span></span><br></pre></td></tr></table></figure>
@@ -389,9 +389,9 @@
 </table>
 <p>修改完成之后输入：<code># exportfs –rv</code> 来使配置文件生效。</p>
 <p>重启NFS服务</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo /etc/init.d/nfs-kernel-server restart</span><br></pre></td></tr></table></figure>
+<figure class="highlight puppet"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo /etc/init.d/nfs-<span class="built_in">kernel</span>-server <span class="literal">restart</span></span><br></pre></td></tr></table></figure>
 <p>网上一些帖子里说由于NFS是一个RPC程序，使用它前，需要通过portmap映射好端口故需要重启portmap服务</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo /etc/init.d/portmap restart</span><br></pre></td></tr></table></figure>
+<figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$ </span>sudo /etc/init.d/portmap restart</span><br></pre></td></tr></table></figure>
 <p>但是本人的Mint 16上并未发现有portmap服务，故忽略，最后也能成功执行NFS。<br>
 最后，查看目录是否已经共享，</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ showmount <span class="operator">-e</span> localhost  <span class="comment">#查询本机nfs共享目录情况</span></span><br><span class="line">$ showmount <span class="operator">-a</span> localhost  <span class="comment">#查询本机共享目录连接情况</span></span><br></pre></td></tr></table></figure>
@@ -441,7 +441,7 @@
     </div>
     <footer class="article-footer">
       
-        <a data-url="http://fancyseeker.github.io/2014/06/16/nfs_xen/" data-id="ci93spi2z001ifgdynwznizbr" class="article-share-link" data-share="baidu">分享到</a>
+        <a data-url="http://fancyseeker.github.io/2014/06/16/nfs_xen/" data-id="cidi6953s001i0m4zfx8r9fel" class="article-share-link" data-share="baidu">分享到</a>
       
 
       

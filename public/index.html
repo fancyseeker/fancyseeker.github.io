@@ -76,6 +76,121 @@
     <div class="outer">
       <section id="main">
   
+    <article id="post-mutt" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+          <div class="article-meta">
+            
+            <a href="/2015/08/19/mutt/" class="article-date">
+  <time datetime="2015-08-19T01:42:04.000Z" itemprop="datePublished">2015-08-19</time>
+</a>
+            <p class="article-time">
+                <a href="/2015/08/19/mutt/" class="article-time">
+  <time datetime="2015-08-19T01:42:04.000Z" itemprop="datePublished">09:42:04</time>
+</a>
+
+            </p>
+          </div>
+        
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/08/19/mutt/">Mutt: 阅读邮件列表</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+       <!--<h1>前言</h1>
+<p>网络上关于介绍Mutt的文章很多, 相信最有名的应该算是王垠的<a href="http://www.ctex.org/documents/shredder/mutt_frame.html" target="_blank" rel="external">Mutt使用指南</a>了吧, 这是我看过诸多讲述Mutt文章中讲的最好的, 为什么? 因为这篇文章真的只讲Mutt啊! 当然, 最后我还是无法根据这篇文章把我的Mutt配置用起来就是了. 除此之外, 网上遍布了各式各样的形如<code>(从零配置)?mutt+(getmail|fetchmail)+(msmtp|esmtp)(+procmail)?收发邮件</code>之类的文章, 那为什么我还要再造一个轮子, 哦不, 是再写这一篇文章来给互联网添加冗余的信息呢?</p>
+<ul>
+<li>
+<p>首先, 介绍下我的使用场景, 我需要使用阅读相关社区的Mailing List, 而邮件列表这种东西大家或多或少了解过, 主要的特点是邮件主题(Thread)多, 回复(Re)多, 引用(Quoted)多, 代码(Patch)多…如果你订阅(Subscribe)了一个邮件列表, 那么一天收个一百来封邮件很正常. 那么问题就来了, 这么多这么乱的邮件, 如何阅读? 如何整理? 我们常用的邮箱诸如Gmail, 163, QQmail etc. 这类的邮箱在日常使用中确实表现不错, 但是碰到邮件列表, 似乎就不怎么好用了. 此外, 还有一些邮件客户端, 诸如Outlook, Thunderbird etc. Thunderbird我没用过就不置评了, Outlook看邮件列表我没试过, 但是就是在Outlook中多几层引用回复我看起来就很费劲了, 可能是比较low吧, 并没有学习如何高效使用神器Outlook = =.</p>
+</li>
+<li>
+<p>其次, 除了邮件又杂又多的问题, 在社区的开发者列表(devel)中经常会包含很多代码, 其中有讨论代码的, 也有是使用<code>git sendmail</code>发送的Patch的, 因此邮件内容中会包含很多的代码, 其中的代码还是<code>git diff</code>格式的, 增减的代码行首有<code>+</code>有<code>-</code>, 如何能高亮修改的代码行以及其它信息是高效阅读邮件的关键, 毕竟, 时间就是金钱, 我的朋友 ;-P</p>
+</li>
+<li>
+<p>最后, 当我在网上搜索Mutt的相关介绍时候, 其实我是想找到如何配置Mutt的, 而搜索引擎返回给我的结果也确实是如何配置Mutt的, 但是很遗憾的, Mutt这个工具对于刚接触的人来说实在是太不友好了. 我只想收发邮件, 为什么还要整那么多没用的, 又是getmail, 又是msmtp的, 还有个看起来巨复杂的procmail? 然后当我困惑于这些个东西是什么关系的时候, 文章只是甩了我几个配置文件就完了? 当我半知不解的照猫画虎按照文章内容小心翼翼的编辑完配置文件后, 发现不能用亦或是根本就不对的时候, 我的内心是崩溃的(摔! 谁能告诉我配置文件的参数是什么意思, 为什么要配这个参数, 这个参数还有什么其它值, 行为是怎么样的, 还有没有其它的参数来完成XXX功能? 而当我苦苦在一篇篇文章中苦苦上下求索一无所获满头雾水的时候, 所幸最后Stackoverflow, 官网manual以及man page救了我.</p>
+</li>
+</ul>
+<p>综上, 可以看到, 我需要用Mutt来阅读邮件列表, 之所以选Mutt而不使用传统的邮件客户端或是常用的邮箱是因为其在阅读邮件列表时表现不佳, 缺乏效率. 而当我要着说配置Mutt的时候, 网络上的诸多文章仅仅只能起到参考的作用, 我希望能做到自己来定制Mutt并且是真的了解为什么这么配才去配, 而不是随手拿来一个配置文件就用. 再者, 就是本人有些许强迫症, 像Mutt和其它的一些在Unix-like环境下运行的Tools具有极强定制性的工具, 总是希望能将其尽可能的配置到顺手为止. 因此, 我才花时间来写下这篇文章, 一方面记录自己的配置过程, 方便以后回顾用, 另一方面, 若能顺便帮助下有需要的人, 那也算是意外收获了吧.</p>
+<h1>Why: 为什么使用Mutt</h1>
+<p>如上文所述, 从阅读邮件的角度来说, 有很多很好用的邮箱, Gmail就是本人很喜欢的邮箱, 并且一直在用, 除了一些不可控的原因影响其用户体验外, 其它方面确实表现的很好. 那为什么我还要花这么大的力气去配置Mutt呢? Mutt跟其它的邮箱相比, 到底有哪些好处呢?</p>
+<p>邮件归类<br>
+Thread模式条理清晰<br>
+高亮嵌套引用<br>
+Patch高亮</p>
+<h1>What: Mutt是什么</h1>
+<p>Mutt工具的定位, 负责的事情, 因此需要其它工具来一起完成任务, 关系图.<br>
+MTA MUA MDA spool 基础知识</p>
+<p>Mutt是什么? 或者说Mutt是什么样子的? 根据<a href="http://www.mutt.org" target="_blank" rel="external">Mutt官网</a>上的介绍, Mutt是Unix系统环境下一个小巧但是强大的文本邮件客户端. 小是显而易见的, 功能强大对于本人而言主要体现在以下几个<a href="http://www.mutt.org/#Features" target="_blank" rel="external">Mutt Feature</a>:</p>
+<ul>
+<li>支持配色</li>
+<li>对邮件列表支持很好</li>
+<li>高度可定制, 支持键绑定和宏</li>
+<li>支持正则表达式以及内部模式匹配等多种搜索</li>
+<li>高效</li>
+</ul>
+<p>此外, Mutt还支持其它很多特性, 比如MIME(这是什么我并不知道, 估计也不会用到), PGP(没有加密邮件的习惯), 支持POP3和IMAP协议(是个邮箱都支持), 完全控制邮件头部等等等等…但是这些特性其它的邮箱也有, 有的甚至做的更好.</p>
+<p>因此, 对于Mutt, 我最看重的还是其它邮箱所没有的特性.</p>
+<ol>
+<li>
+<p>高度可定制化, 键位绑定和宏对于习惯了Vim和CLI的人来说能提高不少效率;</p>
+</li>
+<li>
+<p>对邮件列表支持完善, 这也是我之所以选用Mutt最关键的原因, Mutt针对邮件列表添加了很多很方便的设置和操作, 极大的提高了阅读和回复邮件列表邮件的效率;</p>
+</li>
+<li>
+<p>邮件内容支持配色, 这对于阅读带有代码或是多层嵌套引用的邮件来说简直是神技.</p>
+</li>
+<li>
+<p>高效, 主要反应在打开一个1000+邮件的信箱只需要1s不到时间, 很快.</p>
+</li>
+</ol>
+<p>诚然Mutt有很多优点, 但是Mutt仅仅只是一个邮件客户端, 那么问题来了, 什么是邮件客户端(Mail Client)? 通常我们认为一个邮件客户端应该像Outlook和Thunderbird那样, 能收能发能整理能查找. 但是很遗憾的, Mutt跟他们并不一样, Mutt是Unix环境下的small and powerful的邮件客户端, 按照Unix大多工具的尿性, 一般只会提供小而精的功能, 并不会做大而全的封装. Mutt也是一样, <strong>Mutt只管理邮件, 而不负责邮件的收发</strong>. 详细点说, Mutt做的事情只是从本机上的某个位置读取邮件, 或是把邮件存放到本机上的某个位置, 此外, 还负责邮件的阅读, 查找, 标记等事务, 与其说Mutt是一个邮件客户端, 不如说<strong>Mutt是一个邮件管理工具</strong>.</p>
+<p>说到这里, 我们就不得不简单的讲一下Email的工作原理了<sup><a href="http://ccm.net/contents/116-how-email-works-mta-mda-mua" target="_blank" rel="external">[x]</a></sup>.<br>
+<img src="/img/mutt/how_email_works.png" alt="Email的工作原理"></p>
+<h1>How: 配置Mutt</h1>
+<h1>Misc:</h1>
+<p>配置procmail 配色 键位绑定</p>
+-->
+            
+            
+                <h1>前言</h1>
+                
+                <p class="article-more-link">
+                    <a href="/2015/08/19/mutt/#more">Read More</a>
+                </p>
+                
+            
+      
+    </div>
+    <footer class="article-footer">
+      
+        <a data-url="http://fancyseeker.github.io/2015/08/19/mutt/" data-id="cidi6953u001p0m4zfridce7r" class="article-share-link" data-share="baidu">分享到</a>
+      
+
+      
+        <a href="http://fancyseeker.github.io/2015/08/19/mutt/#ds-thread" class="article-comment-link">评论</a>
+      
+
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/mutt/">mutt<span class="article-tag-list-count">1</span></a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/tools/">tools<span class="article-tag-list-count">1</span></a></li></ul>
+
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
     <article id="post-test-markdown-it" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -107,8 +222,9 @@
       
        <!--<h1>first</h1>
 <p>like_this_underline_</p>
+<p>this is <code>inline</code> block</p>
 <p><em>italic</em></p>
-<p><a href="http://www.baidu.com" target="_blank" rel="external">http://www.baidu.com</a></p>
+<p><a href="http://www.google.com" target="_blank" rel="external">http://www.google.com</a></p>
 <p><s>strikethrough</s></p>
 <figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">require</span> <span class="string">'redcarpet'</span></span><br><span class="line">markdown = <span class="constant">Redcarpet</span>.new(<span class="string">"Hello World!"</span>)</span><br><span class="line">puts markdown.to_html</span><br></pre></td></tr></table></figure>
 <table>
@@ -124,7 +240,7 @@
 <td><s>Display the</s> help window.</td>
 </tr>
 <tr>
-<td>Close</td>
+<td><strong>Close</strong></td>
 <td><em>Closes</em> a window</td>
 </tr>
 </tbody>
@@ -146,7 +262,7 @@ test<ins>Inserted</ins></p>
     </div>
     <footer class="article-footer">
       
-        <a data-url="http://fancyseeker.github.io/2015/04/10/test-markdown-it/" data-id="ci93spi2n000efgdy8bffv615" class="article-share-link" data-share="baidu">分享到</a>
+        <a data-url="http://fancyseeker.github.io/2015/04/10/test-markdown-it/" data-id="cidi6953k000e0m4z9z3coju0" class="article-share-link" data-share="baidu">分享到</a>
       
 
       
@@ -238,7 +354,7 @@ WP是如此的完善, 有着自己的一套生态, 但是就是这种高大全�
     </div>
     <footer class="article-footer">
       
-        <a data-url="http://fancyseeker.github.io/2015/04/08/wordpress2hexo/" data-id="ci93spi2j0008fgdyd5mtuxnz" class="article-share-link" data-share="baidu">分享到</a>
+        <a data-url="http://fancyseeker.github.io/2015/04/08/wordpress2hexo/" data-id="cidi6953h00080m4zp33fij34" class="article-share-link" data-share="baidu">分享到</a>
       
 
       
@@ -401,9 +517,9 @@ WP是如此的完善, 有着自己的一套生态, 但是就是这种高大全�
 </table>
 <p>修改完成之后输入：<code># exportfs –rv</code> 来使配置文件生效。</p>
 <p>重启NFS服务</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo /etc/init.d/nfs-kernel-server restart</span><br></pre></td></tr></table></figure>
+<figure class="highlight puppet"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo /etc/init.d/nfs-<span class="built_in">kernel</span>-server <span class="literal">restart</span></span><br></pre></td></tr></table></figure>
 <p>网上一些帖子里说由于NFS是一个RPC程序，使用它前，需要通过portmap映射好端口故需要重启portmap服务</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo /etc/init.d/portmap restart</span><br></pre></td></tr></table></figure>
+<figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$ </span>sudo /etc/init.d/portmap restart</span><br></pre></td></tr></table></figure>
 <p>但是本人的Mint 16上并未发现有portmap服务，故忽略，最后也能成功执行NFS。<br>
 最后，查看目录是否已经共享，</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ showmount <span class="operator">-e</span> localhost  <span class="comment">#查询本机nfs共享目录情况</span></span><br><span class="line">$ showmount <span class="operator">-a</span> localhost  <span class="comment">#查询本机共享目录连接情况</span></span><br></pre></td></tr></table></figure>
@@ -461,7 +577,7 @@ WP是如此的完善, 有着自己的一套生态, 但是就是这种高大全�
     </div>
     <footer class="article-footer">
       
-        <a data-url="http://fancyseeker.github.io/2014/06/16/nfs_xen/" data-id="ci93spi2z001ifgdynwznizbr" class="article-share-link" data-share="baidu">分享到</a>
+        <a data-url="http://fancyseeker.github.io/2014/06/16/nfs_xen/" data-id="cidi6953s001i0m4zfx8r9fel" class="article-share-link" data-share="baidu">分享到</a>
       
 
       
@@ -519,69 +635,11 @@ WP是如此的完善, 有着自己的一套生态, 但是就是这种高大全�
     </div>
     <footer class="article-footer">
       
-        <a data-url="http://fancyseeker.github.io/2014/05/16/vim2/" data-id="ci93spi2k0009fgdy2f122bnp" class="article-share-link" data-share="baidu">分享到</a>
+        <a data-url="http://fancyseeker.github.io/2014/05/16/vim2/" data-id="cidi6953i00090m4zcpnqi69e" class="article-share-link" data-share="baidu">分享到</a>
       
 
       
         <a href="http://fancyseeker.github.io/2014/05/16/vim2/#ds-thread" class="article-comment-link">评论</a>
-      
-
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/vim/">vim<span class="article-tag-list-count">2</span></a></li></ul>
-
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-vim1" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-          <div class="article-meta">
-            
-            <a href="/2014/05/15/vim1/" class="article-date">
-  <time datetime="2014-05-15T14:55:25.000Z" itemprop="datePublished">2014-05-15</time>
-</a>
-            <p class="article-time">
-                <a href="/2014/05/15/vim1/" class="article-time">
-  <time datetime="2014-05-15T14:55:25.000Z" itemprop="datePublished">22:55:25</time>
-</a>
-
-            </p>
-          </div>
-        
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2014/05/15/vim1/">Vim(1) -- 认识Vim</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>我想对于每一个在Linux或Mac再或Windows工作下的同学，肯定都非常的熟悉，或者至少听说过Vim。Vim博大精深，非一文可蔽之，但是我希望可以以一个简单并广阔的视角来叙述Vim，从一个使用者的角度来从头到脚地讲述我为何选择Vim，如何使用Vim以及如何用好Vim的。以此来给各位同学提供一个完整的使用Vim的视角，同时能够依照本文的介绍，了解整个配置的过程进而能配置属于自己的Vim。
-        
-          <p class="article-more-link">
-            <a href="/2014/05/15/vim1/#more">Read More</a>
-          </p>
-        
-      
-    </div>
-    <footer class="article-footer">
-      
-        <a data-url="http://fancyseeker.github.io/2014/05/15/vim1/" data-id="ci93spi2l000cfgdyqk6bjq7w" class="article-share-link" data-share="baidu">分享到</a>
-      
-
-      
-        <a href="http://fancyseeker.github.io/2014/05/15/vim1/#ds-thread" class="article-comment-link">评论</a>
       
 
       
@@ -612,6 +670,10 @@ WP是如此的完善, 有着自己的一套生态, 但是就是这种高大全�
       <ul>
         
           <li>
+            <a href="/2015/08/19/mutt/">Mutt: 阅读邮件列表</a>
+          </li>
+        
+          <li>
             <a href="/2015/04/10/test-markdown-it/">test markdown it</a>
           </li>
         
@@ -627,10 +689,6 @@ WP是如此的完善, 有着自己的一套生态, 但是就是这种高大全�
             <a href="/2014/05/16/vim2/">Vim(2) -- Vim插件介绍及配置</a>
           </li>
         
-          <li>
-            <a href="/2014/05/15/vim1/">Vim(1) -- 认识Vim</a>
-          </li>
-        
       </ul>
     </div>
   </div>
@@ -642,7 +700,7 @@ WP是如此的完善, 有着自己的一套生态, 但是就是这种高大全�
   <div class="widget-wrap">
     <h3 class="widget-title">标签云</h3>
     <div class="widget tagcloud">
-        <ul class="wtag-list"><li class="wtag-list-item"><a class="wtag-list-link" href="/tags/ASUS/">ASUS<span class="wtag-list-count">1</span></a></li><li class="wtag-list-item"><a class="wtag-list-link" href="/tags/CentOS/">CentOS<span class="wtag-list-count">2</span></a></li><li class="wtag-list-item"><a class="wtag-list-link" href="/tags/Fedora/">Fedora<span class="wtag-list-count">3</span></a></li><li class="wtag-list-item"><a class="wtag-list-link" href="/tags/Linux/">Linux<span class="wtag-list-count">3</span></a></li><li class="wtag-list-item"><a class="wtag-list-link" href="/tags/N61ja/">N61ja<span class="wtag-list-count">1</span></a></li><li class="wtag-list-item"><a class="wtag-list-link" href="/tags/NFS/">NFS<span class="wtag-list-count">1</span></a></li><li class="wtag-list-item"><a class="wtag-list-link" href="/tags/PuTTY/">PuTTY<span class="wtag-list-count">1</span></a></li><li class="wtag-list-item"><a class="wtag-list-link" href="/tags/SVN/">SVN<span class="wtag-list-count">1</span></a></li><li class="wtag-list-item"><a class="wtag-list-link" href="/tags/Virtualization/">Virtualization<span class="wtag-list-count">1</span></a></li><li class="wtag-list-item"><a class="wtag-list-link" href="/tags/Xen/">Xen<span class="wtag-list-count">1</span></a></li><li class="wtag-list-item"><a class="wtag-list-link" href="/tags/apache/">apache<span class="wtag-list-count">1</span></a></li><li class="wtag-list-item"><a class="wtag-list-link" href="/tags/big-data/">big data<span class="wtag-list-count">1</span></a></li><li class="wtag-list-item"><a class="wtag-list-link" href="/tags/blog/">blog<span class="wtag-list-count">2</span></a></li><li class="wtag-list-item"><a class="wtag-list-link" href="/tags/cloud-computing/">cloud computing<span class="wtag-list-count">1</span></a></li><li class="wtag-list-item"><a class="wtag-list-link" href="/tags/conference/">conference<span class="wtag-list-count">1</span></a></li><li class="wtag-list-item"><a class="wtag-list-link" href="/tags/gnome/">gnome<span class="wtag-list-count">1</span></a></li><li class="wtag-list-item"><a class="wtag-list-link" href="/tags/google/">google<span class="wtag-list-count">2</span></a></li><li class="wtag-list-item"><a class="wtag-list-link" href="/tags/laptop-cleaning/">laptop cleaning<span class="wtag-list-count">1</span></a></li><li class="wtag-list-item"><a class="wtag-list-link" href="/tags/life/">life<span class="wtag-list-count">1</span></a></li><li class="wtag-list-item"><a class="wtag-list-link" href="/tags/maintenance/">maintenance<span class="wtag-list-count">3</span></a></li><li class="wtag-list-item"><a class="wtag-list-link" href="/tags/mobile/">mobile<span class="wtag-list-count">1</span></a></li><li class="wtag-list-item"><a class="wtag-list-link" href="/tags/repo/">repo<span class="wtag-list-count">1</span></a></li><li class="wtag-list-item"><a class="wtag-list-link" href="/tags/search-engine/">search engine<span class="wtag-list-count">2</span></a></li><li class="wtag-list-item"><a class="wtag-list-link" href="/tags/server/">server<span class="wtag-list-count">1</span></a></li><li class="wtag-list-item"><a class="wtag-list-link" href="/tags/shell/">shell<span class="wtag-list-count">1</span></a></li><li class="wtag-list-item"><a class="wtag-list-link" href="/tags/ssh/">ssh<span class="wtag-list-count">2</span></a></li><li class="wtag-list-item"><a class="wtag-list-link" href="/tags/thought/">thought<span class="wtag-list-count">2</span></a></li><li class="wtag-list-item"><a class="wtag-list-link" href="/tags/trick/">trick<span class="wtag-list-count">2</span></a></li><li class="wtag-list-item"><a class="wtag-list-link" href="/tags/vim/">vim<span class="wtag-list-count">2</span></a></li><li class="wtag-list-item"><a class="wtag-list-link" href="/tags/web/">web<span class="wtag-list-count">1</span></a></li><li class="wtag-list-item"><a class="wtag-list-link" href="/tags/yum/">yum<span class="wtag-list-count">1</span></a></li></ul>
+        <ul class="wtag-list"><li class="wtag-list-item"><a class="wtag-list-link" href="/tags/ASUS/">ASUS<span class="wtag-list-count">1</span></a></li><li class="wtag-list-item"><a class="wtag-list-link" href="/tags/CentOS/">CentOS<span class="wtag-list-count">2</span></a></li><li class="wtag-list-item"><a class="wtag-list-link" href="/tags/Fedora/">Fedora<span class="wtag-list-count">3</span></a></li><li class="wtag-list-item"><a class="wtag-list-link" href="/tags/Linux/">Linux<span class="wtag-list-count">3</span></a></li><li class="wtag-list-item"><a class="wtag-list-link" href="/tags/N61ja/">N61ja<span class="wtag-list-count">1</span></a></li><li class="wtag-list-item"><a class="wtag-list-link" href="/tags/NFS/">NFS<span class="wtag-list-count">1</span></a></li><li class="wtag-list-item"><a class="wtag-list-link" href="/tags/PuTTY/">PuTTY<span class="wtag-list-count">1</span></a></li><li class="wtag-list-item"><a class="wtag-list-link" href="/tags/SVN/">SVN<span class="wtag-list-count">1</span></a></li><li class="wtag-list-item"><a class="wtag-list-link" href="/tags/Virtualization/">Virtualization<span class="wtag-list-count">1</span></a></li><li class="wtag-list-item"><a class="wtag-list-link" href="/tags/Xen/">Xen<span class="wtag-list-count">1</span></a></li><li class="wtag-list-item"><a class="wtag-list-link" href="/tags/apache/">apache<span class="wtag-list-count">1</span></a></li><li class="wtag-list-item"><a class="wtag-list-link" href="/tags/big-data/">big data<span class="wtag-list-count">1</span></a></li><li class="wtag-list-item"><a class="wtag-list-link" href="/tags/blog/">blog<span class="wtag-list-count">2</span></a></li><li class="wtag-list-item"><a class="wtag-list-link" href="/tags/cloud-computing/">cloud computing<span class="wtag-list-count">1</span></a></li><li class="wtag-list-item"><a class="wtag-list-link" href="/tags/conference/">conference<span class="wtag-list-count">1</span></a></li><li class="wtag-list-item"><a class="wtag-list-link" href="/tags/gnome/">gnome<span class="wtag-list-count">1</span></a></li><li class="wtag-list-item"><a class="wtag-list-link" href="/tags/google/">google<span class="wtag-list-count">2</span></a></li><li class="wtag-list-item"><a class="wtag-list-link" href="/tags/laptop-cleaning/">laptop cleaning<span class="wtag-list-count">1</span></a></li><li class="wtag-list-item"><a class="wtag-list-link" href="/tags/life/">life<span class="wtag-list-count">1</span></a></li><li class="wtag-list-item"><a class="wtag-list-link" href="/tags/maintenance/">maintenance<span class="wtag-list-count">3</span></a></li><li class="wtag-list-item"><a class="wtag-list-link" href="/tags/mobile/">mobile<span class="wtag-list-count">1</span></a></li><li class="wtag-list-item"><a class="wtag-list-link" href="/tags/mutt/">mutt<span class="wtag-list-count">1</span></a></li><li class="wtag-list-item"><a class="wtag-list-link" href="/tags/repo/">repo<span class="wtag-list-count">1</span></a></li><li class="wtag-list-item"><a class="wtag-list-link" href="/tags/search-engine/">search engine<span class="wtag-list-count">2</span></a></li><li class="wtag-list-item"><a class="wtag-list-link" href="/tags/server/">server<span class="wtag-list-count">1</span></a></li><li class="wtag-list-item"><a class="wtag-list-link" href="/tags/shell/">shell<span class="wtag-list-count">1</span></a></li><li class="wtag-list-item"><a class="wtag-list-link" href="/tags/ssh/">ssh<span class="wtag-list-count">2</span></a></li><li class="wtag-list-item"><a class="wtag-list-link" href="/tags/thought/">thought<span class="wtag-list-count">2</span></a></li><li class="wtag-list-item"><a class="wtag-list-link" href="/tags/tools/">tools<span class="wtag-list-count">1</span></a></li><li class="wtag-list-item"><a class="wtag-list-link" href="/tags/trick/">trick<span class="wtag-list-count">2</span></a></li><li class="wtag-list-item"><a class="wtag-list-link" href="/tags/vim/">vim<span class="wtag-list-count">2</span></a></li><li class="wtag-list-item"><a class="wtag-list-link" href="/tags/web/">web<span class="wtag-list-count">1</span></a></li><li class="wtag-list-item"><a class="wtag-list-link" href="/tags/yum/">yum<span class="wtag-list-count">1</span></a></li></ul>
     </div>
   </div>
 
