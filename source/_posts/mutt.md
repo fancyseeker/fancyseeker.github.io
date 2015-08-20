@@ -1,6 +1,6 @@
 title: "Mutt: 阅读邮件列表"
 date: 2015-08-19 09:42:04
-tags: [mutt, tools]
+tags: [mutt, getmail, msmtp, procmail, tools, email]
 notoc:
 ---
 
@@ -14,7 +14,7 @@ notoc:
 
 - 最后, 当我在网上搜索Mutt的相关介绍时候, 其实我是想找到如何配置Mutt的, 而搜索引擎返回给我的结果也确实是如何配置Mutt的, 但是很遗憾的, Mutt这个工具对于刚接触的人来说实在是太不友好了. 我只想收发邮件, 为什么还要整那么多没用的, 又是getmail, 又是msmtp的, 还有个看起来巨复杂的procmail? 然后当我困惑于这些个东西是什么关系的时候, 文章只是甩了我几个配置文件就完了? 当我半知不解的照猫画虎按照文章内容小心翼翼的编辑完配置文件后, 发现不能用亦或是根本就不对的时候, 我的内心是崩溃的(摔! 谁能告诉我配置文件的参数是什么意思, 为什么要配这个参数, 这个参数还有什么其它值, 行为是怎么样的, 还有没有其它的参数来完成XXX功能? 而当我苦苦在一篇篇文章中苦苦上下求索一无所获满头雾水的时候, 所幸最后Stackoverflow, 官网manual以及man page救了我.
 
-综上, 可以看到, 我需要用Mutt来阅读邮件列表, 之所以选Mutt而不使用传统的邮件客户端或是常用的邮箱是因为其在阅读邮件列表时表现不佳, 缺乏效率. 而当我要着说配置Mutt的时候, 网络上的诸多文章仅仅只能起到参考的作用, 我希望能做到自己来定制Mutt并且是真的了解为什么这么配才去配, 而不是随手拿来一个配置文件就用. 再者, 就是本人有些许强迫症, 像Mutt和其它的一些在Unix-like环境下运行的Tools具有极强定制性的工具, 总是希望能将其尽可能的配置到顺手为止. 因此, 我才花时间来写下这篇文章, 一方面记录自己的配置过程, 方便以后回顾用, 另一方面, 若能顺便帮助下有需要的人, 那也算是意外收获了吧.
+综上, 可以看到, 我需要用Mutt来阅读邮件列表, 之所以选Mutt而不使用传统的邮件客户端或是常用的邮箱是因为其在阅读邮件列表时表现不佳, 缺乏效率. 而当我要着手配置Mutt的时候, 网络上的诸多文章仅仅只能起到参考的作用, 我希望能做到自己来定制Mutt并且是真的了解为什么这么配才去配, 而不是随手拿来一个配置文件就用. 再者, 就是本人有些许强迫症, 像Mutt和其它的一些在Unix-like环境下运行的Tools具有极强定制性的工具, 总是希望能将其尽可能的配置到顺手为止. 因此, 我才花时间来写下这篇文章, 一方面记录自己的配置过程, 方便以后回顾用, 另一方面, 若能顺便帮助下有需要的人, 那也算是意外收获了吧.
 
 # Why: 为什么使用Mutt
 
@@ -56,7 +56,7 @@ Mutt是什么? 或者说Mutt是什么样子的? 根据[Mutt官网](http://www.mu
 
 ## Email工作原理
 
-说到这里, 我们就不得不简单的讲一下Email的工作原理了<sup>[[x]](http://ccm.net/contents/116-how-email-works-mta-mda-mua)</sup>.
+说到这里, 我们就不得不简单的讲一下Email的工作原理了<sup>[[?]](http://ccm.net/contents/116-how-email-works-mta-mda-mua)</sup>.
 ![Email的工作原理](/img/mutt/how_email_works.png)
 
 从上面的原理图中, 我们可以看到整个邮件发送接收的过程. 首先, 邮件在MUA(Mail User Agent)中编辑完成, 交由MTA(Mail Transfer Agent)进行发送, 在发送的过程中, 邮件会在多个路由和MTA服务器中中转, 邮件从一个MTA服务器被传输到另一个MTA服务器, 其中使用的是名为[SMTP](https://zh.wikipedia.org/zh/%E7%AE%80%E5%8D%95%E9%82%AE%E4%BB%B6%E4%BC%A0%E8%BE%93%E5%8D%8F%E8%AE%AE)的邮件传输协议. 当邮件到达收件人所处的网络中的MTA时, MTA将邮件交给邮件服务器, 邮件服务器负责将邮件发送给指定用户的信箱中, 邮件服务器在分发邮件的时候, 具有MDA(Mail Delivery Agent)的功能, 其中可能会包含防火墙, 过滤垃圾邮件, 屏蔽黑名单等功能, 我们常见的网络邮箱的工作模式大致是这样的.
@@ -81,6 +81,9 @@ Mutt是什么? 或者说Mutt是什么样子的? 根据[Mutt官网](http://www.mu
 2. 解释为什么在配置Mutt的时候需要额外安装配置msmtp, getmail乃至procmail.
 
 当弄明白了Email的工作原理后, 其实也就不难理解为什么在网上搜索Mutt相关资料的时候, 跳出来的都是mutt+getmail+msmtp+procmail之类的文章了. 因为光一个Mutt, 根本无法完成最基本的邮件收发功能啊, 必须需要靠msmtp来发邮件, 靠getmail来收邮件, 如果还需要自定义一些邮件分类过滤行为的话, 还需要procmail来帮忙. 因此, 现在我们在谈论Mutt的时候, 我们其实实在谈论mutt+getmail+msmtp这一串东西.
+
+然后, 我想再来看看以下这张图<sup>[[?]](http://blog.chinaunix.net/uid-20543672-id-3349607.html)</sup>, 就明白Mutt与getmail, msmtp以及procmail之间的关系了.
+![Mutt与相关工具的关系(图片版权为tekkamanninja所有)](/img/mutt/mutt_relation.jpg)
 
 # How: 搭建Mutt环境
 
@@ -181,13 +184,13 @@ set postponed = "+postponed"
 set record = "+sent"
 ```
 
-这里就有必要解释下其意思了. 首先, 我们看到的是`mbox_type`这个变量, 这是用来设置邮件储存格式的, 通常将其设置为`maildir`格式<sup>[[x]](http://dev.mutt.org/trac/wiki/MaildirFormat)</sup>. `maildir`格式要求每个信箱文件下要包含3个子文件夹, 分别为`cur`, `new`, `tmp`.
+这里就有必要解释下其意思了. 首先, 我们看到的是`mbox_type`这个变量, 这是用来设置邮件储存格式的, 通常将其设置为`maildir`格式<sup>[[?]](http://dev.mutt.org/trac/wiki/MaildirFormat)</sup>. `maildir`格式要求每个信箱文件下要包含3个子文件夹, 分别为`cur`, `new`, `tmp`.
 
 说到邮件储存格式, 我们就来简单了解下Mutt管理邮件的方式. 事实上, 我们通过Mutt看到的邮件, 都是以文件的形式保存在特定的目录中的, 一封邮件就是一个文件. Mutt做的事情就是从特定的信箱目录中读取邮件, 解码文件, 然后展示内容给用户. 在把邮件从一个信箱移动到另一个信箱的时候, Mutt实际上是将邮件文件从一个目录移动或是复制到另一个目录中, 就是这么简单!
 
 接着我们看一下变量`$folder`, 该变量即指定了Mutt读取操作邮件的"根目录", 例如, 示例配置文件中, 将其设置为`~/.mail`目录, 那么在打开Mutt的时候, Mutt会默认从该目录下去读取操作邮件文件.
 
-在信箱组织方面, 一般建议设置`$spoolfile`, `$mbox`, `$postponed` 和 `$record`这四个变量. 当然, 也可以都不设置, 但是Mutt会默认在`$folder`变量指定的目录下建立`inbox`目录, 并将全部的邮件都一股脑放到这个目录下. 这里, 我们都对其进行了设置, 当然, 设置前要确保这些指定目录已经建立好了, 并且每个目录下已经建立了`cur`, `new`, `tmp`这三个子目录.
+在信箱组织方面, 一般建议设置`$spoolfile`, `$mbox`, `$postponed` 和 `$record`这四个变量. 当然, 也可以都不设置, 但是Mutt会默认在`$folder`变量指定的目录下建立`inbox`目录, 并将全部的邮件都一股脑放到这个目录下. 这里, 我们都对其进行了设置, 当然, 使用前要确保这些指定目录已经建立好了, 并且每个目录下已经建立了`cur`, `new`, `tmp`这三个子目录.
 
 ```
 $ mkdir ~/.mail
@@ -198,7 +201,7 @@ $ mkdir cur new tmp
 ...
 ```
 
-这里我们简要的介绍下各个目录的功能<sup>[[x]](http://dev.mutt.org/trac/wiki/MuttGuide/Folders)</sup>
+这里我们简要的介绍下各个目录的功能<sup>[[?]](http://dev.mutt.org/trac/wiki/MuttGuide/Folders)</sup>
 
 | muttrc中变量 | 设置的目录 | 功能 |
 | :--- | :--- | :--- |
@@ -207,7 +210,7 @@ $ mkdir cur new tmp
 | `$postponed` | postponed | 推迟发送的邮件会被保存在这里 |
 | `$record` | sent | 已发送的邮件会被保存在这里 |
 
-P.S. 在指定信箱目录的时候我们使用了`+`符号, 在muttrc文件中, `+`号代表`$folder`变量, 例如示例中设置了`$folder`变量为`~/.mail`目录, 那么`+inbox`表示的就是`~/.mail/inbox`目录<sup>[[x]](http://dev.mutt.org/trac/wiki/MuttGuide/Folders)</sup>.
+P.S. 在指定信箱目录的时候我们使用了`+`符号, 在muttrc文件中, `+`号代表`$folder`变量, 例如示例中设置了`$folder`变量为`~/.mail`目录, 那么`+inbox`表示的就是`~/.mail/inbox`目录<sup>[[?]](http://dev.mutt.org/trac/wiki/MuttGuide/Folders)</sup>.
 
 ### Mutt其它配置项
 
@@ -215,14 +218,14 @@ P.S. 在指定信箱目录的时候我们使用了`+`符号, 在muttrc文件中,
 set move = ask-yes
 ```
 
-`$move`变量有四个值, 分别为`yes`, `no`, `ask-yes`和`ask-no`. `$move`变量的意义在于指定是否将已读的邮件自动移动到`mbox`目录中. 默认是不移动, 此处将其设置为`ask-yes`, 即表示自动将已读邮件移动至`mbox`目录中, 但是在移动前会提示用户是否执行. 这样可以保持`inbox`目录的整洁, 避免每次打开mutt, 上来就看到一堆已经读过的邮件.
+`$move`变量有四个值, 分别为`yes`, `no`, `ask-yes`和`ask-no`. `$move`变量的意义在于指定是否将inbox中已读的邮件自动移动到`mbox`目录中. 默认是不移动, 此处将其设置为`ask-yes`, 即表示自动将已读邮件移动至`mbox`目录中, 但是在移动前会提示用户是否执行. 这样可以保持`inbox`目录的整洁, 避免每次打开mutt, 上来就看到一堆已经读过的邮件.
 
 ```
 set charset = "utf-8"
 set send_charset = "us-ascii:utf-8"
 ```
 
-这里主要是字符集的设置, 因为本人使用Mutt来阅读以及回复邮件列表, 因此需要设置通用的字符集来避免收信人接受到乱码邮件的问题, 此处的设置是参考Linux内核邮件列表对邮件客户端的建议[设置](http://git.kernel.org/cgit/linux/kernel/git/torvalds/linux.git/tree/Documentation/email-clients.txt?id=HEAD)
+这里主要是字符集的设置, 因为本人使用Mutt来阅读以及回复邮件列表, 因此需要设置通用的字符集来避免收信人接受到乱码邮件的问题, 此处的设置是参考Linux内核邮件列表对邮件客户端的[建议设置](http://git.kernel.org/cgit/linux/kernel/git/torvalds/linux.git/tree/Documentation/email-clients.txt?id=HEAD)
 
 关于其它项的配置, 注释已经写的比较详细了, 就不再赘述了. 最后, 实际上Mutt是带有简单的收发邮件模块的, 因此有些用户可能需要在`.muttrc`文件中写入邮箱的账户和明文密码, 因此, 最好还是需要将`.muttrc`的权限设置为600.
 
@@ -232,7 +235,9 @@ $ chmod 600 ~/.muttrc
 
 ## 配置msmtp
 
-msmtp的配置文件为`~/.msmtprc`.
+msmtp是一个SMTP客户端<sup>[[x]](http://msmtp.sourceforge.net/)</sup>. 在整个Mutt收发系统中负责发送邮件的功能.
+
+**msmtp的配置文件为`~/.msmtprc`**.
 
 ```shell
 $ vim ~/.msmtprc
@@ -257,17 +262,20 @@ password $password
 account default : $username
 ```
 
-msmtp的配置相对比较简单, 文件中带`$`符号的都是需要根据具体情况修改的信息.
+注: 文件中带`$`符号的都是需要根据具体情况修改的信息.
 
 由于msmtp是负责发送邮件的, 而之前我们说过, 邮件发送涉及到的协议主要是SMTP, 因此, 需要告知msmtp SMTP服务器的host地址, 一般的邮箱STMP地址都比较简单, 例如新浪邮箱的host为`smtp.sina.com`, Gmail的host为`smtp.gmail.com`. 而大部分邮箱的SMTP服务端口号为默认的25, Gmail的话使用的是465和587, 具体的还请查看官方的介绍.
 
+**设置权限, 保护配置文件**
 在知晓了SMTP服务器地址后, msmtp会访问SMTP服务器, 此时需要登录账户密码, 因此, 这些信息也要写入msmtprc以告知msmtp, 需要注意的是, 密码是明文保存的, 因此, 安全起见, 需要设置msmtprc文件的权限.
 
 ```shell
 $ chmod 600 ~/.msmtprc
 ```
 
-P.S. 由于本人使用的是公司的邮箱, 因此需要关闭TLS. 但是如果使用的Gmail则需要相关的设置, 具体方法网上随便一搜都是, 不再赘述.
+有关于msmtp更详细的配置, 请参见[官方文档](http://msmtp.sourceforge.net/documentation.html)
+
+P.S. 本人使用的是公司的邮箱, 因此需要关闭TLS. 但是如果使用的Gmail则需要相关的设置, 具体方法网上随便一搜都是, 不再赘述.
 
 在配置msmtp后, 不妨测试下在Mutt中能否正常发送邮件:
 
@@ -280,10 +288,241 @@ $ echo "测试邮件内容" | mutt -s "测试邮件标题" test_mail@address.com
 
 ## 配置getmail
 
+getmail是一个邮件收取工具, 用于从不同的邮件服务器上收取用户不同账户的邮件. 同时getmail也被设计来取代其它的一些邮件收取工具例如fetchmail<sup>[[?]](http://pyropus.ca/software/getmail/documentation.html#features)</sup>.
+
+在配置getmail前, 需要先建立getmail相应的目录`~/.getmail`, 之后在目录下新建并编辑配置文件getmailrc. 由于配置文件中包含邮箱账户以及明文密码, 因此限制`.getmail`目录的权限.
+
+```
+$ mkdir -m 700 ~/.getmail
+$ vim ~/.getmail/getmailrc
+```
+
+P.S. 如果你有多个邮箱, 需要在`~/.getmail`目录下为每个邮箱都建立一个getmailrc文件, 可以通过后缀来区分不同的getmailrc文件, 例如`getmailrc.gmail`或是`getmailrc.163`, 但需要注意的是, 文件名的前半部分必须是`getmailrc`, 及配置文件的命名规范为`getmailrc.xxx`.
+
+`getmailrc`配置的文件是以节(section)为基础的, `getmailrc`文件至少应该有2个节:
+1. `[retriever]`, 用于告知getmail邮箱的账户信息以便getmail能从邮件服务器上收取邮件.
+2. `[destination]`, 用于告知getmail如何处理已经收取到的邮件.
+此外, 还可以添加一个额外的`[optional]`节, 包含一些笼统的设置诸如日志文件路径设置等<sup>[[?]](http://pyropus.ca/software/getmail/configuration.html#rcfile)
+
+```
+[retriever]
+# type = SimplePOP3SSLRetriever
+# port = 995
+type = SimpleIMAPSSLRetriever
+server = $mailserver.com
+username = $username
+password = $password
+
+[destination]
+# 以Maildir格式储存
+type = Maildir
+path = ~/.mail/inbox/
+
+[option]
+# 默认为True, 每次执行getmail收取全部邮件, False表示只收取未收取过的邮件
+read_all = False
+# 本地删除服务器是否也删除邮件
+delete = False
+message_log = ~/.getmail/getmail.log
+```
+
+注: 上述配置文件中带`$`部分是需要根据实际邮箱信息更改的.
+
+首先让我们先来看一下`[retriever]`节, 关键字段为`type`, 用于告知getmail你打算以哪种协议收取邮件, 这里指的收取协议主要是POP3和IMAP.
+
+- POP3: 从远端邮件服务器上收取邮件, 同时服务器上保留邮件, 本地的对邮件的删除移动不影响到远端邮件服务器. 例如通过POP3协议收取完邮件后, 将本地的邮件删除, 服务器上依旧保存有该封邮件.
+
+- IMAP: 本地邮件与远端邮件服务器上的邮件同步, 也就是说如果本地对邮件执行了删除或者移动也会同步到邮件服务器上.
+
+如果采用POP3协议, 那么就将`type`设置成`SimplePOP3SSLRetrieve`, 如果用IMAP, 就设置成`SimpleIMAPSSLRetriever`. 事实上, 还可以设置成`SimplePOP3Retriever`和`SimpleIMAPRetriever`, 不过带SSL的表示使用SSL加密, 因此会更安全.
+
+关于POP3和IMAP协议收取邮件, 在本人的具体实践过程中, 发现并不是严格的遵守其协议行为, 即便是采用IMAP协议, 在本地删除了邮件的情况下, 邮件服务器上仍旧会保留邮件, 这跟getmail的配置有关, 同时可能还和邮件服务器的配置有关.
+
+注意到在上述的rc文件的`[option]`节中, 包含字段`delete`的设置, 用于指明在本地删除邮件后服务器是否也删除. 如果设置为`True`, 则在getmail会在成功收取邮件后删除邮件服务器上的对应邮件, 若设置为`False`, 则保留, 默认值是`False`. 该字段可能会影响POP3和IMAP收取协议, 因为本人通过反复设置POP3和IMAP, 以及`detele`字段, 发现不管怎么样邮件服务器上的邮件都会被保留, 但这可能是邮件服务器本身设置的原因, 因此无法验证. 为了保险起见, 建议初次设置getmail的时候采用POP3协议收取, 同时`delete`设置为`False`, 便于熟悉与验证. 不然手一抖把本地的邮件删了, 发现服务器上的邮件也没了就不好玩了. 当然, 也可以自己给自己发几封验证邮件, 然后在本地删除或是移动看看邮件服务器上的变化来验证getmail的配置.
+
+本人在设置协议的时候采用IMAP来收取协议, 主要的原因在于在使用过程中一些邮件服务器的POP3功能不稳定, 会出现一些邮件收不到, 收不及时或是重复收取的情况, 而IMAP则每次都能正确收取邮件, 相对而言, IMAP比POP3稳定<sup>[[?]](https://support.google.com/mail/troubleshooter/1668960?hl=zh-Hans)</sup>.
+
+如果你在使用getmail收取邮件时, 出现了重复收取邮件的情况, 不妨在`[option]`节中将`read_all`字段设置为`False`. 表示每次getmail收取邮件的时候只收取未收取过的邮件, 避免重复收取邮件. 那么, 从实现角度, getmail是如何完成识别邮件是否已经收取过了, 从而决定是否要收取邮件呢. 可以发现, 在使用getmail收取邮件后, 在`~/.getmail`目录下会多出一个`oldmail-mailserver.com-port-username-INBOX`的文件, 该文件的作用就是用来记录哪些邮件是已经收取过了的, 从而在下次收取的时候, 避免收取文件中已包含的邮件. 可以做个实验, 将该文件删除, 那么再使用getmail收取邮件的时候, 就又会收取全部的邮件了.
+
+**设置权限, 保护配置文件**
+和其它配置文件一样的, 由于getmailrc文件中包含了明文的密码, 因此最好设定权限:
+
+```shell
+chmod 600 ~/.getmail/getmailrc
+```
+
+关于getmailrc文件的更多信息, 请参见[官方文档](http://pyropus.ca/software/getmail/configuration.html), 官网同时提供了多种getmailrc文件[模板](http://pyropus.ca/software/getmail/getmailrc-examples)以供参考.
+
+在配置完getmail后, 需要测试下getmail是否正常工作了, 执行getmail收取邮件.
+
+```shell
+$ getmail -n
+```
+
+`-n`代表只收取新邮件. 执行命令后, getmail将会按照配置文件中的设置, 将邮件投递到`path`所指定的目录`~/.mail/inbox`下. 而该目录在Mutt的配置文件中被指定为`spoolfile`所使用的目录, 即`inbox`收件箱的目录, 因此, 打开mutt, mutt就会自动从该目录下获取邮件, 查看是否收取了邮件来验证getmail是否正常工作. getmail就是通过这个目录将邮件交给Mutt的, 二者的联系, 仅此而已.
+
+**设置crontab定时收取邮件**
+getmail的收取邮件是通过执行getmail命令来实现的, 因此, 要想及时获取新的邮件, 就需要定时的执行getmail来收取邮件, 这个任务交给cron守护进程最好不多了.
+
+```shell
+$ crontab -e
+```
+
+执行crontab命令, `-e`代表对crontab进行编辑, 在crontab的最后一行添加:
+
+```shell
+*/10 * * * * /usr/bin/getmail -n
+```
+
+表示每隔10分钟执行一次`getmail -n`命令来收取邮件.
+
+**至此, 基础的Mutt环境已经搭建完毕, 可以使用Mutt来正常的收发, 查阅, 发送, 回复邮件了.**
+
+---
+
+# Misc: 额外部分
+
+## Vim风格键位绑定
+
+Mutt默认的键位设置以及相关操作, 请参阅: [Mutt Manual: Chapter 2](http://dev.mutt.org/doc/manual.html#gettingstarted)
+
+对于习惯了Vim操作的用户而言, 再重新去适应Mutt的一些基本翻页按键着实显得有些浪费时间, 所以不妨按照Vim的习惯对Mutt的键位进行相应的绑定.
+
+绑定设置同样是在`~/.muttrc`中完成的, 在`~/.muttrc`文件中添加:
+
+```
+# Vim式键位映射, \c表示ctrl键
+bind pager G bottom
+bind pager j next-line
+bind pager k previous-line
+bind pager \cf next-page
+bind pager \cb previous-page
+bind pager \cj next-entry
+bind pager \ck previous-entry
+bind pager gg top
+bind pager G bottom
+bind index gg first-entry
+bind index G last-entry
+bind index R group-reply
+bind index \cf next-page
+bind index \cb previous-page
+bind index } bottom-page
+bind index f change-folder
+```
+
+以上是按照个人习惯所进行的键位绑定, 当然, 每个人的习惯是不一样的, 可以自行修改.
+
+注意到绑定命令中出现了`index`和`pager`, 这里稍作下解释, 其中`index`代表信箱的列表页面, 而`pager`为阅读邮件的界面. 指定`index`或是`pager`来使得绑定的键位在对应的页面下生效. 有关键位绑定的更多参考, 请看: [Mutt Manual: Changing the Default Key Bindings](http://dev.mutt.org/doc/manual.html#bind).
+
+关于Mutt的键位操作, 这里建议在`~/.muttrc`文件中设置`pager_stop`, 来避免当阅读至邮件末尾的时候, 自动跳到下一封邮件.
+
+```
+# 在信件内容窗口(pager)滚动到底部时, 不自动跳到下一封邮件
+set pager_stop
+```
+
+## Mutt配色高亮设置
+
+Mutt支持对各个界面进行高亮设置, 包括邮箱的列表部分`index`, 邮件内容部分`pager`, 邮件头部信息部分`header`, 甚至连列表模式中的回复箭头颜色都可以设置. 在这部分, 主要分为3个部分, 分别介绍Mutt常规界面的配色, 对Patch补丁添加高亮支持以及嵌套引用中不同层的高亮区分.
+
+### Mutt常规界面配色
+
+在介绍Mutt常规界面的配色之前, 我们先来了解下Mutt中各个界面的名称, 如前文所述, Mutt的界面主要包含有`index`, `pager`和`header`, `index`就是打开Mutt时看见的界面, 通过列表的形式一一列出邮件主题和收发信息. 而查看某封邮件的内容的界面则属于`pager`. 另外, 在查看邮件内容的页面头部, 包含有邮件的头部信息, 这部分属于`header`. 基本上需要配置的也就这3个地方. 当然, 此外还有其它的界面, 如`File Brower`, `Alias Menu`等, 一般很少见到, 暂时就不配色了. 具体的界面和菜单介绍, 参阅: [Mutt Manual: Screens and Menus](http://dev.mutt.org/doc/manual.html#concept-screens-and-menus).
+
+在着手自定义Mutt配色之前, 可以先看一下Github上关于Mutt配色的项目: [Solarized Colorscheme for Mutt](https://github.com/altercation/mutt-colors-solarized), 如果觉得合适, 就不需要自己折腾配色了.
+
+事实上, solarized的配色已经相当不错, 但是如果你希望按自己的意愿来更改Mutt配色的话, 接下来我们就来介绍自定义Mutt界面配色方案.
+
+```
+# basic colors -------------------------------------------------------
+color normal        white           black
+color error         red             black
+color tilde         white           black
+color message       cyan            black
+color markers       red             black
+color attachment    brightred       black
+color search        brightmagenta   black
+color status        brightwhite     black
+color indicator     white           blue
+color tree          magenta         black   # arrows in threads
+
+# 列表部分 -------------------------------------------------------
+# 高亮不同状态的邮件, 具体的pattern(例如~N)参见mutt manual的4.2节
+
+color index         red             black         "~A"                        # all messages
+color index         brightred       black         "~E"                        # expired messages
+color index         brightcyan      black         "~N"                        # new messages
+color index         brightcyan      black         "~O"                        # old messages
+color index         brightmagenta   black         "~Q"                        # messages that have been replied to
+color index         white           black         "~R"                        # read messages
+color index         brightblue      black         "~U"                        # unread messages
+color index         brightblue      black         "~U~$"                      # unread, unreferenced messages
+color index         brightblue      black         "~v"                        # messages part of a collapsed thread
+color index         brightblue      black         "~P"                        # messages from me
+color index         cyan            black         "~p!~F"                     # messages to me
+color index         brightgreen     black         "~N~p!~F"                   # new messages to me
+color index         brightgreen     black         "~U~p!~F"                   # unread messages to me
+color index         green           black         "~R~p!~F"                   # messages to me
+color index         red             black         "~F"                        # flagged messages
+color index         red             black         "~F~p"                      # flagged messages to me
+color index         red             black         "~N~F"                      # new flagged messages
+color index         red             black         "~N~F~p"                    # new flagged messages to me
+color index         red             black         "~U~F~p"                    # new flagged messages to me
+color index         white           brightmagenta "~D"                        # deleted messages
+color index         white           black         "~v~(!~N!~O)"               # collapsed thread with no unread
+color index         magenta          black         "~v~(~N|~O)"               # collapsed thread with some unread
+color index         magenta           black         "~N~v~(~N)"               # collapsed thread with unread parent
+color index         red             white           "~v~(~F)!~N"              # collapsed thread with flagged, no unread
+color index         yellow          white           "~v~(~F~N)"               # collapsed thread with some unread & flagged
+color index         green           white           "~N~v~(~F~N)"             # collapsed thread with unread parent & flagged
+color index         green           white           "~N~v~(~F)"               # collapsed thread with unread parent, no unread inside, but some flagged
+color index         yellow          red             "~v~(~D)"                 # thread with deleted (doesn't differentiate between all or partial)
+
+# 邮件内容页面邮件头部分高亮 ------------------------------------------
+
+# color header        brightcyan      default         "^"
+color hdrdefault    brightblue      black
+color header        brightgreen     black         "^(From)"
+color header        brightyellow    black         "^(Subject)
+```
+
+这里的配色方案是以Solarized为基础的, 稍作修改. 这里对以上的配色配置稍作解释.
+首先, 语句的模式是
+
+```
+color <界面> <前景色> <背景色> [其它选项]
+```
+
+Mutt支持8种颜色, 分别为: Black, Red, Green, Yellow, Blue, Magenta, Cyan, White[[?]](http://dev.mutt.org/doc/manual.html#tab-color). 在颜色前面添加`bright`可使得字体加粗, 并使得颜色更鲜艳, 例如red就是正常粗细的暗红色字体, 但是brightred就变为加粗的鲜红字体. 这样, 我们可以使用的颜色就有16种了, 再配合上前景色背景色的各种搭配, 真是变换无穷呢 = =b
+
+对于自定义配色, 没什么好说的, 只要知道是针对`index`配色, 还是`pager`配色或者是`header`就行, 剩下就是改下颜色, 看哪里颜色变了, 就能确定语句控制的是那部分的颜色了.
+
+以上配置中, 还有一些地方相对比较难懂, 例如
+
+```
+color index         white           black         "~v~(!~N!~O)"
+```
+
+该语句首先针对的是`index`界面, 即列表界面, 然后前景色是白色, 背景色是黑色, 这没什么好说的, 关键在于`"~v~(!~N!~O)"`的解释, 这里的`~N`的表示是Mutt特有的通配符.
+
+| 通配符 | 描述 |
+| :--- | :--- |
+| ~A | 所有邮件 |
+| ~D | 已删除的邮件 |
+| ~F | 已被标记的邮件 |
+| ~N | 新的未读邮件 |
+| ~O | 旧的未读邮件 |
+| ~v | 邮件列表某主题(Thread)中的邮件 |
+
+以上是几个主要的通配符的解释, 更多的通配符信息, 请参阅: [Mutt Manual: Patterns: Searching, Limiting and Tagging](http://dev.mutt.org/doc/manual.html#patterns).
 
 
+### Patch高亮支持
 
-# Misc:
+### 嵌套引用高亮区分
+
+## 配置procmail
+
 
 配置procmail 配色 键位绑定
 
