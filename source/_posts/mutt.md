@@ -423,11 +423,11 @@ set pager_stop
 
 ## Mutt配色高亮设置
 
-Mutt支持对各个界面进行高亮设置, 包括邮箱的列表部分`index`, 邮件内容部分`pager`, 邮件头部信息部分`header`, 甚至连列表模式中的回复箭头颜色都可以设置. 在这部分, 主要分为3个部分, 分别介绍Mutt常规界面的配色, 对Patch补丁添加高亮支持以及嵌套引用中不同层的高亮区分.
+Mutt支持对各个界面进行高亮设置, 包括邮箱的列表部分`index`, 邮件内容部分`body`, 邮件头部信息部分`header`, 甚至连列表模式中的回复箭头颜色都可以设置. 在这部分, 主要分为3个部分, 分别介绍Mutt常规界面的配色, 对Patch补丁添加高亮支持以及嵌套引用中不同层的高亮区分.
 
 ### Mutt常规界面配色
 
-在介绍Mutt常规界面的配色之前, 我们先来了解下Mutt中各个界面的名称, 如前文所述, Mutt的界面主要包含有`index`, `pager`和`header`, `index`就是打开Mutt时看见的界面, 通过列表的形式一一列出邮件主题和收发信息. 而查看某封邮件的内容的界面则属于`pager`. 另外, 在查看邮件内容的页面头部, 包含有邮件的头部信息, 这部分属于`header`. 基本上需要配置的也就这3个地方. 当然, 此外还有其它的界面, 如`File Brower`, `Alias Menu`等, 一般很少见到, 暂时就不配色了. 具体的界面和菜单介绍, 参阅: [Mutt Manual: Screens and Menus](http://dev.mutt.org/doc/manual.html#concept-screens-and-menus).
+在介绍Mutt常规界面的配色之前, 我们先来了解下Mutt中各个界面的名称, 如前文所述, Mutt的界面主要包含有`index`, `body`和`header`, `index`就是打开Mutt时看见的界面, 通过列表的形式一一列出邮件主题和收发信息. 而查看某封邮件的内容的界面则属于`pager`. `pager`有含有2个部分, 一个是邮件头部, 包含有邮件的头部信息, 这部分属于`header`. 另一部分是邮件内容的主体`body`, 包含邮件的正文. 基本上需要配置的也就这3个地方. 当然, 此外还有其它的界面, 如`File Brower`, `Alias Menu`等, 一般很少见到, 暂时就不配色了. 具体的界面和菜单介绍, 参阅: [Mutt Manual: Screens and Menus](http://dev.mutt.org/doc/manual.html#concept-screens-and-menus).
 
 在着手自定义Mutt配色之前, 可以先看一下Github上关于Mutt配色的项目: [Solarized Colorscheme for Mutt](https://github.com/altercation/mutt-colors-solarized), 如果觉得合适, 就不需要自己折腾配色了.
 
@@ -483,7 +483,7 @@ color index         yellow          red             "~v~(~D)"                 # 
 # color header        brightcyan      default         "^"
 color hdrdefault    brightblue      black
 color header        brightgreen     black         "^(From)"
-color header        brightyellow    black         "^(Subject)
+color header        brightyellow    black         "^(Subject)"
 ```
 
 这里的配色方案是以Solarized为基础的, 稍作修改. 这里对以上的配色配置稍作解释.
@@ -500,6 +500,13 @@ Mutt支持8种颜色, 分别为: Black, Red, Green, Yellow, Blue, Magenta, Cyan,
 以上配置中, 还有一些地方相对比较难懂, 例如
 
 ```
+color header        brightyellow    black         "^(Subject)"
+```
+这条语句的作用是讲邮件头部的邮件主题(Subject)行显示为黑底高亮黄字. 这里使用了正则表达式来匹配需要高亮的行, `"^(Subject)"`匹配开头是"Subject"的行, 而该匹配模式又只作用与邮件头部`Header`, `Header`部分邮件主题行的行首就是"Subjuect"开头的. 当然, 上述配置中, 将发信人所在行用高亮绿字显示, 此外, 可以采用这种方法, 高亮任意的邮件头部行, 感兴趣的话, 可以在邮件内容页面按下`h`来显示详细的邮件头部信息.
+
+接着我们来看下下面的语句:
+
+```
 color index         white           black         "~v~(!~N!~O)"
 ```
 
@@ -514,17 +521,237 @@ color index         white           black         "~v~(!~N!~O)"
 | ~O | 旧的未读邮件 |
 | ~v | 邮件列表某主题(Thread)中的邮件 |
 
-以上是几个主要的通配符的解释, 更多的通配符信息, 请参阅: [Mutt Manual: Patterns: Searching, Limiting and Tagging](http://dev.mutt.org/doc/manual.html#patterns).
+除了通配符, Mutt还支持有限的逻辑操作, 分别为: 逻辑非符号`!`, 逻辑或符号`|`和组合符号`()`, 逻辑与的话直接挨着就是.
+
+这下回头看上述语句的意思就明白了, 对于符合条件(1. 是邮件列表某个主题包含的邮件 2. 不是新的未读邮件 3. 不是旧的未读邮件)的邮件, 将其所在行的颜色设置为黑底白字.
+
+以上是几个主要的通配符的解释, 以及更多的Mutt模式匹配信息, 请参阅: [Mutt Manual: Patterns: Searching, Limiting and Tagging](http://dev.mutt.org/doc/manual.html#patterns).
+
+另外, 值得一提的是, 该通配符不仅适用与高亮设置, 同样是适用于搜索邮件, 例如, 想要查看当前邮箱下的全部未读的新邮件, 则只要在`index`界面输入`/`, 然后输入匹配模式`~N`回车即可. 当然, 还有更复杂的组合模式, 关于Mutt的查找模式匹配, 参见: [Mutt Manual: Simple Searches](http://dev.mutt.org/doc/manual.html#simple-searches).
+
+我们在上面介绍了`index`界面和`header`界面的配色, 关于邮件内容主体`body`的配色也是一样道理.
+例如, 可以将邮件正文中的表情符号显示成蓝色:
+
+```
+color body blue black "[;:][-o][)/(|]"
+```
+
+这样, 正文中像:-) ;-o :-(这类的卖萌表情就统统被高亮出来了 0.0
 
 
 ### Patch高亮支持
 
+对于混迹开发者列表的同学来说, 将Mutt设置成支持Patch高亮绝对是一劳永逸的一件事情之一, 但是对于普通邮件用户而言这并没有什么卵用...
+
+```
+# 自定义的patch补丁高亮, 方便查看patch
+color   body     red            black    "^-.*"
+color   body     green          black    "^[+].*"
+color   body     brightwhite    black    "^diff --git.*"
+color   body     brightwhite    black    "^index [a-f0-9].*"
+color   body     brightwhite    black    "^\-\-\- a.*"
+color   body     brightwhite    black    "^[\+]{3} b.*"
+color   body     brightyellow   black    "^@@.*"
+color   body     brightmagenta  black    "^(Signed-off-by).*"
+color   body     brightmagenta  black    "^(Reported-by).*"
+color   body     brightmagenta  black    "^(Suggested-by).*"
+color   body     brightmagenta  black    "^(Acked-by).*"
+color   body     brightmagenta  black    "^(Reviewed-by).*"
+color   body     brightmagenta  black    "^\-\-\-$"
+# color   body     brightmagenta  black    "^(Cc).*"
+# color   body     brightmagenta  black    "^(CC).*"
+color   body     white          black    "^( \#define).*"
+color   body     white          black    "^( \#include).*"
+color   body     white          black    "^( \#if).*"
+color   body     white          black    "^( \#el).*"
+color   body     white          black    "^( \#endif).*"
+
+# optional highlightling
+color   body    green           black    "LGTM"
+color   body    brightmagenta   black    "-- Commit Summary --"
+color   body    brightmagenta   black    "-- File Changes --"
+color   body    brightmagenta   black    "-- Patch Links --"
+color   body    green           black    "^Merged #.*"
+color   body    red             black    "^Closed #.*"
+color   body    brightblue      black    "^Reply to this email.*"
+```
+
+这是本人设置的Patch高亮模式, 采用正则表达式在邮件正文(body)中进行匹配高亮对应行. 这里就不对正则表达式部分进行详细解释了.
+
 ### 嵌套引用高亮区分
+
+Mutt很贴心的设置了引用高亮功能, 配置如下:
+
+```
+# 引文起始符号设置
+# set quote_regexp = "^([ ]t]*[|>:}#])+"
+set quote_regexp = "^([ \t]*[>])+"
+
+# 嵌套引文不同层的颜色
+color quoted        blue            black
+color quoted1       magenta         black
+color quoted2       cyan            black
+color quoted3       yellow          black
+color quoted4       red             black
+```
+
+这里, quoted4代表最里层的引用内容, quoted代表最外层的引用内容. 通过给不同层的引文设置不同颜色, 就可能很迅速的区分引文和本次邮件作者的回复内容了, 非常高效!
+
+另外, 在设置引文高亮的时候, 需要设置引用符号, 常见的引用符号有:`>`, `#`, `+`乃至tab缩进等, 通过`quote_regexp`变量告知Mutt要将哪些行识别为引文, 这样才能使得之后的quoted设置生效. 由于本人订阅的邮件列表采用的符号`>`作为引文开头, 所以就之设置了一个引文符号, 避免不必要的混乱高亮.
 
 ## 配置procmail
 
+正如前言中说的, 本人配置Mutt主要是为了阅读邮件列表, 经过上述一系列的配置, 基本已经能正常并相对高效的阅读邮件列表了. 但是邮件列表一天能有数十封乃至几百封邮件, 根据上述的配置, getmail收取的所有的邮件都直接投放到inbox目录下, 这导致了我一打开Mutt, 就是满屏的来自邮件列表的邮件, 而私人邮件和工作邮件则完全被淹没了, 虽然可以通过设置不同的高亮来区分, 但是将邮件列表的邮件直接放在inbox中实在不是一个明智的操作, 一个合理的办法是专门设置一个信箱, 例如mlist来存放来自邮件列表的邮件.
 
-配置procmail 配色 键位绑定
+当通过getmail收取到邮件的时候, 如果是来自邮件列表的邮件, 直接跳过inbox信箱, 直接投放到mlist的信箱中, 这样的话既能保持inbox信箱的清洁, 又能在想查看邮件列表的时候切换到mlist邮箱中查看. 想要完成这个功能, 我们需要在getmail和信箱目录之前添加一层邮件分拣的操作, 而这个操作, 可以通过procmail工具来完成.
+
+procmail是一个邮件分拣工具, 可以根据发信人, 主题, 信件长短, 关键词等信息对邮件进行过滤[[?]](http://pm-doc.sourceforge.net/doc/#what_is_procmail).
+
+我们要利用procmail做的就是, 从收取到的邮件中过滤出来自邮件列表的邮件, 然后将其投递到`mlist`目录中. 那么显然的, 我们需要先在Mutt的工作目录下建立相应的`mlist`目录, 为了符合maildir格式, 我们还需要在mlist目录下建立`cur`, `new`, `tmp`这3个子目录.
+
+```
+$ mkdir ~/.mail/mlist
+$ cd ~/.mail/mlist
+$ mkdir cur new tmp
+```
+
+### 修改getmail配置
+
+我们提到过, procmail需要将getmail收取到的邮件进行过滤, 那么很明显的, procmail需要在getmail将邮件投递到Mutt的inbox目录前对邮件进行过滤. 因此, 我们需要改变getmail的投递行为, 让getmail收取邮件后, 不放到Mutt的inbox目录中, 而是将邮件交给procmail来处理, 这里我们需要对上文所述的getmailrc配置文件进行适当修改.
+
+```shell
+$ vim ~/.getmail/getmailrc
+```
+
+将`[destination]`节中的`type`和`path`字段稍作修改
+
+```
+[destination]
+# 以目录形式储存
+# type = Maildir
+# path = ~/.mail/inbox/
+# 由于采用了procmail, 收取的邮件交由procmail分拣而非直接投递到文件夹中
+type = MDA_external
+path = /usr/bin/procmail
+```
+
+### 编辑procmailrc文件
+
+这样, getmail就会将收取的邮件交给procmail来做过滤了. 接下来, 我们来配置procmail. procmail的配置集中在`~/.procmailrc`文件中. 新建并对其进行编辑如下:
+
+```
+# procmail用于将收到的邮件进行分拣,并发放到不同的邮箱(文件夹)中
+# 设置PATH变量以便procmail正常运行,根据文档,PATH应在第一行就设置
+PATH=/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin
+# 指定shell
+SHELL = /bin/bash
+# 指定发信工具位置
+SENDMAIL=/usr/bin/msmtp
+# Mutt邮件存放主目录
+MAILDIR=$HOME/.mail
+# 默认存放的目录
+DEFAULT=$MAILDIR/inbox
+# 日志文件存放位置
+LOGFILE=$MAILDIR/procmail.log
+# 诊断用,关闭
+VERBOSE=no
+
+# 分拣规则, procmail采用名为recipe的规则来处理,具体查看man procmailrc
+# recipe的一般格式:
+#        :0 [flags] [ : [locallockfile] ]
+#        <zero or more conditions (one per line)>
+#        <exactly one action line>
+#
+# 其中, conditions行以'*'作为开头, '*'之后跟的正则表达式完全兼容egrep形式.
+# 关于规则示例可以查看man procmailex
+# action行中,可以以'!','|','{'开头,其中'|'开头之后可以跟一条bash命令,
+# 此外的任意符号被认为是邮箱文件夹, 可以采用绝对路径, 若使用相对路径,
+# 则是相对与$MAILDIR, 例如inbox/,表示$MAILDIR/inbox
+
+:0
+* ^To:.*my_mail@mail.com
+inbox/
+
+# 归档Xen的邮件列表
+:0
+* ^Return-Path:.*xen-devel-bounces@lists.xen.org
+xen/
+
+# 剩下的邮件存放至inbox目录中
+:0
+* .*
+inbox/
+```
+
+在上述配置文件中, 各个字段的作用注释已经说的很清楚了, 有趣的是, 我们之前一直说procmail如何过滤投递邮件, 但事实上procmail也有转发邮件的功能, 因此大家会看到字段设置中有设置发信程序的部分.
+
+### recipe示例讲解
+
+procmail配置文件中唯一需要讲解也是重点需要讲解的就是规则部分了.
+promail的规则称之为recipe. 可以通过man procmailrc来查看具体信息. recipe的格式如下:
+```
+       :0 [flags] [ : [locallockfile] ]
+       <zero or more conditions (one per line)>
+       <exactly one action line>
+
+```
+
+第一行以`:0`开头, 后面可以跟一些标志, 以及使用锁避免潜在冲突.
+第二行是conditions, 即匹配条件, 以`*`作为开头, 后跟正则表达式用于匹配, 此处的正则表达式兼容egrep的[extended regular expression](http://www.cs.columbia.edu/~tal/3261/fall07/handout/egrep_mini-tutorial.htm)格式.
+第三行是action, 即执行部分, 该行若以`|`开头, 表示之后跟一条bash命令; 如果以`!`开头, 后面则跟的是对转发(forward)地址; 如果以`{`开头, 则是嵌套recipe. **此外其它的字符开头都将视为邮箱目录**.
+
+在讲解具体的规则之前, 我们先来理解下procmail的recipe处理流.
+
+```
+           -> recipe1                   recipe1                  recipe1
+1000 mails/   recipe2 --- 800 mails --> recipe2 --- 300 mails\   recipe2
+              recipe3                   recipe3               -> recipe3
+```
+
+如上图所示, 假设在procmailrc文件中包含3条recipie, 从上到下分别是recipe1, recipe2, recipe3. 现在有1000封邮件, procmail将会根据规则依次过滤它们. procmail采取的默认操作是移动邮件(move), 所以我们看到, 1000封邮件在经过recipe1的规则后, 将设匹配掉了200封, 那么在进行recipe2匹配的时候, 是对剩余的800封邮件进行处理了. 从这个过程可以看出, 排在越前面的recipe优先级越高, 而且已经被recipe处理过得邮件若没有特殊指明, 是不会再被接下来的recipe处理的.
+
+以下通过几条recipe来简要讲解下:
+
+```
+:0 c
+* ^To:.*my_mail@mail.com
+inbox/
+```
+
+上述recipe表示, 对于发给my_mail@mail.com的邮件, 将其**复制**到`~/.mail/inbox`信箱中.
+注意到这里在第一行的`:0`之后加了一个`c`作为标志, 代表复制邮件, 而非移动邮件. 复制的意义在于, 该邮件通过recipe进行过滤操作, 同时留下一个副本参与之后的recipe过滤操作. 这么做实际上产生了2封重复的邮件. 关于`c`标志以及其它`[flags]`标志, 请参见man procmailrc.
+然后是第三行的`inbox/`, 由于不是以`|`, `!`或是`{`开头, 因此被解释为信箱目录, 这里采用的是相对路径的形式, 当然也完全可以写成`~/.mail/inbox/`, 这里的相对路径是相对于`~/.procmailrc`配置文件中的`$MAILDIR`变量而言的, 之前我们将其设置为了`$HOME/.mail`, 因此这里的`inbox/`代表的是`~/.mail/inbox`目录.
+
+再来看一下来自邮件列表的邮件归档设置
+
+```
+# 归档Xen的邮件列表
+:0
+* ^Return-Path:.*xen-devel-bounces@lists.xen.org
+xen/
+```
+
+上述recipe将来自Xen的开发者列表的邮件都投递到`~/.mail/xen`目录下. 没什么特殊的技巧, 主要起作用的是第二行的正则表达式, 这里匹配邮件头部中的`Return-Path`字段, 若该字段包含`xen-devel-bounces@lists.xen.org`, 则该邮件被认为是来自xen的邮件列表, 从而被投递到xen的信箱中.
+值得一提的是, Xen的开发者邮件列表有多个地址, 例如xen-devel@lists.xenproject.org, xen-devel@lists.xen.org, xen-devel@lists.xensource.com, 而且不同的发信人, 可能会把邮件列表的地址写在收信人(To)一栏, 也有部分人习惯把邮件列表地址写在抄送(Cc)一栏, 如果考虑从To或是Cc字段来匹配邮件列表那就比较复杂了, 但是有意思的是不管发给哪个列表地址的邮件, 其`Return-Path`字段的地址都是xen-devel-bounces@lists.xen.org, 因此只需要对`Return-Path`字段进行匹配就能过滤出全部来自该邮件列表的邮件. 其它的邮件列表也是如此.
+
+最后, 我们看下如下的规则
+
+```
+# 剩下的邮件存放至inbox目录中
+:0
+* .*
+inbox/
+```
+
+这条规则是最后一条recipe, 按照我们上面说的recipe处理流, 已经被上层recipe过滤掉的邮件并不会被这条recipie过滤, 因此, 我们这里匹配任意的邮件, 则实现的是将上层全部recipe规则之外没被匹配掉的邮件全都放到inbox信箱中.
+
+至此, procmail配置讲解结束, 关于procmail一些其它的高级功能例如转发等请查看[promcail manual](http://pm-doc.sourceforge.net/doc/), 更多的recipe示例可以参考man procmailex.
+
+
+## Hooks
+
+Hooks是Mutt中非常强大的功能, 不过鉴于常规使用上不怎么会用到, 亦深入研究, 先不介绍了, 等之后用到了在将相关内容补上. XD
+
 
 
 
