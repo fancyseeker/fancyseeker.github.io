@@ -18,21 +18,38 @@ notoc:
 
 # Why: 为什么使用Mutt
 
-如上文所述, 从阅读邮件的角度来说, 有很多很好用的邮箱, Gmail就是本人很喜欢的邮箱, 并且一直在用, 除了一些不可控的原因影响其用户体验外, 其它方面确实表现的很好. 那为什么我还要花这么大的力气去配置Mutt呢? Mutt跟其它的邮箱相比, 到底有哪些好处呢?
+如上文所述, 从阅读邮件的角度来说, 有很多很好用的邮箱, Gmail就是本人很喜欢的邮箱, 并且一直在用, 除了一些不可控的原因影响其用户体验外, 其它方面确实表现的很好. 那为什么我还要花这么大的力气去配置Mutt呢? Mutt跟其它的邮箱相比, 到底有哪些好处呢? 接下来我们来对比下集中应用场景(主要针对邮件列表阅读).
 
-邮件归类
-Thread模式条理清晰
-高亮嵌套引用
-Patch高亮
+1. **Thread视图**
+
+![Gmail中的邮件列表视图](/img/mutt/thread_in_gmail.jpg)
+![Mutt中的邮件列表视图](/img/mutt/thread_in_mutt.png)
+
+从上图的对比中可以看到, Gmail中的邮件列表视图是基于发信时间的, 虽然这样可以查看到最新的邮件, 但是邮件列表的上下文逻辑就看不清楚了. Mutt则是基于邮件主题的模式进行排列的, 每封邮件都按照Thread的前后回复逻辑组织在一起, 一眼看去回复关系非常清楚, 而且Mutt还能设置高亮, 例如在上图的配置中, 将未读的邮件设置成高亮的蓝色, 已读的邮件设置成白色, 未读的Thread设置成高亮蓝色, 部分已读部分未读的Thread设置成紫色, 这些高亮都是可以自定义的, 因此打开Mutt的邮件列表视图, 一眼看去就知道哪些邮件是已经看过的, 哪些邮件是完全没看过的以及哪些邮件是只看一部分未看全的.
+
+2. **嵌套引用**
+
+![Gmail中的嵌套引用](/img/mutt/quoted_in_gmail.png)
+![Mutt中的嵌套引用](/img/mutt/quoted_in_mutt.png)
+
+在邮件列表的阅读中, 经常会出现多层的嵌套引用, 从上图的对比中可以看出, Gmail并未对嵌套的引文做任何处理, 而Mutt则可以使用不同的颜色区分不同层的引文, 引用次序非常清晰明了.
+
+3. **Patch邮件**
+
+![Gmail中的Patch邮件](/img/mutt/patch_in_gmail.png)
+![Mutt中的Patch邮件](/img/mutt/patch_in_mutt.png)
+
+在开源社区, 在发送Patch的时候常常使用`git sendmail`来发送Patch, 而不是以附件的形式. 我们可以看到, 在Gmail中将Patch中代码的部分直接当做正文来处理, 因此很难看清楚到底Patch中对哪里做了修改, 而在Mutt中, 可以通过正则表达式的方式来匹配正文中的任意字段实现高亮, 将其应用到Patch邮件的正文中, 将增减的行高亮出来, 这样就能很清楚的看明白Patch到底对哪里进行了修改.
+
+以上例子仅仅只是针对邮件列表阅读这种特殊的应用场景而言, 之所以拿Gmail来比较是因为Gmail本身非常优秀, 也是本人最喜欢的邮箱, 并没有贬低Gmail的意思, 只是应用场景不同罢了. 事实上, 除了邮件列表和工作邮件, 本人的其它私人邮件使用的都是Gmail, 一方面UI设计简洁大方, 另一方面, 邮件搜索过滤对于日常应用来说确实非常好~
+
+在弄清楚了应用场合之后, 我们来进入正文...
 
 # What: Mutt是什么
 
-Mutt工具的定位, 负责的事情, 因此需要其它工具来一起完成任务, 关系图.
-MTA MUA MDA spool 基础知识
-
 ## Mutt简介
 
-Mutt是什么? 或者说Mutt是什么样子的? 根据[Mutt官网](http://www.mutt.org)上的介绍, Mutt是Unix系统环境下一个小巧但是强大的文本邮件客户端. 小是显而易见的, 功能强大对于本人而言主要体现在以下几个[Mutt Feature](http://www.mutt.org/#Features):
+Mutt是什么? 或者说Mutt是什么样子的? 根据[Mutt官网](http://www.mutt.org)上的介绍, Mutt是Unix系统环境下一个小巧但是强大的文本邮件客户端. 小是显而易见的, 功能强大对于本人而言主要体现在以下几个[Mutt Features](http://www.mutt.org/#Features):
 
 - 支持配色
 - 对邮件列表支持很好
@@ -171,6 +188,8 @@ subscribe xen-devel@lists.xen.org xen-devel@lists.xensource.com xen-devel@lists.
 set sendmail = "/usr/bin/msmtp"
 ```
 
+**通过上述配置, 我们将Mutt和msmtp给联系起来了.**
+
 ### 设置信箱目录
 
 另外, 我们看到在muttrc配置文件中设置了很多信箱文件夹, 如下:
@@ -188,9 +207,18 @@ set record = "+sent"
 
 说到邮件储存格式, 我们就来简单了解下Mutt管理邮件的方式. 事实上, 我们通过Mutt看到的邮件, 都是以文件的形式保存在特定的目录中的, 一封邮件就是一个文件. Mutt做的事情就是从特定的信箱目录中读取邮件, 解码文件, 然后展示内容给用户. 在把邮件从一个信箱移动到另一个信箱的时候, Mutt实际上是将邮件文件从一个目录移动或是复制到另一个目录中, 就是这么简单!
 
+例如如果inbox信箱中有邮件, 那么可以看到:
+```
+$ ls ~/.mail/inbox/cur
+1439889842.29259_1.USER:2,S  1439890047.29915_0.USER:2,S  1439890260.30560_0.USER:2,
+1439889842.29260_1.USER:2,S  1439890047.29916_0.USER:2,   1439890260.30561_0.USER:2,
+1439889843.29261_0.USER:2,S  1439890047.29917_0.USER:2,   1439890261.30562_0.USER:2,
+```
+也可以尝试着将一个文件`mv`到另一个文件夹的`cur`子目录下, 再打开Mutt看看邮件是不是就从原先的邮箱移动到新的邮箱中了 0.0
+
 接着我们看一下变量`$folder`, 该变量即指定了Mutt读取操作邮件的"根目录", 例如, 示例配置文件中, 将其设置为`~/.mail`目录, 那么在打开Mutt的时候, Mutt会默认从该目录下去读取操作邮件文件.
 
-在信箱组织方面, 一般建议设置`$spoolfile`, `$mbox`, `$postponed` 和 `$record`这四个变量. 当然, 也可以都不设置, 但是Mutt会默认在`$folder`变量指定的目录下建立`inbox`目录, 并将全部的邮件都一股脑放到这个目录下. 这里, 我们都对其进行了设置, 当然, 使用前要确保这些指定目录已经建立好了, 并且每个目录下已经建立了`cur`, `new`, `tmp`这三个子目录.
+**在信箱组织方面, 一般建议设置`$spoolfile`, `$mbox`, `$postponed` 和 `$record`这四个变量.** 当然, 也可以都不设置, 但是Mutt会默认在`$folder`变量指定的目录下建立`inbox`目录, 并将全部的邮件都一股脑放到这个目录下. 这里, 我们都对其进行了设置, 当然, 使用前要确保这些指定目录已经建立好了, 并且每个目录下已经建立了`cur`, `new`, `tmp`这三个子目录.
 
 ```
 $ mkdir ~/.mail
@@ -218,7 +246,7 @@ P.S. 在指定信箱目录的时候我们使用了`+`符号, 在muttrc文件中,
 set move = ask-yes
 ```
 
-`$move`变量有四个值, 分别为`yes`, `no`, `ask-yes`和`ask-no`. `$move`变量的意义在于指定是否将inbox中已读的邮件自动移动到`mbox`目录中. 默认是不移动, 此处将其设置为`ask-yes`, 即表示自动将已读邮件移动至`mbox`目录中, 但是在移动前会提示用户是否执行. 这样可以保持`inbox`目录的整洁, 避免每次打开mutt, 上来就看到一堆已经读过的邮件.
+`$move`变量有四个值, 分别为`yes`, `no`, `ask-yes`和`ask-no`. `$move`变量的意义在于指定是否将inbox信箱中已读的邮件自动移动到mbox目录中. 默认是不移动, 此处将其设置为`ask-yes`, 即表示自动将已读邮件移动至`mbox`目录中, 但是在移动前会提示用户是否执行. 这样可以保持`inbox`目录的整洁, 避免每次打开mutt, 上来就看到一堆已经读过的邮件.
 
 ```
 set charset = "utf-8"
@@ -235,7 +263,7 @@ $ chmod 600 ~/.muttrc
 
 ## 配置msmtp
 
-msmtp是一个SMTP客户端<sup>[[x]](http://msmtp.sourceforge.net/)</sup>. 在整个Mutt收发系统中负责发送邮件的功能.
+msmtp是一个SMTP客户端<sup>[[?]](http://msmtp.sourceforge.net/)</sup>. 在整个Mutt收发系统中负责发送邮件的功能.
 
 **msmtp的配置文件为`~/.msmtprc`**.
 
@@ -427,7 +455,7 @@ Mutt支持对各个界面进行高亮设置, 包括邮箱的列表部分`index`,
 
 ### Mutt常规界面配色
 
-在介绍Mutt常规界面的配色之前, 我们先来了解下Mutt中各个界面的名称, 如前文所述, Mutt的界面主要包含有`index`, `body`和`header`, `index`就是打开Mutt时看见的界面, 通过列表的形式一一列出邮件主题和收发信息. 而查看某封邮件的内容的界面则属于`pager`. `pager`有含有2个部分, 一个是邮件头部, 包含有邮件的头部信息, 这部分属于`header`. 另一部分是邮件内容的主体`body`, 包含邮件的正文. 基本上需要配置的也就这3个地方. 当然, 此外还有其它的界面, 如`File Brower`, `Alias Menu`等, 一般很少见到, 暂时就不配色了. 具体的界面和菜单介绍, 参阅: [Mutt Manual: Screens and Menus](http://dev.mutt.org/doc/manual.html#concept-screens-and-menus).
+在介绍Mutt常规界面的配色之前, 我们先来了解下Mutt中各个界面的名称, 如前文所述, Mutt的界面主要包含有`index`, `body`和`header`, `index`就是打开Mutt时看见的界面, 通过列表的形式一一列出邮件主题和收发信息. 而查看某封邮件的内容的界面则属于`pager`. `pager`含有2个部分, 一个是邮件头部, 包含有邮件的头部信息, 这部分属于`header`. 另一部分是邮件内容的主体`body`, 包含邮件的正文. 基本上需要配置的也就这3个地方. 当然, 此外还有其它的界面, 如`File Brower`, `Alias Menu`等, 一般很少见到, 暂时就不配色了. 具体的界面和菜单介绍, 参阅: [Mutt Manual: Screens and Menus](http://dev.mutt.org/doc/manual.html#concept-screens-and-menus).
 
 在着手自定义Mutt配色之前, 可以先看一下Github上关于Mutt配色的项目: [Solarized Colorscheme for Mutt](https://github.com/altercation/mutt-colors-solarized), 如果觉得合适, 就不需要自己折腾配色了.
 
@@ -493,7 +521,7 @@ color header        brightyellow    black         "^(Subject)"
 color <界面> <前景色> <背景色> [其它选项]
 ```
 
-Mutt支持8种颜色, 分别为: Black, Red, Green, Yellow, Blue, Magenta, Cyan, White[[?]](http://dev.mutt.org/doc/manual.html#tab-color). 在颜色前面添加`bright`可使得字体加粗, 并使得颜色更鲜艳, 例如red就是正常粗细的暗红色字体, 但是brightred就变为加粗的鲜红字体. 这样, 我们可以使用的颜色就有16种了, 再配合上前景色背景色的各种搭配, 真是变换无穷呢 = =b
+Mutt支持8种颜色, 分别为: Black, Red, Green, Yellow, Blue, Magenta, Cyan, White<sup>[[?]](http://dev.mutt.org/doc/manual.html#tab-color)</sup>. 在颜色前面添加`bright`可使得字体加粗, 并使得颜色更鲜艳, 例如red就是正常粗细的暗红色字体, 但是brightred就变为加粗的鲜红字体. 这样, 我们可以使用的颜色就有16种了, 再配合上前景色背景色的各种搭配, 真是变换无穷呢 = =b
 
 对于自定义配色, 没什么好说的, 只要知道是针对`index`配色, 还是`pager`配色或者是`header`就行, 剩下就是改下颜色, 看哪里颜色变了, 就能确定语句控制的是那部分的颜色了.
 
@@ -523,7 +551,7 @@ color index         white           black         "~v~(!~N!~O)"
 
 除了通配符, Mutt还支持有限的逻辑操作, 分别为: 逻辑非符号`!`, 逻辑或符号`|`和组合符号`()`, 逻辑与的话直接挨着就是.
 
-这下回头看上述语句的意思就明白了, 对于符合条件(1. 是邮件列表某个主题包含的邮件 2. 不是新的未读邮件 3. 不是旧的未读邮件)的邮件, 将其所在行的颜色设置为黑底白字.
+这下回头看上述语句的意思就明白了, 对于符合条件(1. 是邮件列表某个主题包含的邮件 2. 不是新的未读邮件 3. 不是旧的未读邮件)的邮件, 实际上就是已读的列表邮件,  将其所在行的颜色设置为黑底白字.
 
 以上是几个主要的通配符的解释, 以及更多的Mutt模式匹配信息, 请参阅: [Mutt Manual: Patterns: Searching, Limiting and Tagging](http://dev.mutt.org/doc/manual.html#patterns).
 
@@ -536,7 +564,7 @@ color index         white           black         "~v~(!~N!~O)"
 color body blue black "[;:][-o][)/(|]"
 ```
 
-这样, 正文中像:-) ;-o :-(这类的卖萌表情就统统被高亮出来了 0.0
+这样, 正文中像`:-)`, `;-o`, `:-(`这类的卖萌表情就统统被高亮出来了 0.0
 
 
 ### Patch高亮支持
@@ -605,7 +633,7 @@ color quoted4       red             black
 
 当通过getmail收取到邮件的时候, 如果是来自邮件列表的邮件, 直接跳过inbox信箱, 直接投放到mlist的信箱中, 这样的话既能保持inbox信箱的清洁, 又能在想查看邮件列表的时候切换到mlist邮箱中查看. 想要完成这个功能, 我们需要在getmail和信箱目录之前添加一层邮件分拣的操作, 而这个操作, 可以通过procmail工具来完成.
 
-procmail是一个邮件分拣工具, 可以根据发信人, 主题, 信件长短, 关键词等信息对邮件进行过滤[[?]](http://pm-doc.sourceforge.net/doc/#what_is_procmail).
+procmail是一个邮件分拣工具, 可以根据发信人, 主题, 信件长短, 关键词等信息对邮件进行过滤<sup>[[?]](http://pm-doc.sourceforge.net/doc/#what_is_procmail)</sup>.
 
 我们要利用procmail做的就是, 从收取到的邮件中过滤出来自邮件列表的邮件, 然后将其投递到`mlist`目录中. 那么显然的, 我们需要先在Mutt的工作目录下建立相应的`mlist`目录, 为了符合maildir格式, 我们还需要在mlist目录下建立`cur`, `new`, `tmp`这3个子目录.
 
@@ -696,7 +724,7 @@ promail的规则称之为recipe. 可以通过man procmailrc来查看具体信息
 
 ```
 
-第一行以`:0`开头, 后面可以跟一些标志, 以及使用锁避免潜在冲突.
+第一行以`:0`开头, 后面可以跟一些标志, 以及使用锁文件避免潜在冲突.
 第二行是conditions, 即匹配条件, 以`*`作为开头, 后跟正则表达式用于匹配, 此处的正则表达式兼容egrep的[extended regular expression](http://www.cs.columbia.edu/~tal/3261/fall07/handout/egrep_mini-tutorial.htm)格式.
 第三行是action, 即执行部分, 该行若以`|`开头, 表示之后跟一条bash命令; 如果以`!`开头, 后面则跟的是对转发(forward)地址; 如果以`{`开头, 则是嵌套recipe. **此外其它的字符开头都将视为邮箱目录**.
 
@@ -708,7 +736,7 @@ promail的规则称之为recipe. 可以通过man procmailrc来查看具体信息
               recipe3                   recipe3               -> recipe3
 ```
 
-如上图所示, 假设在procmailrc文件中包含3条recipie, 从上到下分别是recipe1, recipe2, recipe3. 现在有1000封邮件, procmail将会根据规则依次过滤它们. procmail采取的默认操作是移动邮件(move), 所以我们看到, 1000封邮件在经过recipe1的规则后, 将设匹配掉了200封, 那么在进行recipe2匹配的时候, 是对剩余的800封邮件进行处理了. 从这个过程可以看出, 排在越前面的recipe优先级越高, 而且已经被recipe处理过得邮件若没有特殊指明, 是不会再被接下来的recipe处理的.
+如上图所示, 假设在procmailrc文件中包含3条recipie, 从上到下分别是recipe1, recipe2, recipe3. 现在有1000封邮件, procmail将会根据规则依次过滤它们. procmail采取的默认操作是移动邮件(move), 所以我们看到, 1000封邮件在经过recipe1的规则后, 假设匹配掉了200封, 那么在进行recipe2匹配的时候, 是对剩余的800封邮件进行处理了. 从这个过程可以看出, 排在越前面的recipe优先级越高, 而且已经被recipe处理过得邮件若没有特殊指明, 是不会再被接下来的recipe处理的.
 
 以下通过几条recipe来简要讲解下:
 
@@ -732,7 +760,7 @@ xen/
 ```
 
 上述recipe将来自Xen的开发者列表的邮件都投递到`~/.mail/xen`目录下. 没什么特殊的技巧, 主要起作用的是第二行的正则表达式, 这里匹配邮件头部中的`Return-Path`字段, 若该字段包含`xen-devel-bounces@lists.xen.org`, 则该邮件被认为是来自xen的邮件列表, 从而被投递到xen的信箱中.
-值得一提的是, Xen的开发者邮件列表有多个地址, 例如xen-devel@lists.xenproject.org, xen-devel@lists.xen.org, xen-devel@lists.xensource.com, 而且不同的发信人, 可能会把邮件列表的地址写在收信人(To)一栏, 也有部分人习惯把邮件列表地址写在抄送(Cc)一栏, 如果考虑从To或是Cc字段来匹配邮件列表那就比较复杂了, 但是有意思的是不管发给哪个列表地址的邮件, 其`Return-Path`字段的地址都是xen-devel-bounces@lists.xen.org, 因此只需要对`Return-Path`字段进行匹配就能过滤出全部来自该邮件列表的邮件. 其它的邮件列表也是如此.
+值得一提的是, Xen的开发者邮件列表有多个地址, 例如`xen-devel@lists.xenproject.org`, `xen-devel@lists.xen.org`, `xen-devel@lists.xensource.com`, 而且不同的发信人, 可能会把邮件列表的地址写在收信人(To)一栏, 也有部分人习惯把邮件列表地址写在抄送(Cc)一栏, 如果考虑从To或是Cc字段来匹配邮件列表那就比较复杂了, 但是有意思的是不管发给哪个列表地址的邮件, 邮件头部`Return-Path`字段的地址都是`xen-devel-bounces@lists.xen.org`, 因此只需要对`Return-Path`字段进行匹配就能过滤出全部来自该邮件列表的邮件. 其它的邮件列表也是如此.
 
 最后, 我们看下如下的规则
 
@@ -750,7 +778,13 @@ inbox/
 
 ## Hooks
 
-Hooks是Mutt中非常强大的功能, 不过鉴于常规使用上不怎么会用到, 亦深入研究, 先不介绍了, 等之后用到了在将相关内容补上. XD
+Hooks是Mutt中非常强大的功能, 不过鉴于常规使用上不怎么会用到, 亦深入研究, 先不介绍了, 如果之后用到了在将相关内容补上, 没有的话就...XD
+
+Hooks的相关介绍, 请参阅: [Mutt Manual: Using Hooks](http://dev.mutt.org/doc/manual.html#hooks)
+
+# 总结
+
+本文针对邮件列表阅读这一应用场景出发, 对为什么使用Mutt, Mutt是什么, 怎么配置Mutt进行了简要的叙述, 其中参考了众多资料, 在文中相应的地方都给出了引用链接. 本文篇幅较长且行文冗余啰嗦, 无奈受限于作者文学素养不高却又想尽可能表述的清楚明白, 同时尽量将涉及到的相关内容都覆盖讲解到以更好的理解Mutt. 如前言所述, 此文主要是用来记录本人配置Mutt过程中的心得以便日后回顾, 同时也希望能帮助到一些刚接触Mutt被整的一头雾水的同学, 经过几天的使用, 越发发现Mutt真的是一个非常高效且好用的工具, 虽然前期的配置和理解较为复杂, 但是我认为完全值得. 最后, 本人水平有限, 文中若有存在不足或错误之处, 还请各位同学指出.
 
 
 
