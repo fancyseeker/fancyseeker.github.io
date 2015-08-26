@@ -6,21 +6,18 @@
   
   <title>CentOS和Fedora的源配置及repo文件解析 | FancySeeker</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Background
-最近由于项目上的需要, 在VMware上装上了CentOS. 由于学校的校园网无法访问国外的源, 所以CentOS默认的源无法使用, 于是装完系统的第一件事情自然是配源. 对于国内用户来说163的源和sohu的源速度都不错更新的也快, 对于校园网用户来说, 校园网内比较好的源有上海交大(sjtu), 中科大(ustc)… 呵呵, 不知道东北大学(neu)的算不算, 不过我用起">
+  <meta name="description" content="本文对CentOS和Fedora的源配置文件进行了适当的解析, 同时介绍了配置源的相关方法.">
 <meta property="og:type" content="article">
 <meta property="og:title" content="CentOS和Fedora的源配置及repo文件解析">
 <meta property="og:url" content="http://fancyseeker.github.io/2012/12/14/repo_config/index.html">
 <meta property="og:site_name" content="FancySeeker">
-<meta property="og:description" content="Background
-最近由于项目上的需要, 在VMware上装上了CentOS. 由于学校的校园网无法访问国外的源, 所以CentOS默认的源无法使用, 于是装完系统的第一件事情自然是配源. 对于国内用户来说163的源和sohu的源速度都不错更新的也快, 对于校园网用户来说, 校园网内比较好的源有上海交大(sjtu), 中科大(ustc)… 呵呵, 不知道东北大学(neu)的算不算, 不过我用起">
+<meta property="og:description" content="本文对CentOS和Fedora的源配置文件进行了适当的解析, 同时介绍了配置源的相关方法.">
 <meta property="og:image" content="/img/repo_config/repofile.png">
 <meta property="og:image" content="/img/repo_config/163mirror.png">
 <meta property="og:image" content="/img/repo_config/fedorarepo.png">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="CentOS和Fedora的源配置及repo文件解析">
-<meta name="twitter:description" content="Background
-最近由于项目上的需要, 在VMware上装上了CentOS. 由于学校的校园网无法访问国外的源, 所以CentOS默认的源无法使用, 于是装完系统的第一件事情自然是配源. 对于国内用户来说163的源和sohu的源速度都不错更新的也快, 对于校园网用户来说, 校园网内比较好的源有上海交大(sjtu), 中科大(ustc)… 呵呵, 不知道东北大学(neu)的算不算, 不过我用起">
+<meta name="twitter:description" content="本文对CentOS和Fedora的源配置文件进行了适当的解析, 同时介绍了配置源的相关方法.">
   
     <link rel="alternative" href="/atom.xml" title="FancySeeker" type="application/atom+xml">
   
@@ -109,7 +106,9 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-       <!--<h1 id="background-v2">Background</h1>
+       <!--<p>本文对CentOS和Fedora的源配置文件进行了适当的解析, 同时介绍了配置源的相关方法.</p>
+<a id="more"></a>
+<h1 id="background-v2">Background</h1>
 <p>最近由于项目上的需要, 在VMware上装上了CentOS. 由于学校的校园网无法访问国外的源, 所以CentOS默认的源无法使用, 于是装完系统的第一件事情自然是配源. 对于国内用户来说163的源和sohu的源速度都不错更新的也快, 对于校园网用户来说, 校园网内比较好的源有上海交大(sjtu), 中科大(ustc)… 呵呵, 不知道东北大学(neu)的算不算, 不过我用起来速度也不错.</p>
 <p>之前我自己在配Fedora和CentOS的源的时候都是直接google, 然后从网上直接select–copy–paste到本地的repo文件的. 经常找个合适的源文件要找半天, 最令人失望的是有时还不能正常使用. 俗话说的好, &quot;自己动手, 丰衣足食&quot;嘛. 所以花了点时间研究了下yum源配置文件的问题, 发现还是蛮简单的.</p>
 <h1 id="yum与repo文件简介">Yum与repo文件简介</h1>
@@ -195,7 +194,9 @@ baserul字段更改为新的镜像源服务器地址.这是最关键的一处更
 -->
             
             
-                <h1 id="background-v2">Background</h1>
+                <p>本文对CentOS和Fedora的源配置文件进行了适当的解析, 同时介绍了配置源的相关方法.</p>
+<a id="more"></a>
+<h1 id="background-v2">Background</h1>
 <p>最近由于项目上的需要, 在VMware上装上了CentOS. 由于学校的校园网无法访问国外的源, 所以CentOS默认的源无法使用, 于是装完系统的第一件事情自然是配源. 对于国内用户来说163的源和sohu的源速度都不错更新的也快, 对于校园网用户来说, 校园网内比较好的源有上海交大(sjtu), 中科大(ustc)… 呵呵, 不知道东北大学(neu)的算不算, 不过我用起来速度也不错.</p>
 <p>之前我自己在配Fedora和CentOS的源的时候都是直接google, 然后从网上直接select–copy–paste到本地的repo文件的. 经常找个合适的源文件要找半天, 最令人失望的是有时还不能正常使用. 俗话说的好, &quot;自己动手, 丰衣足食&quot;嘛. 所以花了点时间研究了下yum源配置文件的问题, 发现还是蛮简单的.</p>
 <h1 id="yum与repo文件简介">Yum与repo文件简介</h1>

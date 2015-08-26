@@ -4,6 +4,9 @@ tags: [mutt, getmail, msmtp, procmail, tools, email]
 notoc:
 ---
 
+Mutt是一款优秀的邮件客户端工具, 但是在配置使用上对初学者并不友好. 本文通过讲述为什么使用Mutt, Mutt是什么, 如何配置Mutt来尽可能全面的描述Mutt, 而非仅仅简单的介绍如何配置Mutt.
+<!-- more -->
+
 # 前言
 
 网络上关于介绍Mutt的文章很多, 相信最有名的应该算是王垠的[Mutt使用指南](http://www.ctex.org/documents/shredder/mutt_frame.html)了吧, 这是我看过诸多讲述Mutt文章中讲的最好的, 为什么? 因为这篇文章真的只讲Mutt啊! 当然, 最后我还是无法根据这篇文章把我的Mutt配置用起来就是了. 除此之外, 网上遍布了各式各样的形如`(从零配置)?mutt+(getmail|fetchmail)+(msmtp|esmtp)(+procmail)?收发邮件`之类的文章, 那为什么我还要再造一个轮子, 哦不, 是再写这一篇文章来给互联网添加冗余的信息呢?

@@ -6,21 +6,15 @@
   
   <title>SSH连接认证原理概述 | FancySeeker</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="SSH简要介绍
-SSH的英文全称为Secure Shell，是IETF（Internet Engineering Task Force）的Network Working Group所制定的一族协议，其目的是要在非安全网络上提供安全的远程登录和其他安全网络服务。[1]用于在主机之间建立起安全连接, 并加密传输内容, 以达到安全的远程访问, 操作以及数据传输的目的.
-SSH主要有两个特点: 1. 安全">
+  <meta name="description" content="SSH是常用的连接访问远程主机的手段, 本文对SSH的连接认证原理进行了简要的概述, 以便之后介绍SSH的相关配置和使用.">
 <meta property="og:type" content="article">
 <meta property="og:title" content="SSH连接认证原理概述">
 <meta property="og:url" content="http://fancyseeker.github.io/2013/12/30/ssh_overview/index.html">
 <meta property="og:site_name" content="FancySeeker">
-<meta property="og:description" content="SSH简要介绍
-SSH的英文全称为Secure Shell，是IETF（Internet Engineering Task Force）的Network Working Group所制定的一族协议，其目的是要在非安全网络上提供安全的远程登录和其他安全网络服务。[1]用于在主机之间建立起安全连接, 并加密传输内容, 以达到安全的远程访问, 操作以及数据传输的目的.
-SSH主要有两个特点: 1. 安全">
+<meta property="og:description" content="SSH是常用的连接访问远程主机的手段, 本文对SSH的连接认证原理进行了简要的概述, 以便之后介绍SSH的相关配置和使用.">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="SSH连接认证原理概述">
-<meta name="twitter:description" content="SSH简要介绍
-SSH的英文全称为Secure Shell，是IETF（Internet Engineering Task Force）的Network Working Group所制定的一族协议，其目的是要在非安全网络上提供安全的远程登录和其他安全网络服务。[1]用于在主机之间建立起安全连接, 并加密传输内容, 以达到安全的远程访问, 操作以及数据传输的目的.
-SSH主要有两个特点: 1. 安全">
+<meta name="twitter:description" content="SSH是常用的连接访问远程主机的手段, 本文对SSH的连接认证原理进行了简要的概述, 以便之后介绍SSH的相关配置和使用.">
   
     <link rel="alternative" href="/atom.xml" title="FancySeeker" type="application/atom+xml">
   
@@ -109,7 +103,9 @@ SSH主要有两个特点: 1. 安全">
     
     <div class="article-entry" itemprop="articleBody">
       
-       <!--<h1 id="ssh简要介绍">SSH简要介绍</h1>
+       <!--<p>SSH是常用的连接访问远程主机的手段, 本文对SSH的连接认证原理进行了简要的概述, 以便之后介绍SSH的相关配置和使用.</p>
+<a id="more"></a>
+<h1 id="ssh简要介绍">SSH简要介绍</h1>
 <p>SSH的英文全称为Secure Shell，是IETF（Internet Engineering Task Force）的Network Working Group所制定的一族协议，其目的是要在非安全网络上提供安全的远程登录和其他安全网络服务。<sup><a href="http://blog.csdn.net/oncoding/article/details/4365062" target="_blank" rel="external">[1]</a></sup>用于在主机之间建立起安全连接, 并加密传输内容, 以达到安全的远程访问, 操作以及数据传输的目的.</p>
 <p>SSH主要有两个特点: 1. 安全性 2. 传输速度快</p>
 <p>为什么要强调SSH的安全特性, 因为传统的网络服务程序，如 FTP、POP 和 Telnet 其本质上都是不安全的；因为它们在网络上用明文传送数据、用户帐号和用户口令，很容易受到中间人（man-in-the-middle）攻击方式的攻击。就是存在另一个人或者一台机器冒充真正的服务器接收用户传给服务器的数据，然后再冒充用户把数据传给真正的服务器。 而 SSH 是目前较可靠，专为远程登录会话和其他网络服务提供安全性的协议。利用 SSH 协议可以有效防止远程管理过程中的信息泄露问题。透过 SSH 可以对所有传输的数据进行加密，也能够防止 DNS 欺骗和 IP 欺骗。<sup><a href="http://biaobiaoqi.me/blog/2013/04/19/use-ssh/" target="_blank" rel="external">[2]</a></sup></p>
@@ -210,7 +206,9 @@ SSH主要有两个特点: 1. 安全">
 -->
             
             
-                <h1 id="ssh简要介绍">SSH简要介绍</h1>
+                <p>SSH是常用的连接访问远程主机的手段, 本文对SSH的连接认证原理进行了简要的概述, 以便之后介绍SSH的相关配置和使用.</p>
+<a id="more"></a>
+<h1 id="ssh简要介绍">SSH简要介绍</h1>
 <p>SSH的英文全称为Secure Shell，是IETF（Internet Engineering Task Force）的Network Working Group所制定的一族协议，其目的是要在非安全网络上提供安全的远程登录和其他安全网络服务。<sup><a href="http://blog.csdn.net/oncoding/article/details/4365062" target="_blank" rel="external">[1]</a></sup>用于在主机之间建立起安全连接, 并加密传输内容, 以达到安全的远程访问, 操作以及数据传输的目的.</p>
 <p>SSH主要有两个特点: 1. 安全性 2. 传输速度快</p>
 <p>为什么要强调SSH的安全特性, 因为传统的网络服务程序，如 FTP、POP 和 Telnet 其本质上都是不安全的；因为它们在网络上用明文传送数据、用户帐号和用户口令，很容易受到中间人（man-in-the-middle）攻击方式的攻击。就是存在另一个人或者一台机器冒充真正的服务器接收用户传给服务器的数据，然后再冒充用户把数据传给真正的服务器。 而 SSH 是目前较可靠，专为远程登录会话和其他网络服务提供安全性的协议。利用 SSH 协议可以有效防止远程管理过程中的信息泄露问题。透过 SSH 可以对所有传输的数据进行加密，也能够防止 DNS 欺骗和 IP 欺骗。<sup><a href="http://biaobiaoqi.me/blog/2013/04/19/use-ssh/" target="_blank" rel="external">[2]</a></sup></p>

@@ -3,6 +3,9 @@ date: 2013-12-30 13:54:46
 tags: [ssh]
 ---
 
+SSH是常用的连接访问远程主机的手段, 本文对SSH的连接认证原理进行了简要的概述, 以便之后介绍SSH的相关配置和使用.
+<!-- more -->
+
 # SSH简要介绍
 
 SSH的英文全称为Secure Shell，是IETF（Internet Engineering Task Force）的Network Working Group所制定的一族协议，其目的是要在非安全网络上提供安全的远程登录和其他安全网络服务。<sup>[[1]](http://blog.csdn.net/oncoding/article/details/4365062)</sup>用于在主机之间建立起安全连接, 并加密传输内容, 以达到安全的远程访问, 操作以及数据传输的目的.

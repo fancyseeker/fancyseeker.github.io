@@ -6,18 +6,15 @@
   
   <title>CentOS/Fedora下SVN+Apache服务器配置 | FancySeeker</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="SVN简介
-SVN是一个优秀的版本管理工具，并且适用于小型的团队开发。SVN可以独立服务器运行或者借助Apache运行，所谓独立运行是指在服务器上配置好SVN服务器后，网内的计算机可以利用诸如TortoiseSVN这样的SVN客户端软件通过SVN协议(svn://...)对服务器进行签出(checkout)提交(commit)等操作。若SVN借助Apache运行，则可通过浏览器的http协议直接访">
+  <meta name="description" content="SVN一个优秀的版本管理工具, 并且适用于小型的开发团队. 本文介绍了如何配置SVN服务器以及如何通过Apache使得能通过浏览器访问SVN服务.">
 <meta property="og:type" content="article">
 <meta property="og:title" content="CentOS/Fedora下SVN+Apache服务器配置">
 <meta property="og:url" content="http://fancyseeker.github.io/2013/11/17/svn/index.html">
 <meta property="og:site_name" content="FancySeeker">
-<meta property="og:description" content="SVN简介
-SVN是一个优秀的版本管理工具，并且适用于小型的团队开发。SVN可以独立服务器运行或者借助Apache运行，所谓独立运行是指在服务器上配置好SVN服务器后，网内的计算机可以利用诸如TortoiseSVN这样的SVN客户端软件通过SVN协议(svn://...)对服务器进行签出(checkout)提交(commit)等操作。若SVN借助Apache运行，则可通过浏览器的http协议直接访">
+<meta property="og:description" content="SVN一个优秀的版本管理工具, 并且适用于小型的开发团队. 本文介绍了如何配置SVN服务器以及如何通过Apache使得能通过浏览器访问SVN服务.">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="CentOS/Fedora下SVN+Apache服务器配置">
-<meta name="twitter:description" content="SVN简介
-SVN是一个优秀的版本管理工具，并且适用于小型的团队开发。SVN可以独立服务器运行或者借助Apache运行，所谓独立运行是指在服务器上配置好SVN服务器后，网内的计算机可以利用诸如TortoiseSVN这样的SVN客户端软件通过SVN协议(svn://...)对服务器进行签出(checkout)提交(commit)等操作。若SVN借助Apache运行，则可通过浏览器的http协议直接访">
+<meta name="twitter:description" content="SVN一个优秀的版本管理工具, 并且适用于小型的开发团队. 本文介绍了如何配置SVN服务器以及如何通过Apache使得能通过浏览器访问SVN服务.">
   
     <link rel="alternative" href="/atom.xml" title="FancySeeker" type="application/atom+xml">
   
@@ -106,7 +103,9 @@ SVN是一个优秀的版本管理工具，并且适用于小型的团队开发�
     
     <div class="article-entry" itemprop="articleBody">
       
-       <!--<h1 id="svn简介">SVN简介</h1>
+       <!--<p>SVN一个优秀的版本管理工具, 并且适用于小型的开发团队. 本文介绍了如何配置SVN服务器以及如何通过Apache使得能通过浏览器访问SVN服务.</p>
+<a id="more"></a>
+<h1 id="svn简介">SVN简介</h1>
 <p>SVN是一个优秀的版本管理工具，并且适用于小型的团队开发。SVN可以独立服务器运行或者借助Apache运行，所谓独立运行是指在服务器上配置好SVN服务器后，网内的计算机可以利用诸如TortoiseSVN这样的SVN客户端软件通过SVN协议(svn://<strong><em>.</em></strong>.<strong><em>.</em></strong>)对服务器进行签出(checkout)提交(commit)等操作。若SVN借助Apache运行，则可通过浏览器的http协议直接访问服务器对应地址下的代码。</p>
 <p>本文先讲述如何单独配置SVN服务器，之后再讲述如何添加Apache的http访问支持。</p>
 <hr>
@@ -203,7 +202,9 @@ SVN是一个优秀的版本管理工具，并且适用于小型的团队开发�
 -->
             
             
-                <h1 id="svn简介">SVN简介</h1>
+                <p>SVN一个优秀的版本管理工具, 并且适用于小型的开发团队. 本文介绍了如何配置SVN服务器以及如何通过Apache使得能通过浏览器访问SVN服务.</p>
+<a id="more"></a>
+<h1 id="svn简介">SVN简介</h1>
 <p>SVN是一个优秀的版本管理工具，并且适用于小型的团队开发。SVN可以独立服务器运行或者借助Apache运行，所谓独立运行是指在服务器上配置好SVN服务器后，网内的计算机可以利用诸如TortoiseSVN这样的SVN客户端软件通过SVN协议(svn://<strong><em>.</em></strong>.<strong><em>.</em></strong>)对服务器进行签出(checkout)提交(commit)等操作。若SVN借助Apache运行，则可通过浏览器的http协议直接访问服务器对应地址下的代码。</p>
 <p>本文先讲述如何单独配置SVN服务器，之后再讲述如何添加Apache的http访问支持。</p>
 <hr>

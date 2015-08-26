@@ -3,6 +3,9 @@ date: 2014-06-16 13:15:52
 tags: [NFS, Xen, Virtualization]
 ---
 
+NFS是Linux主机之间相互共享文件的一个常见方式, 本文先对NFS进行了讲解, 之后利用NFS来完成Linux Host与Xen上虚拟机之间的文件共享操作.
+<!-- more -->
+
 # Background
 
 趁着虚拟机在安装guest os的时候抽空写一篇小短文吧。这篇文章主要介绍利用NFS在Xen的host os和guest os中共享文件夹。众所周知的，VMware是很容易在宿主机(Host)的windows和客户机(Guest)中共享文件夹的，点几下按钮的事情。但是同样的事情到了Linux下的Xen上，就变得有点麻烦，因为Xen没有提供Host和Guest之间的共享手段，所以用户就需要利用其它方法来实现虚拟机和宿主机共享文件夹这事。

@@ -3,6 +3,9 @@ date: 2013-11-17 14:03:34
 tags: [CentOS, Fedora, Linux, SVN, maintenance, apache, server]
 ---
 
+SVN一个优秀的版本管理工具, 并且适用于小型的开发团队. 本文介绍了如何配置SVN服务器以及如何通过Apache使得能通过浏览器访问SVN服务.
+<!-- more -->
+
 # SVN简介
 SVN是一个优秀的版本管理工具，并且适用于小型的团队开发。SVN可以独立服务器运行或者借助Apache运行，所谓独立运行是指在服务器上配置好SVN服务器后，网内的计算机可以利用诸如TortoiseSVN这样的SVN客户端软件通过SVN协议(svn://***.***.***.***)对服务器进行签出(checkout)提交(commit)等操作。若SVN借助Apache运行，则可通过浏览器的http协议直接访问服务器对应地址下的代码。
 
