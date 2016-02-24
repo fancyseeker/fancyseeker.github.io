@@ -1,0 +1,299 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>正式完成从Wordpress迁移至Hexo | FancySeeker</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="Blog从Wordpress + VPS迁移至Hexo + github page小记.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="正式完成从Wordpress迁移至Hexo">
+<meta property="og:url" content="http://fancyseeker.github.io/2015/04/08/wordpress2hexo/index.html">
+<meta property="og:site_name" content="FancySeeker">
+<meta property="og:description" content="Blog从Wordpress + VPS迁移至Hexo + github page小记.">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="正式完成从Wordpress迁移至Hexo">
+<meta name="twitter:description" content="Blog从Wordpress + VPS迁移至Hexo + github page小记.">
+  
+    <link rel="alternative" href="/atom.xml" title="FancySeeker" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.ico">
+  
+  <link rel="stylesheet" href="/css/style.css" type="text/css">
+  <!--[if lt IE 9]><script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7/html5shiv.min.js"></script><![endif]-->
+  
+</head>
+<body>
+<div id="container">
+  <div id="wrap">
+    <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-img"></div>
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">FancySeeker</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">Welcome, my friends.</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <!-- <a id="main-nav-toggle" class="nav-icon"></a> -->
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+          <a class="main-nav-link" href="/about">About</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="http://www.baidu.com/baidu" method="get" accept-charset="utf-8" class="search-form">
+          <input type="search" name="word" maxlength="20" class="search-form-input" placeholder="Search">
+          <input type="submit" value="" class="search-form-submit">
+          <input name=tn type=hidden value="bds">
+          <input name=cl type=hidden value="3">
+          <input name=ct type=hidden value="2097152">
+          <input type="hidden" name="si" value="fancyseeker.github.io">
+        </form>
+      </div>
+    </div>
+	
+  </div>
+</header>
+    <div class="outer">
+      <section id="main"><article id="post-wordpress2hexo" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+          <div class="article-meta">
+            
+            <a href="/2015/04/08/wordpress2hexo/" class="article-date">
+  <time datetime="2015-04-08T14:51:27.000Z" itemprop="datePublished">2015-04-08</time>
+</a>
+            <p class="article-time">
+                <a href="/2015/04/08/wordpress2hexo/" class="article-time">
+  <time datetime="2015-04-08T14:51:27.000Z" itemprop="datePublished">22:51:27</time>
+</a>
+
+            </p>
+          </div>
+        
+        
+  
+    <h1 class="article-title" itemprop="name">
+      正式完成从Wordpress迁移至Hexo
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+       <!--<p>Blog从Wordpress + VPS迁移至Hexo + github page小记.</p>
+<a id="more"></a>
+<p><strong>2015-04-08 22:51:27 正式完成从WordPress迁移至Hexo的工作.</strong><br>
+之前一直使用WordPress + VPS + 独立域名的方式运行博客. 博客上线是在2012年10月份吧, 刚开始的时候, WordPress的富文本编辑工具, 丰富的插件和主题对于刚开独立博客的用户而言十分便捷也很容易上手, 但是随着时间的推移, 到现在(2015/4)也已经有段时间了, 在这期间, 陆陆续续写了几篇文章, 但是在用WordPress写作的时候越发的感到不舒服, 甚至影响到了写作积极性.<br>
+现在想想, 原因应该有以下几点:</p>
+<ol>
+<li>
+<p>过度依赖插件<br>
+WordPress的插件数量众多, 几乎可以覆盖到用户能想到的全部功能, 这是好事, 但是问题就出在插件给人带来的写作体验上.<br>
+例如, 当我在WP下写作时, 需要插入代码, 那么需要安装高亮代码的插件, 然后利用工具栏进行代码块的输入, 最终转化为HTML代码. 一篇文章通常会包含多处代码, 有的是代码块, 有的是行内代码, 我就需要不停的点击工具栏, 然后在插件窗口上输出代码. 这样的写作体验一点都不好, 而且更关键的是插入的代码在原文中的格式是由插件定义的, 而我所得到的只是最后渲染完成的HTML而已, 而插件定义的标签或是语法往往不是标准的.<br>
+再比如当我想要插入图片的时候, WP会将本地的图片上传到不知道什么地方, 然后展示给我一个插入图片的窗口, 让我设置一些属性之后, 图片就插入到文章相应的位置去了.<br>
+依赖插件的问题在进行文章导入/导出时尤为明显. 当你尝试性的从WP编辑器中复制全文到其它编辑器如(Word, WPS)中时, 不是丢失就是排版乱了. 在WP中, 有插件负责转换, 而当没有插件的参与时, 一切都变得很糟糕.<br>
+这种格式与结构混淆的渲染方式给了我一种不好的感觉, 那就是我的文章在写完的那一刻就已经不是我的了, 它已经彻彻底底的属于WP和它的插件们了. 我再也别想很容易的把我的文章完完整整的从WP中拿出来. (这也照成了此次我在迁移博客时凡是文章中采用插件处理过的部分我都要手动翻译成markdown格式, 极大的耗费了我的时间和劳动力)</p>
+</li>
+<li>
+<p>数据库复杂<br>
+在WP中, 不管文章还是图片都是保存在数据库中的, 而数据是如何组织的, 放在哪里, 都是问题. 而当时间久了, 数据库中的内容多了, 整个WP都变得臃肿起来, 页面打开的速度变慢(当然这其中也有安装太多插件的功劳). 当我担心我的博客数据存在VPS上不放心想备份时, 相对可行的办法只能是安装数据库备份恢复插件, 好吧, 这个插件到底干了什么我也不知道, 反正就是运行了一下, 就把数据库给备份了, 当我想要恢复的时候, 我就点一下, 剩下的事情就是祈祷这插件能顺利执行了.</p>
+</li>
+<li>
+<p>主题乏味<br>
+不得不说, 虽然WP的主题众多, 但是质量高的没几款, 而这几款高质量主题用的人数自然多. 那么对于一个自己买域名, 折腾VPS, 搭博客的青年而言, 如此的大众化是无论如何不能接受的. 虽然大部分主题都支持一些定制选项, 但那些定制选项远远不够. 那好吧, 只能自己写主题或是改主题了, 写主题代价也太大了, 而改主题吧, 往往不能达到很好的效果, 因为不了解WP的页面生成框架, 而且WP那么大, 看文档都要看好段时间, 故只能在小地方修修改改, 给人的感觉就是, 最多只能这样了, 但是还是哪里看着不舒服.</p>
+</li>
+<li>
+<p>高大全与臃肿<br>
+WP是如此的完善, 有着自己的一套生态, 但是就是这种高大全给人一种臃肿难以掌控的感觉. 众多的插件质量也良莠不齐, 有些插件甚至在升级时会导致文章的排版出问题等.</p>
+</li>
+</ol>
+<p>以上这些问题其实都不是特别严重, 毕竟比起WP所提供的丰富功能和完整生态而言显得有些微不足道. 但是自从我习惯使用Markdown记笔记编辑文档后, WP的问题就越来越突出了. 在渲染方面, Markdown与WP的众多代码, 表格, 分栏插件存在冲突, 虽然WP在新版本中加入了Markdown的支持, 但不一致的写作体验还是促使我离开了WordPress.</p>
+<p>Hexo的优势<br>
+相比于WordPress, Hexo给人一种更轻, 更专注的感觉. 首先, Hexo的一大特点就是没有数据库, 所有的页面都是实现生成的, 这使得Hexo的博客系统反应更加迅速, 同时管理起来也非常的一目了然. Hexo的另一大特性就是其对Markdown的支持, 诚然, Markdown在最终文档的表现力上比不上WP, 但是在写作体验上绝对是顺畅的, 而且在Hexo中, 所有的文章都是以Markdown的文本格式保存, 这样我就可以随时把我的文章渲染成html文档, 然后保存到evernote中, 或是打成PDF等等. 这样内容与样式分离的设计使得维护变得容易, 用户可以很轻松的将博客备份到Github上或是硬盘等其它地方.<br>
+另外, Hexo整个主体框架很小, 因此, 修改主题变得十分容易.</p>
+<p>出于种种原因, 最后使得我将博客从WordPress搬至Hexo, 光是将原先文章手动转成Markdown格式就花了我3个晚上, 不过看着最后干净的博客页面和简洁的样式还是蛮欣慰的. 本文是一篇纯粹的水文, 主要用来记录下博客迁移这一事件, 别无它用, 亦没什么营养.</p>
+-->
+            
+            
+                <p>Blog从Wordpress + VPS迁移至Hexo + github page小记.</p>
+<a id="more"></a>
+<p><strong>2015-04-08 22:51:27 正式完成从WordPress迁移至Hexo的工作.</strong><br>
+之前一直使用WordPress + VPS + 独立域名的方式运行博客. 博客上线是在2012年10月份吧, 刚开始的时候, WordPress的富文本编辑工具, 丰富的插件和主题对于刚开独立博客的用户而言十分便捷也很容易上手, 但是随着时间的推移, 到现在(2015/4)也已经有段时间了, 在这期间, 陆陆续续写了几篇文章, 但是在用WordPress写作的时候越发的感到不舒服, 甚至影响到了写作积极性.<br>
+现在想想, 原因应该有以下几点:</p>
+<ol>
+<li>
+<p>过度依赖插件<br>
+WordPress的插件数量众多, 几乎可以覆盖到用户能想到的全部功能, 这是好事, 但是问题就出在插件给人带来的写作体验上.<br>
+例如, 当我在WP下写作时, 需要插入代码, 那么需要安装高亮代码的插件, 然后利用工具栏进行代码块的输入, 最终转化为HTML代码. 一篇文章通常会包含多处代码, 有的是代码块, 有的是行内代码, 我就需要不停的点击工具栏, 然后在插件窗口上输出代码. 这样的写作体验一点都不好, 而且更关键的是插入的代码在原文中的格式是由插件定义的, 而我所得到的只是最后渲染完成的HTML而已, 而插件定义的标签或是语法往往不是标准的.<br>
+再比如当我想要插入图片的时候, WP会将本地的图片上传到不知道什么地方, 然后展示给我一个插入图片的窗口, 让我设置一些属性之后, 图片就插入到文章相应的位置去了.<br>
+依赖插件的问题在进行文章导入/导出时尤为明显. 当你尝试性的从WP编辑器中复制全文到其它编辑器如(Word, WPS)中时, 不是丢失就是排版乱了. 在WP中, 有插件负责转换, 而当没有插件的参与时, 一切都变得很糟糕.<br>
+这种格式与结构混淆的渲染方式给了我一种不好的感觉, 那就是我的文章在写完的那一刻就已经不是我的了, 它已经彻彻底底的属于WP和它的插件们了. 我再也别想很容易的把我的文章完完整整的从WP中拿出来. (这也照成了此次我在迁移博客时凡是文章中采用插件处理过的部分我都要手动翻译成markdown格式, 极大的耗费了我的时间和劳动力)</p>
+</li>
+<li>
+<p>数据库复杂<br>
+在WP中, 不管文章还是图片都是保存在数据库中的, 而数据是如何组织的, 放在哪里, 都是问题. 而当时间久了, 数据库中的内容多了, 整个WP都变得臃肿起来, 页面打开的速度变慢(当然这其中也有安装太多插件的功劳). 当我担心我的博客数据存在VPS上不放心想备份时, 相对可行的办法只能是安装数据库备份恢复插件, 好吧, 这个插件到底干了什么我也不知道, 反正就是运行了一下, 就把数据库给备份了, 当我想要恢复的时候, 我就点一下, 剩下的事情就是祈祷这插件能顺利执行了.</p>
+</li>
+<li>
+<p>主题乏味<br>
+不得不说, 虽然WP的主题众多, 但是质量高的没几款, 而这几款高质量主题用的人数自然多. 那么对于一个自己买域名, 折腾VPS, 搭博客的青年而言, 如此的大众化是无论如何不能接受的. 虽然大部分主题都支持一些定制选项, 但那些定制选项远远不够. 那好吧, 只能自己写主题或是改主题了, 写主题代价也太大了, 而改主题吧, 往往不能达到很好的效果, 因为不了解WP的页面生成框架, 而且WP那么大, 看文档都要看好段时间, 故只能在小地方修修改改, 给人的感觉就是, 最多只能这样了, 但是还是哪里看着不舒服.</p>
+</li>
+<li>
+<p>高大全与臃肿<br>
+WP是如此的完善, 有着自己的一套生态, 但是就是这种高大全给人一种臃肿难以掌控的感觉. 众多的插件质量也良莠不齐, 有些插件甚至在升级时会导致文章的排版出问题等.</p>
+</li>
+</ol>
+<p>以上这些问题其实都不是特别严重, 毕竟比起WP所提供的丰富功能和完整生态而言显得有些微不足道. 但是自从我习惯使用Markdown记笔记编辑文档后, WP的问题就越来越突出了. 在渲染方面, Markdown与WP的众多代码, 表格, 分栏插件存在冲突, 虽然WP在新版本中加入了Markdown的支持, 但不一致的写作体验还是促使我离开了WordPress.</p>
+<p>Hexo的优势<br>
+相比于WordPress, Hexo给人一种更轻, 更专注的感觉. 首先, Hexo的一大特点就是没有数据库, 所有的页面都是实现生成的, 这使得Hexo的博客系统反应更加迅速, 同时管理起来也非常的一目了然. Hexo的另一大特性就是其对Markdown的支持, 诚然, Markdown在最终文档的表现力上比不上WP, 但是在写作体验上绝对是顺畅的, 而且在Hexo中, 所有的文章都是以Markdown的文本格式保存, 这样我就可以随时把我的文章渲染成html文档, 然后保存到evernote中, 或是打成PDF等等. 这样内容与样式分离的设计使得维护变得容易, 用户可以很轻松的将博客备份到Github上或是硬盘等其它地方.<br>
+另外, Hexo整个主体框架很小, 因此, 修改主题变得十分容易.</p>
+<p>出于种种原因, 最后使得我将博客从WordPress搬至Hexo, 光是将原先文章手动转成Markdown格式就花了我3个晚上, 不过看着最后干净的博客页面和简洁的样式还是蛮欣慰的. 本文是一篇纯粹的水文, 主要用来记录下博客迁移这一事件, 别无它用, 亦没什么营养.</p>
+
+            
+      
+    </div>
+    <footer class="article-footer">
+      
+        <a data-url="http://fancyseeker.github.io/2015/04/08/wordpress2hexo/" data-id="cil06sjj300081k4zwvtmt4o4" class="article-share-link" data-share="baidu">分享到</a>
+      
+
+      
+        <a href="http://fancyseeker.github.io/2015/04/08/wordpress2hexo/#ds-thread" class="article-comment-link">评论</a>
+      
+
+      
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2015/08/19/mutt/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong>
+      <div class="article-nav-title">
+        
+          Mutt: 阅读邮件列表
+        
+      </div>
+      </strong>
+    </a>
+  
+  
+    <a href="/2014/06/16/nfs_xen/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong>
+      <div class="article-nav-title">
+          利用NFS在Xen中设立共享文件夹
+      </div>
+      </strong>
+    </a>
+  
+</nav>
+
+
+  
+</article>
+
+
+  <section id="comments">
+    <div id="ds-thread" class="ds-thread" data-thread-key="2015/04/08/wordpress2hexo/" data-title="正式完成从Wordpress迁移至Hexo" data-url="http://fancyseeker.github.io/2015/04/08/wordpress2hexo/"></div>
+  </section>
+
+</section>
+      
+        
+        
+    
+    </div>
+    <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2016 fancyseeker<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+      .
+      Based on <a href="https://github.com/xiangming/landscape-plus" target="_blank">Landscape-plus</a>
+    </div>
+  </div>
+</footer>
+
+  </div>
+  <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+    <a href="/about" class="mobile-nav-link">About</a>
+  
+</nav>
+  <!-- totop start -->
+<div id="totop">
+<a title="返回顶部"><img src="/img/scrollup.png"/></a>
+</div>
+
+<!-- totop end -->
+
+<!-- 多说公共js代码 start -->
+<script type="text/javascript">
+var duoshuoQuery = {short_name:"fancyseeker"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+     || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+  </script>
+<!-- 多说公共js代码 end -->
+
+
+<!-- 百度分享 start -->
+
+<div id="article-share-box" class="article-share-box">
+  <div id="bdshare" class="bdsharebuttonbox article-share-links">
+    <a class="article-share-weibo" data-cmd="tsina" title="分享到新浪微博"></a>
+    <a class="article-share-weixin" data-cmd="weixin" title="分享到微信"></a>
+    <a class="article-share-qq" data-cmd="sqq" title="分享到QQ"></a>
+    <a class="article-share-renren" data-cmd="renren" title="分享到人人网"></a>
+    <a class="article-share-more" data-cmd="more" title="更多"></a>
+  </div>
+</div>
+<script>window._bd_share_config={"common":{},"share":{"bdCustomStyle":"/css/bdshare.css"}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?cdnversion='+~(-new Date()/36e5)];</script>
+
+<!-- 百度分享 end -->
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+
+
+
+
+<script src="/js/script.js" type="text/javascript"></script>
+
+</div>
+</body>
+</html>
+

@@ -1,0 +1,338 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Vim(1) -- 认识Vim | FancySeeker</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="我想对于每一个在Linux或Mac再或Windows工作下的同学，肯定都非常的熟悉，或者至少听说过Vim。Vim博大精深，非一文可蔽之，但是我希望可以以一个简单并广阔的视角来叙述Vim，从一个使用者的角度来从头到脚地讲述我为何选择Vim，如何使用Vim以及如何用好Vim的。以此来给各位同学提供一个完整的使用Vim的视角，同时能够依照本文的介绍，了解整个配置的过程进而能配置属于自己的Vim。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Vim(1) -- 认识Vim">
+<meta property="og:url" content="http://fancyseeker.github.io/2014/05/15/vim1/index.html">
+<meta property="og:site_name" content="FancySeeker">
+<meta property="og:description" content="我想对于每一个在Linux或Mac再或Windows工作下的同学，肯定都非常的熟悉，或者至少听说过Vim。Vim博大精深，非一文可蔽之，但是我希望可以以一个简单并广阔的视角来叙述Vim，从一个使用者的角度来从头到脚地讲述我为何选择Vim，如何使用Vim以及如何用好Vim的。以此来给各位同学提供一个完整的使用Vim的视角，同时能够依照本文的介绍，了解整个配置的过程进而能配置属于自己的Vim。">
+<meta property="og:image" content="/img/vim1/vim-indro1.gif">
+<meta property="og:image" content="/img/vim1/vim-intro2.gif">
+<meta property="og:image" content="/img/vim1/my_vim_without_plugin.png">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Vim(1) -- 认识Vim">
+<meta name="twitter:description" content="我想对于每一个在Linux或Mac再或Windows工作下的同学，肯定都非常的熟悉，或者至少听说过Vim。Vim博大精深，非一文可蔽之，但是我希望可以以一个简单并广阔的视角来叙述Vim，从一个使用者的角度来从头到脚地讲述我为何选择Vim，如何使用Vim以及如何用好Vim的。以此来给各位同学提供一个完整的使用Vim的视角，同时能够依照本文的介绍，了解整个配置的过程进而能配置属于自己的Vim。">
+  
+    <link rel="alternative" href="/atom.xml" title="FancySeeker" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.ico">
+  
+  <link rel="stylesheet" href="/css/style.css" type="text/css">
+  <!--[if lt IE 9]><script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7/html5shiv.min.js"></script><![endif]-->
+  
+</head>
+<body>
+<div id="container">
+  <div id="wrap">
+    <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-img"></div>
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">FancySeeker</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">Welcome, my friends.</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <!-- <a id="main-nav-toggle" class="nav-icon"></a> -->
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+          <a class="main-nav-link" href="/about">About</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="http://www.baidu.com/baidu" method="get" accept-charset="utf-8" class="search-form">
+          <input type="search" name="word" maxlength="20" class="search-form-input" placeholder="Search">
+          <input type="submit" value="" class="search-form-submit">
+          <input name=tn type=hidden value="bds">
+          <input name=cl type=hidden value="3">
+          <input name=ct type=hidden value="2097152">
+          <input type="hidden" name="si" value="fancyseeker.github.io">
+        </form>
+      </div>
+    </div>
+	
+  </div>
+</header>
+    <div class="outer">
+      <section id="main"><article id="post-vim1" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+          <div class="article-meta">
+            
+            <a href="/2014/05/15/vim1/" class="article-date">
+  <time datetime="2014-05-15T14:55:25.000Z" itemprop="datePublished">2014-05-15</time>
+</a>
+            <p class="article-time">
+                <a href="/2014/05/15/vim1/" class="article-time">
+  <time datetime="2014-05-15T14:55:25.000Z" itemprop="datePublished">22:55:25</time>
+</a>
+
+            </p>
+          </div>
+        
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Vim(1) -- 认识Vim
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+       <!--<p>我想对于每一个在Linux或Mac再或Windows工作下的同学，肯定都非常的熟悉，或者至少听说过Vim。Vim博大精深，非一文可蔽之，但是我希望可以以一个简单并广阔的视角来叙述Vim，从一个使用者的角度来从头到脚地讲述我为何选择Vim，如何使用Vim以及如何用好Vim的。以此来给各位同学提供一个完整的使用Vim的视角，同时能够依照本文的介绍，了解整个配置的过程进而能配置属于自己的Vim。<a id="more"></a></p>
+<h1 id="作者的吐槽">作者的吐槽</h1>
+<p>我想对于每一个在Linux或Mac再或Windows工作下的同学，肯定都非常的熟悉，或者至少听说过Vim。Vim是一款强大的编辑器，其最显著的一个特性就是提高了效率的同时解放了程序员双手，呃，保守点说是解放了程序员操作鼠标的手，从而一定程序上缓解了腕关节疼痛和肩周炎等不良症状。利用Vim，程序员，或者一般的电脑操作人员可以在编辑文本时脱离鼠标，只依靠键盘，且仅依靠键盘中主要区域(不包括方向键及小键盘区域)来进行快速高效的编辑。</p>
+<p>我想，我之所以在这里介绍Vim，不是因为说Vim很cool，人人都说它好，说它牛bi，用Vim的人逼格怎么怎么高，而只是单纯的因为我喜欢这款工具，喜欢这种屏幕能跟随键盘，键盘能跟随大脑的操作体验，Vim让我的注意力全都集中在文本编辑中，而不需要时不时动一下鼠标，时不时切换窗口的多余操作来影响我工作的前后一致性。</p>
+<p>我在此介绍Vim，目的很明确，是让更多的人喜欢上它，人们为什么会喜欢一件东西，就我看来原因很简单，无非是两点：1.简单 2.好用。而当我回想我初学Vim乃至现在偶尔配置Vim的过程中，我在网上找到的绝大部分资料，里面的内容虽然是在教你如何掌握用好Vim，但基本都在间接的告诉你Vim是个多么多么复杂的东西，学习使用它你要付出多么多么巨大的时间精力，而当你还没有真正感受到Vim的高效甚至都还没开始尝试使用Vim时，就已经被繁多的键位操作，复杂的.vimrc配置文件以及数不清的插件淹没了。我并不擅长讲故事，但是就我看来，一篇好的文章，看起来应该像一个完整的故事，有起因，有过渡，有主体，有结果。而我所google到的绝大部分文章，里面包含的仅仅是一堆无聊的命令参数，一些文档的翻译以及零散的铺垫，讨论问题非常的狭小和具体，往往是诸如某个插件如何使用，某个问题如何解决，如何把Vim配置成×××，又如何把Vim配置成×××之类的博文。我经常就纳闷，我连Vim的基本操作都没弄明白呢，我看“把Vim配置成×××”有什么用？我连这插件干嘛的我用不用的到都不知道，我看“×××插件使用教程”干嘛？</p>
+<p>诚然，Vim博大精深，非一文可蔽之，但是我希望可以以一个简单并广阔的视角来叙述Vim，从一个使用者的角度来从头到脚地讲述我为何选择Vim，如何使用Vim以及如何用好Vim的。以此来给各位同学提供一个完整的使用Vim的视角，同时能够依照本文的介绍，了解整个配置的过程进而能配置属于自己的Vim。</p>
+<h1 id="为何选择vim">为何选择Vim</h1>
+<p>对于Vim，我见过很多人，每每提及，总是像描述巫师手中的魔杖一样形容Vim是多么多么神奇，多么多么高端，但当真正开始编辑文件时，不是用notepad就是用gedit，然后紧接着就是连串行云流水的鼠标滑动。当然，我不是说鼠标操作有什么问题，我一直认为鼠标是现代操作系统，至少是桌面操作系统中不可或缺的一部分，甚至在将来，还会有各式各样鼠标的升级替代品出现，比如触控，立体控制，脑电波控制等等。但是对于文本编辑这一块，我想鼠标的操作仅仅满足了基本的需求，效率较低而且严重影响了编辑体验。想想看，当你打开一份文本文档，想要进行修改时要采取的操作。首先，右手要拖动鼠标，移动到要修改的地方，点击，然后把右手移回到键盘，将手指和键位对应上，最后才能开始输入。这个过程看起来似乎非常的流畅，事实上也真的是很流畅，但是仔细回想下你是否遇到过在移动光标，修改文档，或是编辑代码时，你的右手是不是要频繁的离开主键位区，操作鼠标或是方向键来进行定位，然后再返回继续被中断的输入。右手就这样来来回回不停游走于主键位，方向键和鼠标之间，长此以往，程序员自然就有了一支健壮的右手(这个解释我觉得比较正能量= =)。如果你也发现里面有些不对劲的话，那我想，我们应该坐下来好好聊聊Vim。</p>
+<p>归根结底，鼠标这个东西是面向图形的，而非面向文本的，且不说GUI和CLI的纷争向来已久，单纯从编辑文本这方面来说，我觉得Vim还是略胜其它图形化编辑器一筹的，在谈论之前我们先看看几张Vim编辑时的gif图片直观感受下。</p>
+<p><img src="/img/vim1/vim-indro1.gif" alt=""></p>
+<p><img src="/img/vim1/vim-intro2.gif" alt=""></p>
+<p>我们可以注意到，在操作Vim的过程中，在没有鼠标介入的情况下完成了诸如光标移动，自动补齐，窗口切换，目录更改等操作。在熟悉了基本的Vim的操作之后，就能仅依靠键盘实现精准的光标定位以及增删改查等一系列文本编辑操作。当然，Vim的强大不仅限于此，Vim的优点在于其高度的可扩展性和定制性，可以说，Vim提供了一个Ecosystem，通过各式各样的插件可以让其针对不同场合进行有效的扩展。</p>
+<p>到这里，相信你已经对Vim有了个大致的直观印象，或许还有一些跃跃欲试。那么接下来，我们来看看Vim的基本操作。</p>
+<h1 id="vim基本操作">Vim基本操作</h1>
+<h2 id="vim学习基础资料">Vim学习基础资料</h2>
+<p>关于Vim的基本操作，在本文中并不赘述，因为随手一google一抓一大把，虽然介绍Vim基本操作的文章很多，但是其中质量低下，同质化的文章占了绝大多数，对于一个刚接触Vim的人而言，避免太早接触高级功能以及复杂插件，对非必要的知识进行有效的屏蔽，只关注Vim最核心的部分是愉快并快速了解Vim的有效途径。本文一方面不想在介绍Vim基本操作这方面重复造轮子，另一方面熟悉Vim的基本操作又是高效利用Vim的关键。因此，本文在此推荐了一些学习Vim基础的优秀资源，帮助读者快速上手体验Vim。</p>
+<ul>
+<li><a href="http://coolshell.cn/articles/5426.html" target="_blank" rel="external">简明Vim练级攻略</a>               如果你想只花30分钟来学(ai)习(shang)Vim的话，那么你应该看这篇文章。</li>
+<li><a href="http://yannesposito.com/Scratch/en/blog/Learn-Vim-Progressively/" target="_blank" rel="external">Learn Vim Progressively</a> 《简明Vim练级攻略》是翻译自这篇文章的，其它的就没必要多说了:-P</li>
+<li><a href="http://vim-adventures.com/" target="_blank" rel="external">vim adventures</a>                    一款精美的Vim游戏，一边玩一边学习Vim，对于这种寓教于乐的学习方式，人民大众自然是喜闻乐见的。</li>
+<li><a href="http://www.vi-improved.org/" target="_blank" rel="external">vi-improved.org</a>                  首先,这个网站很美观, 其次, 对于Vim, 你总可以在这上面找到或多或少有用的东西。</li>
+</ul>
+<p>话说回来，如果你有一些空余的时间，系统的学习一下Vim，听起来也是一件比较不错的事情。<code>vimtutor</code> 可比网上的大多数教程都靠谱多了。你只需要在终端中执行 <code>$ vimtutor zh</code> 即可打开vimtutor的中文版，依据里面的指示自由的练习Vim吧。</p>
+<h2 id="vimrc文件">vimrc文件</h2>
+<p>当你使用了Vim一段时间后，你可能会觉得Vim有一部分设计是你很喜欢的，而有一小部分操作则显得不是那么的舒服，这时候，你可能就需要对你的Vim进行一些细微的调整了。Vim是一个工具，没有哪个工具一开始就能满足某个人的全部需求，真正适合自己的工具需要在使用中不断的打磨，同时进行细微的调整，这样工具才会越来越顺手。</p>
+<p><img src="/img/vim1/my_vim_without_plugin.png" alt="本人的Vim界面(不包含插件)"></p>
+<p>在Vim中，想要对原先的配置进行修改或增加一些新的配置，就需要修改Vim的配置文件 <code>vimrc</code>。Vim会在启动的时候先读取 <code>vimrc</code> 文件内的配置内容对Vim进行设置。在系统中，<code>vimrc</code> 文件存在于两个地方，一个是用户的家目录下的 <code>.vimrc</code>，即 <code>~/.vimrc</code> ，用于管理对应单个用户的Vim配置；另一个是 <code>/etc/vim/vimrc</code> ，用于管理root用户及全局的vim配置。一般说来，我们并不倾向于更改系统的 <code>vimrc</code> 文件，而只对用户家目录下的 <code>.vimrc</code> 文件进行修改(如果家目录下没有的话，可以新建一个，注意.vimrc是隐藏文件，开头有个“.”)。修改 <code>~/.vimrc</code> 的好处在于配置仅对该用户生效而不影响整个系统。</p>
+<p>vimrc文件到底长什么样？能干些什么？要解决这两个问题，让我们先来看看本人的vimrc文件。</p>
+<figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">" 设置vi兼容性，设置为不兼容以避免vi限制</span><br><span class="line">set nocompatible</span><br><span class="line"></span><br><span class="line">"</span> 默认显示行号</span><br><span class="line"><span class="keyword">set</span> nu</span><br><span class="line"></span><br><span class="line"><span class="string">" 设置（软）制表符宽度为4：</span><br><span class="line">set tabstop=4</span><br><span class="line">set softtabstop=4</span><br><span class="line"></span><br><span class="line">"</span> 设置自动缩进：即每行的缩进值与上一行相等；使用 noautoindent 取消设置：</span><br><span class="line"><span class="keyword">set</span> autoindent</span><br><span class="line"></span><br><span class="line"><span class="string">" 设置（自动）缩进的空格数为4</span><br><span class="line">set shiftwidth=4</span><br><span class="line"></span><br><span class="line">"</span> 设置 使用 C/C++ 语言的自动缩进方式：</span><br><span class="line"><span class="keyword">set</span> cindent</span><br><span class="line"></span><br><span class="line"><span class="string">" 智能缩进</span><br><span class="line">set smartindent</span><br><span class="line"></span><br><span class="line">"</span> 语法高亮</span><br><span class="line">syntax enable</span><br><span class="line">syntax <span class="function_start"><span class="keyword">on</span></span></span><br><span class="line"></span><br><span class="line"><span class="string">" vim皮肤</span><br><span class="line">colorscheme torte</span><br><span class="line"></span><br><span class="line">"</span>在状态栏显示正在输入的命令</span><br><span class="line"><span class="keyword">set</span> showcmd</span><br><span class="line"></span><br><span class="line"><span class="string">"为方便复制，用&lt;F2&gt;开启/关闭行号显示:</span><br><span class="line">nnoremap &lt;F2&gt; :set nonumber!&lt;CR&gt;</span><br><span class="line"></span><br><span class="line">"</span> 在终端下打开<span class="number">256</span>色</span><br><span class="line"><span class="keyword">set</span> t_Co=<span class="number">256</span></span><br><span class="line"></span><br><span class="line"><span class="string">" 搜索的时候实时显示结果</span><br><span class="line">set incsearch</span><br><span class="line"></span><br><span class="line">"</span> 高亮搜索结果</span><br><span class="line"><span class="keyword">set</span> hlsearch</span><br><span class="line"></span><br><span class="line"><span class="string">" 禁止循环查找</span><br><span class="line">set nowrapscan</span><br><span class="line"></span><br><span class="line">"</span>  设置匹配模式，显示匹配的括号</span><br><span class="line"><span class="keyword">set</span> showmatch</span><br><span class="line"></span><br><span class="line"><span class="string">" 文件类型自动识别, Vundle要求必须为off</span><br><span class="line">"</span> filetype <span class="function_start"><span class="keyword">on</span></span></span><br><span class="line">filetype plugin <span class="function_start"><span class="keyword">on</span></span></span><br><span class="line">filetype plugin indent <span class="function_start"><span class="keyword">on</span></span></span><br><span class="line"></span><br><span class="line"><span class="string">" 智能补全</span><br><span class="line">set completeopt=longest,menu</span><br><span class="line"></span><br><span class="line">"</span> 设置历史记录为<span class="number">50</span>条</span><br><span class="line"><span class="keyword">set</span> history=<span class="number">50</span></span><br><span class="line"></span><br><span class="line"><span class="string">" 总显示最后一个窗口的状态行；设为1则窗口数多于一个的时候显示最后一个窗口的状态行；0不显示最后一个窗口的状态行</span><br><span class="line">"</span> <span class="keyword">set</span> laststatus=<span class="number">2</span></span><br><span class="line"></span><br><span class="line"><span class="string">" 标尺，用于显示光标位置的行号和列号，逗号分隔。每个窗口都有自己的标尺。如果窗口有状态行，标尺在那里显示。否则，它显示在屏幕的最后一行上。</span><br><span class="line">set ruler</span><br><span class="line"></span><br><span class="line">"</span> 括号引号补全</span><br><span class="line">:inoremap ( ()&lt;ESC&gt;i</span><br><span class="line">:inoremap &#123; &#123;&lt;CR&gt;&#125;&lt;ESC&gt;O</span><br><span class="line">:inoremap [ []&lt;ESC&gt;i</span><br><span class="line"></span><br><span class="line"><span class="string">" 折叠设置</span><br><span class="line">set foldmethod=syntax "</span> 用语法高亮来定义折叠</span><br><span class="line"><span class="keyword">set</span> foldlevel=<span class="number">100</span> <span class="string">" 启动vim时不要自动折叠代码</span><br><span class="line"></span><br><span class="line">"</span> (这是本人vimrc文件的部分内容，由于目前尚未讲到插件，故不包括插件的配置部分。)</span><br></pre></td></tr></table></figure>
+<p>vimrc配置文件的格式还是比较简单的，其中 <code>&quot;</code> 号后跟的注释，每个设置的作用我都已经用注释进行了说明。我们可以看到，在配置文件中，大多数是<code>set value</code> 这样的声明，这些设置你其实可以在运行Vim的过程中通过<code>:set value</code> 来进行动态的设定。比如，当你打开Vim，发现没有行号的时候，可以输入<code>:set nu</code> 来显示行号，当你不想显示行号时，可以输入<code>:set nonu</code> 来关闭行号显示。之所以把这些设置写入vimrc文件，是因为这样做可以避免每次使用Vim都手动进行设定的麻烦而让Vim在打开的时候就已经按照你的设置设定好了。</p>
+<p>对于上述给出的vimrc文件, 我个人是认为太长太繁琐了. 不过不要怀疑, 如果你google一下&quot;vimrc 配置文件&quot;, 相信你看到的绝大部分人的vimrc文件都是相当长并且足够的复杂. 长长的vimrc或许真的非常强大, 但我认为 less is more. 如果没有特别的需求的话, 我还是希望我的vimrc文件能保持在一个比较精简的状态, 这也能让我们更专注于使用Vim最擅长部分, 避免去研究一些稀奇古怪的配置语句和脚本.</p>
+<p>对于vimrc配置文件的具体讲解, 请参考以下材料:</p>
+<p><a href="http://happycasts.net/episodes/31?autoplay=true" target="_blank" rel="external">Happycasts: vimrc 使用入门</a><br>
+一个相当不错的介绍vimrc配置文件的视频, 通俗易懂, 重要的是观看体验特别好…</p>
+<p><a href="http://spf13.com/post/perfect-vimrc-vim-config-file/" target="_blank" rel="external">The Perfect .Vimrc Vim Config File</a><br>
+号称最牛Bi的vimrc文件,  研究vimrc, 你迟早会看到spf13, 相信我 = =</p>
+<h3 id="键位映射">键位映射</h3>
+<p>其次，在上述的vimrc文件中，读者们可能会发现，我已经将F2键映射成行号显示的开关了。具体的语句是<code>nnoremap &lt;F2&gt; :set nonumber!&lt;CR&gt;</code>，这条语句的意思是：在Normal模式下，将F2键映射为<code>:set nonumber!&lt;CR&gt;</code> 这一串输入，也就是说按下F2键，相当于输入了后面这么一长串的东西。在后面的一串输入中，<code>:set nonumber</code> 代表取消行号显示，而后面加一个<code>!</code>，代表针对前面的命令进行on/off的翻转。<code>&lt;CR&gt;</code>代表回车，此外，<code>&lt;ESC&gt;</code>代表ESC键盘，<code>&lt;C-r&gt;</code>代表<code>ctrl+r</code>，<code>&lt;cword&gt;</code>代表当前光标所在处的单词，<code>&lt;cfile&gt;</code>代表光标所在的文件…</p>
+<p>同样，配置文件中还设置了对括号补全进行的键位映射。比如<code>:inoremap ( ()&lt;ESC&gt;i</code> ，这条语句的意思是：在Insert模式下，将<code>(</code>映射成<code>()&lt;ESC&gt;i</code> 这串输入，其中 <code>&lt;ESC&gt;</code>表示ESC键。这条语句的效果是在写代码的时候，输入<code>(</code>时，自动变成 <code>()</code> 同时光标停留在两个括号中间，并等待输入。<br>
+注意：这句映射在某些时候存在一定问题，当你在Insert模式下进行粘贴并且粘贴内容包含<code>(</code>符号时，原来的文本一对匹配的括号，在粘贴过来的时候会多出右半边的括号。不过由于本人基本不怎么在Insert模式下用 <code>ctrl+shift+v</code> 进行粘贴，要粘贴也是在Normal模式下用<code>y</code>和<code>p</code>进行，所以没什么影响。<br>
+当然, 也可以通过<code>:set paste</code>进入paste模式来避免这一问题.</p>
+<p>对于键位映射，可能细心的读者会注意到存在 <code>nnoremap</code>，<code>inoremap</code>，<code>map</code>，<code>nmap</code>，<code>imap</code> 等一些用于键位映射的设置指令。这里简单讲解下，它们都用于进行键盘映射，只是适用的模式不同，像 <code>map</code> 就作用于Normal，Visual和操作符等待模式下，而 <code>nmap</code> 就只作用于Normal模式下。同理，<code>imap</code> 就只作用于Insert模式下。至于 <code>noremap</code> 则表示对map后得到的序列，不再进行递归的映射，比如我把a映射成了ab，又把b映射成了bc。若我采用的是map方式，当我输入a时，得到的实际是abc，但是如果采用 <code>noremap</code>，则不会对得到的序列进行再次映射，因此当我输入a时，得到的是ab。而 <code>nnoremap</code> 则表示只在Normal模式才有效，<code>inoremap</code> 表示只在Insert模式下映射才生效。关于Vim键位映射更详细的介绍，请参见<a href="http://www.douban.com/group/topic/10866937/" target="_blank" rel="external">VIM :map</a></p>
+<h3 id="配色方案">配色方案</h3>
+<p>如果你设置了语法高亮，即在vimrc中设置了 <code>syntax on</code>，那么Vim会很聪明的根据你打开的文件扩展名对文件内容进行特定的高亮处理。Vim自带了若干个配色方案，可以在 <code>/usr/share/vim/vim74/colors/</code> 下找到，在上面的vimrc文件中，本人将色彩方案设定为了 <code>torte</code>，即 <code>colorscheme torte</code>。不过话说回来，配色方案这东西每个人的喜好千差万别，其中<a href="https://github.com/altercation/solarized" target="_blank" rel="external">Solarized</a>和<a href="http://winterdom.com/2008/08/molokaiforvim" target="_blank" rel="external">molokai</a>相对而言比较受欢迎。当然，除此之外还有很多种配色方案，在google code上有个 <a href="https://code.google.com/p/vimcolorschemetest/" target="_blank" rel="external">vimcolorschemetest</a> 项目，罗列了428个配色方案，并给出了示意图。什么？你已经把全部的配色的方案都浏览了一遍并确定没有一款适合你的？那么，你应该尝试下自己写一个配色方案，不过那听起来有点麻烦，不如就到这个网站上看一下吧：<a href="http://bytefluent.com/vivify/" target="_blank" rel="external">A ColorScheme Editor for Vim</a>，这回可以随心所欲的DIY自己的配色方案了╮(╯▽╰)╭</p>
+<h1 id="总结-v2">总结</h1>
+<p>至此, 我想你已经对Vim有了大致的了解, 并能根据自己的需要适当的配置vimrc文件, 可能还渐渐适应或是喜欢上Vim了. 如果你还想知道Vim插件相关的内容以及如何配置使用插件,请参见 <a href="">Vim(2) – Vim插件介绍及配置</a>.</p>
+-->
+            
+            
+                <p>我想对于每一个在Linux或Mac再或Windows工作下的同学，肯定都非常的熟悉，或者至少听说过Vim。Vim博大精深，非一文可蔽之，但是我希望可以以一个简单并广阔的视角来叙述Vim，从一个使用者的角度来从头到脚地讲述我为何选择Vim，如何使用Vim以及如何用好Vim的。以此来给各位同学提供一个完整的使用Vim的视角，同时能够依照本文的介绍，了解整个配置的过程进而能配置属于自己的Vim。<a id="more"></a></p>
+<h1 id="作者的吐槽">作者的吐槽</h1>
+<p>我想对于每一个在Linux或Mac再或Windows工作下的同学，肯定都非常的熟悉，或者至少听说过Vim。Vim是一款强大的编辑器，其最显著的一个特性就是提高了效率的同时解放了程序员双手，呃，保守点说是解放了程序员操作鼠标的手，从而一定程序上缓解了腕关节疼痛和肩周炎等不良症状。利用Vim，程序员，或者一般的电脑操作人员可以在编辑文本时脱离鼠标，只依靠键盘，且仅依靠键盘中主要区域(不包括方向键及小键盘区域)来进行快速高效的编辑。</p>
+<p>我想，我之所以在这里介绍Vim，不是因为说Vim很cool，人人都说它好，说它牛bi，用Vim的人逼格怎么怎么高，而只是单纯的因为我喜欢这款工具，喜欢这种屏幕能跟随键盘，键盘能跟随大脑的操作体验，Vim让我的注意力全都集中在文本编辑中，而不需要时不时动一下鼠标，时不时切换窗口的多余操作来影响我工作的前后一致性。</p>
+<p>我在此介绍Vim，目的很明确，是让更多的人喜欢上它，人们为什么会喜欢一件东西，就我看来原因很简单，无非是两点：1.简单 2.好用。而当我回想我初学Vim乃至现在偶尔配置Vim的过程中，我在网上找到的绝大部分资料，里面的内容虽然是在教你如何掌握用好Vim，但基本都在间接的告诉你Vim是个多么多么复杂的东西，学习使用它你要付出多么多么巨大的时间精力，而当你还没有真正感受到Vim的高效甚至都还没开始尝试使用Vim时，就已经被繁多的键位操作，复杂的.vimrc配置文件以及数不清的插件淹没了。我并不擅长讲故事，但是就我看来，一篇好的文章，看起来应该像一个完整的故事，有起因，有过渡，有主体，有结果。而我所google到的绝大部分文章，里面包含的仅仅是一堆无聊的命令参数，一些文档的翻译以及零散的铺垫，讨论问题非常的狭小和具体，往往是诸如某个插件如何使用，某个问题如何解决，如何把Vim配置成×××，又如何把Vim配置成×××之类的博文。我经常就纳闷，我连Vim的基本操作都没弄明白呢，我看“把Vim配置成×××”有什么用？我连这插件干嘛的我用不用的到都不知道，我看“×××插件使用教程”干嘛？</p>
+<p>诚然，Vim博大精深，非一文可蔽之，但是我希望可以以一个简单并广阔的视角来叙述Vim，从一个使用者的角度来从头到脚地讲述我为何选择Vim，如何使用Vim以及如何用好Vim的。以此来给各位同学提供一个完整的使用Vim的视角，同时能够依照本文的介绍，了解整个配置的过程进而能配置属于自己的Vim。</p>
+<h1 id="为何选择vim">为何选择Vim</h1>
+<p>对于Vim，我见过很多人，每每提及，总是像描述巫师手中的魔杖一样形容Vim是多么多么神奇，多么多么高端，但当真正开始编辑文件时，不是用notepad就是用gedit，然后紧接着就是连串行云流水的鼠标滑动。当然，我不是说鼠标操作有什么问题，我一直认为鼠标是现代操作系统，至少是桌面操作系统中不可或缺的一部分，甚至在将来，还会有各式各样鼠标的升级替代品出现，比如触控，立体控制，脑电波控制等等。但是对于文本编辑这一块，我想鼠标的操作仅仅满足了基本的需求，效率较低而且严重影响了编辑体验。想想看，当你打开一份文本文档，想要进行修改时要采取的操作。首先，右手要拖动鼠标，移动到要修改的地方，点击，然后把右手移回到键盘，将手指和键位对应上，最后才能开始输入。这个过程看起来似乎非常的流畅，事实上也真的是很流畅，但是仔细回想下你是否遇到过在移动光标，修改文档，或是编辑代码时，你的右手是不是要频繁的离开主键位区，操作鼠标或是方向键来进行定位，然后再返回继续被中断的输入。右手就这样来来回回不停游走于主键位，方向键和鼠标之间，长此以往，程序员自然就有了一支健壮的右手(这个解释我觉得比较正能量= =)。如果你也发现里面有些不对劲的话，那我想，我们应该坐下来好好聊聊Vim。</p>
+<p>归根结底，鼠标这个东西是面向图形的，而非面向文本的，且不说GUI和CLI的纷争向来已久，单纯从编辑文本这方面来说，我觉得Vim还是略胜其它图形化编辑器一筹的，在谈论之前我们先看看几张Vim编辑时的gif图片直观感受下。</p>
+<p><img src="/img/vim1/vim-indro1.gif" alt=""></p>
+<p><img src="/img/vim1/vim-intro2.gif" alt=""></p>
+<p>我们可以注意到，在操作Vim的过程中，在没有鼠标介入的情况下完成了诸如光标移动，自动补齐，窗口切换，目录更改等操作。在熟悉了基本的Vim的操作之后，就能仅依靠键盘实现精准的光标定位以及增删改查等一系列文本编辑操作。当然，Vim的强大不仅限于此，Vim的优点在于其高度的可扩展性和定制性，可以说，Vim提供了一个Ecosystem，通过各式各样的插件可以让其针对不同场合进行有效的扩展。</p>
+<p>到这里，相信你已经对Vim有了个大致的直观印象，或许还有一些跃跃欲试。那么接下来，我们来看看Vim的基本操作。</p>
+<h1 id="vim基本操作">Vim基本操作</h1>
+<h2 id="vim学习基础资料">Vim学习基础资料</h2>
+<p>关于Vim的基本操作，在本文中并不赘述，因为随手一google一抓一大把，虽然介绍Vim基本操作的文章很多，但是其中质量低下，同质化的文章占了绝大多数，对于一个刚接触Vim的人而言，避免太早接触高级功能以及复杂插件，对非必要的知识进行有效的屏蔽，只关注Vim最核心的部分是愉快并快速了解Vim的有效途径。本文一方面不想在介绍Vim基本操作这方面重复造轮子，另一方面熟悉Vim的基本操作又是高效利用Vim的关键。因此，本文在此推荐了一些学习Vim基础的优秀资源，帮助读者快速上手体验Vim。</p>
+<ul>
+<li><a href="http://coolshell.cn/articles/5426.html" target="_blank" rel="external">简明Vim练级攻略</a>               如果你想只花30分钟来学(ai)习(shang)Vim的话，那么你应该看这篇文章。</li>
+<li><a href="http://yannesposito.com/Scratch/en/blog/Learn-Vim-Progressively/" target="_blank" rel="external">Learn Vim Progressively</a> 《简明Vim练级攻略》是翻译自这篇文章的，其它的就没必要多说了:-P</li>
+<li><a href="http://vim-adventures.com/" target="_blank" rel="external">vim adventures</a>                    一款精美的Vim游戏，一边玩一边学习Vim，对于这种寓教于乐的学习方式，人民大众自然是喜闻乐见的。</li>
+<li><a href="http://www.vi-improved.org/" target="_blank" rel="external">vi-improved.org</a>                  首先,这个网站很美观, 其次, 对于Vim, 你总可以在这上面找到或多或少有用的东西。</li>
+</ul>
+<p>话说回来，如果你有一些空余的时间，系统的学习一下Vim，听起来也是一件比较不错的事情。<code>vimtutor</code> 可比网上的大多数教程都靠谱多了。你只需要在终端中执行 <code>$ vimtutor zh</code> 即可打开vimtutor的中文版，依据里面的指示自由的练习Vim吧。</p>
+<h2 id="vimrc文件">vimrc文件</h2>
+<p>当你使用了Vim一段时间后，你可能会觉得Vim有一部分设计是你很喜欢的，而有一小部分操作则显得不是那么的舒服，这时候，你可能就需要对你的Vim进行一些细微的调整了。Vim是一个工具，没有哪个工具一开始就能满足某个人的全部需求，真正适合自己的工具需要在使用中不断的打磨，同时进行细微的调整，这样工具才会越来越顺手。</p>
+<p><img src="/img/vim1/my_vim_without_plugin.png" alt="本人的Vim界面(不包含插件)"></p>
+<p>在Vim中，想要对原先的配置进行修改或增加一些新的配置，就需要修改Vim的配置文件 <code>vimrc</code>。Vim会在启动的时候先读取 <code>vimrc</code> 文件内的配置内容对Vim进行设置。在系统中，<code>vimrc</code> 文件存在于两个地方，一个是用户的家目录下的 <code>.vimrc</code>，即 <code>~/.vimrc</code> ，用于管理对应单个用户的Vim配置；另一个是 <code>/etc/vim/vimrc</code> ，用于管理root用户及全局的vim配置。一般说来，我们并不倾向于更改系统的 <code>vimrc</code> 文件，而只对用户家目录下的 <code>.vimrc</code> 文件进行修改(如果家目录下没有的话，可以新建一个，注意.vimrc是隐藏文件，开头有个“.”)。修改 <code>~/.vimrc</code> 的好处在于配置仅对该用户生效而不影响整个系统。</p>
+<p>vimrc文件到底长什么样？能干些什么？要解决这两个问题，让我们先来看看本人的vimrc文件。</p>
+<figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">" 设置vi兼容性，设置为不兼容以避免vi限制</span><br><span class="line">set nocompatible</span><br><span class="line"></span><br><span class="line">"</span> 默认显示行号</span><br><span class="line"><span class="keyword">set</span> nu</span><br><span class="line"></span><br><span class="line"><span class="string">" 设置（软）制表符宽度为4：</span><br><span class="line">set tabstop=4</span><br><span class="line">set softtabstop=4</span><br><span class="line"></span><br><span class="line">"</span> 设置自动缩进：即每行的缩进值与上一行相等；使用 noautoindent 取消设置：</span><br><span class="line"><span class="keyword">set</span> autoindent</span><br><span class="line"></span><br><span class="line"><span class="string">" 设置（自动）缩进的空格数为4</span><br><span class="line">set shiftwidth=4</span><br><span class="line"></span><br><span class="line">"</span> 设置 使用 C/C++ 语言的自动缩进方式：</span><br><span class="line"><span class="keyword">set</span> cindent</span><br><span class="line"></span><br><span class="line"><span class="string">" 智能缩进</span><br><span class="line">set smartindent</span><br><span class="line"></span><br><span class="line">"</span> 语法高亮</span><br><span class="line">syntax enable</span><br><span class="line">syntax <span class="function_start"><span class="keyword">on</span></span></span><br><span class="line"></span><br><span class="line"><span class="string">" vim皮肤</span><br><span class="line">colorscheme torte</span><br><span class="line"></span><br><span class="line">"</span>在状态栏显示正在输入的命令</span><br><span class="line"><span class="keyword">set</span> showcmd</span><br><span class="line"></span><br><span class="line"><span class="string">"为方便复制，用&lt;F2&gt;开启/关闭行号显示:</span><br><span class="line">nnoremap &lt;F2&gt; :set nonumber!&lt;CR&gt;</span><br><span class="line"></span><br><span class="line">"</span> 在终端下打开<span class="number">256</span>色</span><br><span class="line"><span class="keyword">set</span> t_Co=<span class="number">256</span></span><br><span class="line"></span><br><span class="line"><span class="string">" 搜索的时候实时显示结果</span><br><span class="line">set incsearch</span><br><span class="line"></span><br><span class="line">"</span> 高亮搜索结果</span><br><span class="line"><span class="keyword">set</span> hlsearch</span><br><span class="line"></span><br><span class="line"><span class="string">" 禁止循环查找</span><br><span class="line">set nowrapscan</span><br><span class="line"></span><br><span class="line">"</span>  设置匹配模式，显示匹配的括号</span><br><span class="line"><span class="keyword">set</span> showmatch</span><br><span class="line"></span><br><span class="line"><span class="string">" 文件类型自动识别, Vundle要求必须为off</span><br><span class="line">"</span> filetype <span class="function_start"><span class="keyword">on</span></span></span><br><span class="line">filetype plugin <span class="function_start"><span class="keyword">on</span></span></span><br><span class="line">filetype plugin indent <span class="function_start"><span class="keyword">on</span></span></span><br><span class="line"></span><br><span class="line"><span class="string">" 智能补全</span><br><span class="line">set completeopt=longest,menu</span><br><span class="line"></span><br><span class="line">"</span> 设置历史记录为<span class="number">50</span>条</span><br><span class="line"><span class="keyword">set</span> history=<span class="number">50</span></span><br><span class="line"></span><br><span class="line"><span class="string">" 总显示最后一个窗口的状态行；设为1则窗口数多于一个的时候显示最后一个窗口的状态行；0不显示最后一个窗口的状态行</span><br><span class="line">"</span> <span class="keyword">set</span> laststatus=<span class="number">2</span></span><br><span class="line"></span><br><span class="line"><span class="string">" 标尺，用于显示光标位置的行号和列号，逗号分隔。每个窗口都有自己的标尺。如果窗口有状态行，标尺在那里显示。否则，它显示在屏幕的最后一行上。</span><br><span class="line">set ruler</span><br><span class="line"></span><br><span class="line">"</span> 括号引号补全</span><br><span class="line">:inoremap ( ()&lt;ESC&gt;i</span><br><span class="line">:inoremap &#123; &#123;&lt;CR&gt;&#125;&lt;ESC&gt;O</span><br><span class="line">:inoremap [ []&lt;ESC&gt;i</span><br><span class="line"></span><br><span class="line"><span class="string">" 折叠设置</span><br><span class="line">set foldmethod=syntax "</span> 用语法高亮来定义折叠</span><br><span class="line"><span class="keyword">set</span> foldlevel=<span class="number">100</span> <span class="string">" 启动vim时不要自动折叠代码</span><br><span class="line"></span><br><span class="line">"</span> (这是本人vimrc文件的部分内容，由于目前尚未讲到插件，故不包括插件的配置部分。)</span><br></pre></td></tr></table></figure>
+<p>vimrc配置文件的格式还是比较简单的，其中 <code>&quot;</code> 号后跟的注释，每个设置的作用我都已经用注释进行了说明。我们可以看到，在配置文件中，大多数是<code>set value</code> 这样的声明，这些设置你其实可以在运行Vim的过程中通过<code>:set value</code> 来进行动态的设定。比如，当你打开Vim，发现没有行号的时候，可以输入<code>:set nu</code> 来显示行号，当你不想显示行号时，可以输入<code>:set nonu</code> 来关闭行号显示。之所以把这些设置写入vimrc文件，是因为这样做可以避免每次使用Vim都手动进行设定的麻烦而让Vim在打开的时候就已经按照你的设置设定好了。</p>
+<p>对于上述给出的vimrc文件, 我个人是认为太长太繁琐了. 不过不要怀疑, 如果你google一下&quot;vimrc 配置文件&quot;, 相信你看到的绝大部分人的vimrc文件都是相当长并且足够的复杂. 长长的vimrc或许真的非常强大, 但我认为 less is more. 如果没有特别的需求的话, 我还是希望我的vimrc文件能保持在一个比较精简的状态, 这也能让我们更专注于使用Vim最擅长部分, 避免去研究一些稀奇古怪的配置语句和脚本.</p>
+<p>对于vimrc配置文件的具体讲解, 请参考以下材料:</p>
+<p><a href="http://happycasts.net/episodes/31?autoplay=true" target="_blank" rel="external">Happycasts: vimrc 使用入门</a><br>
+一个相当不错的介绍vimrc配置文件的视频, 通俗易懂, 重要的是观看体验特别好…</p>
+<p><a href="http://spf13.com/post/perfect-vimrc-vim-config-file/" target="_blank" rel="external">The Perfect .Vimrc Vim Config File</a><br>
+号称最牛Bi的vimrc文件,  研究vimrc, 你迟早会看到spf13, 相信我 = =</p>
+<h3 id="键位映射">键位映射</h3>
+<p>其次，在上述的vimrc文件中，读者们可能会发现，我已经将F2键映射成行号显示的开关了。具体的语句是<code>nnoremap &lt;F2&gt; :set nonumber!&lt;CR&gt;</code>，这条语句的意思是：在Normal模式下，将F2键映射为<code>:set nonumber!&lt;CR&gt;</code> 这一串输入，也就是说按下F2键，相当于输入了后面这么一长串的东西。在后面的一串输入中，<code>:set nonumber</code> 代表取消行号显示，而后面加一个<code>!</code>，代表针对前面的命令进行on/off的翻转。<code>&lt;CR&gt;</code>代表回车，此外，<code>&lt;ESC&gt;</code>代表ESC键盘，<code>&lt;C-r&gt;</code>代表<code>ctrl+r</code>，<code>&lt;cword&gt;</code>代表当前光标所在处的单词，<code>&lt;cfile&gt;</code>代表光标所在的文件…</p>
+<p>同样，配置文件中还设置了对括号补全进行的键位映射。比如<code>:inoremap ( ()&lt;ESC&gt;i</code> ，这条语句的意思是：在Insert模式下，将<code>(</code>映射成<code>()&lt;ESC&gt;i</code> 这串输入，其中 <code>&lt;ESC&gt;</code>表示ESC键。这条语句的效果是在写代码的时候，输入<code>(</code>时，自动变成 <code>()</code> 同时光标停留在两个括号中间，并等待输入。<br>
+注意：这句映射在某些时候存在一定问题，当你在Insert模式下进行粘贴并且粘贴内容包含<code>(</code>符号时，原来的文本一对匹配的括号，在粘贴过来的时候会多出右半边的括号。不过由于本人基本不怎么在Insert模式下用 <code>ctrl+shift+v</code> 进行粘贴，要粘贴也是在Normal模式下用<code>y</code>和<code>p</code>进行，所以没什么影响。<br>
+当然, 也可以通过<code>:set paste</code>进入paste模式来避免这一问题.</p>
+<p>对于键位映射，可能细心的读者会注意到存在 <code>nnoremap</code>，<code>inoremap</code>，<code>map</code>，<code>nmap</code>，<code>imap</code> 等一些用于键位映射的设置指令。这里简单讲解下，它们都用于进行键盘映射，只是适用的模式不同，像 <code>map</code> 就作用于Normal，Visual和操作符等待模式下，而 <code>nmap</code> 就只作用于Normal模式下。同理，<code>imap</code> 就只作用于Insert模式下。至于 <code>noremap</code> 则表示对map后得到的序列，不再进行递归的映射，比如我把a映射成了ab，又把b映射成了bc。若我采用的是map方式，当我输入a时，得到的实际是abc，但是如果采用 <code>noremap</code>，则不会对得到的序列进行再次映射，因此当我输入a时，得到的是ab。而 <code>nnoremap</code> 则表示只在Normal模式才有效，<code>inoremap</code> 表示只在Insert模式下映射才生效。关于Vim键位映射更详细的介绍，请参见<a href="http://www.douban.com/group/topic/10866937/" target="_blank" rel="external">VIM :map</a></p>
+<h3 id="配色方案">配色方案</h3>
+<p>如果你设置了语法高亮，即在vimrc中设置了 <code>syntax on</code>，那么Vim会很聪明的根据你打开的文件扩展名对文件内容进行特定的高亮处理。Vim自带了若干个配色方案，可以在 <code>/usr/share/vim/vim74/colors/</code> 下找到，在上面的vimrc文件中，本人将色彩方案设定为了 <code>torte</code>，即 <code>colorscheme torte</code>。不过话说回来，配色方案这东西每个人的喜好千差万别，其中<a href="https://github.com/altercation/solarized" target="_blank" rel="external">Solarized</a>和<a href="http://winterdom.com/2008/08/molokaiforvim" target="_blank" rel="external">molokai</a>相对而言比较受欢迎。当然，除此之外还有很多种配色方案，在google code上有个 <a href="https://code.google.com/p/vimcolorschemetest/" target="_blank" rel="external">vimcolorschemetest</a> 项目，罗列了428个配色方案，并给出了示意图。什么？你已经把全部的配色的方案都浏览了一遍并确定没有一款适合你的？那么，你应该尝试下自己写一个配色方案，不过那听起来有点麻烦，不如就到这个网站上看一下吧：<a href="http://bytefluent.com/vivify/" target="_blank" rel="external">A ColorScheme Editor for Vim</a>，这回可以随心所欲的DIY自己的配色方案了╮(╯▽╰)╭</p>
+<h1 id="总结-v2">总结</h1>
+<p>至此, 我想你已经对Vim有了大致的了解, 并能根据自己的需要适当的配置vimrc文件, 可能还渐渐适应或是喜欢上Vim了. 如果你还想知道Vim插件相关的内容以及如何配置使用插件,请参见 <a href="">Vim(2) – Vim插件介绍及配置</a>.</p>
+
+            
+      
+    </div>
+    <footer class="article-footer">
+      
+        <a data-url="http://fancyseeker.github.io/2014/05/15/vim1/" data-id="cil06sjj6000c1k4z3pq49dk7" class="article-share-link" data-share="baidu">分享到</a>
+      
+
+      
+        <a href="http://fancyseeker.github.io/2014/05/15/vim1/#ds-thread" class="article-comment-link">评论</a>
+      
+
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/vim/">vim<span class="article-tag-list-count">2</span></a></li></ul>
+
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2014/05/16/vim2/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong>
+      <div class="article-nav-title">
+        
+          Vim(2) -- Vim插件介绍及配置
+        
+      </div>
+      </strong>
+    </a>
+  
+  
+    <a href="/2013/12/31/ssh_connect/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong>
+      <div class="article-nav-title">
+          SSH配置-在Windows下远程登陆Linux服务器Shell
+      </div>
+      </strong>
+    </a>
+  
+</nav>
+
+
+  
+</article>
+
+
+  <section id="comments">
+    <div id="ds-thread" class="ds-thread" data-thread-key="2014/05/15/vim1/" data-title="Vim(1) -- 认识Vim" data-url="http://fancyseeker.github.io/2014/05/15/vim1/"></div>
+  </section>
+
+</section>
+      
+        
+          <div id="toc-wrap">
+            <div id="toc" class="toc-article">
+              <div id="toc-title">目录</div>
+              <div id="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#作者的吐槽"><span class="toc-number">1.</span> <span class="toc-text">作者的吐槽</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#为何选择vim"><span class="toc-number">2.</span> <span class="toc-text">为何选择Vim</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#vim基本操作"><span class="toc-number">3.</span> <span class="toc-text">Vim基本操作</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#vim学习基础资料"><span class="toc-number">3.1.</span> <span class="toc-text">Vim学习基础资料</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#vimrc文件"><span class="toc-number">3.2.</span> <span class="toc-text">vimrc文件</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#键位映射"><span class="toc-number">3.2.1.</span> <span class="toc-text">键位映射</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#配色方案"><span class="toc-number">3.2.2.</span> <span class="toc-text">配色方案</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#总结-v2"><span class="toc-number">4.</span> <span class="toc-text">总结</span></a></li></ol></div>
+            </div>
+          </div>
+        
+    
+    </div>
+    <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2016 fancyseeker<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+      .
+      Based on <a href="https://github.com/xiangming/landscape-plus" target="_blank">Landscape-plus</a>
+    </div>
+  </div>
+</footer>
+
+  </div>
+  <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+    <a href="/about" class="mobile-nav-link">About</a>
+  
+</nav>
+  <!-- totop start -->
+<div id="totop">
+<a title="返回顶部"><img src="/img/scrollup.png"/></a>
+</div>
+
+<!-- totop end -->
+
+<!-- 多说公共js代码 start -->
+<script type="text/javascript">
+var duoshuoQuery = {short_name:"fancyseeker"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+     || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+  </script>
+<!-- 多说公共js代码 end -->
+
+
+<!-- 百度分享 start -->
+
+<div id="article-share-box" class="article-share-box">
+  <div id="bdshare" class="bdsharebuttonbox article-share-links">
+    <a class="article-share-weibo" data-cmd="tsina" title="分享到新浪微博"></a>
+    <a class="article-share-weixin" data-cmd="weixin" title="分享到微信"></a>
+    <a class="article-share-qq" data-cmd="sqq" title="分享到QQ"></a>
+    <a class="article-share-renren" data-cmd="renren" title="分享到人人网"></a>
+    <a class="article-share-more" data-cmd="more" title="更多"></a>
+  </div>
+</div>
+<script>window._bd_share_config={"common":{},"share":{"bdCustomStyle":"/css/bdshare.css"}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?cdnversion='+~(-new Date()/36e5)];</script>
+
+<!-- 百度分享 end -->
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+
+
+
+
+<script src="/js/script.js" type="text/javascript"></script>
+
+</div>
+</body>
+</html>
+

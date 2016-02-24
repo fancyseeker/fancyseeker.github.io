@@ -1,0 +1,1108 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Vim(2) -- Vim插件介绍及配置 | FancySeeker</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="单独的Vim本身在文本编辑方面已经足够强大，但是针对一些特殊的场合还有很多可以提高和改进的空间，这也是插件的意义所在。你用Vim写脚本吗？你用Vim写C/C++吗？你用Vim写HTML、CSS、javascript吗？你用Vim写Ruby吗？你用Vim看项目代码吗…那么各式各样的Vim插件总有一款或几款可以满足你的需求。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Vim(2) -- Vim插件介绍及配置">
+<meta property="og:url" content="http://fancyseeker.github.io/2014/05/16/vim2/index.html">
+<meta property="og:site_name" content="FancySeeker">
+<meta property="og:description" content="单独的Vim本身在文本编辑方面已经足够强大，但是针对一些特殊的场合还有很多可以提高和改进的空间，这也是插件的意义所在。你用Vim写脚本吗？你用Vim写C/C++吗？你用Vim写HTML、CSS、javascript吗？你用Vim写Ruby吗？你用Vim看项目代码吗…那么各式各样的Vim插件总有一款或几款可以满足你的需求。">
+<meta property="og:image" content="/img/vim2/Screenshot_for_my_vim.png">
+<meta property="og:image" content="/img/vim2/winmanager_with_nerdtree_and_taglist.png">
+<meta property="og:image" content="/img/vim2/vim-airline-demo.gif">
+<meta property="og:image" content="/img/vim2/set_patched_font_for_terminal.png">
+<meta property="og:image" content="/img/vim2/tabline_in_airline.gif">
+<meta property="og:image" content="/img/vim2/github_create_repo.png">
+<meta property="og:image" content="/img/vim2/add_sshkey_for_github.png">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Vim(2) -- Vim插件介绍及配置">
+<meta name="twitter:description" content="单独的Vim本身在文本编辑方面已经足够强大，但是针对一些特殊的场合还有很多可以提高和改进的空间，这也是插件的意义所在。你用Vim写脚本吗？你用Vim写C/C++吗？你用Vim写HTML、CSS、javascript吗？你用Vim写Ruby吗？你用Vim看项目代码吗…那么各式各样的Vim插件总有一款或几款可以满足你的需求。">
+  
+    <link rel="alternative" href="/atom.xml" title="FancySeeker" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.ico">
+  
+  <link rel="stylesheet" href="/css/style.css" type="text/css">
+  <!--[if lt IE 9]><script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7/html5shiv.min.js"></script><![endif]-->
+  
+</head>
+<body>
+<div id="container">
+  <div id="wrap">
+    <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-img"></div>
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">FancySeeker</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">Welcome, my friends.</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <!-- <a id="main-nav-toggle" class="nav-icon"></a> -->
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+          <a class="main-nav-link" href="/about">About</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="http://www.baidu.com/baidu" method="get" accept-charset="utf-8" class="search-form">
+          <input type="search" name="word" maxlength="20" class="search-form-input" placeholder="Search">
+          <input type="submit" value="" class="search-form-submit">
+          <input name=tn type=hidden value="bds">
+          <input name=cl type=hidden value="3">
+          <input name=ct type=hidden value="2097152">
+          <input type="hidden" name="si" value="fancyseeker.github.io">
+        </form>
+      </div>
+    </div>
+	
+  </div>
+</header>
+    <div class="outer">
+      <section id="main"><article id="post-vim2" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+          <div class="article-meta">
+            
+            <a href="/2014/05/16/vim2/" class="article-date">
+  <time datetime="2014-05-16T03:16:53.000Z" itemprop="datePublished">2014-05-16</time>
+</a>
+            <p class="article-time">
+                <a href="/2014/05/16/vim2/" class="article-time">
+  <time datetime="2014-05-16T03:16:53.000Z" itemprop="datePublished">11:16:53</time>
+</a>
+
+            </p>
+          </div>
+        
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Vim(2) -- Vim插件介绍及配置
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+       <!--<p>单独的Vim本身在文本编辑方面已经足够强大，但是针对一些特殊的场合还有很多可以提高和改进的空间，这也是插件的意义所在。你用Vim写脚本吗？你用Vim写C/C++吗？你用Vim写HTML、CSS、javascript吗？你用Vim写Ruby吗？你用Vim看项目代码吗…那么各式各样的Vim插件总有一款或几款可以满足你的需求。<a id="more"></a></p>
+<h1 id="前言-v2">前言</h1>
+<p>掌握Vim确实没有什么捷径，如果非要说有的话，那便是唯手熟而。当你渐渐习惯用hjkl来移动光标，自如的在各个模式下切换，会用一些基本的指令，心里还不那么排斥Vim的话，那么我想接下来要做的就是在实际使用过程中进一步打磨你的Vim，让Vim真正融入到你的生活工作中去了。</p>
+<p>单独的Vim本身在文本编辑方面已经足够强大，但是针对一些特殊的场合还有很多可以提高和改进的空间，这也是插件的意义所在。你用Vim写脚本吗？你用Vim写C/C++吗？你用Vim写HTML、CSS、javascript吗？你用Vim写Ruby吗？你用Vim看项目代码吗…那么各式各样的Vim插件总有一款或几款可以满足你的需求。由于插件不属于“标准的”Vim集合，且每个人的工作内容不同因此不同人拥有不同的插件集也是很正常的事情，也正因此，网络上才会有花样繁多的Vim配置方案，多到让人眼花缭乱却无从下手。</p>
+<p>本人的主要工作环境是Linux Mint，采用C/C++进行开发附带python和一些shell脚本，这里以本人的Vim插件配置举例，讲解在配置Vim插件过程中的一般性和部分具体性方法。首先上张图来看看吧～<br>
+<img src="/img/vim2/Screenshot_for_my_vim.png" alt="My Vim"></p>
+<p>相比于原始的Vim，安装了插件后的Vim界面显得非常的丰(hua)富(shao)，这些插件中有一部分是可以显示在窗口上的，一部分则是在使用过程中才能感受到的。从上图中可以看到，整个Vim窗口被划分成了两列，左边为侧边栏，包含文件浏览器以及下方的程序符号列表，在符号列表很清晰的划分了宏定义，变量和函数等信息。窗口的上方还将使用中的buffer显示出来(默认情况下buffer是隐藏的)。右侧则为主要的编辑区，编辑区下方的为酷炫的状态栏～</p>
+<p><strong>Vim Buffer简介</strong></p>
+<p>所谓的buffer，实际上是Vim用于保存工作中的文件信息的，每个打开的文件都对应一个buffer，对文件的操作会保存在buffer中，当关闭文件的时候，根据用户的选择，可以将buffer中的修改内容写入硬盘，或是丢弃buffer中的修改内容。其实文件buffer的概念随处可见，最经常看到的就是你打开文本文档或者Word并输入一些内容后，在没有保存的情况下就关闭程序，会出现是否保存或者放弃保存直接退出的提示，而这些修改的内容就是暂存在buffer中的。只是在windows下，文本文档和word的文件缓存是看不到的(word会定时将缓存写入隐藏的临时文件来保存进度防止意外断电)，而对于Vim，我们则称文件缓存为Buffer。</p>
+<p>从上图中的buffer显示条中可以看到，Vim一共打开了4个文件，即有4个对应的buffer，每个buffer有自己的编号(这个编号是Vim定的，保证唯一，但是可能不是顺序的)。</p>
+<hr>
+<h1 id="插件概览">插件概览</h1>
+<p>本人安装的Vim插件包括以下几个：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Plugin</th>
+<th style="text-align:left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><a href="https://github.com/gmarik/Vundle.vim" target="_blank" rel="external">vundle</a></td>
+<td style="text-align:left">一款用于管理插件的插件，操作简单方便，是主流的管理插件。</td>
+</tr>
+<tr>
+<td style="text-align:left"><a href="https://github.com/kien/ctrlp.vim" target="_blank" rel="external">ctrlp</a></td>
+<td style="text-align:left">一款非常好用的模糊查找文件插件。</td>
+</tr>
+<tr>
+<td style="text-align:left"><a href="https://github.com/bling/vim-airline" target="_blank" rel="external">vim-airline</a></td>
+<td style="text-align:left">B格很高的一个状态栏增强插件，同时带有buffer显示条(tabline)，并集成了多款主流插件。</td>
+</tr>
+<tr>
+<td style="text-align:left"><a href="https://github.com/moll/vim-bbye" target="_blank" rel="external">vim-Bbye</a></td>
+<td style="text-align:left">解决了当关闭当前buffer时导致的窗口关闭以及布局混乱等问题。</td>
+</tr>
+<tr>
+<td style="text-align:left"><a href="https://github.com/scrooloose/nerdcommenter" target="_blank" rel="external">nerdcommenter</a></td>
+<td style="text-align:left">快速注释工具，同时根据文件类型自动选择对应注释。</td>
+</tr>
+<tr>
+<td style="text-align:left"><a href="https://github.com/scrooloose/nerdtree" target="_blank" rel="external">nerdtree</a></td>
+<td style="text-align:left">一款用于浏览文件或目录的插件，效果相当于嵌入Vim内的资源管理器。</td>
+</tr>
+<tr>
+<td style="text-align:left"><a href="https://github.com/vim-scripts/taglist.vim" target="_blank" rel="external">taglist</a></td>
+<td style="text-align:left">用于显示程序中的符号列表，并进行简单的查看插件。</td>
+</tr>
+<tr>
+<td style="text-align:left"><a href="https://github.com/vim-scripts/winmanager" target="_blank" rel="external">winmanager</a></td>
+<td style="text-align:left">Vim窗口管理插件，主要用于将nerdtree和taglist整齐的安放在一个“侧边栏”中。</td>
+</tr>
+<tr>
+<td style="text-align:left"><a href="https://github.com/vim-scripts/a.vim" target="_blank" rel="external">a.vim</a></td>
+<td style="text-align:left">用于快速的在<code>*.c/*.cpp</code>和<code>*.h</code>文件之间进行切换。</td>
+</tr>
+<tr>
+<td style="text-align:left"><a href="https://github.com/vim-scripts/OmniCppComplete" target="_blank" rel="external">OmniCppComplete</a></td>
+<td style="text-align:left">老牌C/C++自动补全插件，不过似乎存在更好的插件，未研究。</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h1 id="插件安装">插件安装</h1>
+<p>插件的安装方式大致上分为两种：传统的安装方式和基于包管理的插件安装方式。</p>
+<h2 id="传统的安装方式-不推荐">传统的安装方式(不推荐)</h2>
+<p>我们先来介绍一下传统的安装方式是什么样的。插件实际上是由vim脚本和少数其它类型的文件组成，插件一般位于用户家目录的 <code>.vim</code> 文件夹下，即 <code>～/.vim/</code> (如果没有，请自行创建)。</p>
+<p>安装的流程：</p>
+<ol>
+<li>从<a href="http://www.vim.org/scripts/" target="_blank" rel="external">www.vim.org/scripts/</a>或者<a href="https://github.com/" target="_blank" rel="external">github.com</a>上找到对应的插件并下载。</li>
+<li>解压下载得到的插件压缩包，得到若干个文件及文件夹。</li>
+<li>将解压得到的文件或文件夹放到～/.vim/ 文件夹下，如果遇到和之前插件同名的文件夹，则选择合并。</li>
+<li>重启Vim,插件生效。</li>
+</ol>
+<p>总结一下传统的安装方法，实际上就是找到<code>插件--下载--解压--放到.vim文件夹下--完成</code>。(不过，对于某些特定的插件，可能有不同的安装方式，有的直接提供了可执行的安装脚本，有的则要求需要一些库的支持或者需要进行一定的配置后才能使用。好在这些都是少数情况，大部分的插件的安装都是相当简单的。)</p>
+<p><strong>注意：我们并不提倡用传统的方式安装插件</strong></p>
+<p>传统的插件安装方式存在一些弊端。首先，所有插件不加区分和归类的直接丢到 <code>～/.vim/</code> 文件夹下，非常混乱；其次，插件的管理不方便，比如要想删除一个插件，那么必须要到 <code>～/.vim/</code> 文件夹下找到插件对应的文件一一删除，如果想要更新插件，那么就必须重新下载新版本的插件再次安装。</p>
+<p>让我们举个例子直观感受下传统的插件安装方式：以下是<code>nerdtree</code>和<code>ctrlp</code>插件解压得到的文件和文件夹。</p>
+<figure class="highlight 1c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">nerdtree</span><br><span class="line"><span class="string">|--autoload/</span></span><br><span class="line"><span class="string">|--doc/</span></span><br><span class="line"><span class="string">|--lib/</span></span><br><span class="line"><span class="string">|--nerdtree_plugin/</span></span><br><span class="line"><span class="string">|--plugin/</span></span><br><span class="line"><span class="string">|--syntax/</span></span><br><span class="line"><span class="string">|--README.markdown</span></span><br></pre></td></tr></table></figure>
+<p><br></p>
+<figure class="highlight 1c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">ctrlp</span><br><span class="line"><span class="string">|--autoload/</span></span><br><span class="line"><span class="string">|--doc/</span></span><br><span class="line"><span class="string">|--plugin/</span></span><br><span class="line"><span class="string">|--readme.md</span></span><br></pre></td></tr></table></figure>
+<p>当安装这两个插件时候，二者都放到了 <code>～/.vim/</code> 文件夹下，其中 <code>autoload</code>，<code>doc</code>，<code>plugin</code> 目录整合到了一起。当要删除 <code>ctrlp</code> 插件的时候，需要到删除 <code>ctrlp</code> 对应的文件，就要到 <code>autoload</code>，<code>doc</code>，<code>plugin</code> 目录中一个个找属于 <code>ctrlp</code> 插件的文件进行删除，可想而知是多么的麻烦。同时无法自动更新插件，需要通过下载覆盖来进行手动更新。</p>
+<p>仔细观察不难看出，传统的插件安装方式的弊端主要源自于其混乱的插件管理方式。那么很自然的，人们就会希望能够将插件各自分开来进行存放，同时尽量避免手动的管理插件。这也是为什么后来会出现多款优秀的基于包(bundle)的插件管理工具的原因。</p>
+<h2 id="插件管理工具-vundle">插件管理工具–Vundle</h2>
+<p>出于传统Vim插件安装及管理方式的弊端，目前有许多插件管理工具，pathogen、NeoBundle、Vundle、VAM等。pathogen我用过，之后转投Vundle了，至于NeoBundle和VAM没有用过，就不发言了，功能应该大致一样。这里选用目前最主流的Vundle来进行讲解。</p>
+<p>Vundle本身也是一个Vim插件，主要干了两件事情：</p>
+<p>1.将不同插件放置到 <code>～/.vim/</code> 下的对应文件夹进行分别管理。<br>
+2.集成了git操作，自动安装更新或卸载插件。</p>
+<h3 id="vundle的优点">Vundle的优点</h3>
+<ul>
+<li>
+<p>其中插件存放在 <code>～/.vim/bundle/</code> 目录下，例如<code>nerdtree</code>存放在 <code>～/.vim/bundle/nerdtree/</code> 目录下，<code>taglist</code> 存放在 <code>～/.vim/bundle/taglist/</code> 目录下，这样各个插件的目录就非常的清晰明了。</p>
+</li>
+<li>
+<p>对于安装更新卸载插件，只需要在vimrc文件中写入要安装的插件，通过对应的Vim命令即可自动从github或vim.org上自动获取或更新该插件，要卸载时只需将vimrc文件中对应的插件名删除，再运行对应命令即可自动删除插件。</p>
+</li>
+</ul>
+<p><em>注：可能有同学git和github比较陌生，git是一个一个分布式的版本控制工具，简单点说就是可以随时把代码放进数据库并加以管理，同时可以随时提取出某个时候放进数据库的代码的一个代码管理工具，除了本地数据库，git还可以从远程服务器上获取或提交代码，而github.com就是一个提供这种代码托管服务的网站，上面存放着成千上万的代码库。基本上我们知道的vim插件源码在github上都能找到，而Vundle的插件安装更新操作就是采用git从github上把对应插件拖到你本地的电脑上，因此Vundle需要git的支持，也就是说你的电脑上需要事先安装有git，现在主流的Linux发行版都是默认安装有git的。如果对git和github比较感兴趣的同学，可以看看<a href="http://git-scm.com/book/zh/v1" target="_blank" rel="external">Pro Git</a> 和<a href="http://www.worldhello.net/gotgithub/" target="_blank" rel="external">GotGitHub</a>。</em></p>
+<h3 id="安装配置vundle">安装配置Vundle</h3>
+<p>关于Vundle的最新信息以及安装方法具体请参见Vundle的github主页：<a href="https://github.com/gmarik/Vundle.vim" target="_blank" rel="external">github.com/gmarik/Vundle.vim</a> 。以下对Vundle的安装过程新进适当的描述。</p>
+<ol>
+<li>
+<p>安装Vundle前，我们需要一个干净的 <code>～/.vim/</code> 目录。如果你之前采用传统的插件安装方式将插件安装在 <code>～/.vim/</code> 目录下，那么你可以备份原先的 <code>~/.vim/</code> 目录：<code>$ mv ~/.vim ~/.vim.bak</code> 。然后在新建一个空的<code>.vim</code>目录：<code>mkdir ～/.vim</code> ，这样我们就得到了一个空的 <code>～/.vim/</code> 目录，便于之后的Vundle安装。</p>
+</li>
+<li>
+<p>通过git下载并安装Vundle(实际上就是通过git工具将最新的Vundle下载到对应的目录下)：</p>
+</li>
+</ol>
+<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git clone http<span class="variable">s:</span>//github.<span class="keyword">com</span>/gmarik/Vundle.<span class="keyword">vim</span>.git ~/.<span class="keyword">vim</span>/bundle/Vundle.<span class="keyword">vim</span></span><br></pre></td></tr></table></figure>
+<ol start="3">
+<li>接下来，对Vundle进行配置。Vundle的配置过程是在vimrc文件中添加相应的语句。以下是插件官方给出的示例：</li>
+</ol>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="operator"><span class="keyword">set</span> nocompatible              <span class="string">" be iMproved, required</span><br><span class="line">filetype off                  "</span> required</span><br><span class="line"></span><br><span class="line"><span class="string">" set the runtime path to include Vundle and initialize</span><br><span class="line">set rtp+=~/.vim/bundle/Vundle.vim</span><br><span class="line">call vundle#begin()</span><br><span class="line">"</span> alternatively, pass a path <span class="keyword">where</span> Vundle should <span class="keyword">install</span> plugins</span><br><span class="line"><span class="string">"call vundle#begin('~/some/path/here')</span><br><span class="line"></span><br><span class="line">"</span> let Vundle manage Vundle, required</span><br><span class="line"><span class="keyword">Plugin</span> <span class="string">'gmarik/Vundle.vim'</span></span><br><span class="line"></span><br><span class="line"><span class="string">" The following are examples of different formats supported.</span><br><span class="line">"</span> Keep <span class="keyword">Plugin</span> commands <span class="keyword">between</span> vundle#<span class="keyword">begin</span>/<span class="keyword">end</span>.</span><br><span class="line"><span class="string">" plugin on GitHub repo</span><br><span class="line">Plugin 'tpope/vim-fugitive'</span><br><span class="line">"</span> <span class="keyword">plugin</span> <span class="keyword">from</span> http://vim-scripts.org/vim/scripts.html</span><br><span class="line"><span class="keyword">Plugin</span> <span class="string">'L9'</span></span><br><span class="line"><span class="string">" Git plugin not hosted on GitHub</span><br><span class="line">Plugin 'git://git.wincent.com/command-t.git'</span><br><span class="line">"</span> git repos <span class="keyword">on</span> your <span class="keyword">local</span> machine (i.e. <span class="keyword">when</span> working <span class="keyword">on</span> your own <span class="keyword">plugin</span>)</span><br><span class="line"><span class="keyword">Plugin</span> <span class="string">'file:///home/gmarik/path/to/plugin'</span></span><br><span class="line"><span class="string">" The sparkup vim script is in a subdirectory of this repo called vim.</span><br><span class="line">"</span> Pass the path <span class="keyword">to</span> <span class="keyword">set</span> the runtimepath properly.</span><br><span class="line"><span class="keyword">Plugin</span> <span class="string">'rstacruz/sparkup'</span>, &#123;<span class="string">'rtp'</span>: <span class="string">'vim/'</span>&#125;</span><br><span class="line"><span class="string">" Avoid a name conflict with L9</span><br><span class="line">Plugin 'user/L9', &#123;'name': 'newL9'&#125;</span><br><span class="line"></span><br><span class="line">"</span> <span class="keyword">All</span> <span class="keyword">of</span> your Plugins must be added <span class="keyword">before</span> the following line</span><br><span class="line"><span class="keyword">call</span> vundle#<span class="keyword">end</span>()            <span class="string">" required</span><br><span class="line">filetype plugin indent on    "</span> required</span><br><span class="line"><span class="string">" To ignore plugin indent changes, instead use:</span><br><span class="line">"</span>filetype <span class="keyword">plugin</span> <span class="keyword">on</span></span><br><span class="line"><span class="string">"</span><br><span class="line">"</span> Brief <span class="keyword">help</span></span><br><span class="line"><span class="string">" :PluginList          - list configured plugins</span><br><span class="line">"</span> :PluginInstall(!)    - <span class="keyword">install</span> (<span class="keyword">update</span>) plugins</span><br><span class="line"><span class="string">" :PluginSearch(!) foo - search (or refresh cache first) for foo</span><br><span class="line">"</span> :PluginClean(!)      - confirm (<span class="keyword">or</span> auto-approve) removal <span class="keyword">of</span> unused plugins</span><br><span class="line"><span class="string">"</span><br><span class="line">"</span> see :h vundle <span class="keyword">for</span> more details <span class="keyword">or</span> wiki <span class="keyword">for</span> FAQ</span><br><span class="line"><span class="string">" Put your non-Plugin stuff after this line</span></span></span><br></pre></td></tr></table></figure>
+<p>对于Vundle的配置语句，其实没多少，上面这么长的一段只是详细的讲解了Vundle是如何配置和使用的。这里我们需要修改的就只是<code>call vundle#begin()</code> 和 <code>call vundle#end()</code> 之间的部分，我们需要在这里添加我们需要的插件信息，以便Vundle可以根据这些信息为我们自动安装插件。Vundle支持4种插件搜索添加方式，分别为托管在github上的插件、存放在vim-scripts.org上的插件、未托管在github上但是可以通过git协议访问到的插件、本地(正在开发的)插件。由于我们需要的插件要不是托管在github上，要不就是在github上有镜像，简单点说就是在github上都能找得到，因此我们只要在vimrc文件中给出github上插件的对应信息就可以了，具体格式为<code>Plugin '开发者用户名/项目名字'</code> 例如，我想安装vim-airline插件，那可以在github.com上搜索vim-airline项目，可以找到项目主页的链接为：<a href="https://github.com/bling/vim-airline" target="_blank" rel="external">https://github.com/bling/vim-airline</a> ，则我只需要在vimrc的对应行中写入<code>Plugin 'bling/vim-airline'</code> 。</p>
+<p>明白了Vundle配置的具体方法，让我们打开 <code>～/.vimrc</code> 文件，在 <code>.vimrc</code> 文件的顶部(也可以是任意位置)，添加如下语句：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line">" Vundle设置</span><br><span class="line"><span class="operator"><span class="keyword">set</span> nocompatible              <span class="string">" be iMproved, required</span><br><span class="line">filetype off                  "</span> required</span><br><span class="line"></span><br><span class="line"><span class="string">" set the runtime path to include Vundle and initialize</span><br><span class="line">set rtp+=~/.vim/bundle/Vundle.vim</span><br><span class="line">call vundle#begin()</span><br><span class="line">"</span> alternatively, pass a path <span class="keyword">where</span> Vundle should <span class="keyword">install</span> plugins</span><br><span class="line"><span class="string">"call vundle#begin('~/some/path/here')</span><br><span class="line"></span><br><span class="line">"</span> let Vundle manage Vundle, required</span><br><span class="line"><span class="keyword">Plugin</span> <span class="string">'gmarik/Vundle.vim'</span></span><br><span class="line"></span><br><span class="line"><span class="string">" The following are examples of different formats supported.</span><br><span class="line">"</span> Keep <span class="keyword">Plugin</span> commands <span class="keyword">between</span> vundle#<span class="keyword">begin</span>/<span class="keyword">end</span>.</span><br><span class="line"><span class="string">" plugin on GitHub repo</span><br><span class="line">Plugin 'scrooloose/nerdtree'</span><br><span class="line">Plugin 'scrooloose/nerdcommenter'</span><br><span class="line">Plugin 'vim-scripts/taglist.vim'</span><br><span class="line">Plugin 'bling/vim-airline'</span><br><span class="line">Plugin 'vim-scripts/winmanager'</span><br><span class="line">Plugin 'vim-scripts/a.vim'</span><br><span class="line">Plugin 'kien/ctrlp.vim'</span><br><span class="line">Plugin 'vim-scripts/OmniCppComplete'</span><br><span class="line">Plugin 'moll/vim-bbye'</span><br><span class="line">"</span> <span class="keyword">plugin</span> <span class="keyword">from</span> http://vim-scripts.org/vim/scripts.html</span><br><span class="line"><span class="string">" Plugin 'L9'</span><br><span class="line">"</span> Git <span class="keyword">plugin</span> <span class="keyword">not</span> hosted <span class="keyword">on</span> GitHub</span><br><span class="line"><span class="string">" Plugin 'git://git.wincent.com/command-t.git'</span><br><span class="line">"</span> git repos <span class="keyword">on</span> your <span class="keyword">local</span> machine (i.e. <span class="keyword">when</span> working <span class="keyword">on</span> your own <span class="keyword">plugin</span>)</span><br><span class="line"><span class="string">" Plugin 'file:///home/gmarik/path/to/plugin'</span><br><span class="line">"</span> The sparkup vim script <span class="keyword">is</span> <span class="keyword">in</span> a subdirectory <span class="keyword">of</span> this repo called vim.</span><br><span class="line"><span class="string">" Pass the path to set the runtimepath properly.</span><br><span class="line">"</span> <span class="keyword">Plugin</span> <span class="string">'rstacruz/sparkup'</span>, &#123;<span class="string">'rtp'</span>: <span class="string">'vim/'</span>&#125;</span><br><span class="line"><span class="string">" Avoid a name conflict with L9</span><br><span class="line">"</span> <span class="keyword">Plugin</span> <span class="string">'user/L9'</span>, &#123;<span class="string">'name'</span>: <span class="string">'newL9'</span>&#125;</span><br><span class="line"></span><br><span class="line"><span class="string">" All of your Plugins must be added before the following line</span><br><span class="line">call vundle#end()            "</span> required</span><br><span class="line">filetype <span class="keyword">plugin</span> indent <span class="keyword">on</span>    <span class="string">" required</span></span></span><br></pre></td></tr></table></figure>
+<p>这样，Vundle就知道了我们所需要的全部插件。</p>
+<p>安装或更新插件。打开vim，输入<code>:PluginInstall</code>  即可将vimrc中配置的插件下载安装，如果之前已经安装过，则进行更新。或者直接在终端输入 <code>vim +PluginInstall +qall</code> 效果也相同。是不是很方便～如果想卸载插件，只要将vimrc中插件对应的行删除，然后打开vim，输入 <code>:PluginClean</code> 即可。<br>
+注：在安装或更新过程中Vundle需要从github上下载数据，因此Vim界面无法进行正常操作，但下方的状态栏会显示正在处理，所以只需耐心等待即可。</p>
+<p>至此，插件就已经安装完成了。接下来还需要对每个插件进行单独的配置。</p>
+<p>注：就插件管理而言，Vundle已经做的足够优秀，但是事情往往可以变得更好。尽管可能遇到的机会不多，但是试想一下，如果你新买了一台电脑，或是电脑硬盘故障导致数据丢失了又或者你在操作一台不常用的电脑，是不是每次都要安装Vundle，更要命的是每次都要修改vimrc文件，要知道vimrc文件里面出了基本的vim设置外还有相当大一部分的插件设置，对Vim环境进行恢复的代价还是略大了点。因此，我们总希望我们的Vim配置能够保存在云端，以便我们随时可以通过一条简单的命令就可以把一切恢复到熟悉的模样。要想完成这点，需要在配置完Vim和插件后，将 <code>./.vim/</code> 目录以及 <code>./.vimrc</code> 文件都托管到自己github的上，具体方法在接下来的文章会讲到，现在，让我们先专注于把插件配置好: - )</p>
+<hr>
+<h1 id="插件配置及使用">插件配置及使用</h1>
+<p>在使用插件的过程中，往往会涉及到很多插件的具体命令，而这些命令往往比较长，并且夹杂着大小写，输入起来比较繁琐，因此往往使用键位绑定和映射来解决这个问题，简单点说就是设置快捷键。而Vim中的操作相当的多，不用说单个的按键了，即便是像 <code>ctrl+××</code>，<code>alt+××</code> 或是 <code>ctrl+shift+××</code> 这样的组合键都有对应的操作，因此我们会经常看到vimrc文件中采用 <code>&lt;leader&gt;</code>键和其它按键配合进行键盘映射。vimrc文件中的 <code>&lt;leader&gt;</code>实际上也是一个按键，默认为回车键上方的<code>\</code>键，可以根据用户需要修改。本人就将 <code>&lt;leader&gt;</code> 设置成了逗号<code>,</code>。修改 <code>&lt;leader&gt;</code>键只需要在vimrc文件中添加：</p>
+<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">" leader键</span><br><span class="line"></span><span class="keyword">let</span> mapleader=<span class="string">","</span></span><br><span class="line"><span class="keyword">let</span> <span class="variable">g:mapleader</span>=<span class="string">","</span></span><br></pre></td></tr></table></figure>
+<p>注：插件的具体配置信息一般都是记录在vimrc文件中，以下介绍插件的配置语句全是添加在 <code>～/.vimrc</code> 文件中的。</p>
+<h2 id="nerdtree">nerdtree</h2>
+<p>在 <code>~/.vimrc</code> 文件中添加以下内容：</p>
+<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">" nerdtree设置</span><br><span class="line"></span><span class="string">" 控制当光标移动超过一定距离时，是否自动将焦点调整到屏中心</span><br><span class="line"></span><span class="keyword">let</span> NERDTreeAutoCenter=<span class="number">1</span></span><br><span class="line"><span class="string">" 指定鼠标模式（1.双击打开；2.单目录双文件；3.单击打开）</span><br><span class="line"></span><span class="string">" let NERDTreeMouseMode=2</span><br><span class="line"></span><span class="string">" 是否默认显示书签列表</span><br><span class="line"></span><span class="string">" let NERDTreeShowBookmarks=1</span><br><span class="line"></span><span class="string">" 是否默认显示文件</span><br><span class="line"></span><span class="keyword">let</span> NERDTreeShowFiles=<span class="number">1</span></span><br><span class="line"><span class="string">" 是否默认显示隐藏文件</span><br><span class="line"></span><span class="string">" let NERDTreeShowHidden=1</span><br><span class="line"></span><span class="string">" 是否默认显示行号</span><br><span class="line"></span><span class="string">" let NERDTreeShowLineNumbers=1</span><br><span class="line"></span><span class="string">" 窗口位置（'left' or 'right'）</span><br><span class="line"></span><span class="string">" let NERDTreeWinPos='left'</span><br><span class="line"></span><span class="string">" 窗口宽</span><br><span class="line"></span><span class="keyword">let</span> NERDTreeWinSize=<span class="number">31</span></span><br></pre></td></tr></table></figure>
+<p>上面只添加了一些常用的设置，更具体的设置请在vim中输入 <code>:help nerdtree</code> 查看。</p>
+<p>nerdtree基本操作</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">key</th>
+<th style="text-align:left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><code>o</code></td>
+<td style="text-align:left">在已有窗口中打开文件、目录或书签，并跳到该窗口</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>go</code></td>
+<td style="text-align:left">在已有窗口 中打开文件、目录或书签，但不跳到该窗口</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>x</code></td>
+<td style="text-align:left">合拢选中结点的父目录</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>J</code> (大写)</td>
+<td style="text-align:left">跳到当前目录下同级的最后一个结点</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>I</code> (大写)</td>
+<td style="text-align:left">切换是否显示隐藏文件</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>m</code></td>
+<td style="text-align:left">显示系统菜单</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>C</code> (大写)</td>
+<td style="text-align:left">设置当前目录为root</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>u</code></td>
+<td style="text-align:left">返回到当前root的上级父目录并设置为root</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>q</code></td>
+<td style="text-align:left">关闭NerdTree窗口</td>
+</tr>
+</tbody>
+</table>
+<h2 id="taglist">taglist</h2>
+<p>taglist是一个用于显示定位程序中各种符号的插件，例如宏定义、变量名、结构名、函数名这些东西我们将其称之为符号(symbols)，而在taglist中将其称之为tag。显然，要想将程序文件中的tag显示出来，需要事先了解全部tag的信息，并将其保存在一个文件中，然后去解析对应的tag文件。taglist做的仅仅是将tag文件中的内容解析完后显示在Vim上而已。tag扫描以及数据文件的生成则是由<a href="http://ctags.sourceforge.net/" target="_blank" rel="external">ctags(Exuberant Ctags)</a>这一工具完成的，所以在使用taglist之前，你的电脑需要装有ctags(Vim默认已安装)。</p>
+<p>taglist的设置：</p>
+<figure class="highlight nix"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">" taglist设置</span><br><span class="line">let Tlist_Show_One_File=1 "</span> <span class="number">0</span>为同时显示多个文件函数列表,<span class="number">1</span>则只显示当前文件函数列表</span><br><span class="line"><span class="keyword">let</span> <span class="variable">Tlist_Auto_Update=</span><span class="number">1</span></span><br><span class="line"><span class="keyword">let</span> <span class="variable">Tlist_File_Fold_Auto_Close=</span><span class="number">1</span> <span class="string">" 非当前文件，函数列表折叠隐藏</span><br><span class="line">let Tlist_Exit_OnlyWindow=1 "</span>如果taglist是最后一个窗口，则退出vim </span><br><span class="line"><span class="keyword">let</span> <span class="variable">Tlist_Auto_Update=</span><span class="number">1</span>            <span class="string">"Automatically update the taglist to include newly edited files.</span><br><span class="line">"</span>把taglist窗口放在屏幕的右侧，缺省在左侧</span><br><span class="line"><span class="string">"let Tlist_Use_Right_Window=1 </span><br><span class="line">"</span>显示taglist菜单</span><br><span class="line"><span class="string">"let Tlist_Show_Menu=1</span><br><span class="line">"</span>启动vim自动打开taglist</span><br><span class="line"><span class="string">"let Tlist_Auto_Open=1</span><br><span class="line">"</span> ctags, 指定tags文件的位置,让vim自动在当前或者上层文件夹中寻找tags文件</span><br><span class="line">set <span class="variable">tags=</span>tags</span><br><span class="line"><span class="string">" 添加系统调用路径</span><br><span class="line">set tags+=/usr/include/tags</span><br><span class="line">"</span>键绑定，刷新tags</span><br><span class="line">nmap tg :!ctags -R --c++<span class="variable">-kinds=</span>+p <span class="variable">--fields=</span>+iaS <span class="variable">--extra=</span>+q *&lt;CR&gt;:set tags+=./tags&lt;CR&gt;</span><br></pre></td></tr></table></figure>
+<p>我们已经稍微解释了下taglist和ctags的关系，在真正使用过程中，需要在项目文件夹下面运行命令 <code>ctags -R --c++-kinds=+p --fields=+iaS --extra=+q *&lt;CR&gt;:set tags+=./tags&lt;CR&gt;</code> ，这个命令的主要任务是对当前目录下的全部文件递归扫描，然后生成一个“tags”文件，里面记录整个项目的全部符号信息，同时将当前目录下的这个tags文件告知taglist，taglist根据这个tags文件显示项目的tag。(对于ctags命令中的各个开关，可以通过man ctags查看具体作用，此处不再赘述)</p>
+<p>接下来，稍微解释下部分配置内容：<br>
+<code>set tags=tags</code> 表示tags文件所在位置，此处设定为当前目录下查找tags文件，当然，你也可以添加其它路径下的tags文件。<code>set tags+=/usr/include/tags</code> 就将系统调用的tags文件也包含进来了，这样如果程序中包含系统的一些调用，那么也能被正确解析。此外，我们还将生成tags的ctags命令进行了键盘映射：<code>nmap tg :!ctags -R --c++-kinds=+p --fields=+iaS --extra=+q *&lt;CR&gt;:set tags+=./tags&lt;CR&gt;</code>  ，这样就可以直接在Vim的Normal模式下输入<code>tg</code>直接在当前工作目录下产生tags文件而不用先在终端运行ctags命令后在到Vim显示了。同时还需要注意的一点是，一旦程序代码发生改动，则相应的“tag”也会发生变化，这时需要重新利用ctags命令生成tags文件，这个对于我们设置完键位映射后显得比较简单，再输入<code>tg</code>即可。</p>
+<p>taglist的基本操作：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">key</th>
+<th style="text-align:left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><code>ctrl+]</code></td>
+<td style="text-align:left">查找当前光标所在处tag的定义</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>ctrl+t</code></td>
+<td style="text-align:left">返回到之前执行查找tag时的位置</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>o</code></td>
+<td style="text-align:left">在一个新打开的窗口中显示光标下tag</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>Space</code></td>
+<td style="text-align:left">显示光标下tag的原型定义</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>x</code></td>
+<td style="text-align:left">taglist窗口放大和缩小，方便查看较长的tag</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>q</code></td>
+<td style="text-align:left">关闭taglist窗口</td>
+</tr>
+</tbody>
+</table>
+<p>关于taglists的具体配置以及使用，请在Vim下输入<code>:help taglist</code>查看。同时，这里推荐一个关于ctags介绍的<a href="http://happycasts.net/episodes/25?autoplay=true" target="_blank" rel="external">视频</a>。</p>
+<p><strong>cscope</strong></p>
+<p>说到ctags，就不得不提下cscope。ctags最大的优点在于通过 <code>ctrl+]</code>就可以快速定位到程序符号所在的位置进行查看，之后再通过 <code>ctrl+t</code> 或者 <code>ctrl+o</code> 返回之前的位置，用两组按键来总结ctags，那就是 <code>ctrl+]</code> 和 <code>ctrl+t</code> 。ctags虽然已经相当不错了，但是仍然无法解决一些问题，例如查看函数被哪些函数调用，函数调用了哪些函数，查找该头文件被哪些文件包含等等，而解决这些问题，就需要用到cscope了。cscope不是Vim插件，而是一个工具，因此需要在终端进行安装。cscope的原理其实和ctags一样，也需要事先扫描项目目录，生成相关信息文件，方便之后查找的时候使用，cscope生成的数据文件为 <code>cscope.out</code> 和 <code>cscope.in.out</code>。</p>
+<p>cscope设置：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">" Cscope 设置</span><br><span class="line">if has("cscope")</span><br><span class="line">    set csprg=/usr/bin/cscope   "指定用来执行cscope的命令</span><br><span class="line">    set csto=0                  " 设置cstag命令查找次序：0先找cscope数据库再找标签文件；1先找标签文件再找cscope数据库"</span><br><span class="line">    set cst                     " 同时搜索cscope数据库和标签文件"</span><br><span class="line">    set cscopequickfix=s-,c-,d-,i-,t-,e-    " 使用QuickFix窗口来显示cscope查找结果"</span><br><span class="line">    set nocsverb</span><br><span class="line">    if filereadable("cscope.out")    " 若当前目录下存在cscope数据库，添加该数据库到vim</span><br><span class="line">        cs add cscope.out</span><br><span class="line">    elseif $CSCOPE_DB != ""            " 否则只要环境变量CSCOPE_DB不为空，则添加其指定的数据库到vim</span><br><span class="line">        cs add $CSCOPE_DB</span><br><span class="line">    endif</span><br><span class="line">    set csverb</span><br><span class="line">endif</span><br><span class="line">map <span class="tag">&lt;<span class="title">F4</span>&gt;</span>:!cscope -Rbq<span class="tag">&lt;<span class="title">CR</span>&gt;</span>:cs add ./cscope.out .<span class="tag">&lt;<span class="title">CR</span>&gt;</span><span class="tag">&lt;<span class="title">CR</span>&gt;</span><span class="tag">&lt;<span class="title">CR</span>&gt;</span> :cs reset<span class="tag">&lt;<span class="title">CR</span>&gt;</span></span><br><span class="line">"对:cs find c等Cscope查找命令进行映射</span><br><span class="line">nmap <span class="tag">&lt;<span class="title">leader</span>&gt;</span>s :cs find s <span class="tag">&lt;<span class="title">C-R</span>&gt;</span>=expand("<span class="tag">&lt;<span class="title">cword</span>&gt;</span>")<span class="tag">&lt;<span class="title">CR</span>&gt;</span><span class="tag">&lt;<span class="title">CR</span>&gt;</span> :copen<span class="tag">&lt;<span class="title">CR</span>&gt;</span><span class="tag">&lt;<span class="title">CR</span>&gt;</span></span><br><span class="line">nmap <span class="tag">&lt;<span class="title">leader</span>&gt;</span>g :cs find g <span class="tag">&lt;<span class="title">C-R</span>&gt;</span>=expand("<span class="tag">&lt;<span class="title">cword</span>&gt;</span>")<span class="tag">&lt;<span class="title">CR</span>&gt;</span><span class="tag">&lt;<span class="title">CR</span>&gt;</span></span><br><span class="line">nmap <span class="tag">&lt;<span class="title">leader</span>&gt;</span>d :cs find d <span class="tag">&lt;<span class="title">C-R</span>&gt;</span>=expand("<span class="tag">&lt;<span class="title">cword</span>&gt;</span>")<span class="tag">&lt;<span class="title">CR</span>&gt;</span><span class="tag">&lt;<span class="title">CR</span>&gt;</span> :copen<span class="tag">&lt;<span class="title">CR</span>&gt;</span><span class="tag">&lt;<span class="title">CR</span>&gt;</span></span><br><span class="line">nmap <span class="tag">&lt;<span class="title">leader</span>&gt;</span>c :cs find c <span class="tag">&lt;<span class="title">C-R</span>&gt;</span>=expand("<span class="tag">&lt;<span class="title">cword</span>&gt;</span>")<span class="tag">&lt;<span class="title">CR</span>&gt;</span><span class="tag">&lt;<span class="title">CR</span>&gt;</span>:copen<span class="tag">&lt;<span class="title">CR</span>&gt;</span><span class="tag">&lt;<span class="title">CR</span>&gt;</span></span><br><span class="line">nmap <span class="tag">&lt;<span class="title">leader</span>&gt;</span>t :cs find t <span class="tag">&lt;<span class="title">C-R</span>&gt;</span>=expand("<span class="tag">&lt;<span class="title">cword</span>&gt;</span>")<span class="tag">&lt;<span class="title">CR</span>&gt;</span><span class="tag">&lt;<span class="title">CR</span>&gt;</span>:copen<span class="tag">&lt;<span class="title">CR</span>&gt;</span><span class="tag">&lt;<span class="title">CR</span>&gt;</span></span><br><span class="line">nmap <span class="tag">&lt;<span class="title">leader</span>&gt;</span>e :cs find e <span class="tag">&lt;<span class="title">C-R</span>&gt;</span>=expand("<span class="tag">&lt;<span class="title">cword</span>&gt;</span>")<span class="tag">&lt;<span class="title">CR</span>&gt;</span><span class="tag">&lt;<span class="title">CR</span>&gt;</span>:copen<span class="tag">&lt;<span class="title">CR</span>&gt;</span><span class="tag">&lt;<span class="title">CR</span>&gt;</span></span><br><span class="line">nmap <span class="tag">&lt;<span class="title">leader</span>&gt;</span>f :cs find f <span class="tag">&lt;<span class="title">C-R</span>&gt;</span>=expand("<span class="tag">&lt;<span class="title">cfile</span>&gt;</span>")<span class="tag">&lt;<span class="title">CR</span>&gt;</span><span class="tag">&lt;<span class="title">CR</span>&gt;</span></span><br><span class="line">nmap <span class="tag">&lt;<span class="title">leader</span>&gt;</span>i :cs find i <span class="tag">&lt;<span class="title">C-R</span>&gt;</span>=expand("<span class="tag">&lt;<span class="title">cfile</span>&gt;</span>")<span class="tag">&lt;<span class="title">CR</span>&gt;</span><span class="tag">&lt;<span class="title">CR</span>&gt;</span> :copen<span class="tag">&lt;<span class="title">CR</span>&gt;</span><span class="tag">&lt;<span class="title">CR</span>&gt;</span></span><br><span class="line">" 设定是否使用 quickfix 窗口来显示 cscope 结果</span><br><span class="line">set cscopequickfix=s-,c-,d-,i-,t-,e-</span><br></pre></td></tr></table></figure>
+<p>cscope生成数据文件的命令为：<code>cscope -Rbq</code> ，<code>-R</code> 表示在生成索引文件时，搜索子目录树中的代码；<code>-b</code> 表示只生成索引文件，不进入cscope的界面；<code>-q</code> 表示生成 <code>cscope.in.out</code> 和 <code>cscope.po.out</code> 文件，加快cscope的索引速度。我们的配置文件将<code>&lt;F4&gt;</code>键映射成了cscope命令，同时将生成的cscope.out文件加入到当前索引文件中。(由于cscope和ctags往往配合一同使用，而且都需要事先生成数据文件，所以本人直接将ctags和cscope生成数据文件的操作组合起来，绑定到了一组组合键上：<code>nmap tg :!ctags -R --c++-kinds=+p --fields=+iaS --extra=+q *&lt;CR&gt; :set tags+=./tags&lt;CR&gt;:!cscope -Rbq&lt;CR&gt;:cs add ./cscope.out .&lt;CR&gt;</code> ，键位绑定这东西，仁者见仁，智者见智，根据自己的喜好来。)</p>
+<p>cscope基本操作：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">key</th>
+<th style="text-align:left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><code>:cs find s</code></td>
+<td style="text-align:left">查找这个C符号</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>:cs find g</code></td>
+<td style="text-align:left">查找这个定义</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>:cs find d</code></td>
+<td style="text-align:left">查找被这个函数调用的函数（们）</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>:cs find c</code></td>
+<td style="text-align:left">查找调用这个函数的函数（们）</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>:cs find t</code></td>
+<td style="text-align:left">查找这个字符串</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>:cs find e</code></td>
+<td style="text-align:left">查找这个egrep匹配模式</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>:cs find f</code></td>
+<td style="text-align:left">查找这个文件</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>:cs find i</code></td>
+<td style="text-align:left">查找#include这个文件的文件（们）</td>
+</tr>
+</tbody>
+</table>
+<p>find可以简写为f, 所以命令可以写成<code>:cs f s symbol_name</code></p>
+<p>参考上面cscope的配置语句，我们将 <code>:cs find</code> 操作映射成了 <code>&lt;leader&gt;</code> ，这样方便很多。<code>nmap &lt;leader&gt;s :cs find s &lt;C-R&gt;=expand(&quot;&lt;cword&gt;&quot;)&lt;CR&gt;&lt;CR&gt; :copen&lt;CR&gt;&lt;CR&gt;</code> ，这里我们主要关注下这条语句后面的内容，其中 <code>&lt;C-R&gt;=expand(&quot;&lt;cword&gt;&quot;)</code> 代表当前光标所在地方的单词，而 <code>:copen</code> 则是打开Vim中内置的一个称之为 <code>quickfix</code> 的窗口用于显示查找的结果。</p>
+<p>对我而言，我看代码时最常用的就是 <code>ctrl+]</code> ，<code>ctrl+o</code> 和 <code>:cs find c</code> 了。</p>
+<p>关于cscope的详细信息，请在终端运行 <code>man cscope</code> 。</p>
+<h2 id="winmanager">winmanager</h2>
+<p>我们上面介绍了用于文件浏览的nerdtree以及浏览程序符号的taglist，这两个插件都会以窗口的形式出现在Vim的窗口中，那么如何合理的安排它们，这就是winmanager的作用。</p>
+<p>这里，我们利用winmanager将nerdtree和taglist放到同一个&quot;侧边栏&quot;中，nerdtree在上方，taglist在下方，效果如下图所示：</p>
+<p><img src="/img/vim2/winmanager_with_nerdtree_and_taglist.png" alt=""></p>
+<p>winmanager设置：</p>
+<figure class="highlight scilab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">" WinManager设置</span><br><span class="line">"</span> NERD_Tree集成到WinManager</span><br><span class="line">let g:NERDTree_title=<span class="string">"[NERDTree]"</span> </span><br><span class="line"><span class="function"><span class="keyword">function</span>! <span class="title">NERDTree_Start</span><span class="params">()</span></span></span><br><span class="line">    exec <span class="string">'NERDTree'</span></span><br><span class="line"><span class="function"><span class="keyword">endfunction</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span>! <span class="title">NERDTree_IsValid</span><span class="params">()</span></span></span><br><span class="line">    <span class="keyword">return</span> <span class="number">1</span></span><br><span class="line"><span class="function"><span class="keyword">endfunction</span></span></span><br><span class="line"></span><br><span class="line"><span class="string">" 键盘映射，同时加入防止因winmanager和nerdtree冲突而导致空白页的语句</span><br><span class="line">nmap wm :if IsWinManagerVisible() &lt;BAR&gt; WMToggle&lt;CR&gt; &lt;BAR&gt; else &lt;BAR&gt; WMToggle&lt;CR&gt;:q&lt;CR&gt; endif &lt;CR&gt;&lt;CR&gt;</span><br><span class="line">"</span> 设置winmanager的宽度，默认为<span class="number">25</span></span><br><span class="line">let g:winManagerWidth=<span class="number">30</span> </span><br><span class="line"><span class="string">" 窗口布局</span><br><span class="line">let g:winManagerWindowLayout='</span>NERDTree|<span class="transposed_variable">TagList'</span></span><br><span class="line"><span class="string">" 如果所有编辑文件都关闭了，退出vim</span><br><span class="line">let g:persistentBehaviour=0</span></span><br></pre></td></tr></table></figure>
+<p>这里唯一要说的就是我将wm映射成了winmanager的开关，这意味着，在Vim的Normal模式下，我输入<code>wm</code>即可打开“侧边栏”，再次输入<code>wm</code>即可关闭“侧边栏”。</p>
+<h2 id="vim-airline">vim-airline</h2>
+<p>接下来介绍一下个人非常喜欢的一个插件vim-airline。这是一款状态栏增强插件，可以让你的Vim状态栏非常的美观，同时包括了buffer显示条扩展smart tab line以及集成了一些插件。vim-airline-demo</p>
+<p><img src="/img/vim2/vim-airline-demo.gif" alt="airline展示"></p>
+<p>(关于状态栏增强插件，你可能还听说过Powerline，airline是受Powerline的启发而开发的。和airline不同的是，Powerline不是纯粹的Vim脚本编写的，需要python的支持，同时airline的代码远少于powerline，这意味着airline更轻更快。)</p>
+<h3 id="vim-airline字体补丁">vim-airline字体补丁</h3>
+<p>虽然我们在本文的上半部分中讲解了通过Vundle来安装插件，但是airline有点特殊，还需要进行些额外的操作才能达到最佳的显示效果。这是因为airline中的三角形箭头实际上是通过特殊的字符而非图片实现的，但是系统原先的字体库中并没有包含这类特殊的图形字符，因此，想要达到上图所示的显示效果，需要对系统字库“打补丁”，即添加特殊图形字符。具体步骤如下：</p>
+<ol>
+<li>下载已经打过补丁的字体</li>
+</ol>
+<p>在家目录下新建一个.fonts文件夹：<code>$ mkdir ~/.fonts</code> 然后 <code>$ cd ~/.fonts</code> 进入文件夹，执行 <code>$git clone git@github.com:Lokaltog/powerline-fonts.git</code> 下载已经打过补丁的字体文件。此时，<code>~/.fonts/</code> 目录下已经存在打过补丁的常用系统字体文件了。</p>
+<ol start="2">
+<li>向系统中安装打过补丁的字体</li>
+</ol>
+<p>运行 <code>$ fc-cache -vf ~/.fonts</code> 安装patched fonts到系统中。</p>
+<ol start="3">
+<li>设置终端字体为打过补丁的字体</li>
+</ol>
+<p><img src="/img/vim2/set_patched_font_for_terminal.png" alt=""></p>
+<p>我这里将终端字体设置成了DejaVu Sans Mono for Powerline。(打过补丁的字体名字后面都会有个for Powerline，选择自己喜欢的就好)。</p>
+<h3 id="vim-airline设置">vim-airline设置</h3>
+<figure class="highlight livescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">" airline设置</span><br><span class="line">set laststatus=2</span><br><span class="line">"</span> 使用powerline打过补丁的字体</span><br><span class="line"><span class="keyword">let</span> <span class="attribute">g</span>:airline_powerline_fonts = <span class="number">1</span></span><br><span class="line"><span class="string">" 开启tabline</span><br><span class="line">let g:airline<span class="subst">#extensions</span><span class="subst">#tabline</span><span class="subst">#enabled</span> = 1</span><br><span class="line">"</span> tabline中当前buffer两端的分隔字符</span><br><span class="line"><span class="keyword">let</span> <span class="attribute">g</span>:airline<span class="comment">#extensions#tabline#left_sep = ' '</span></span><br><span class="line"><span class="string">" tabline中未激活buffer两端的分隔字符</span><br><span class="line">let g:airline<span class="subst">#extensions</span><span class="subst">#tabline</span><span class="subst">#left_alt_sep</span> = '|'</span><br><span class="line">"</span> tabline中buffer显示编号</span><br><span class="line"><span class="keyword">let</span> <span class="attribute">g</span>:airline<span class="comment">#extensions#tabline#buffer_nr_show = 1</span></span><br><span class="line"><span class="string">" 映射切换buffer的键位</span><br><span class="line">nnoremap [b :bp&lt;CR&gt;</span><br><span class="line">nnoremap ]b :bn&lt;CR&gt;</span></span><br></pre></td></tr></table></figure>
+<p>关于上述的配置文件没什么好说的，注释都解释的比较明白了。这里我只想提一下vim-airline中自带的smart tab line扩展，smart tab line效果如下</p>
+<p><img src="/img/vim2/tabline_in_airline.gif" alt="airline中的tabline展示"></p>
+<p>我们都知道在Vim中可以同时操作多个文件，多文件操作主要有两个显示手段，一个是buffer方式，一个tab的方式。tab方式我想不用多说，就相当于标签页，每个标签页位于不同的Vim窗口。因此，当切换tab的时候，原先的窗口布局会发生混乱，这个是我们不愿意看到的，而buffer则是在同一个窗口下的，便不存在这个问题。实际使用过程中，我更倾向于使用buffer来管理打开的多个文件。但是Vim对于buffer，默认的是隐藏的，也就是说，你打开了A、B、C三个文件，Vim并不将这三个文件的buffer显示出来，你只能通过 <code>:ls</code> 来查看buffer，然后通过 <code>:bn</code> (buffer next)和 <code>:bp</code> (buffer previous)，或者 <code>:b num</code> (打开编号为num的buffer)这样的命令来切换不同文件。如果能把buffer显示在Vim的窗口上，那么buffer切换起来就相对比较轻松，同时也能明白自己打开的文件都有哪些。</p>
+<p>对于buffer可视化以及buffer管理的插件，比较著名的有 <code>Minibufexplorer</code> 和 <code>Bufexplorer</code>，大多数人选择使用Minibufexplorer(Bufexplorer我没用过)。Minibufexplorer整体上来说不错，但是存在一个个人认为非常致命的缺陷，那就是和winmanager的兼容性不好，表现在当打开多个buffer的时候，winmanager中的nerdtree显示部分会被压扁，无法还原，同时关闭文件buffer时，窗体的布局有时候会发生混乱。正因为这样的原因导致我最后放弃了Minibufexplorer。而airline中自带的smart tab line的主要功能是将buffer显示出来，同时当文件名太长的时候，会根据设定的模式进行适当的缩写。可能没有Minibufexplorer功能多，但是这样对我而言就已经足够了，更何况tab line还如此的美观呢 :-D</p>
+<p>因为tab line只是一个显示buffer的扩展，并不提供操作buffer的功能，所以想要操作buffer还是要通过Vim自带的命令实现，从上面的配置语句中可以看到，我将切换到前一个buffer的命令 <code>:bp</code> 映射成了 <code>[b</code> ，将切换至后一个buffer的命令 <code>:bn</code> 映射成了 <code>]b</code> (这实际上是airline作者的映射)</p>
+<h2 id="vim-bbye">vim-Bbye</h2>
+<p>vim-Bbye主要是用于解决在关闭buffer时候导致的窗口混乱问题。(如果你在关闭buffer的时候没有任何问题的话，可以无视此插件= =)问题主要表现为，在Vim中，如果当前窗口里存在多个buffer，而你用 <code>:bd</code> 命令删除当前操作的buffer的话，会导致整个Vim窗口都被关闭的问题。vim-Bbye很好的解决了这个问题。</p>
+<p>vim-Bbye涉及到的主要命令就是 <code>:Bd</code>,采用这个命令关闭当前buffer不会导致整个窗口被关闭的问题。因此我将这条命令映射成了bd ，在vimrc中的配置如下：</p>
+<figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">" Bbye设置</span><br><span class="line">"</span> 由于原生的<span class="symbol">:bd</span>在删除当前buffer时会将整个窗口关闭，故使用<span class="constant">Bbye的</span><span class="symbol">:Bd</span></span><br><span class="line">nnoremap bd <span class="symbol">:Bd&lt;CR&gt;</span></span><br></pre></td></tr></table></figure>
+<h2 id="ctrlp">ctrlp</h2>
+<p>ctrlp是一款相当棒的插件，主要的功能是对文件进行模糊的查找，如果你的project目录结构复杂，或者你正在阅读一个较大的项目的话，那么ctrlp可以帮你快速的定位到你想要文件而不必在终端不断的cd、ls。</p>
+<p>例如想打开文件 <code>linux/arch/x86/mm/mmap.c</code> , 只需要在vim中通过 <code>ctrl+p</code> , 打开ctrlp, 输入 <code>laxmm</code> 或者 <code>lucxmp</code> (诸如此类的, 即路径中顺序出现的字符组合), ctrlp就能帮你定位到对应的 <code>mmap.c</code> 文件, 回车打开即可.</p>
+<p>ctrlp在阅读大项目时特别有用, 很多时候,  我们只记得要找的文件大概在某个文件夹下, 不确定中间还有哪些文件夹, 这时ctrlp就可以极大程度的提高你定位文件的效率.</p>
+<p>这里提供一个介绍ctrlp不错的<a href="http://happycasts.net/episodes/64?autoplay=true" target="_blank" rel="external">视频</a>给大家。</p>
+<h2 id="nerdcommenter">nerdcommenter</h2>
+<p>如果你是一个酷爱写注释的程序员的话，那么你一定要用一下nerdcommenter，即便你不热衷于写注释，你也应该关注下nerdcommenter这款插件。</p>
+<p>nerdcommenter基本操作：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">key</th>
+<th style="text-align:left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><code>&lt;leader&gt;cc</code></td>
+<td style="text-align:left">注释当前行</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>&lt;leader&gt;c+space</code></td>
+<td style="text-align:left">注释选定代码行</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>&lt;leader&gt;cu</code></td>
+<td style="text-align:left">取消注释</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>&lt;leader&gt;ca</code></td>
+<td style="text-align:left">在可选的注释方式之间切换，比如C/C++ 的块注释/* */和行注释//</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>&lt;leader&gt;cA</code></td>
+<td style="text-align:left">在当前行尾添加注释符，并进入Insert模式</td>
+</tr>
+</tbody>
+</table>
+<p>nerdcommenter和Vim的Visual模式结合可以快速的注释/取消注释多行代码，同时在行尾追加注释并自动进入Insert模式可以方便的进行行内注释。</p>
+<p>关于nerdcommenter的更多信息，请在Vim中执行 <code>:help nerdcommenter</code> 。</p>
+<h2 id="a-vim">a.vim</h2>
+<p>a.vim的主要功能是快速的在<code>*.c</code> / <code>*.cpp</code> 和 <code>*.h</code>之间进行转换，如果你正在用C/C++进行开发或者正在阅读C/C++项目的话，那么你可能会需要用到a.vim的。</p>
+<p>a.vim的基本操作：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">key</th>
+<th style="text-align:left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><code>:A</code></td>
+<td style="text-align:left">头文件／源文件切换</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>:AN</code></td>
+<td style="text-align:left">在多个匹配文件间循环切换</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>&lt;Leader&gt;ih</code></td>
+<td style="text-align:left">切换至光标所在文件</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>&lt;Leader&gt;is</code></td>
+<td style="text-align:left">切换至光标所在处(单词所指)文件的配对文件(如光标所在处为foo.h，则切换至foo.c/foo.cpp…)</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>&lt;Leader&gt;ihn</code></td>
+<td style="text-align:left">在多个匹配文件间循环切换</td>
+</tr>
+</tbody>
+</table>
+<p>关于a.vim的更多信息请参考a.vim插件目录下的README文件。</p>
+<h2 id="omnicppcomplete">OmniCppComplete</h2>
+<p>老牌的C/C++自动补全插件了，目前似乎存在更好的自动补全插件，例如 <code>YouCompleteMe</code> 和 <code>Neocomplete</code>。这里就不再对OmniCppComplete进行叙述了。</p>
+<hr>
+<h1 id="vim及插件集的备份">Vim及插件集的备份</h1>
+<p>经过了上面这么多道复杂的工序后，我们现在手里的Vim似乎更加完善了。在讲解的最后部分，让我们来聊聊如何对Vim的环境来进行备份。</p>
+<p>目前我们对Vim的配置主要涉及vimrc文件和插件集，对于有多台电脑或者经常四处跑的同学来说，肯定能理解同步环境的意义，如果能将我们在本地配置好的Vim环境都保存在某个服务器上，那么不管在哪里，用哪台电脑，只要能联网，我们就可以通过网络迅速的恢复/搭建好我们的Vim环境。这里不得不称赞一下github，实在是广大程序员的福音，即便不是程序员，合理的使用github也能省去不少麻烦。利用git，我们可以在github服务器上建立一个项目，专门用来存放我们的Vim配置文件以及插件，然后将本地配置好的Vim环境全都发送至服务器端，等需要的时候，直接从服务器端取回即可，不需要再进行额外的配置，可以说是非常的方便。我们接下来讲讲具体的步骤。</p>
+<h2 id="建立github帐号">建立Github帐号</h2>
+<p>如何申请github账号，这里就不说了。</p>
+<h2 id="新建github项目">新建Github项目</h2>
+<p>在你的github账号上新建一个项目</p>
+<p><img src="/img/vim2/github_create_repo.png" alt="新建github项目"></p>
+<p>这里，不要勾选 <code>Initialize this repository with a README</code> 。点击 <code>create repository</code> 来创建一个属于你的项目。这一步的目的是在github服务器上建立用于存放Vim配置及插件的仓库，以便之后可以将本地上的文件提交到这个仓库中保存。</p>
+<h2 id="操作本地仓库">操作本地仓库</h2>
+<p>在本地 <code>～/.vim/</code> 目录进行git操作</p>
+<p><code>$ cd ~/.vim</code> 移动到 <code>~/.vim/</code> 文件夹下，我们的Vim插件都在这个文件夹下，因此我们要将这个目录作为git操作的根目录，之后才能将这个目录的内容提交到服务器上。</p>
+<p>Vim环境除了插件外，还有 <code>～/.vimrc</code> 文件，因为我们备份的目录是 <code>~/.vim/</code> 并不包含 <code>～/.vimrc</code> 文件，因此我们 <code>$ mv ~/.vimrc ~/.vim/</code> 将 <code>.vimrc</code> 移动到 <code>~/.vim/</code> 目录下，同时 <code>ln -sf ～/.vim/.vimrc ~/.vimrc</code> 在家目录下创建一个符号链接。</p>
+<p>接下来是本地的git操作：</p>
+<p>对于第一次使用git的同学而言，你需要告知git工具你的用户名和邮箱信息，以便在你执行git操作的时候可以知道是谁作出的改动。</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ git config --global user<span class="class">.name</span> <span class="string">"你的名字"</span> </span><br><span class="line">$ git config --global user<span class="class">.email</span> <span class="string">"你的邮箱"</span></span><br></pre></td></tr></table></figure>
+<p>在～/.vim/文件夹下初始化git项目信息。</p>
+<figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$ </span>git init</span><br></pre></td></tr></table></figure>
+<p>将～/.vim/文件夹的内容和隐藏文件.vimrc全都加入git的追踪列表里</p>
+<figure class="highlight avrasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git <span class="keyword">add</span> * .vimrc</span><br></pre></td></tr></table></figure>
+<p>(git add . 是常用的添加命令, 但是不包括隐藏文件, 这也是为什么单独添加.vimrc的原因)。</p>
+<p>提交追踪列表里的文件，同时给出本次提交操作的相关信息。</p>
+<figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git commit -m '<span class="keyword">first</span> commit <span class="keyword">for</span> <span class="keyword">my</span> vim evironment'</span><br></pre></td></tr></table></figure>
+<p>这样我们 <code>～/.vim/</code> 文件夹下的全部内容就全都提交到本地的git仓库中了。接下来要做的就是将本地的git仓库发送(push)到远端的github服务器的对应项目上。</p>
+<h2 id="同步本地仓库至远端仓库">同步本地仓库至远端仓库</h2>
+<p>接下来是将本地仓库push到github上的操作：</p>
+<p>push操作实际上是将已经提交给git的本地仓库发送到远端服务器上，这里我们将上面提交好的 <code>～/.vim/</code>目录提交到特定账号上的特定项目中。这个过程需要对你的github账户上的项目进行写操作，显然只有用户自身才有权限对其账号下的项目执行写操作，因此在提交之前，需要完成github对应用户的验证过程。</p>
+<p>github采用SSH的验证方式，即用户需要在本地电脑上生成一对SSH密钥，将公钥保存在github上，自己本地电脑上保留私钥，在连接github时进行私钥和公钥的验证，匹配则被认定为用户登陆成功(关于SSH的连接原理，请参见<a href="">SSH连接认证原理概述</a>。所以，第一次向github提交项目的同学，需要执行：</p>
+<p><code>$ ssh-keygen</code> 一路回车，这条命令会在 <code>~/.ssh/</code> 目录下产生私钥文件 <code>id_rsa</code> 以及公钥文件 <code>id_rsa.pub</code>，我们需要将公钥文件<code>id_rsa</code>中的内容填入到github账户下的SSH key中。</p>
+<p>在github.com上点击 <code>账户设定 -- SSH-Keys -- add SSH key</code><br>
+<img src="/img/vim2/add_sshkey_for_github.png" alt=""></p>
+<p>可以看到我已经上传了一个公钥(Public Key)了，在这里，你需要给公钥一个名字，便于区别，同时在Title下方的Key文本框内，将 <code>~/.ssh/</code> 目录下的 <code>id_rsa.pub</code> 文件中的内容粘贴进来(复制粘贴的时候注意格式，公钥不包含回车换行的，同时不要在末尾留有空格)。点击Add key，就可以成功添加公钥了。这样，就完成了github账户和本地电脑的SSH密钥配对。</p>
+<p><code>$ ssh -T git@github.com</code> 在终端对github来进行连接，这里的用户名为git，是所有github用户统一的用户名。如果连接成功，终端会返回 <code>Hi 你的用户名! You've successfully authenticated, but GitHub does not provide shell access.</code> 。</p>
+<p><code>$ cd ~/.vim/</code> 再次回到 <code>~/.vim/</code> 目录，接下来将本地的git仓库推送到github的对应项目上：</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ git remote add origin git@github<span class="class">.com</span>:你的用户名/你的项目名<span class="class">.git</span></span><br><span class="line">$ git push origin master</span><br></pre></td></tr></table></figure>
+<p>现在，到github上看看，<code>.vim</code>文件夹下的内容是不是都出现在上面了: - )</p>
+<p>自此，备份过程结束。如果想要恢复备份的话，只需要 <code>$ git clone https://github.com/你的用户名/你的vim项目.git</code> 将github上的vim项目拷贝至本地, 之后再 <code>mv 你的vim项目名 ~/.vim</code> 即可。如果你又给你的Vim做了修改或者添加了新的插件的话，那么只要重新执行上述过程中的git add、git commit、git push操作即可。</p>
+<p>对于git的基本操作，可以参见这个<a href="http://happycasts.net/episodes/7?autoplay=true" target="_blank" rel="external">视频</a>。</p>
+<hr>
+<h1 id="总结">总结</h1>
+<p>Vim真的是一款非常强大的文本编辑工具，搭配上适当的插件之后更是如虎添翼，但是过多的插件又会让Vim变得非常的臃肿，甚至反应速度会变慢，而且也违背Unix的KISS(keep it simple, stupid)原则。在网上也有部分人认为不应该使用Vim插件，避免对插件过渡依赖。就我个人而言，我需要的只是一个高效的工具，来帮我完成特定的任务，至于这个工具是复杂，是简单，是不是需要恪守一些原则我不是很在意，我真正关心的是这个工具能否高效的完成我的任务。正如白猫黑猫的道理一样。因此，对于Vim，我一直本着让Vim来适应我的习惯和需求而非让我去适应Vim的想法来使用它的，如果不添加任何插件，那我想在很多时候Vim就不是那么的好用，如果添加了许多的插件，那么Vim的响应速度会很慢而且其中大部分插件只是会偶尔的用到或根本不用。这是一个trade-off的过程，总之自己用的顺手，用的舒坦才是最重要的。</p>
+<p>这篇文章亦是我心血来潮之作，介绍Vim及其插件的文章可谓成千上万，而且Vim本身以及绝大部分的插件都正在不断的发展和完善中，可能现在流行的插件，过不了多久就被另外一个新兴的插件给替代了，同样的，现在写的关于Vim插件的相关文章也会因为时间的流逝而慢慢过时而变得没有意义。即便如此，我依然还是很开心的把这一大篇的文章给写完了，为何如此？只是最近使用Vim开代码，添加新的插件的时候，回想起自己当初刚接触Vim时茫然无措的情景，而上网找到的资料要不是早就过时的，要不就是存在错误或者轻描淡写草草带过的，只有极少数负责任的博主的几篇优秀的博文真正帮到了我。而我所能做的，也只是将我目前所知道，尽可能认真的阐述出来，或许能帮到一些人。学习、记录、分享，不亦乐乎。</p>
+-->
+            
+            
+                <p>单独的Vim本身在文本编辑方面已经足够强大，但是针对一些特殊的场合还有很多可以提高和改进的空间，这也是插件的意义所在。你用Vim写脚本吗？你用Vim写C/C++吗？你用Vim写HTML、CSS、javascript吗？你用Vim写Ruby吗？你用Vim看项目代码吗…那么各式各样的Vim插件总有一款或几款可以满足你的需求。<a id="more"></a></p>
+<h1 id="前言-v2">前言</h1>
+<p>掌握Vim确实没有什么捷径，如果非要说有的话，那便是唯手熟而。当你渐渐习惯用hjkl来移动光标，自如的在各个模式下切换，会用一些基本的指令，心里还不那么排斥Vim的话，那么我想接下来要做的就是在实际使用过程中进一步打磨你的Vim，让Vim真正融入到你的生活工作中去了。</p>
+<p>单独的Vim本身在文本编辑方面已经足够强大，但是针对一些特殊的场合还有很多可以提高和改进的空间，这也是插件的意义所在。你用Vim写脚本吗？你用Vim写C/C++吗？你用Vim写HTML、CSS、javascript吗？你用Vim写Ruby吗？你用Vim看项目代码吗…那么各式各样的Vim插件总有一款或几款可以满足你的需求。由于插件不属于“标准的”Vim集合，且每个人的工作内容不同因此不同人拥有不同的插件集也是很正常的事情，也正因此，网络上才会有花样繁多的Vim配置方案，多到让人眼花缭乱却无从下手。</p>
+<p>本人的主要工作环境是Linux Mint，采用C/C++进行开发附带python和一些shell脚本，这里以本人的Vim插件配置举例，讲解在配置Vim插件过程中的一般性和部分具体性方法。首先上张图来看看吧～<br>
+<img src="/img/vim2/Screenshot_for_my_vim.png" alt="My Vim"></p>
+<p>相比于原始的Vim，安装了插件后的Vim界面显得非常的丰(hua)富(shao)，这些插件中有一部分是可以显示在窗口上的，一部分则是在使用过程中才能感受到的。从上图中可以看到，整个Vim窗口被划分成了两列，左边为侧边栏，包含文件浏览器以及下方的程序符号列表，在符号列表很清晰的划分了宏定义，变量和函数等信息。窗口的上方还将使用中的buffer显示出来(默认情况下buffer是隐藏的)。右侧则为主要的编辑区，编辑区下方的为酷炫的状态栏～</p>
+<p><strong>Vim Buffer简介</strong></p>
+<p>所谓的buffer，实际上是Vim用于保存工作中的文件信息的，每个打开的文件都对应一个buffer，对文件的操作会保存在buffer中，当关闭文件的时候，根据用户的选择，可以将buffer中的修改内容写入硬盘，或是丢弃buffer中的修改内容。其实文件buffer的概念随处可见，最经常看到的就是你打开文本文档或者Word并输入一些内容后，在没有保存的情况下就关闭程序，会出现是否保存或者放弃保存直接退出的提示，而这些修改的内容就是暂存在buffer中的。只是在windows下，文本文档和word的文件缓存是看不到的(word会定时将缓存写入隐藏的临时文件来保存进度防止意外断电)，而对于Vim，我们则称文件缓存为Buffer。</p>
+<p>从上图中的buffer显示条中可以看到，Vim一共打开了4个文件，即有4个对应的buffer，每个buffer有自己的编号(这个编号是Vim定的，保证唯一，但是可能不是顺序的)。</p>
+<hr>
+<h1 id="插件概览">插件概览</h1>
+<p>本人安装的Vim插件包括以下几个：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Plugin</th>
+<th style="text-align:left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><a href="https://github.com/gmarik/Vundle.vim" target="_blank" rel="external">vundle</a></td>
+<td style="text-align:left">一款用于管理插件的插件，操作简单方便，是主流的管理插件。</td>
+</tr>
+<tr>
+<td style="text-align:left"><a href="https://github.com/kien/ctrlp.vim" target="_blank" rel="external">ctrlp</a></td>
+<td style="text-align:left">一款非常好用的模糊查找文件插件。</td>
+</tr>
+<tr>
+<td style="text-align:left"><a href="https://github.com/bling/vim-airline" target="_blank" rel="external">vim-airline</a></td>
+<td style="text-align:left">B格很高的一个状态栏增强插件，同时带有buffer显示条(tabline)，并集成了多款主流插件。</td>
+</tr>
+<tr>
+<td style="text-align:left"><a href="https://github.com/moll/vim-bbye" target="_blank" rel="external">vim-Bbye</a></td>
+<td style="text-align:left">解决了当关闭当前buffer时导致的窗口关闭以及布局混乱等问题。</td>
+</tr>
+<tr>
+<td style="text-align:left"><a href="https://github.com/scrooloose/nerdcommenter" target="_blank" rel="external">nerdcommenter</a></td>
+<td style="text-align:left">快速注释工具，同时根据文件类型自动选择对应注释。</td>
+</tr>
+<tr>
+<td style="text-align:left"><a href="https://github.com/scrooloose/nerdtree" target="_blank" rel="external">nerdtree</a></td>
+<td style="text-align:left">一款用于浏览文件或目录的插件，效果相当于嵌入Vim内的资源管理器。</td>
+</tr>
+<tr>
+<td style="text-align:left"><a href="https://github.com/vim-scripts/taglist.vim" target="_blank" rel="external">taglist</a></td>
+<td style="text-align:left">用于显示程序中的符号列表，并进行简单的查看插件。</td>
+</tr>
+<tr>
+<td style="text-align:left"><a href="https://github.com/vim-scripts/winmanager" target="_blank" rel="external">winmanager</a></td>
+<td style="text-align:left">Vim窗口管理插件，主要用于将nerdtree和taglist整齐的安放在一个“侧边栏”中。</td>
+</tr>
+<tr>
+<td style="text-align:left"><a href="https://github.com/vim-scripts/a.vim" target="_blank" rel="external">a.vim</a></td>
+<td style="text-align:left">用于快速的在<code>*.c/*.cpp</code>和<code>*.h</code>文件之间进行切换。</td>
+</tr>
+<tr>
+<td style="text-align:left"><a href="https://github.com/vim-scripts/OmniCppComplete" target="_blank" rel="external">OmniCppComplete</a></td>
+<td style="text-align:left">老牌C/C++自动补全插件，不过似乎存在更好的插件，未研究。</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h1 id="插件安装">插件安装</h1>
+<p>插件的安装方式大致上分为两种：传统的安装方式和基于包管理的插件安装方式。</p>
+<h2 id="传统的安装方式-不推荐">传统的安装方式(不推荐)</h2>
+<p>我们先来介绍一下传统的安装方式是什么样的。插件实际上是由vim脚本和少数其它类型的文件组成，插件一般位于用户家目录的 <code>.vim</code> 文件夹下，即 <code>～/.vim/</code> (如果没有，请自行创建)。</p>
+<p>安装的流程：</p>
+<ol>
+<li>从<a href="http://www.vim.org/scripts/" target="_blank" rel="external">www.vim.org/scripts/</a>或者<a href="https://github.com/" target="_blank" rel="external">github.com</a>上找到对应的插件并下载。</li>
+<li>解压下载得到的插件压缩包，得到若干个文件及文件夹。</li>
+<li>将解压得到的文件或文件夹放到～/.vim/ 文件夹下，如果遇到和之前插件同名的文件夹，则选择合并。</li>
+<li>重启Vim,插件生效。</li>
+</ol>
+<p>总结一下传统的安装方法，实际上就是找到<code>插件--下载--解压--放到.vim文件夹下--完成</code>。(不过，对于某些特定的插件，可能有不同的安装方式，有的直接提供了可执行的安装脚本，有的则要求需要一些库的支持或者需要进行一定的配置后才能使用。好在这些都是少数情况，大部分的插件的安装都是相当简单的。)</p>
+<p><strong>注意：我们并不提倡用传统的方式安装插件</strong></p>
+<p>传统的插件安装方式存在一些弊端。首先，所有插件不加区分和归类的直接丢到 <code>～/.vim/</code> 文件夹下，非常混乱；其次，插件的管理不方便，比如要想删除一个插件，那么必须要到 <code>～/.vim/</code> 文件夹下找到插件对应的文件一一删除，如果想要更新插件，那么就必须重新下载新版本的插件再次安装。</p>
+<p>让我们举个例子直观感受下传统的插件安装方式：以下是<code>nerdtree</code>和<code>ctrlp</code>插件解压得到的文件和文件夹。</p>
+<figure class="highlight 1c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">nerdtree</span><br><span class="line"><span class="string">|--autoload/</span></span><br><span class="line"><span class="string">|--doc/</span></span><br><span class="line"><span class="string">|--lib/</span></span><br><span class="line"><span class="string">|--nerdtree_plugin/</span></span><br><span class="line"><span class="string">|--plugin/</span></span><br><span class="line"><span class="string">|--syntax/</span></span><br><span class="line"><span class="string">|--README.markdown</span></span><br></pre></td></tr></table></figure>
+<p><br></p>
+<figure class="highlight 1c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">ctrlp</span><br><span class="line"><span class="string">|--autoload/</span></span><br><span class="line"><span class="string">|--doc/</span></span><br><span class="line"><span class="string">|--plugin/</span></span><br><span class="line"><span class="string">|--readme.md</span></span><br></pre></td></tr></table></figure>
+<p>当安装这两个插件时候，二者都放到了 <code>～/.vim/</code> 文件夹下，其中 <code>autoload</code>，<code>doc</code>，<code>plugin</code> 目录整合到了一起。当要删除 <code>ctrlp</code> 插件的时候，需要到删除 <code>ctrlp</code> 对应的文件，就要到 <code>autoload</code>，<code>doc</code>，<code>plugin</code> 目录中一个个找属于 <code>ctrlp</code> 插件的文件进行删除，可想而知是多么的麻烦。同时无法自动更新插件，需要通过下载覆盖来进行手动更新。</p>
+<p>仔细观察不难看出，传统的插件安装方式的弊端主要源自于其混乱的插件管理方式。那么很自然的，人们就会希望能够将插件各自分开来进行存放，同时尽量避免手动的管理插件。这也是为什么后来会出现多款优秀的基于包(bundle)的插件管理工具的原因。</p>
+<h2 id="插件管理工具-vundle">插件管理工具–Vundle</h2>
+<p>出于传统Vim插件安装及管理方式的弊端，目前有许多插件管理工具，pathogen、NeoBundle、Vundle、VAM等。pathogen我用过，之后转投Vundle了，至于NeoBundle和VAM没有用过，就不发言了，功能应该大致一样。这里选用目前最主流的Vundle来进行讲解。</p>
+<p>Vundle本身也是一个Vim插件，主要干了两件事情：</p>
+<p>1.将不同插件放置到 <code>～/.vim/</code> 下的对应文件夹进行分别管理。<br>
+2.集成了git操作，自动安装更新或卸载插件。</p>
+<h3 id="vundle的优点">Vundle的优点</h3>
+<ul>
+<li>
+<p>其中插件存放在 <code>～/.vim/bundle/</code> 目录下，例如<code>nerdtree</code>存放在 <code>～/.vim/bundle/nerdtree/</code> 目录下，<code>taglist</code> 存放在 <code>～/.vim/bundle/taglist/</code> 目录下，这样各个插件的目录就非常的清晰明了。</p>
+</li>
+<li>
+<p>对于安装更新卸载插件，只需要在vimrc文件中写入要安装的插件，通过对应的Vim命令即可自动从github或vim.org上自动获取或更新该插件，要卸载时只需将vimrc文件中对应的插件名删除，再运行对应命令即可自动删除插件。</p>
+</li>
+</ul>
+<p><em>注：可能有同学git和github比较陌生，git是一个一个分布式的版本控制工具，简单点说就是可以随时把代码放进数据库并加以管理，同时可以随时提取出某个时候放进数据库的代码的一个代码管理工具，除了本地数据库，git还可以从远程服务器上获取或提交代码，而github.com就是一个提供这种代码托管服务的网站，上面存放着成千上万的代码库。基本上我们知道的vim插件源码在github上都能找到，而Vundle的插件安装更新操作就是采用git从github上把对应插件拖到你本地的电脑上，因此Vundle需要git的支持，也就是说你的电脑上需要事先安装有git，现在主流的Linux发行版都是默认安装有git的。如果对git和github比较感兴趣的同学，可以看看<a href="http://git-scm.com/book/zh/v1" target="_blank" rel="external">Pro Git</a> 和<a href="http://www.worldhello.net/gotgithub/" target="_blank" rel="external">GotGitHub</a>。</em></p>
+<h3 id="安装配置vundle">安装配置Vundle</h3>
+<p>关于Vundle的最新信息以及安装方法具体请参见Vundle的github主页：<a href="https://github.com/gmarik/Vundle.vim" target="_blank" rel="external">github.com/gmarik/Vundle.vim</a> 。以下对Vundle的安装过程新进适当的描述。</p>
+<ol>
+<li>
+<p>安装Vundle前，我们需要一个干净的 <code>～/.vim/</code> 目录。如果你之前采用传统的插件安装方式将插件安装在 <code>～/.vim/</code> 目录下，那么你可以备份原先的 <code>~/.vim/</code> 目录：<code>$ mv ~/.vim ~/.vim.bak</code> 。然后在新建一个空的<code>.vim</code>目录：<code>mkdir ～/.vim</code> ，这样我们就得到了一个空的 <code>～/.vim/</code> 目录，便于之后的Vundle安装。</p>
+</li>
+<li>
+<p>通过git下载并安装Vundle(实际上就是通过git工具将最新的Vundle下载到对应的目录下)：</p>
+</li>
+</ol>
+<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git clone http<span class="variable">s:</span>//github.<span class="keyword">com</span>/gmarik/Vundle.<span class="keyword">vim</span>.git ~/.<span class="keyword">vim</span>/bundle/Vundle.<span class="keyword">vim</span></span><br></pre></td></tr></table></figure>
+<ol start="3">
+<li>接下来，对Vundle进行配置。Vundle的配置过程是在vimrc文件中添加相应的语句。以下是插件官方给出的示例：</li>
+</ol>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="operator"><span class="keyword">set</span> nocompatible              <span class="string">" be iMproved, required</span><br><span class="line">filetype off                  "</span> required</span><br><span class="line"></span><br><span class="line"><span class="string">" set the runtime path to include Vundle and initialize</span><br><span class="line">set rtp+=~/.vim/bundle/Vundle.vim</span><br><span class="line">call vundle#begin()</span><br><span class="line">"</span> alternatively, pass a path <span class="keyword">where</span> Vundle should <span class="keyword">install</span> plugins</span><br><span class="line"><span class="string">"call vundle#begin('~/some/path/here')</span><br><span class="line"></span><br><span class="line">"</span> let Vundle manage Vundle, required</span><br><span class="line"><span class="keyword">Plugin</span> <span class="string">'gmarik/Vundle.vim'</span></span><br><span class="line"></span><br><span class="line"><span class="string">" The following are examples of different formats supported.</span><br><span class="line">"</span> Keep <span class="keyword">Plugin</span> commands <span class="keyword">between</span> vundle#<span class="keyword">begin</span>/<span class="keyword">end</span>.</span><br><span class="line"><span class="string">" plugin on GitHub repo</span><br><span class="line">Plugin 'tpope/vim-fugitive'</span><br><span class="line">"</span> <span class="keyword">plugin</span> <span class="keyword">from</span> http://vim-scripts.org/vim/scripts.html</span><br><span class="line"><span class="keyword">Plugin</span> <span class="string">'L9'</span></span><br><span class="line"><span class="string">" Git plugin not hosted on GitHub</span><br><span class="line">Plugin 'git://git.wincent.com/command-t.git'</span><br><span class="line">"</span> git repos <span class="keyword">on</span> your <span class="keyword">local</span> machine (i.e. <span class="keyword">when</span> working <span class="keyword">on</span> your own <span class="keyword">plugin</span>)</span><br><span class="line"><span class="keyword">Plugin</span> <span class="string">'file:///home/gmarik/path/to/plugin'</span></span><br><span class="line"><span class="string">" The sparkup vim script is in a subdirectory of this repo called vim.</span><br><span class="line">"</span> Pass the path <span class="keyword">to</span> <span class="keyword">set</span> the runtimepath properly.</span><br><span class="line"><span class="keyword">Plugin</span> <span class="string">'rstacruz/sparkup'</span>, &#123;<span class="string">'rtp'</span>: <span class="string">'vim/'</span>&#125;</span><br><span class="line"><span class="string">" Avoid a name conflict with L9</span><br><span class="line">Plugin 'user/L9', &#123;'name': 'newL9'&#125;</span><br><span class="line"></span><br><span class="line">"</span> <span class="keyword">All</span> <span class="keyword">of</span> your Plugins must be added <span class="keyword">before</span> the following line</span><br><span class="line"><span class="keyword">call</span> vundle#<span class="keyword">end</span>()            <span class="string">" required</span><br><span class="line">filetype plugin indent on    "</span> required</span><br><span class="line"><span class="string">" To ignore plugin indent changes, instead use:</span><br><span class="line">"</span>filetype <span class="keyword">plugin</span> <span class="keyword">on</span></span><br><span class="line"><span class="string">"</span><br><span class="line">"</span> Brief <span class="keyword">help</span></span><br><span class="line"><span class="string">" :PluginList          - list configured plugins</span><br><span class="line">"</span> :PluginInstall(!)    - <span class="keyword">install</span> (<span class="keyword">update</span>) plugins</span><br><span class="line"><span class="string">" :PluginSearch(!) foo - search (or refresh cache first) for foo</span><br><span class="line">"</span> :PluginClean(!)      - confirm (<span class="keyword">or</span> auto-approve) removal <span class="keyword">of</span> unused plugins</span><br><span class="line"><span class="string">"</span><br><span class="line">"</span> see :h vundle <span class="keyword">for</span> more details <span class="keyword">or</span> wiki <span class="keyword">for</span> FAQ</span><br><span class="line"><span class="string">" Put your non-Plugin stuff after this line</span></span></span><br></pre></td></tr></table></figure>
+<p>对于Vundle的配置语句，其实没多少，上面这么长的一段只是详细的讲解了Vundle是如何配置和使用的。这里我们需要修改的就只是<code>call vundle#begin()</code> 和 <code>call vundle#end()</code> 之间的部分，我们需要在这里添加我们需要的插件信息，以便Vundle可以根据这些信息为我们自动安装插件。Vundle支持4种插件搜索添加方式，分别为托管在github上的插件、存放在vim-scripts.org上的插件、未托管在github上但是可以通过git协议访问到的插件、本地(正在开发的)插件。由于我们需要的插件要不是托管在github上，要不就是在github上有镜像，简单点说就是在github上都能找得到，因此我们只要在vimrc文件中给出github上插件的对应信息就可以了，具体格式为<code>Plugin '开发者用户名/项目名字'</code> 例如，我想安装vim-airline插件，那可以在github.com上搜索vim-airline项目，可以找到项目主页的链接为：<a href="https://github.com/bling/vim-airline" target="_blank" rel="external">https://github.com/bling/vim-airline</a> ，则我只需要在vimrc的对应行中写入<code>Plugin 'bling/vim-airline'</code> 。</p>
+<p>明白了Vundle配置的具体方法，让我们打开 <code>～/.vimrc</code> 文件，在 <code>.vimrc</code> 文件的顶部(也可以是任意位置)，添加如下语句：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line">" Vundle设置</span><br><span class="line"><span class="operator"><span class="keyword">set</span> nocompatible              <span class="string">" be iMproved, required</span><br><span class="line">filetype off                  "</span> required</span><br><span class="line"></span><br><span class="line"><span class="string">" set the runtime path to include Vundle and initialize</span><br><span class="line">set rtp+=~/.vim/bundle/Vundle.vim</span><br><span class="line">call vundle#begin()</span><br><span class="line">"</span> alternatively, pass a path <span class="keyword">where</span> Vundle should <span class="keyword">install</span> plugins</span><br><span class="line"><span class="string">"call vundle#begin('~/some/path/here')</span><br><span class="line"></span><br><span class="line">"</span> let Vundle manage Vundle, required</span><br><span class="line"><span class="keyword">Plugin</span> <span class="string">'gmarik/Vundle.vim'</span></span><br><span class="line"></span><br><span class="line"><span class="string">" The following are examples of different formats supported.</span><br><span class="line">"</span> Keep <span class="keyword">Plugin</span> commands <span class="keyword">between</span> vundle#<span class="keyword">begin</span>/<span class="keyword">end</span>.</span><br><span class="line"><span class="string">" plugin on GitHub repo</span><br><span class="line">Plugin 'scrooloose/nerdtree'</span><br><span class="line">Plugin 'scrooloose/nerdcommenter'</span><br><span class="line">Plugin 'vim-scripts/taglist.vim'</span><br><span class="line">Plugin 'bling/vim-airline'</span><br><span class="line">Plugin 'vim-scripts/winmanager'</span><br><span class="line">Plugin 'vim-scripts/a.vim'</span><br><span class="line">Plugin 'kien/ctrlp.vim'</span><br><span class="line">Plugin 'vim-scripts/OmniCppComplete'</span><br><span class="line">Plugin 'moll/vim-bbye'</span><br><span class="line">"</span> <span class="keyword">plugin</span> <span class="keyword">from</span> http://vim-scripts.org/vim/scripts.html</span><br><span class="line"><span class="string">" Plugin 'L9'</span><br><span class="line">"</span> Git <span class="keyword">plugin</span> <span class="keyword">not</span> hosted <span class="keyword">on</span> GitHub</span><br><span class="line"><span class="string">" Plugin 'git://git.wincent.com/command-t.git'</span><br><span class="line">"</span> git repos <span class="keyword">on</span> your <span class="keyword">local</span> machine (i.e. <span class="keyword">when</span> working <span class="keyword">on</span> your own <span class="keyword">plugin</span>)</span><br><span class="line"><span class="string">" Plugin 'file:///home/gmarik/path/to/plugin'</span><br><span class="line">"</span> The sparkup vim script <span class="keyword">is</span> <span class="keyword">in</span> a subdirectory <span class="keyword">of</span> this repo called vim.</span><br><span class="line"><span class="string">" Pass the path to set the runtimepath properly.</span><br><span class="line">"</span> <span class="keyword">Plugin</span> <span class="string">'rstacruz/sparkup'</span>, &#123;<span class="string">'rtp'</span>: <span class="string">'vim/'</span>&#125;</span><br><span class="line"><span class="string">" Avoid a name conflict with L9</span><br><span class="line">"</span> <span class="keyword">Plugin</span> <span class="string">'user/L9'</span>, &#123;<span class="string">'name'</span>: <span class="string">'newL9'</span>&#125;</span><br><span class="line"></span><br><span class="line"><span class="string">" All of your Plugins must be added before the following line</span><br><span class="line">call vundle#end()            "</span> required</span><br><span class="line">filetype <span class="keyword">plugin</span> indent <span class="keyword">on</span>    <span class="string">" required</span></span></span><br></pre></td></tr></table></figure>
+<p>这样，Vundle就知道了我们所需要的全部插件。</p>
+<p>安装或更新插件。打开vim，输入<code>:PluginInstall</code>  即可将vimrc中配置的插件下载安装，如果之前已经安装过，则进行更新。或者直接在终端输入 <code>vim +PluginInstall +qall</code> 效果也相同。是不是很方便～如果想卸载插件，只要将vimrc中插件对应的行删除，然后打开vim，输入 <code>:PluginClean</code> 即可。<br>
+注：在安装或更新过程中Vundle需要从github上下载数据，因此Vim界面无法进行正常操作，但下方的状态栏会显示正在处理，所以只需耐心等待即可。</p>
+<p>至此，插件就已经安装完成了。接下来还需要对每个插件进行单独的配置。</p>
+<p>注：就插件管理而言，Vundle已经做的足够优秀，但是事情往往可以变得更好。尽管可能遇到的机会不多，但是试想一下，如果你新买了一台电脑，或是电脑硬盘故障导致数据丢失了又或者你在操作一台不常用的电脑，是不是每次都要安装Vundle，更要命的是每次都要修改vimrc文件，要知道vimrc文件里面出了基本的vim设置外还有相当大一部分的插件设置，对Vim环境进行恢复的代价还是略大了点。因此，我们总希望我们的Vim配置能够保存在云端，以便我们随时可以通过一条简单的命令就可以把一切恢复到熟悉的模样。要想完成这点，需要在配置完Vim和插件后，将 <code>./.vim/</code> 目录以及 <code>./.vimrc</code> 文件都托管到自己github的上，具体方法在接下来的文章会讲到，现在，让我们先专注于把插件配置好: - )</p>
+<hr>
+<h1 id="插件配置及使用">插件配置及使用</h1>
+<p>在使用插件的过程中，往往会涉及到很多插件的具体命令，而这些命令往往比较长，并且夹杂着大小写，输入起来比较繁琐，因此往往使用键位绑定和映射来解决这个问题，简单点说就是设置快捷键。而Vim中的操作相当的多，不用说单个的按键了，即便是像 <code>ctrl+××</code>，<code>alt+××</code> 或是 <code>ctrl+shift+××</code> 这样的组合键都有对应的操作，因此我们会经常看到vimrc文件中采用 <code>&lt;leader&gt;</code>键和其它按键配合进行键盘映射。vimrc文件中的 <code>&lt;leader&gt;</code>实际上也是一个按键，默认为回车键上方的<code>\</code>键，可以根据用户需要修改。本人就将 <code>&lt;leader&gt;</code> 设置成了逗号<code>,</code>。修改 <code>&lt;leader&gt;</code>键只需要在vimrc文件中添加：</p>
+<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">" leader键</span><br><span class="line"></span><span class="keyword">let</span> mapleader=<span class="string">","</span></span><br><span class="line"><span class="keyword">let</span> <span class="variable">g:mapleader</span>=<span class="string">","</span></span><br></pre></td></tr></table></figure>
+<p>注：插件的具体配置信息一般都是记录在vimrc文件中，以下介绍插件的配置语句全是添加在 <code>～/.vimrc</code> 文件中的。</p>
+<h2 id="nerdtree">nerdtree</h2>
+<p>在 <code>~/.vimrc</code> 文件中添加以下内容：</p>
+<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">" nerdtree设置</span><br><span class="line"></span><span class="string">" 控制当光标移动超过一定距离时，是否自动将焦点调整到屏中心</span><br><span class="line"></span><span class="keyword">let</span> NERDTreeAutoCenter=<span class="number">1</span></span><br><span class="line"><span class="string">" 指定鼠标模式（1.双击打开；2.单目录双文件；3.单击打开）</span><br><span class="line"></span><span class="string">" let NERDTreeMouseMode=2</span><br><span class="line"></span><span class="string">" 是否默认显示书签列表</span><br><span class="line"></span><span class="string">" let NERDTreeShowBookmarks=1</span><br><span class="line"></span><span class="string">" 是否默认显示文件</span><br><span class="line"></span><span class="keyword">let</span> NERDTreeShowFiles=<span class="number">1</span></span><br><span class="line"><span class="string">" 是否默认显示隐藏文件</span><br><span class="line"></span><span class="string">" let NERDTreeShowHidden=1</span><br><span class="line"></span><span class="string">" 是否默认显示行号</span><br><span class="line"></span><span class="string">" let NERDTreeShowLineNumbers=1</span><br><span class="line"></span><span class="string">" 窗口位置（'left' or 'right'）</span><br><span class="line"></span><span class="string">" let NERDTreeWinPos='left'</span><br><span class="line"></span><span class="string">" 窗口宽</span><br><span class="line"></span><span class="keyword">let</span> NERDTreeWinSize=<span class="number">31</span></span><br></pre></td></tr></table></figure>
+<p>上面只添加了一些常用的设置，更具体的设置请在vim中输入 <code>:help nerdtree</code> 查看。</p>
+<p>nerdtree基本操作</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">key</th>
+<th style="text-align:left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><code>o</code></td>
+<td style="text-align:left">在已有窗口中打开文件、目录或书签，并跳到该窗口</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>go</code></td>
+<td style="text-align:left">在已有窗口 中打开文件、目录或书签，但不跳到该窗口</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>x</code></td>
+<td style="text-align:left">合拢选中结点的父目录</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>J</code> (大写)</td>
+<td style="text-align:left">跳到当前目录下同级的最后一个结点</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>I</code> (大写)</td>
+<td style="text-align:left">切换是否显示隐藏文件</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>m</code></td>
+<td style="text-align:left">显示系统菜单</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>C</code> (大写)</td>
+<td style="text-align:left">设置当前目录为root</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>u</code></td>
+<td style="text-align:left">返回到当前root的上级父目录并设置为root</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>q</code></td>
+<td style="text-align:left">关闭NerdTree窗口</td>
+</tr>
+</tbody>
+</table>
+<h2 id="taglist">taglist</h2>
+<p>taglist是一个用于显示定位程序中各种符号的插件，例如宏定义、变量名、结构名、函数名这些东西我们将其称之为符号(symbols)，而在taglist中将其称之为tag。显然，要想将程序文件中的tag显示出来，需要事先了解全部tag的信息，并将其保存在一个文件中，然后去解析对应的tag文件。taglist做的仅仅是将tag文件中的内容解析完后显示在Vim上而已。tag扫描以及数据文件的生成则是由<a href="http://ctags.sourceforge.net/" target="_blank" rel="external">ctags(Exuberant Ctags)</a>这一工具完成的，所以在使用taglist之前，你的电脑需要装有ctags(Vim默认已安装)。</p>
+<p>taglist的设置：</p>
+<figure class="highlight nix"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">" taglist设置</span><br><span class="line">let Tlist_Show_One_File=1 "</span> <span class="number">0</span>为同时显示多个文件函数列表,<span class="number">1</span>则只显示当前文件函数列表</span><br><span class="line"><span class="keyword">let</span> <span class="variable">Tlist_Auto_Update=</span><span class="number">1</span></span><br><span class="line"><span class="keyword">let</span> <span class="variable">Tlist_File_Fold_Auto_Close=</span><span class="number">1</span> <span class="string">" 非当前文件，函数列表折叠隐藏</span><br><span class="line">let Tlist_Exit_OnlyWindow=1 "</span>如果taglist是最后一个窗口，则退出vim </span><br><span class="line"><span class="keyword">let</span> <span class="variable">Tlist_Auto_Update=</span><span class="number">1</span>            <span class="string">"Automatically update the taglist to include newly edited files.</span><br><span class="line">"</span>把taglist窗口放在屏幕的右侧，缺省在左侧</span><br><span class="line"><span class="string">"let Tlist_Use_Right_Window=1 </span><br><span class="line">"</span>显示taglist菜单</span><br><span class="line"><span class="string">"let Tlist_Show_Menu=1</span><br><span class="line">"</span>启动vim自动打开taglist</span><br><span class="line"><span class="string">"let Tlist_Auto_Open=1</span><br><span class="line">"</span> ctags, 指定tags文件的位置,让vim自动在当前或者上层文件夹中寻找tags文件</span><br><span class="line">set <span class="variable">tags=</span>tags</span><br><span class="line"><span class="string">" 添加系统调用路径</span><br><span class="line">set tags+=/usr/include/tags</span><br><span class="line">"</span>键绑定，刷新tags</span><br><span class="line">nmap tg :!ctags -R --c++<span class="variable">-kinds=</span>+p <span class="variable">--fields=</span>+iaS <span class="variable">--extra=</span>+q *&lt;CR&gt;:set tags+=./tags&lt;CR&gt;</span><br></pre></td></tr></table></figure>
+<p>我们已经稍微解释了下taglist和ctags的关系，在真正使用过程中，需要在项目文件夹下面运行命令 <code>ctags -R --c++-kinds=+p --fields=+iaS --extra=+q *&lt;CR&gt;:set tags+=./tags&lt;CR&gt;</code> ，这个命令的主要任务是对当前目录下的全部文件递归扫描，然后生成一个“tags”文件，里面记录整个项目的全部符号信息，同时将当前目录下的这个tags文件告知taglist，taglist根据这个tags文件显示项目的tag。(对于ctags命令中的各个开关，可以通过man ctags查看具体作用，此处不再赘述)</p>
+<p>接下来，稍微解释下部分配置内容：<br>
+<code>set tags=tags</code> 表示tags文件所在位置，此处设定为当前目录下查找tags文件，当然，你也可以添加其它路径下的tags文件。<code>set tags+=/usr/include/tags</code> 就将系统调用的tags文件也包含进来了，这样如果程序中包含系统的一些调用，那么也能被正确解析。此外，我们还将生成tags的ctags命令进行了键盘映射：<code>nmap tg :!ctags -R --c++-kinds=+p --fields=+iaS --extra=+q *&lt;CR&gt;:set tags+=./tags&lt;CR&gt;</code>  ，这样就可以直接在Vim的Normal模式下输入<code>tg</code>直接在当前工作目录下产生tags文件而不用先在终端运行ctags命令后在到Vim显示了。同时还需要注意的一点是，一旦程序代码发生改动，则相应的“tag”也会发生变化，这时需要重新利用ctags命令生成tags文件，这个对于我们设置完键位映射后显得比较简单，再输入<code>tg</code>即可。</p>
+<p>taglist的基本操作：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">key</th>
+<th style="text-align:left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><code>ctrl+]</code></td>
+<td style="text-align:left">查找当前光标所在处tag的定义</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>ctrl+t</code></td>
+<td style="text-align:left">返回到之前执行查找tag时的位置</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>o</code></td>
+<td style="text-align:left">在一个新打开的窗口中显示光标下tag</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>Space</code></td>
+<td style="text-align:left">显示光标下tag的原型定义</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>x</code></td>
+<td style="text-align:left">taglist窗口放大和缩小，方便查看较长的tag</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>q</code></td>
+<td style="text-align:left">关闭taglist窗口</td>
+</tr>
+</tbody>
+</table>
+<p>关于taglists的具体配置以及使用，请在Vim下输入<code>:help taglist</code>查看。同时，这里推荐一个关于ctags介绍的<a href="http://happycasts.net/episodes/25?autoplay=true" target="_blank" rel="external">视频</a>。</p>
+<p><strong>cscope</strong></p>
+<p>说到ctags，就不得不提下cscope。ctags最大的优点在于通过 <code>ctrl+]</code>就可以快速定位到程序符号所在的位置进行查看，之后再通过 <code>ctrl+t</code> 或者 <code>ctrl+o</code> 返回之前的位置，用两组按键来总结ctags，那就是 <code>ctrl+]</code> 和 <code>ctrl+t</code> 。ctags虽然已经相当不错了，但是仍然无法解决一些问题，例如查看函数被哪些函数调用，函数调用了哪些函数，查找该头文件被哪些文件包含等等，而解决这些问题，就需要用到cscope了。cscope不是Vim插件，而是一个工具，因此需要在终端进行安装。cscope的原理其实和ctags一样，也需要事先扫描项目目录，生成相关信息文件，方便之后查找的时候使用，cscope生成的数据文件为 <code>cscope.out</code> 和 <code>cscope.in.out</code>。</p>
+<p>cscope设置：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">" Cscope 设置</span><br><span class="line">if has("cscope")</span><br><span class="line">    set csprg=/usr/bin/cscope   "指定用来执行cscope的命令</span><br><span class="line">    set csto=0                  " 设置cstag命令查找次序：0先找cscope数据库再找标签文件；1先找标签文件再找cscope数据库"</span><br><span class="line">    set cst                     " 同时搜索cscope数据库和标签文件"</span><br><span class="line">    set cscopequickfix=s-,c-,d-,i-,t-,e-    " 使用QuickFix窗口来显示cscope查找结果"</span><br><span class="line">    set nocsverb</span><br><span class="line">    if filereadable("cscope.out")    " 若当前目录下存在cscope数据库，添加该数据库到vim</span><br><span class="line">        cs add cscope.out</span><br><span class="line">    elseif $CSCOPE_DB != ""            " 否则只要环境变量CSCOPE_DB不为空，则添加其指定的数据库到vim</span><br><span class="line">        cs add $CSCOPE_DB</span><br><span class="line">    endif</span><br><span class="line">    set csverb</span><br><span class="line">endif</span><br><span class="line">map <span class="tag">&lt;<span class="title">F4</span>&gt;</span>:!cscope -Rbq<span class="tag">&lt;<span class="title">CR</span>&gt;</span>:cs add ./cscope.out .<span class="tag">&lt;<span class="title">CR</span>&gt;</span><span class="tag">&lt;<span class="title">CR</span>&gt;</span><span class="tag">&lt;<span class="title">CR</span>&gt;</span> :cs reset<span class="tag">&lt;<span class="title">CR</span>&gt;</span></span><br><span class="line">"对:cs find c等Cscope查找命令进行映射</span><br><span class="line">nmap <span class="tag">&lt;<span class="title">leader</span>&gt;</span>s :cs find s <span class="tag">&lt;<span class="title">C-R</span>&gt;</span>=expand("<span class="tag">&lt;<span class="title">cword</span>&gt;</span>")<span class="tag">&lt;<span class="title">CR</span>&gt;</span><span class="tag">&lt;<span class="title">CR</span>&gt;</span> :copen<span class="tag">&lt;<span class="title">CR</span>&gt;</span><span class="tag">&lt;<span class="title">CR</span>&gt;</span></span><br><span class="line">nmap <span class="tag">&lt;<span class="title">leader</span>&gt;</span>g :cs find g <span class="tag">&lt;<span class="title">C-R</span>&gt;</span>=expand("<span class="tag">&lt;<span class="title">cword</span>&gt;</span>")<span class="tag">&lt;<span class="title">CR</span>&gt;</span><span class="tag">&lt;<span class="title">CR</span>&gt;</span></span><br><span class="line">nmap <span class="tag">&lt;<span class="title">leader</span>&gt;</span>d :cs find d <span class="tag">&lt;<span class="title">C-R</span>&gt;</span>=expand("<span class="tag">&lt;<span class="title">cword</span>&gt;</span>")<span class="tag">&lt;<span class="title">CR</span>&gt;</span><span class="tag">&lt;<span class="title">CR</span>&gt;</span> :copen<span class="tag">&lt;<span class="title">CR</span>&gt;</span><span class="tag">&lt;<span class="title">CR</span>&gt;</span></span><br><span class="line">nmap <span class="tag">&lt;<span class="title">leader</span>&gt;</span>c :cs find c <span class="tag">&lt;<span class="title">C-R</span>&gt;</span>=expand("<span class="tag">&lt;<span class="title">cword</span>&gt;</span>")<span class="tag">&lt;<span class="title">CR</span>&gt;</span><span class="tag">&lt;<span class="title">CR</span>&gt;</span>:copen<span class="tag">&lt;<span class="title">CR</span>&gt;</span><span class="tag">&lt;<span class="title">CR</span>&gt;</span></span><br><span class="line">nmap <span class="tag">&lt;<span class="title">leader</span>&gt;</span>t :cs find t <span class="tag">&lt;<span class="title">C-R</span>&gt;</span>=expand("<span class="tag">&lt;<span class="title">cword</span>&gt;</span>")<span class="tag">&lt;<span class="title">CR</span>&gt;</span><span class="tag">&lt;<span class="title">CR</span>&gt;</span>:copen<span class="tag">&lt;<span class="title">CR</span>&gt;</span><span class="tag">&lt;<span class="title">CR</span>&gt;</span></span><br><span class="line">nmap <span class="tag">&lt;<span class="title">leader</span>&gt;</span>e :cs find e <span class="tag">&lt;<span class="title">C-R</span>&gt;</span>=expand("<span class="tag">&lt;<span class="title">cword</span>&gt;</span>")<span class="tag">&lt;<span class="title">CR</span>&gt;</span><span class="tag">&lt;<span class="title">CR</span>&gt;</span>:copen<span class="tag">&lt;<span class="title">CR</span>&gt;</span><span class="tag">&lt;<span class="title">CR</span>&gt;</span></span><br><span class="line">nmap <span class="tag">&lt;<span class="title">leader</span>&gt;</span>f :cs find f <span class="tag">&lt;<span class="title">C-R</span>&gt;</span>=expand("<span class="tag">&lt;<span class="title">cfile</span>&gt;</span>")<span class="tag">&lt;<span class="title">CR</span>&gt;</span><span class="tag">&lt;<span class="title">CR</span>&gt;</span></span><br><span class="line">nmap <span class="tag">&lt;<span class="title">leader</span>&gt;</span>i :cs find i <span class="tag">&lt;<span class="title">C-R</span>&gt;</span>=expand("<span class="tag">&lt;<span class="title">cfile</span>&gt;</span>")<span class="tag">&lt;<span class="title">CR</span>&gt;</span><span class="tag">&lt;<span class="title">CR</span>&gt;</span> :copen<span class="tag">&lt;<span class="title">CR</span>&gt;</span><span class="tag">&lt;<span class="title">CR</span>&gt;</span></span><br><span class="line">" 设定是否使用 quickfix 窗口来显示 cscope 结果</span><br><span class="line">set cscopequickfix=s-,c-,d-,i-,t-,e-</span><br></pre></td></tr></table></figure>
+<p>cscope生成数据文件的命令为：<code>cscope -Rbq</code> ，<code>-R</code> 表示在生成索引文件时，搜索子目录树中的代码；<code>-b</code> 表示只生成索引文件，不进入cscope的界面；<code>-q</code> 表示生成 <code>cscope.in.out</code> 和 <code>cscope.po.out</code> 文件，加快cscope的索引速度。我们的配置文件将<code>&lt;F4&gt;</code>键映射成了cscope命令，同时将生成的cscope.out文件加入到当前索引文件中。(由于cscope和ctags往往配合一同使用，而且都需要事先生成数据文件，所以本人直接将ctags和cscope生成数据文件的操作组合起来，绑定到了一组组合键上：<code>nmap tg :!ctags -R --c++-kinds=+p --fields=+iaS --extra=+q *&lt;CR&gt; :set tags+=./tags&lt;CR&gt;:!cscope -Rbq&lt;CR&gt;:cs add ./cscope.out .&lt;CR&gt;</code> ，键位绑定这东西，仁者见仁，智者见智，根据自己的喜好来。)</p>
+<p>cscope基本操作：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">key</th>
+<th style="text-align:left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><code>:cs find s</code></td>
+<td style="text-align:left">查找这个C符号</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>:cs find g</code></td>
+<td style="text-align:left">查找这个定义</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>:cs find d</code></td>
+<td style="text-align:left">查找被这个函数调用的函数（们）</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>:cs find c</code></td>
+<td style="text-align:left">查找调用这个函数的函数（们）</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>:cs find t</code></td>
+<td style="text-align:left">查找这个字符串</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>:cs find e</code></td>
+<td style="text-align:left">查找这个egrep匹配模式</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>:cs find f</code></td>
+<td style="text-align:left">查找这个文件</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>:cs find i</code></td>
+<td style="text-align:left">查找#include这个文件的文件（们）</td>
+</tr>
+</tbody>
+</table>
+<p>find可以简写为f, 所以命令可以写成<code>:cs f s symbol_name</code></p>
+<p>参考上面cscope的配置语句，我们将 <code>:cs find</code> 操作映射成了 <code>&lt;leader&gt;</code> ，这样方便很多。<code>nmap &lt;leader&gt;s :cs find s &lt;C-R&gt;=expand(&quot;&lt;cword&gt;&quot;)&lt;CR&gt;&lt;CR&gt; :copen&lt;CR&gt;&lt;CR&gt;</code> ，这里我们主要关注下这条语句后面的内容，其中 <code>&lt;C-R&gt;=expand(&quot;&lt;cword&gt;&quot;)</code> 代表当前光标所在地方的单词，而 <code>:copen</code> 则是打开Vim中内置的一个称之为 <code>quickfix</code> 的窗口用于显示查找的结果。</p>
+<p>对我而言，我看代码时最常用的就是 <code>ctrl+]</code> ，<code>ctrl+o</code> 和 <code>:cs find c</code> 了。</p>
+<p>关于cscope的详细信息，请在终端运行 <code>man cscope</code> 。</p>
+<h2 id="winmanager">winmanager</h2>
+<p>我们上面介绍了用于文件浏览的nerdtree以及浏览程序符号的taglist，这两个插件都会以窗口的形式出现在Vim的窗口中，那么如何合理的安排它们，这就是winmanager的作用。</p>
+<p>这里，我们利用winmanager将nerdtree和taglist放到同一个&quot;侧边栏&quot;中，nerdtree在上方，taglist在下方，效果如下图所示：</p>
+<p><img src="/img/vim2/winmanager_with_nerdtree_and_taglist.png" alt=""></p>
+<p>winmanager设置：</p>
+<figure class="highlight scilab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">" WinManager设置</span><br><span class="line">"</span> NERD_Tree集成到WinManager</span><br><span class="line">let g:NERDTree_title=<span class="string">"[NERDTree]"</span> </span><br><span class="line"><span class="function"><span class="keyword">function</span>! <span class="title">NERDTree_Start</span><span class="params">()</span></span></span><br><span class="line">    exec <span class="string">'NERDTree'</span></span><br><span class="line"><span class="function"><span class="keyword">endfunction</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span>! <span class="title">NERDTree_IsValid</span><span class="params">()</span></span></span><br><span class="line">    <span class="keyword">return</span> <span class="number">1</span></span><br><span class="line"><span class="function"><span class="keyword">endfunction</span></span></span><br><span class="line"></span><br><span class="line"><span class="string">" 键盘映射，同时加入防止因winmanager和nerdtree冲突而导致空白页的语句</span><br><span class="line">nmap wm :if IsWinManagerVisible() &lt;BAR&gt; WMToggle&lt;CR&gt; &lt;BAR&gt; else &lt;BAR&gt; WMToggle&lt;CR&gt;:q&lt;CR&gt; endif &lt;CR&gt;&lt;CR&gt;</span><br><span class="line">"</span> 设置winmanager的宽度，默认为<span class="number">25</span></span><br><span class="line">let g:winManagerWidth=<span class="number">30</span> </span><br><span class="line"><span class="string">" 窗口布局</span><br><span class="line">let g:winManagerWindowLayout='</span>NERDTree|<span class="transposed_variable">TagList'</span></span><br><span class="line"><span class="string">" 如果所有编辑文件都关闭了，退出vim</span><br><span class="line">let g:persistentBehaviour=0</span></span><br></pre></td></tr></table></figure>
+<p>这里唯一要说的就是我将wm映射成了winmanager的开关，这意味着，在Vim的Normal模式下，我输入<code>wm</code>即可打开“侧边栏”，再次输入<code>wm</code>即可关闭“侧边栏”。</p>
+<h2 id="vim-airline">vim-airline</h2>
+<p>接下来介绍一下个人非常喜欢的一个插件vim-airline。这是一款状态栏增强插件，可以让你的Vim状态栏非常的美观，同时包括了buffer显示条扩展smart tab line以及集成了一些插件。vim-airline-demo</p>
+<p><img src="/img/vim2/vim-airline-demo.gif" alt="airline展示"></p>
+<p>(关于状态栏增强插件，你可能还听说过Powerline，airline是受Powerline的启发而开发的。和airline不同的是，Powerline不是纯粹的Vim脚本编写的，需要python的支持，同时airline的代码远少于powerline，这意味着airline更轻更快。)</p>
+<h3 id="vim-airline字体补丁">vim-airline字体补丁</h3>
+<p>虽然我们在本文的上半部分中讲解了通过Vundle来安装插件，但是airline有点特殊，还需要进行些额外的操作才能达到最佳的显示效果。这是因为airline中的三角形箭头实际上是通过特殊的字符而非图片实现的，但是系统原先的字体库中并没有包含这类特殊的图形字符，因此，想要达到上图所示的显示效果，需要对系统字库“打补丁”，即添加特殊图形字符。具体步骤如下：</p>
+<ol>
+<li>下载已经打过补丁的字体</li>
+</ol>
+<p>在家目录下新建一个.fonts文件夹：<code>$ mkdir ~/.fonts</code> 然后 <code>$ cd ~/.fonts</code> 进入文件夹，执行 <code>$git clone git@github.com:Lokaltog/powerline-fonts.git</code> 下载已经打过补丁的字体文件。此时，<code>~/.fonts/</code> 目录下已经存在打过补丁的常用系统字体文件了。</p>
+<ol start="2">
+<li>向系统中安装打过补丁的字体</li>
+</ol>
+<p>运行 <code>$ fc-cache -vf ~/.fonts</code> 安装patched fonts到系统中。</p>
+<ol start="3">
+<li>设置终端字体为打过补丁的字体</li>
+</ol>
+<p><img src="/img/vim2/set_patched_font_for_terminal.png" alt=""></p>
+<p>我这里将终端字体设置成了DejaVu Sans Mono for Powerline。(打过补丁的字体名字后面都会有个for Powerline，选择自己喜欢的就好)。</p>
+<h3 id="vim-airline设置">vim-airline设置</h3>
+<figure class="highlight livescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">" airline设置</span><br><span class="line">set laststatus=2</span><br><span class="line">"</span> 使用powerline打过补丁的字体</span><br><span class="line"><span class="keyword">let</span> <span class="attribute">g</span>:airline_powerline_fonts = <span class="number">1</span></span><br><span class="line"><span class="string">" 开启tabline</span><br><span class="line">let g:airline<span class="subst">#extensions</span><span class="subst">#tabline</span><span class="subst">#enabled</span> = 1</span><br><span class="line">"</span> tabline中当前buffer两端的分隔字符</span><br><span class="line"><span class="keyword">let</span> <span class="attribute">g</span>:airline<span class="comment">#extensions#tabline#left_sep = ' '</span></span><br><span class="line"><span class="string">" tabline中未激活buffer两端的分隔字符</span><br><span class="line">let g:airline<span class="subst">#extensions</span><span class="subst">#tabline</span><span class="subst">#left_alt_sep</span> = '|'</span><br><span class="line">"</span> tabline中buffer显示编号</span><br><span class="line"><span class="keyword">let</span> <span class="attribute">g</span>:airline<span class="comment">#extensions#tabline#buffer_nr_show = 1</span></span><br><span class="line"><span class="string">" 映射切换buffer的键位</span><br><span class="line">nnoremap [b :bp&lt;CR&gt;</span><br><span class="line">nnoremap ]b :bn&lt;CR&gt;</span></span><br></pre></td></tr></table></figure>
+<p>关于上述的配置文件没什么好说的，注释都解释的比较明白了。这里我只想提一下vim-airline中自带的smart tab line扩展，smart tab line效果如下</p>
+<p><img src="/img/vim2/tabline_in_airline.gif" alt="airline中的tabline展示"></p>
+<p>我们都知道在Vim中可以同时操作多个文件，多文件操作主要有两个显示手段，一个是buffer方式，一个tab的方式。tab方式我想不用多说，就相当于标签页，每个标签页位于不同的Vim窗口。因此，当切换tab的时候，原先的窗口布局会发生混乱，这个是我们不愿意看到的，而buffer则是在同一个窗口下的，便不存在这个问题。实际使用过程中，我更倾向于使用buffer来管理打开的多个文件。但是Vim对于buffer，默认的是隐藏的，也就是说，你打开了A、B、C三个文件，Vim并不将这三个文件的buffer显示出来，你只能通过 <code>:ls</code> 来查看buffer，然后通过 <code>:bn</code> (buffer next)和 <code>:bp</code> (buffer previous)，或者 <code>:b num</code> (打开编号为num的buffer)这样的命令来切换不同文件。如果能把buffer显示在Vim的窗口上，那么buffer切换起来就相对比较轻松，同时也能明白自己打开的文件都有哪些。</p>
+<p>对于buffer可视化以及buffer管理的插件，比较著名的有 <code>Minibufexplorer</code> 和 <code>Bufexplorer</code>，大多数人选择使用Minibufexplorer(Bufexplorer我没用过)。Minibufexplorer整体上来说不错，但是存在一个个人认为非常致命的缺陷，那就是和winmanager的兼容性不好，表现在当打开多个buffer的时候，winmanager中的nerdtree显示部分会被压扁，无法还原，同时关闭文件buffer时，窗体的布局有时候会发生混乱。正因为这样的原因导致我最后放弃了Minibufexplorer。而airline中自带的smart tab line的主要功能是将buffer显示出来，同时当文件名太长的时候，会根据设定的模式进行适当的缩写。可能没有Minibufexplorer功能多，但是这样对我而言就已经足够了，更何况tab line还如此的美观呢 :-D</p>
+<p>因为tab line只是一个显示buffer的扩展，并不提供操作buffer的功能，所以想要操作buffer还是要通过Vim自带的命令实现，从上面的配置语句中可以看到，我将切换到前一个buffer的命令 <code>:bp</code> 映射成了 <code>[b</code> ，将切换至后一个buffer的命令 <code>:bn</code> 映射成了 <code>]b</code> (这实际上是airline作者的映射)</p>
+<h2 id="vim-bbye">vim-Bbye</h2>
+<p>vim-Bbye主要是用于解决在关闭buffer时候导致的窗口混乱问题。(如果你在关闭buffer的时候没有任何问题的话，可以无视此插件= =)问题主要表现为，在Vim中，如果当前窗口里存在多个buffer，而你用 <code>:bd</code> 命令删除当前操作的buffer的话，会导致整个Vim窗口都被关闭的问题。vim-Bbye很好的解决了这个问题。</p>
+<p>vim-Bbye涉及到的主要命令就是 <code>:Bd</code>,采用这个命令关闭当前buffer不会导致整个窗口被关闭的问题。因此我将这条命令映射成了bd ，在vimrc中的配置如下：</p>
+<figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">" Bbye设置</span><br><span class="line">"</span> 由于原生的<span class="symbol">:bd</span>在删除当前buffer时会将整个窗口关闭，故使用<span class="constant">Bbye的</span><span class="symbol">:Bd</span></span><br><span class="line">nnoremap bd <span class="symbol">:Bd&lt;CR&gt;</span></span><br></pre></td></tr></table></figure>
+<h2 id="ctrlp">ctrlp</h2>
+<p>ctrlp是一款相当棒的插件，主要的功能是对文件进行模糊的查找，如果你的project目录结构复杂，或者你正在阅读一个较大的项目的话，那么ctrlp可以帮你快速的定位到你想要文件而不必在终端不断的cd、ls。</p>
+<p>例如想打开文件 <code>linux/arch/x86/mm/mmap.c</code> , 只需要在vim中通过 <code>ctrl+p</code> , 打开ctrlp, 输入 <code>laxmm</code> 或者 <code>lucxmp</code> (诸如此类的, 即路径中顺序出现的字符组合), ctrlp就能帮你定位到对应的 <code>mmap.c</code> 文件, 回车打开即可.</p>
+<p>ctrlp在阅读大项目时特别有用, 很多时候,  我们只记得要找的文件大概在某个文件夹下, 不确定中间还有哪些文件夹, 这时ctrlp就可以极大程度的提高你定位文件的效率.</p>
+<p>这里提供一个介绍ctrlp不错的<a href="http://happycasts.net/episodes/64?autoplay=true" target="_blank" rel="external">视频</a>给大家。</p>
+<h2 id="nerdcommenter">nerdcommenter</h2>
+<p>如果你是一个酷爱写注释的程序员的话，那么你一定要用一下nerdcommenter，即便你不热衷于写注释，你也应该关注下nerdcommenter这款插件。</p>
+<p>nerdcommenter基本操作：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">key</th>
+<th style="text-align:left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><code>&lt;leader&gt;cc</code></td>
+<td style="text-align:left">注释当前行</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>&lt;leader&gt;c+space</code></td>
+<td style="text-align:left">注释选定代码行</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>&lt;leader&gt;cu</code></td>
+<td style="text-align:left">取消注释</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>&lt;leader&gt;ca</code></td>
+<td style="text-align:left">在可选的注释方式之间切换，比如C/C++ 的块注释/* */和行注释//</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>&lt;leader&gt;cA</code></td>
+<td style="text-align:left">在当前行尾添加注释符，并进入Insert模式</td>
+</tr>
+</tbody>
+</table>
+<p>nerdcommenter和Vim的Visual模式结合可以快速的注释/取消注释多行代码，同时在行尾追加注释并自动进入Insert模式可以方便的进行行内注释。</p>
+<p>关于nerdcommenter的更多信息，请在Vim中执行 <code>:help nerdcommenter</code> 。</p>
+<h2 id="a-vim">a.vim</h2>
+<p>a.vim的主要功能是快速的在<code>*.c</code> / <code>*.cpp</code> 和 <code>*.h</code>之间进行转换，如果你正在用C/C++进行开发或者正在阅读C/C++项目的话，那么你可能会需要用到a.vim的。</p>
+<p>a.vim的基本操作：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">key</th>
+<th style="text-align:left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><code>:A</code></td>
+<td style="text-align:left">头文件／源文件切换</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>:AN</code></td>
+<td style="text-align:left">在多个匹配文件间循环切换</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>&lt;Leader&gt;ih</code></td>
+<td style="text-align:left">切换至光标所在文件</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>&lt;Leader&gt;is</code></td>
+<td style="text-align:left">切换至光标所在处(单词所指)文件的配对文件(如光标所在处为foo.h，则切换至foo.c/foo.cpp…)</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>&lt;Leader&gt;ihn</code></td>
+<td style="text-align:left">在多个匹配文件间循环切换</td>
+</tr>
+</tbody>
+</table>
+<p>关于a.vim的更多信息请参考a.vim插件目录下的README文件。</p>
+<h2 id="omnicppcomplete">OmniCppComplete</h2>
+<p>老牌的C/C++自动补全插件了，目前似乎存在更好的自动补全插件，例如 <code>YouCompleteMe</code> 和 <code>Neocomplete</code>。这里就不再对OmniCppComplete进行叙述了。</p>
+<hr>
+<h1 id="vim及插件集的备份">Vim及插件集的备份</h1>
+<p>经过了上面这么多道复杂的工序后，我们现在手里的Vim似乎更加完善了。在讲解的最后部分，让我们来聊聊如何对Vim的环境来进行备份。</p>
+<p>目前我们对Vim的配置主要涉及vimrc文件和插件集，对于有多台电脑或者经常四处跑的同学来说，肯定能理解同步环境的意义，如果能将我们在本地配置好的Vim环境都保存在某个服务器上，那么不管在哪里，用哪台电脑，只要能联网，我们就可以通过网络迅速的恢复/搭建好我们的Vim环境。这里不得不称赞一下github，实在是广大程序员的福音，即便不是程序员，合理的使用github也能省去不少麻烦。利用git，我们可以在github服务器上建立一个项目，专门用来存放我们的Vim配置文件以及插件，然后将本地配置好的Vim环境全都发送至服务器端，等需要的时候，直接从服务器端取回即可，不需要再进行额外的配置，可以说是非常的方便。我们接下来讲讲具体的步骤。</p>
+<h2 id="建立github帐号">建立Github帐号</h2>
+<p>如何申请github账号，这里就不说了。</p>
+<h2 id="新建github项目">新建Github项目</h2>
+<p>在你的github账号上新建一个项目</p>
+<p><img src="/img/vim2/github_create_repo.png" alt="新建github项目"></p>
+<p>这里，不要勾选 <code>Initialize this repository with a README</code> 。点击 <code>create repository</code> 来创建一个属于你的项目。这一步的目的是在github服务器上建立用于存放Vim配置及插件的仓库，以便之后可以将本地上的文件提交到这个仓库中保存。</p>
+<h2 id="操作本地仓库">操作本地仓库</h2>
+<p>在本地 <code>～/.vim/</code> 目录进行git操作</p>
+<p><code>$ cd ~/.vim</code> 移动到 <code>~/.vim/</code> 文件夹下，我们的Vim插件都在这个文件夹下，因此我们要将这个目录作为git操作的根目录，之后才能将这个目录的内容提交到服务器上。</p>
+<p>Vim环境除了插件外，还有 <code>～/.vimrc</code> 文件，因为我们备份的目录是 <code>~/.vim/</code> 并不包含 <code>～/.vimrc</code> 文件，因此我们 <code>$ mv ~/.vimrc ~/.vim/</code> 将 <code>.vimrc</code> 移动到 <code>~/.vim/</code> 目录下，同时 <code>ln -sf ～/.vim/.vimrc ~/.vimrc</code> 在家目录下创建一个符号链接。</p>
+<p>接下来是本地的git操作：</p>
+<p>对于第一次使用git的同学而言，你需要告知git工具你的用户名和邮箱信息，以便在你执行git操作的时候可以知道是谁作出的改动。</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ git config --global user<span class="class">.name</span> <span class="string">"你的名字"</span> </span><br><span class="line">$ git config --global user<span class="class">.email</span> <span class="string">"你的邮箱"</span></span><br></pre></td></tr></table></figure>
+<p>在～/.vim/文件夹下初始化git项目信息。</p>
+<figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$ </span>git init</span><br></pre></td></tr></table></figure>
+<p>将～/.vim/文件夹的内容和隐藏文件.vimrc全都加入git的追踪列表里</p>
+<figure class="highlight avrasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git <span class="keyword">add</span> * .vimrc</span><br></pre></td></tr></table></figure>
+<p>(git add . 是常用的添加命令, 但是不包括隐藏文件, 这也是为什么单独添加.vimrc的原因)。</p>
+<p>提交追踪列表里的文件，同时给出本次提交操作的相关信息。</p>
+<figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git commit -m '<span class="keyword">first</span> commit <span class="keyword">for</span> <span class="keyword">my</span> vim evironment'</span><br></pre></td></tr></table></figure>
+<p>这样我们 <code>～/.vim/</code> 文件夹下的全部内容就全都提交到本地的git仓库中了。接下来要做的就是将本地的git仓库发送(push)到远端的github服务器的对应项目上。</p>
+<h2 id="同步本地仓库至远端仓库">同步本地仓库至远端仓库</h2>
+<p>接下来是将本地仓库push到github上的操作：</p>
+<p>push操作实际上是将已经提交给git的本地仓库发送到远端服务器上，这里我们将上面提交好的 <code>～/.vim/</code>目录提交到特定账号上的特定项目中。这个过程需要对你的github账户上的项目进行写操作，显然只有用户自身才有权限对其账号下的项目执行写操作，因此在提交之前，需要完成github对应用户的验证过程。</p>
+<p>github采用SSH的验证方式，即用户需要在本地电脑上生成一对SSH密钥，将公钥保存在github上，自己本地电脑上保留私钥，在连接github时进行私钥和公钥的验证，匹配则被认定为用户登陆成功(关于SSH的连接原理，请参见<a href="">SSH连接认证原理概述</a>。所以，第一次向github提交项目的同学，需要执行：</p>
+<p><code>$ ssh-keygen</code> 一路回车，这条命令会在 <code>~/.ssh/</code> 目录下产生私钥文件 <code>id_rsa</code> 以及公钥文件 <code>id_rsa.pub</code>，我们需要将公钥文件<code>id_rsa</code>中的内容填入到github账户下的SSH key中。</p>
+<p>在github.com上点击 <code>账户设定 -- SSH-Keys -- add SSH key</code><br>
+<img src="/img/vim2/add_sshkey_for_github.png" alt=""></p>
+<p>可以看到我已经上传了一个公钥(Public Key)了，在这里，你需要给公钥一个名字，便于区别，同时在Title下方的Key文本框内，将 <code>~/.ssh/</code> 目录下的 <code>id_rsa.pub</code> 文件中的内容粘贴进来(复制粘贴的时候注意格式，公钥不包含回车换行的，同时不要在末尾留有空格)。点击Add key，就可以成功添加公钥了。这样，就完成了github账户和本地电脑的SSH密钥配对。</p>
+<p><code>$ ssh -T git@github.com</code> 在终端对github来进行连接，这里的用户名为git，是所有github用户统一的用户名。如果连接成功，终端会返回 <code>Hi 你的用户名! You've successfully authenticated, but GitHub does not provide shell access.</code> 。</p>
+<p><code>$ cd ~/.vim/</code> 再次回到 <code>~/.vim/</code> 目录，接下来将本地的git仓库推送到github的对应项目上：</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ git remote add origin git@github<span class="class">.com</span>:你的用户名/你的项目名<span class="class">.git</span></span><br><span class="line">$ git push origin master</span><br></pre></td></tr></table></figure>
+<p>现在，到github上看看，<code>.vim</code>文件夹下的内容是不是都出现在上面了: - )</p>
+<p>自此，备份过程结束。如果想要恢复备份的话，只需要 <code>$ git clone https://github.com/你的用户名/你的vim项目.git</code> 将github上的vim项目拷贝至本地, 之后再 <code>mv 你的vim项目名 ~/.vim</code> 即可。如果你又给你的Vim做了修改或者添加了新的插件的话，那么只要重新执行上述过程中的git add、git commit、git push操作即可。</p>
+<p>对于git的基本操作，可以参见这个<a href="http://happycasts.net/episodes/7?autoplay=true" target="_blank" rel="external">视频</a>。</p>
+<hr>
+<h1 id="总结">总结</h1>
+<p>Vim真的是一款非常强大的文本编辑工具，搭配上适当的插件之后更是如虎添翼，但是过多的插件又会让Vim变得非常的臃肿，甚至反应速度会变慢，而且也违背Unix的KISS(keep it simple, stupid)原则。在网上也有部分人认为不应该使用Vim插件，避免对插件过渡依赖。就我个人而言，我需要的只是一个高效的工具，来帮我完成特定的任务，至于这个工具是复杂，是简单，是不是需要恪守一些原则我不是很在意，我真正关心的是这个工具能否高效的完成我的任务。正如白猫黑猫的道理一样。因此，对于Vim，我一直本着让Vim来适应我的习惯和需求而非让我去适应Vim的想法来使用它的，如果不添加任何插件，那我想在很多时候Vim就不是那么的好用，如果添加了许多的插件，那么Vim的响应速度会很慢而且其中大部分插件只是会偶尔的用到或根本不用。这是一个trade-off的过程，总之自己用的顺手，用的舒坦才是最重要的。</p>
+<p>这篇文章亦是我心血来潮之作，介绍Vim及其插件的文章可谓成千上万，而且Vim本身以及绝大部分的插件都正在不断的发展和完善中，可能现在流行的插件，过不了多久就被另外一个新兴的插件给替代了，同样的，现在写的关于Vim插件的相关文章也会因为时间的流逝而慢慢过时而变得没有意义。即便如此，我依然还是很开心的把这一大篇的文章给写完了，为何如此？只是最近使用Vim开代码，添加新的插件的时候，回想起自己当初刚接触Vim时茫然无措的情景，而上网找到的资料要不是早就过时的，要不就是存在错误或者轻描淡写草草带过的，只有极少数负责任的博主的几篇优秀的博文真正帮到了我。而我所能做的，也只是将我目前所知道，尽可能认真的阐述出来，或许能帮到一些人。学习、记录、分享，不亦乐乎。</p>
+
+            
+      
+    </div>
+    <footer class="article-footer">
+      
+        <a data-url="http://fancyseeker.github.io/2014/05/16/vim2/" data-id="cil06sjj400091k4z004vuphu" class="article-share-link" data-share="baidu">分享到</a>
+      
+
+      
+        <a href="http://fancyseeker.github.io/2014/05/16/vim2/#ds-thread" class="article-comment-link">评论</a>
+      
+
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/vim/">vim<span class="article-tag-list-count">2</span></a></li></ul>
+
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2014/06/16/nfs_xen/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong>
+      <div class="article-nav-title">
+        
+          利用NFS在Xen中设立共享文件夹
+        
+      </div>
+      </strong>
+    </a>
+  
+  
+    <a href="/2014/05/15/vim1/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong>
+      <div class="article-nav-title">
+          Vim(1) -- 认识Vim
+      </div>
+      </strong>
+    </a>
+  
+</nav>
+
+
+  
+</article>
+
+
+  <section id="comments">
+    <div id="ds-thread" class="ds-thread" data-thread-key="2014/05/16/vim2/" data-title="Vim(2) -- Vim插件介绍及配置" data-url="http://fancyseeker.github.io/2014/05/16/vim2/"></div>
+  </section>
+
+</section>
+      
+        
+          <div id="toc-wrap">
+            <div id="toc" class="toc-article">
+              <div id="toc-title">目录</div>
+              <div id="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#前言-v2"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#插件概览"><span class="toc-number">2.</span> <span class="toc-text">插件概览</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#插件安装"><span class="toc-number">3.</span> <span class="toc-text">插件安装</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#传统的安装方式-不推荐"><span class="toc-number">3.1.</span> <span class="toc-text">传统的安装方式(不推荐)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#插件管理工具-vundle"><span class="toc-number">3.2.</span> <span class="toc-text">插件管理工具–Vundle</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#vundle的优点"><span class="toc-number">3.2.1.</span> <span class="toc-text">Vundle的优点</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#安装配置vundle"><span class="toc-number">3.2.2.</span> <span class="toc-text">安装配置Vundle</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#插件配置及使用"><span class="toc-number">4.</span> <span class="toc-text">插件配置及使用</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#nerdtree"><span class="toc-number">4.1.</span> <span class="toc-text">nerdtree</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#taglist"><span class="toc-number">4.2.</span> <span class="toc-text">taglist</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#winmanager"><span class="toc-number">4.3.</span> <span class="toc-text">winmanager</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#vim-airline"><span class="toc-number">4.4.</span> <span class="toc-text">vim-airline</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#vim-airline字体补丁"><span class="toc-number">4.4.1.</span> <span class="toc-text">vim-airline字体补丁</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#vim-airline设置"><span class="toc-number">4.4.2.</span> <span class="toc-text">vim-airline设置</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#vim-bbye"><span class="toc-number">4.5.</span> <span class="toc-text">vim-Bbye</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ctrlp"><span class="toc-number">4.6.</span> <span class="toc-text">ctrlp</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#nerdcommenter"><span class="toc-number">4.7.</span> <span class="toc-text">nerdcommenter</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#a-vim"><span class="toc-number">4.8.</span> <span class="toc-text">a.vim</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#omnicppcomplete"><span class="toc-number">4.9.</span> <span class="toc-text">OmniCppComplete</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#vim及插件集的备份"><span class="toc-number">5.</span> <span class="toc-text">Vim及插件集的备份</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#建立github帐号"><span class="toc-number">5.1.</span> <span class="toc-text">建立Github帐号</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#新建github项目"><span class="toc-number">5.2.</span> <span class="toc-text">新建Github项目</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#操作本地仓库"><span class="toc-number">5.3.</span> <span class="toc-text">操作本地仓库</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#同步本地仓库至远端仓库"><span class="toc-number">5.4.</span> <span class="toc-text">同步本地仓库至远端仓库</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#总结"><span class="toc-number">6.</span> <span class="toc-text">总结</span></a></li></ol></div>
+            </div>
+          </div>
+        
+    
+    </div>
+    <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2016 fancyseeker<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+      .
+      Based on <a href="https://github.com/xiangming/landscape-plus" target="_blank">Landscape-plus</a>
+    </div>
+  </div>
+</footer>
+
+  </div>
+  <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+    <a href="/about" class="mobile-nav-link">About</a>
+  
+</nav>
+  <!-- totop start -->
+<div id="totop">
+<a title="返回顶部"><img src="/img/scrollup.png"/></a>
+</div>
+
+<!-- totop end -->
+
+<!-- 多说公共js代码 start -->
+<script type="text/javascript">
+var duoshuoQuery = {short_name:"fancyseeker"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+     || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+  </script>
+<!-- 多说公共js代码 end -->
+
+
+<!-- 百度分享 start -->
+
+<div id="article-share-box" class="article-share-box">
+  <div id="bdshare" class="bdsharebuttonbox article-share-links">
+    <a class="article-share-weibo" data-cmd="tsina" title="分享到新浪微博"></a>
+    <a class="article-share-weixin" data-cmd="weixin" title="分享到微信"></a>
+    <a class="article-share-qq" data-cmd="sqq" title="分享到QQ"></a>
+    <a class="article-share-renren" data-cmd="renren" title="分享到人人网"></a>
+    <a class="article-share-more" data-cmd="more" title="更多"></a>
+  </div>
+</div>
+<script>window._bd_share_config={"common":{},"share":{"bdCustomStyle":"/css/bdshare.css"}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?cdnversion='+~(-new Date()/36e5)];</script>
+
+<!-- 百度分享 end -->
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+
+
+
+
+<script src="/js/script.js" type="text/javascript"></script>
+
+</div>
+</body>
+</html>
+

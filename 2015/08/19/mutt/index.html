@@ -1,0 +1,923 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Mutt: 阅读邮件列表 | FancySeeker</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="Mutt是一款优秀的邮件客户端工具, 但是在配置使用上对初学者并不友好. 本文通过讲述为什么使用Mutt, Mutt是什么, 如何配置Mutt来尽可能全面的描述Mutt, 而非仅仅简单的介绍如何配置Mutt.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Mutt: 阅读邮件列表">
+<meta property="og:url" content="http://fancyseeker.github.io/2015/08/19/mutt/index.html">
+<meta property="og:site_name" content="FancySeeker">
+<meta property="og:description" content="Mutt是一款优秀的邮件客户端工具, 但是在配置使用上对初学者并不友好. 本文通过讲述为什么使用Mutt, Mutt是什么, 如何配置Mutt来尽可能全面的描述Mutt, 而非仅仅简单的介绍如何配置Mutt.">
+<meta property="og:image" content="/img/mutt/thread_in_gmail.jpg">
+<meta property="og:image" content="/img/mutt/thread_in_mutt.png">
+<meta property="og:image" content="/img/mutt/quoted_in_gmail.png">
+<meta property="og:image" content="/img/mutt/quoted_in_mutt.png">
+<meta property="og:image" content="/img/mutt/patch_in_gmail.png">
+<meta property="og:image" content="/img/mutt/patch_in_mutt.png">
+<meta property="og:image" content="/img/mutt/how_email_works.png">
+<meta property="og:image" content="/img/mutt/mutt_relation.jpg">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Mutt: 阅读邮件列表">
+<meta name="twitter:description" content="Mutt是一款优秀的邮件客户端工具, 但是在配置使用上对初学者并不友好. 本文通过讲述为什么使用Mutt, Mutt是什么, 如何配置Mutt来尽可能全面的描述Mutt, 而非仅仅简单的介绍如何配置Mutt.">
+  
+    <link rel="alternative" href="/atom.xml" title="FancySeeker" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.ico">
+  
+  <link rel="stylesheet" href="/css/style.css" type="text/css">
+  <!--[if lt IE 9]><script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7/html5shiv.min.js"></script><![endif]-->
+  
+</head>
+<body>
+<div id="container">
+  <div id="wrap">
+    <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-img"></div>
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">FancySeeker</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">Welcome, my friends.</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <!-- <a id="main-nav-toggle" class="nav-icon"></a> -->
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+          <a class="main-nav-link" href="/about">About</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="http://www.baidu.com/baidu" method="get" accept-charset="utf-8" class="search-form">
+          <input type="search" name="word" maxlength="20" class="search-form-input" placeholder="Search">
+          <input type="submit" value="" class="search-form-submit">
+          <input name=tn type=hidden value="bds">
+          <input name=cl type=hidden value="3">
+          <input name=ct type=hidden value="2097152">
+          <input type="hidden" name="si" value="fancyseeker.github.io">
+        </form>
+      </div>
+    </div>
+	
+  </div>
+</header>
+    <div class="outer">
+      <section id="main"><article id="post-mutt" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+          <div class="article-meta">
+            
+            <a href="/2015/08/19/mutt/" class="article-date">
+  <time datetime="2015-08-19T01:42:04.000Z" itemprop="datePublished">2015-08-19</time>
+</a>
+            <p class="article-time">
+                <a href="/2015/08/19/mutt/" class="article-time">
+  <time datetime="2015-08-19T01:42:04.000Z" itemprop="datePublished">09:42:04</time>
+</a>
+
+            </p>
+          </div>
+        
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Mutt: 阅读邮件列表
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+       <!--<p>Mutt是一款优秀的邮件客户端工具, 但是在配置使用上对初学者并不友好. 本文通过讲述为什么使用Mutt, Mutt是什么, 如何配置Mutt来尽可能全面的描述Mutt, 而非仅仅简单的介绍如何配置Mutt.</p>
+<a id="more"></a>
+<h1 id="前言-v3">前言</h1>
+<p>网络上关于介绍Mutt的文章很多, 相信最有名的应该算是王垠的<a href="http://www.ctex.org/documents/shredder/mutt_frame.html" target="_blank" rel="external">Mutt使用指南</a>了吧, 这是我看过诸多讲述Mutt文章中讲的最好的, 为什么? 因为这篇文章真的只讲Mutt啊! 当然, 最后我还是无法根据这篇文章把我的Mutt配置用起来就是了. 除此之外, 网上遍布了各式各样的形如<code>(从零配置)?mutt+(getmail|fetchmail)+(msmtp|esmtp)(+procmail)?收发邮件</code>之类的文章, 那为什么我还要再造一个轮子, 哦不, 是再写这一篇文章来给互联网添加冗余的信息呢?</p>
+<ul>
+<li>
+<p>首先, 介绍下我的使用场景, 我需要使用阅读相关社区的Mailing List, 而邮件列表这种东西大家或多或少了解过, 主要的特点是邮件主题(Thread)多, 回复(Re)多, 引用(Quoted)多, 代码(Patch)多…如果你订阅(Subscribe)了一个邮件列表, 那么一天收个一百来封邮件很正常. 那么问题就来了, 这么多这么乱的邮件, 如何阅读? 如何整理? 我们常用的邮箱诸如Gmail, 163, QQmail etc. 这类的邮箱在日常使用中确实表现不错, 但是碰到邮件列表, 似乎就不怎么好用了. 此外, 还有一些邮件客户端, 诸如Outlook, Thunderbird etc. Thunderbird我没用过就不置评了, Outlook看邮件列表我没试过, 但是就是在Outlook中多几层引用回复我看起来就很费劲了, 可能是比较low吧, 并没有学习如何高效使用神器Outlook = =.</p>
+</li>
+<li>
+<p>其次, 除了邮件又杂又多的问题, 在社区的开发者列表(devel)中经常会包含很多代码, 其中有讨论代码的, 也有是使用<code>git sendmail</code>发送的Patch的, 因此邮件内容中会包含很多的代码, 其中的代码还是<code>git diff</code>格式的, 增减的代码行首有<code>+</code>有<code>-</code>, 如何能高亮修改的代码行以及其它信息是高效阅读邮件的关键, 毕竟, 时间就是金钱, 我的朋友 ;-P</p>
+</li>
+<li>
+<p>最后, 当我在网上搜索Mutt的相关介绍时候, 其实我是想找到如何配置Mutt的, 而搜索引擎返回给我的结果也确实是如何配置Mutt的, 但是很遗憾的, Mutt这个工具对于刚接触的人来说实在是太不友好了. 我只想收发邮件, 为什么还要整那么多没用的, 又是getmail, 又是msmtp的, 还有个看起来巨复杂的procmail? 然后当我困惑于这些个东西是什么关系的时候, 文章只是甩了我几个配置文件就完了? 当我半知不解的照猫画虎按照文章内容小心翼翼的编辑完配置文件后, 发现不能用亦或是根本就不对的时候, 我的内心是崩溃的(摔! 谁能告诉我配置文件的参数是什么意思, 为什么要配这个参数, 这个参数还有什么其它值, 行为是怎么样的, 还有没有其它的参数来完成XXX功能? 而当我苦苦在一篇篇文章中苦苦上下求索一无所获满头雾水的时候, 所幸最后Stackoverflow, 官网manual以及man page救了我.</p>
+</li>
+</ul>
+<p>综上, 可以看到, 我需要用Mutt来阅读邮件列表, 之所以选Mutt而不使用传统的邮件客户端或是常用的邮箱是因为其在阅读邮件列表时表现不佳, 缺乏效率. 而当我要着手配置Mutt的时候, 网络上的诸多文章仅仅只能起到参考的作用, 我希望能做到自己来定制Mutt并且是真的了解为什么这么配才去配, 而不是随手拿来一个配置文件就用. 再者, 就是本人有些许强迫症, 像Mutt和其它的一些在Unix-like环境下运行的Tools具有极强定制性的工具, 总是希望能将其尽可能的配置到顺手为止. 因此, 我才花时间来写下这篇文章, 一方面记录自己的配置过程, 方便以后回顾用, 另一方面, 若能顺便帮助下有需要的人, 那也算是意外收获了吧.</p>
+<h1 id="why-为什么使用mutt">Why: 为什么使用Mutt</h1>
+<p>如上文所述, 从阅读邮件的角度来说, 有很多很好用的邮箱, Gmail就是本人很喜欢的邮箱, 并且一直在用, 除了一些不可控的原因影响其用户体验外, 其它方面确实表现的很好. 那为什么我还要花这么大的力气去配置Mutt呢? Mutt跟其它的邮箱相比, 到底有哪些好处呢? 接下来我们来对比下集中应用场景(主要针对邮件列表阅读).</p>
+<ol>
+<li><strong>Thread视图</strong></li>
+</ol>
+<p><img src="/img/mutt/thread_in_gmail.jpg" alt="Gmail中的邮件列表视图"><br>
+<img src="/img/mutt/thread_in_mutt.png" alt="Mutt中的邮件列表视图"></p>
+<p>从上图的对比中可以看到, Gmail中的邮件列表视图是基于发信时间的, 虽然这样可以查看到最新的邮件, 但是邮件列表的上下文逻辑就看不清楚了. Mutt则是基于邮件主题的模式进行排列的, 每封邮件都按照Thread的前后回复逻辑组织在一起, 一眼看去回复关系非常清楚, 而且Mutt还能设置高亮, 例如在上图的配置中, 将未读的邮件设置成高亮的蓝色, 已读的邮件设置成白色, 未读的Thread设置成高亮蓝色, 部分已读部分未读的Thread设置成紫色, 这些高亮都是可以自定义的, 因此打开Mutt的邮件列表视图, 一眼看去就知道哪些邮件是已经看过的, 哪些邮件是完全没看过的以及哪些邮件是只看一部分未看全的.</p>
+<ol start="2">
+<li><strong>嵌套引用</strong></li>
+</ol>
+<p><img src="/img/mutt/quoted_in_gmail.png" alt="Gmail中的嵌套引用"><br>
+<img src="/img/mutt/quoted_in_mutt.png" alt="Mutt中的嵌套引用"></p>
+<p>在邮件列表的阅读中, 经常会出现多层的嵌套引用, 从上图的对比中可以看出, Gmail并未对嵌套的引文做任何处理, 而Mutt则可以使用不同的颜色区分不同层的引文, 引用次序非常清晰明了.</p>
+<ol start="3">
+<li><strong>Patch邮件</strong></li>
+</ol>
+<p><img src="/img/mutt/patch_in_gmail.png" alt="Gmail中的Patch邮件"><br>
+<img src="/img/mutt/patch_in_mutt.png" alt="Mutt中的Patch邮件"></p>
+<p>在开源社区, 在发送Patch的时候常常使用<code>git sendmail</code>来发送Patch, 而不是以附件的形式. 我们可以看到, 在Gmail中将Patch中代码的部分直接当做正文来处理, 因此很难看清楚到底Patch中对哪里做了修改, 而在Mutt中, 可以通过正则表达式的方式来匹配正文中的任意字段实现高亮, 将其应用到Patch邮件的正文中, 将增减的行高亮出来, 这样就能很清楚的看明白Patch到底对哪里进行了修改.</p>
+<p>以上例子仅仅只是针对邮件列表阅读这种特殊的应用场景而言, 之所以拿Gmail来比较是因为Gmail本身非常优秀, 也是本人最喜欢的邮箱, 并没有贬低Gmail的意思, 只是应用场景不同罢了. 事实上, 除了邮件列表和工作邮件, 本人的其它私人邮件使用的都是Gmail, 一方面UI设计简洁大方, 另一方面, 邮件搜索过滤对于日常应用来说确实非常好~</p>
+<p>在弄清楚了应用场合之后, 我们来进入正文…</p>
+<h1 id="what-mutt是什么">What: Mutt是什么</h1>
+<h2 id="mutt简介">Mutt简介</h2>
+<p>Mutt是什么? 或者说Mutt是什么样子的? 根据<a href="http://www.mutt.org" target="_blank" rel="external">Mutt官网</a>上的介绍, Mutt是Unix系统环境下一个小巧但是强大的文本邮件客户端. 小是显而易见的, 功能强大对于本人而言主要体现在以下几个<a href="http://www.mutt.org/#Features" target="_blank" rel="external">Mutt Features</a>:</p>
+<ul>
+<li>支持配色</li>
+<li>对邮件列表支持很好</li>
+<li>高度可定制, 支持键绑定和宏</li>
+<li>支持正则表达式以及内部模式匹配等多种搜索</li>
+<li>高效</li>
+</ul>
+<p>此外, Mutt还支持其它很多特性, 比如MIME(这是什么我并不知道, 估计也不会用到), PGP(没有加密邮件的习惯), 支持POP3和IMAP协议(是个邮箱都支持), 完全控制邮件头部等等等等…但是这些特性其它的邮箱也有, 有的甚至做的更好.</p>
+<p>因此, 对于Mutt, 我最看重的还是其它邮箱所没有的特性.</p>
+<ol>
+<li>
+<p>高度可定制化, 键位绑定和宏对于习惯了Vim和CLI的人来说能提高不少效率;</p>
+</li>
+<li>
+<p>对邮件列表支持完善, 这也是我之所以选用Mutt最关键的原因, Mutt针对邮件列表添加了很多很方便的设置和操作, 极大的提高了阅读和回复邮件列表邮件的效率;</p>
+</li>
+<li>
+<p>邮件内容支持配色, 这对于阅读带有代码或是多层嵌套引用的邮件来说简直是神技.</p>
+</li>
+<li>
+<p>高效, 主要反应在打开一个1000+邮件的信箱只需要1s不到时间, 很快.</p>
+</li>
+</ol>
+<p>诚然Mutt有很多优点, 但是Mutt仅仅只是一个邮件客户端, 那么问题来了, 什么是邮件客户端(Mail Client)? 通常我们认为一个邮件客户端应该像Outlook和Thunderbird那样, 能收能发能整理能查找. 但是很遗憾的, Mutt跟他们并不一样, Mutt是Unix环境下的small and powerful的邮件客户端, 按照Unix大多工具的尿性, 一般只会提供小而精的功能, 并不会做大而全的封装. Mutt也是一样, <strong>Mutt只管理邮件, 而不负责邮件的收发</strong>. 详细点说, Mutt做的事情只是从本机上的某个位置读取邮件, 或是把邮件存放到本机上的某个位置, 此外, 还负责邮件的阅读, 查找, 标记等事务, 与其说Mutt是一个邮件客户端, 不如说<strong>Mutt是一个邮件管理工具</strong>.</p>
+<h2 id="email工作原理">Email工作原理</h2>
+<p>说到这里, 我们就不得不简单的讲一下Email的工作原理了<sup><a href="http://ccm.net/contents/116-how-email-works-mta-mda-mua" target="_blank" rel="external">[?]</a></sup>.<br>
+<img src="/img/mutt/how_email_works.png" alt="Email的工作原理"></p>
+<p>从上面的原理图中, 我们可以看到整个邮件发送接收的过程. 首先, 邮件在MUA(Mail User Agent)中编辑完成, 交由MTA(Mail Transfer Agent)进行发送, 在发送的过程中, 邮件会在多个路由和MTA服务器中中转, 邮件从一个MTA服务器被传输到另一个MTA服务器, 其中使用的是名为<a href="https://zh.wikipedia.org/zh/%E7%AE%80%E5%8D%95%E9%82%AE%E4%BB%B6%E4%BC%A0%E8%BE%93%E5%8D%8F%E8%AE%AE" target="_blank" rel="external">SMTP</a>的邮件传输协议. 当邮件到达收件人所处的网络中的MTA时, MTA将邮件交给邮件服务器, 邮件服务器负责将邮件发送给指定用户的信箱中, 邮件服务器在分发邮件的时候, 具有MDA(Mail Delivery Agent)的功能, 其中可能会包含防火墙, 过滤垃圾邮件, 屏蔽黑名单等功能, 我们常见的网络邮箱的工作模式大致是这样的.</p>
+<p>另外, 如果我们使用的是邮件客户端来接收邮件的话, 客户端还需要负责从远端的信箱中拖取邮件到本地的信箱中. 这里就需要使用MRA(Mail Retrieval Agent)来完成从远端信箱收取邮件至本地的操作, 在MRA取邮件的时候, 涉及到这么一个问题, 是单纯的将远端邮箱的邮件复制来呢, 还是让本机的信箱跟远端的信箱保持同步呢, 根据收取方式的不同, 区分了两种主流的收取邮件协议<a href="https://zh.wikipedia.org/wiki/%E9%83%B5%E5%B1%80%E5%8D%94%E5%AE%9A" target="_blank" rel="external">POP3</a>和<a href="https://zh.wikipedia.org/wiki/IMAP" target="_blank" rel="external">IMAP</a>. 在邮件到达本地后, 有时在本机上, 会再次对邮件进行一部分分拣和过滤, 例如将来自邮件列表的邮件放到一个特定的文件夹中, 将包含特定文字的邮件放到垃圾邮件文件中等, 这些功能, 是通过本地的MDA来完成的. 最后, 邮件到达了特定的文件夹, MUA, 即邮件客户端从特定文件夹读取邮件, 并解码邮件格式, 展示给用户阅读. 而Mutt, 在整个邮件收发过程中, 做的也就是这个部分的事情!</p>
+<h2 id="mutt与msmtp-getmail和procmail的关系">Mutt与msmtp, getmail和procmail的关系</h2>
+<p>解释了半天, 相信大家已经被各种M*A给整懵了吧. 以下对邮件发送过程中的各个部分(Agent)做下简要的解释:</p>
+<ul>
+<li>
+<p><strong>MUA(Mail User Agent)</strong>: 邮件客户端, 负责邮件的管理, 阅读等. 一些集成度较高的MUA会带有收发邮件乃至过滤邮件的功能如Outlook和Thunderbird, Mutt也带有简单的发送邮件功能, 不过一般不采用.</p>
+</li>
+<li>
+<p><strong>MTA(Mail Transfer Agent)</strong>: 邮件传送代理, 负责邮件的发送, 处理发送过程中的主机识别, 路由跳转等问题. 对于用户而言MTA就是负责从本地发送邮件的部件. 常见的MTA有sendmail, emstp, msmtp.</p>
+</li>
+<li>
+<p><strong>MRA(Mail Retrieval Agent)</strong>: 邮件收取代理, 负责从远端的邮件服务器收取邮件至本地文件夹. 常见的MRA有fetchmail, getmail.</p>
+</li>
+<li>
+<p><strong>MDA(Mail Delivery Agent)</strong>: 邮件分发代理, 负责根据规则过滤邮件并将邮件投放到不同的文件夹中. 常见的MDA有procmail.</p>
+</li>
+</ul>
+<p>之所以讲了这么多Email的工作原理, 主要是为了两件事情.</p>
+<ol>
+<li>明确Mutt在整个邮件收发过程中的位置.</li>
+<li>解释为什么在配置Mutt的时候需要额外安装配置msmtp, getmail乃至procmail.</li>
+</ol>
+<p>当弄明白了Email的工作原理后, 其实也就不难理解为什么在网上搜索Mutt相关资料的时候, 跳出来的都是mutt+getmail+msmtp+procmail之类的文章了. 因为光一个Mutt, 根本无法完成最基本的邮件收发功能啊, 必须需要靠msmtp来发邮件, 靠getmail来收邮件, 如果还需要自定义一些邮件分类过滤行为的话, 还需要procmail来帮忙. 因此, 现在我们在谈论Mutt的时候, 我们其实实在谈论mutt+getmail+msmtp这一串东西.</p>
+<p>然后, 我想再来看看以下这张图<sup><a href="http://blog.chinaunix.net/uid-20543672-id-3349607.html" target="_blank" rel="external">[?]</a></sup>, 就明白Mutt与getmail, msmtp以及procmail之间的关系了.<br>
+<img src="/img/mutt/mutt_relation.jpg" alt="Mutt与相关工具的关系(图片版权为tekkamanninja所有)"></p>
+<h1 id="how-搭建mutt环境">How: 搭建Mutt环境</h1>
+<p>在明白了为什么用Mutt, 什么是Mutt, 已经Mutt与msmtp, getmail和procmail的关系之后, 接下来, 我们来了解下如何配置Mutt以及msmtp和getmail, 在这节中我们先不介绍procmail, 因为很多的邮箱反垃圾邮件和防火墙已经做的很好了, 用不着用户自定义规则来反垃圾邮件. Mutt+msmtp+getmail已经可以完成基础的收发管理邮件的功能.</p>
+<h2 id="安装mutt-msmtp和getmail">安装Mutt, msmtp和getmail</h2>
+<p>这步没什么好说的, 直接apt-get</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo apt-get install mutt msmtp getmail4</span><br></pre></td></tr></table></figure>
+<h2 id="配置mutt">配置Mutt</h2>
+<p>Mutt的配置主要分为2个部分: 一个是muttrc文件, 另一个是信箱目录的组织.</p>
+<h3 id="muttrc文件">muttrc文件</h3>
+<p>我们先来看一下基本的muttrc配置文件. 在用户的<code>$HOME</code>目录下创建并编辑<code>.muttrc</code>文件.</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ vim ~/.muttrc</span><br></pre></td></tr></table></figure>
+<p>一个本的muttrc文件如下所示:</p>
+<figure class="highlight vala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor"># 设置发信人名称</span></span><br><span class="line"><span class="keyword">set</span> realname = <span class="string">"Your Name"</span></span><br><span class="line"></span><br><span class="line"><span class="preprocessor"># 设置邮件发送程序</span></span><br><span class="line"><span class="keyword">set</span> sendmail = <span class="string">"/usr/bin/msmtp"</span></span><br><span class="line"></span><br><span class="line"><span class="preprocessor"># 默认的发信地址</span></span><br><span class="line"><span class="keyword">set</span> from = <span class="string">"yourmail@mail.com"</span></span><br><span class="line"></span><br><span class="line"><span class="preprocessor"># 在发送邮件时使用from域作为msmtp发送邮件的sender, 否则使用的是user@localhost</span></span><br><span class="line"><span class="keyword">set</span> envelope_from = yes</span><br><span class="line"></span><br><span class="line"><span class="preprocessor"># mutt自动生成from地址</span></span><br><span class="line"><span class="keyword">set</span> use_from = yes</span><br><span class="line"></span><br><span class="line"><span class="preprocessor"># 设置编辑时使用的编辑器</span></span><br><span class="line"><span class="keyword">set</span> editor = <span class="string">"vim"</span></span><br><span class="line"></span><br><span class="line"><span class="preprocessor"># 建立信箱, 默认信箱是inbox, 所有新邮件都会被默认发送到inbox文件夹中</span></span><br><span class="line"><span class="preprocessor"># 告知mutt邮件的存放格式(format), maildir格式要求相关文件夹下必须有tmp, new, cur这3个子目录</span></span><br><span class="line"><span class="keyword">set</span> mbox_type = maildir</span><br><span class="line"><span class="preprocessor"># 存放邮件的根目录, 在muttrc文件中用"+"或者"="表示</span></span><br><span class="line"><span class="keyword">set</span> folder = <span class="string">"~/.mail"</span></span><br><span class="line"><span class="preprocessor"># 接收到的邮件默认存放的位置, 系统会自动创建该目录, 而其它的目录需要手动创建</span></span><br><span class="line"><span class="keyword">set</span> spoolfile = <span class="string">"+inbox"</span></span><br><span class="line"><span class="preprocessor"># 从收件箱(inbox)保存的邮件存放位置</span></span><br><span class="line"><span class="keyword">set</span> mbox = <span class="string">"+mbox"</span></span><br><span class="line"><span class="preprocessor"># 延迟发送(postpone)邮件的存放位置</span></span><br><span class="line"><span class="keyword">set</span> postponed = <span class="string">"+postponed"</span></span><br><span class="line"><span class="preprocessor"># 已发送的邮件存放的位置</span></span><br><span class="line"><span class="keyword">set</span> record = <span class="string">"+sent"</span></span><br><span class="line"></span><br><span class="line"><span class="preprocessor"># 设置终端显示时采用的字符集</span></span><br><span class="line"><span class="keyword">set</span> charset = <span class="string">"utf-8"</span></span><br><span class="line"></span><br><span class="line"><span class="preprocessor"># 设置发送字符集, 根据linux内核邮件列表推荐设置</span></span><br><span class="line"><span class="keyword">set</span> send_charset = <span class="string">"us-ascii:utf-8"</span></span><br><span class="line"></span><br><span class="line"><span class="preprocessor"># 回信时引用原文是否加入原文的邮件头</span></span><br><span class="line"><span class="keyword">set</span> header = no</span><br><span class="line"></span><br><span class="line"><span class="preprocessor"># 将inbox中已读邮件自动移动到mbox文件夹中(ask-yes表示会询问, yes则直接移动)</span></span><br><span class="line"><span class="keyword">set</span> move = ask-yes</span><br><span class="line"></span><br><span class="line"><span class="preprocessor"># 在信件内容窗口(pager)滚动到底部时, 不自动跳到下一封邮件</span></span><br><span class="line"><span class="keyword">set</span> pager_stop</span><br><span class="line"></span><br><span class="line"><span class="preprocessor"># 告知mutt订阅的邮件列表,以便开启相关特性,便于阅读邮件列表</span></span><br><span class="line">subscribe xen-devel@lists.xen.org xen-devel@lists.xensource.com xen-devel@lists.xenproject.org</span><br></pre></td></tr></table></figure>
+<h3 id="指定msmtp作为邮件发送工具">指定msmtp作为邮件发送工具</h3>
+<p>由于我们采用msmtp来发送邮件, 需要告知Mutt, 以便在发送邮件的时候, Mutt可以将邮件交给msmtp进行发送. 因此, 需要指定邮件发送工具路径.</p>
+<figure class="highlight actionscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">set</span> sendmail = <span class="string">"/usr/bin/msmtp"</span></span><br></pre></td></tr></table></figure>
+<p><strong>通过上述配置, 我们将Mutt和msmtp给联系起来了.</strong></p>
+<h3 id="设置信箱目录">设置信箱目录</h3>
+<p>另外, 我们看到在muttrc配置文件中设置了很多信箱文件夹, 如下:</p>
+<figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">set</span> mbox_type = maildir</span><br><span class="line"><span class="keyword">set</span> folder = <span class="string">"~/.mail"</span></span><br><span class="line"><span class="keyword">set</span> spoolfile = <span class="string">"+inbox"</span></span><br><span class="line"><span class="keyword">set</span> mbox = <span class="string">"+mbox"</span></span><br><span class="line"><span class="keyword">set</span> postponed = <span class="string">"+postponed"</span></span><br><span class="line"><span class="keyword">set</span> <span class="type">record</span> = <span class="string">"+sent"</span></span><br></pre></td></tr></table></figure>
+<p>这里就有必要解释下其意思了. 首先, 我们看到的是<code>mbox_type</code>这个变量, 这是用来设置邮件储存格式的, 通常将其设置为<code>maildir</code>格式<sup><a href="http://dev.mutt.org/trac/wiki/MaildirFormat" target="_blank" rel="external">[?]</a></sup>. <code>maildir</code>格式要求每个信箱文件下要包含3个子文件夹, 分别为<code>cur</code>, <code>new</code>, <code>tmp</code>.</p>
+<p>说到邮件储存格式, 我们就来简单了解下Mutt管理邮件的方式. 事实上, 我们通过Mutt看到的邮件, 都是以文件的形式保存在特定的目录中的, 一封邮件就是一个文件. Mutt做的事情就是从特定的信箱目录中读取邮件, 解码文件, 然后展示内容给用户. 在把邮件从一个信箱移动到另一个信箱的时候, Mutt实际上是将邮件文件从一个目录移动或是复制到另一个目录中, 就是这么简单!</p>
+<p>例如如果inbox信箱中有邮件, 那么可以看到:</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ ls ~/.mail/inbox/cur</span><br><span class="line"><span class="number">1439889842.29259</span>_1<span class="class">.USER</span>:<span class="number">2</span>,S  <span class="number">1439890047.29915</span>_0<span class="class">.USER</span>:<span class="number">2</span>,S  <span class="number">1439890260.30560</span>_0<span class="class">.USER</span>:<span class="number">2</span>,</span><br><span class="line"><span class="number">1439889842.29260</span>_1<span class="class">.USER</span>:<span class="number">2</span>,S  <span class="number">1439890047.29916</span>_0<span class="class">.USER</span>:<span class="number">2</span>,   <span class="number">1439890260.30561</span>_0<span class="class">.USER</span>:<span class="number">2</span>,</span><br><span class="line"><span class="number">1439889843.29261</span>_0<span class="class">.USER</span>:<span class="number">2</span>,S  <span class="number">1439890047.29917</span>_0<span class="class">.USER</span>:<span class="number">2</span>,   <span class="number">1439890261.30562</span>_0<span class="class">.USER</span>:<span class="number">2</span>,</span><br></pre></td></tr></table></figure>
+<p>也可以尝试着将一个文件<code>mv</code>到另一个文件夹的<code>cur</code>子目录下, 再打开Mutt看看邮件是不是就从原先的邮箱移动到新的邮箱中了 0.0</p>
+<p>接着我们看一下变量<code>$folder</code>, 该变量即指定了Mutt读取操作邮件的&quot;根目录&quot;, 例如, 示例配置文件中, 将其设置为<code>~/.mail</code>目录, 那么在打开Mutt的时候, Mutt会默认从该目录下去读取操作邮件文件.</p>
+<p><strong>在信箱组织方面, 一般建议设置<code>$spoolfile</code>, <code>$mbox</code>, <code>$postponed</code> 和 <code>$record</code>这四个变量.</strong> 当然, 也可以都不设置, 但是Mutt会默认在<code>$folder</code>变量指定的目录下建立<code>inbox</code>目录, 并将全部的邮件都一股脑放到这个目录下. 这里, 我们都对其进行了设置, 当然, 使用前要确保这些指定目录已经建立好了, 并且每个目录下已经建立了<code>cur</code>, <code>new</code>, <code>tmp</code>这三个子目录.</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">$ mkdir ~/.mail</span><br><span class="line">$ cd ~/.mail</span><br><span class="line">$ mkdir inbox mbox postponed sent</span><br><span class="line">$ cd ~/.mail/inbox</span><br><span class="line">$ mkdir cur new tmp</span><br><span class="line"><span class="keyword">...</span></span><br></pre></td></tr></table></figure>
+<p>这里我们简要的介绍下各个目录的功能<sup><a href="http://dev.mutt.org/trac/wiki/MuttGuide/Folders" target="_blank" rel="external">[?]</a></sup></p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">muttrc中变量</th>
+<th style="text-align:left">设置的目录</th>
+<th style="text-align:left">功能</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><code>$spoolfile</code></td>
+<td style="text-align:left">inbox</td>
+<td style="text-align:left">最基本的一个目录, 默认所有的新邮件都会存放在这个目录下</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>$mbox</code></td>
+<td style="text-align:left">mbox</td>
+<td style="text-align:left">已读邮件会被移动至该目录下(需要设置<code>$move</code>变量)</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>$postponed</code></td>
+<td style="text-align:left">postponed</td>
+<td style="text-align:left">推迟发送的邮件会被保存在这里</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>$record</code></td>
+<td style="text-align:left">sent</td>
+<td style="text-align:left">已发送的邮件会被保存在这里</td>
+</tr>
+</tbody>
+</table>
+<p>P.S. 在指定信箱目录的时候我们使用了<code>+</code>符号, 在muttrc文件中, <code>+</code>号代表<code>$folder</code>变量, 例如示例中设置了<code>$folder</code>变量为<code>~/.mail</code>目录, 那么<code>+inbox</code>表示的就是<code>~/.mail/inbox</code>目录<sup><a href="http://dev.mutt.org/trac/wiki/MuttGuide/Folders" target="_blank" rel="external">[?]</a></sup>.</p>
+<h3 id="mutt其它配置项">Mutt其它配置项</h3>
+<figure class="highlight dos"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">set</span> <span class="built_in">move</span> = ask-yes</span><br></pre></td></tr></table></figure>
+<p><code>$move</code>变量有四个值, 分别为<code>yes</code>, <code>no</code>, <code>ask-yes</code>和<code>ask-no</code>. <code>$move</code>变量的意义在于指定是否将inbox信箱中已读的邮件自动移动到mbox目录中. 默认是不移动, 此处将其设置为<code>ask-yes</code>, 即表示自动将已读邮件移动至<code>mbox</code>目录中, 但是在移动前会提示用户是否执行. 这样可以保持<code>inbox</code>目录的整洁, 避免每次打开mutt, 上来就看到一堆已经读过的邮件.</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="operator"><span class="keyword">set</span> <span class="keyword">charset</span> = <span class="string">"utf-8"</span></span><br><span class="line"><span class="keyword">set</span> send_charset = <span class="string">"us-ascii:utf-8"</span></span></span><br></pre></td></tr></table></figure>
+<p>这里主要是字符集的设置, 因为本人使用Mutt来阅读以及回复邮件列表, 因此需要设置通用的字符集来避免收信人接受到乱码邮件的问题, 此处的设置是参考Linux内核邮件列表对邮件客户端的<a href="http://git.kernel.org/cgit/linux/kernel/git/torvalds/linux.git/tree/Documentation/email-clients.txt?id=HEAD" target="_blank" rel="external">建议设置</a></p>
+<p>关于其它项的配置, 注释已经写的比较详细了, 就不再赘述了. 最后, 实际上Mutt是带有简单的收发邮件模块的, 因此有些用户可能需要在<code>.muttrc</code>文件中写入邮箱的账户和明文密码, 因此, 最好还是需要将<code>.muttrc</code>的权限设置为600.</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ chmod 600 ~/.muttrc</span><br></pre></td></tr></table></figure>
+<h2 id="配置msmtp">配置msmtp</h2>
+<p>msmtp是一个SMTP客户端<sup><a href="http://msmtp.sourceforge.net/" target="_blank" rel="external">[?]</a></sup>. 在整个Mutt收发系统中负责发送邮件的功能.</p>
+<p><strong>msmtp的配置文件为<code>~/.msmtprc</code></strong>.</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ vim ~/.msmtprc</span><br></pre></td></tr></table></figure>
+<p>一个基本的msmtprc文件如下:</p>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="title">defaults</span></span><br><span class="line">tls <span class="built_in">off</span></span><br><span class="line">tls_certcheck <span class="built_in">off</span></span><br><span class="line">logfile ~/.mail/msmtp.log</span><br><span class="line"></span><br><span class="line">account your_account</span><br><span class="line">host <span class="variable">$smtp</span>.your_smtp_server.com</span><br><span class="line">from <span class="variable">$your_mailaddress</span><span class="variable">@mail</span>.com</span><br><span class="line">port <span class="number">25</span></span><br><span class="line">user <span class="variable">$username</span></span><br><span class="line">password <span class="variable">$password</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Set a default account</span></span><br><span class="line">account default : <span class="variable">$username</span></span><br></pre></td></tr></table></figure>
+<p>注: 文件中带<code>$</code>符号的都是需要根据具体情况修改的信息.</p>
+<p>由于msmtp是负责发送邮件的, 而之前我们说过, 邮件发送涉及到的协议主要是SMTP, 因此, 需要告知msmtp SMTP服务器的host地址, 一般的邮箱STMP地址都比较简单, 例如新浪邮箱的host为<code>smtp.sina.com</code>, Gmail的host为<code>smtp.gmail.com</code>. 而大部分邮箱的SMTP服务端口号为默认的25, Gmail的话使用的是465和587, 具体的还请查看官方的介绍.</p>
+<p><strong>设置权限, 保护配置文件</strong><br>
+在知晓了SMTP服务器地址后, msmtp会访问SMTP服务器, 此时需要登录账户密码, 因此, 这些信息也要写入msmtprc以告知msmtp, 需要注意的是, 密码是明文保存的, 因此, 安全起见, 需要设置msmtprc文件的权限.</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ chmod 600 ~/.msmtprc</span><br></pre></td></tr></table></figure>
+<p>有关于msmtp更详细的配置, 请参见<a href="http://msmtp.sourceforge.net/documentation.html" target="_blank" rel="external">官方文档</a></p>
+<p>P.S. 本人使用的是公司的邮箱, 因此需要关闭TLS. 但是如果使用的Gmail则需要相关的设置, 具体方法网上随便一搜都是, 不再赘述.</p>
+<p>在配置msmtp后, 不妨测试下在Mutt中能否正常发送邮件:</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ echo &#34;&#27979;&#35797;&#37038;&#20214;&#20869;&#23481;&#34; | mutt -s &#34;&#27979;&#35797;&#37038;&#20214;&#26631;&#39064;&#34; test_mail@address.com</span><br></pre></td></tr></table></figure>
+<p>如果在测试邮箱中收到测试邮件, 即表明msmtp配置成功, 并且Mutt能顺利调用msmtp来发送邮件.</p>
+<h2 id="配置getmail">配置getmail</h2>
+<p>getmail是一个邮件收取工具, 用于从不同的邮件服务器上收取用户不同账户的邮件. 同时getmail也被设计来取代其它的一些邮件收取工具例如fetchmail<sup><a href="http://pyropus.ca/software/getmail/documentation.html#features" target="_blank" rel="external">[?]</a></sup>.</p>
+<p>在配置getmail前, 需要先建立getmail相应的目录<code>~/.getmail</code>, 之后在目录下新建并编辑配置文件getmailrc. 由于配置文件中包含邮箱账户以及明文密码, 因此限制<code>.getmail</code>目录的权限.</p>
+<figure class="highlight smalltalk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="char">$ </span>mkdir -m <span class="number">700</span> ~/.getmail</span><br><span class="line"><span class="char">$ </span>vim ~/.getmail/getmailrc</span><br></pre></td></tr></table></figure>
+<p>P.S. 如果你有多个邮箱, 需要在<code>~/.getmail</code>目录下为每个邮箱都建立一个getmailrc文件, 可以通过后缀来区分不同的getmailrc文件, 例如<code>getmailrc.gmail</code>或是<code>getmailrc.163</code>, 但需要注意的是, 文件名的前半部分必须是<code>getmailrc</code>, 及配置文件的命名规范为<code>getmailrc.xxx</code>.</p>
+<p><code>getmailrc</code>配置的文件是以节(section)为基础的, <code>getmailrc</code>文件至少应该有2个节:</p>
+<ol>
+<li><code>[retriever]</code>, 用于告知getmail邮箱的账户信息以便getmail能从邮件服务器上收取邮件.</li>
+<li><code>[destination]</code>, 用于告知getmail如何处理已经收取到的邮件.<br>
+此外, 还可以添加一个额外的<code>[optional]</code>节, 包含一些笼统的设置诸如日志文件路径设置等<sup><a href="http://pyropus.ca/software/getmail/configuration.html#rcfile" target="_blank" rel="external">[?]</a></sup></li>
+</ol>
+<figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">[retriever]</span><br><span class="line"><span class="comment"># type = SimplePOP3SSLRetriever</span></span><br><span class="line"><span class="comment"># port = 995</span></span><br><span class="line"><span class="constant">type</span> = SimpleIMAPSSLRetriever</span><br><span class="line"><span class="constant">server</span> = $mailserver.com</span><br><span class="line"><span class="constant">username</span> = $username</span><br><span class="line"><span class="constant">password</span> = $password</span><br><span class="line"></span><br><span class="line">[destination]</span><br><span class="line"><span class="comment"># 以Maildir格式储存</span></span><br><span class="line"><span class="constant">type</span> = Maildir</span><br><span class="line"><span class="constant">path</span> = ~/.mail/inbox/</span><br><span class="line"></span><br><span class="line">[option]</span><br><span class="line"><span class="comment"># 默认为True, 每次执行getmail收取全部邮件, False表示只收取未收取过的邮件</span></span><br><span class="line"><span class="constant">read_all</span> = False</span><br><span class="line"><span class="comment"># 本地删除服务器是否也删除邮件</span></span><br><span class="line"><span class="constant">delete</span> = False</span><br><span class="line"><span class="constant">message_log</span> = ~/.getmail/getmail.log</span><br></pre></td></tr></table></figure>
+<p>注: 上述配置文件中带<code>$</code>部分是需要根据实际邮箱信息更改的.</p>
+<p>首先让我们先来看一下<code>[retriever]</code>节, 关键字段为<code>type</code>, 用于告知getmail你打算以哪种协议收取邮件, 这里指的收取协议主要是POP3和IMAP.</p>
+<ul>
+<li>
+<p>POP3: 从远端邮件服务器上收取邮件, 同时服务器上保留邮件, 本地的对邮件的删除移动不影响到远端邮件服务器. 例如通过POP3协议收取完邮件后, 将本地的邮件删除, 服务器上依旧保存有该封邮件.</p>
+</li>
+<li>
+<p>IMAP: 本地邮件与远端邮件服务器上的邮件同步, 也就是说如果本地对邮件执行了删除或者移动也会同步到邮件服务器上.</p>
+</li>
+</ul>
+<p>如果采用POP3协议, 那么就将<code>type</code>设置成<code>SimplePOP3SSLRetrieve</code>, 如果用IMAP, 就设置成<code>SimpleIMAPSSLRetriever</code>. 事实上, 还可以设置成<code>SimplePOP3Retriever</code>和<code>SimpleIMAPRetriever</code>, 不过带SSL的表示使用SSL加密, 因此会更安全.</p>
+<p>关于POP3和IMAP协议收取邮件, 在本人的具体实践过程中, 发现并不是严格的遵守其协议行为, 即便是采用IMAP协议, 在本地删除了邮件的情况下, 邮件服务器上仍旧会保留邮件, 这跟getmail的配置有关, 同时可能还和邮件服务器的配置有关.</p>
+<p>注意到在上述的rc文件的<code>[option]</code>节中, 包含字段<code>delete</code>的设置, 用于指明在本地删除邮件后服务器是否也删除. 如果设置为<code>True</code>, 则在getmail会在成功收取邮件后删除邮件服务器上的对应邮件, 若设置为<code>False</code>, 则保留, 默认值是<code>False</code>. 该字段可能会影响POP3和IMAP收取协议, 因为本人通过反复设置POP3和IMAP, 以及<code>detele</code>字段, 发现不管怎么样邮件服务器上的邮件都会被保留, 但这可能是邮件服务器本身设置的原因, 因此无法验证. 为了保险起见, 建议初次设置getmail的时候采用POP3协议收取, 同时<code>delete</code>设置为<code>False</code>, 便于熟悉与验证. 不然手一抖把本地的邮件删了, 发现服务器上的邮件也没了就不好玩了. 当然, 也可以自己给自己发几封验证邮件, 然后在本地删除或是移动看看邮件服务器上的变化来验证getmail的配置.</p>
+<p>本人在设置协议的时候采用IMAP来收取协议, 主要的原因在于在使用过程中一些邮件服务器的POP3功能不稳定, 会出现一些邮件收不到, 收不及时或是重复收取的情况, 而IMAP则每次都能正确收取邮件, 相对而言, IMAP比POP3稳定<sup><a href="https://support.google.com/mail/troubleshooter/1668960?hl=zh-Hans" target="_blank" rel="external">[?]</a></sup>.</p>
+<p>如果你在使用getmail收取邮件时, 出现了重复收取邮件的情况, 不妨在<code>[option]</code>节中将<code>read_all</code>字段设置为<code>False</code>. 表示每次getmail收取邮件的时候只收取未收取过的邮件, 避免重复收取邮件. 那么, 从实现角度, getmail是如何完成识别邮件是否已经收取过了, 从而决定是否要收取邮件呢. 可以发现, 在使用getmail收取邮件后, 在<code>~/.getmail</code>目录下会多出一个<code>oldmail-mailserver.com-port-username-INBOX</code>的文件, 该文件的作用就是用来记录哪些邮件是已经收取过了的, 从而在下次收取的时候, 避免收取文件中已包含的邮件. 可以做个实验, 将该文件删除, 那么再使用getmail收取邮件的时候, 就又会收取全部的邮件了.</p>
+<p><strong>设置权限, 保护配置文件</strong><br>
+和其它配置文件一样的, 由于getmailrc文件中包含了明文的密码, 因此最好设定权限:</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chmod 600 ~/.getmail/getmailrc</span><br></pre></td></tr></table></figure>
+<p>关于getmailrc文件的更多信息, 请参见<a href="http://pyropus.ca/software/getmail/configuration.html" target="_blank" rel="external">官方文档</a>, 官网同时提供了多种getmailrc文件<a href="http://pyropus.ca/software/getmail/getmailrc-examples" target="_blank" rel="external">模板</a>以供参考.</p>
+<p>在配置完getmail后, 需要测试下getmail是否正常工作了, 执行getmail收取邮件.</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ getmail -n</span><br></pre></td></tr></table></figure>
+<p><code>-n</code>代表只收取新邮件. 执行命令后, getmail将会按照配置文件中的设置, 将邮件投递到<code>path</code>所指定的目录<code>~/.mail/inbox</code>下. 而该目录在Mutt的配置文件中被指定为<code>spoolfile</code>所使用的目录, 即<code>inbox</code>收件箱的目录, 因此, 打开mutt, mutt就会自动从该目录下获取邮件, 查看是否收取了邮件来验证getmail是否正常工作. getmail就是通过这个目录将邮件交给Mutt的, 二者的联系, 仅此而已.</p>
+<p><strong>设置crontab定时收取邮件</strong><br>
+getmail的收取邮件是通过执行getmail命令来实现的, 因此, 要想及时获取新的邮件, 就需要定时的执行getmail来收取邮件, 这个任务交给cron守护进程最好不多了.</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ crontab -e</span><br></pre></td></tr></table></figure>
+<p>执行crontab命令, <code>-e</code>代表对crontab进行编辑, 在crontab的最后一行添加:</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">*/10 * * * * /usr/bin/getmail -n</span><br></pre></td></tr></table></figure>
+<p>表示每隔10分钟执行一次<code>getmail -n</code>命令来收取邮件.</p>
+<p><strong>至此, 基础的Mutt环境已经搭建完毕, 可以使用Mutt来正常的收发, 查阅, 发送, 回复邮件了.</strong></p>
+<hr>
+<h1 id="misc-额外部分">Misc: 额外部分</h1>
+<h2 id="vim风格键位绑定">Vim风格键位绑定</h2>
+<p>Mutt默认的键位设置以及相关操作, 请参阅: <a href="http://dev.mutt.org/doc/manual.html#gettingstarted" target="_blank" rel="external">Mutt Manual: Chapter 2</a></p>
+<p>对于习惯了Vim操作的用户而言, 再重新去适应Mutt的一些基本翻页按键着实显得有些浪费时间, 所以不妨按照Vim的习惯对Mutt的键位进行相应的绑定.</p>
+<p>绑定设置同样是在<code>~/.muttrc</code>中完成的, 在<code>~/.muttrc</code>文件中添加:</p>
+<figure class="highlight perl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Vim式键位映射, \c表示ctrl键</span></span><br><span class="line"><span class="keyword">bind</span> pager G bottom</span><br><span class="line"><span class="keyword">bind</span> pager j <span class="keyword">next</span>-line</span><br><span class="line"><span class="keyword">bind</span> pager k previous-line</span><br><span class="line"><span class="keyword">bind</span> pager \cf <span class="keyword">next</span>-page</span><br><span class="line"><span class="keyword">bind</span> pager \cb previous-page</span><br><span class="line"><span class="keyword">bind</span> pager \cj <span class="keyword">next</span>-entry</span><br><span class="line"><span class="keyword">bind</span> pager \ck previous-entry</span><br><span class="line"><span class="keyword">bind</span> pager gg top</span><br><span class="line"><span class="keyword">bind</span> pager G bottom</span><br><span class="line"><span class="keyword">bind</span> <span class="keyword">index</span> gg first-entry</span><br><span class="line"><span class="keyword">bind</span> <span class="keyword">index</span> G <span class="keyword">last</span>-entry</span><br><span class="line"><span class="keyword">bind</span> <span class="keyword">index</span> R group-reply</span><br><span class="line"><span class="keyword">bind</span> <span class="keyword">index</span> \cf <span class="keyword">next</span>-page</span><br><span class="line"><span class="keyword">bind</span> <span class="keyword">index</span> \cb previous-page</span><br><span class="line"><span class="keyword">bind</span> <span class="keyword">index</span> &#125; bottom-page</span><br><span class="line"><span class="keyword">bind</span> <span class="keyword">index</span> f change-folder</span><br></pre></td></tr></table></figure>
+<p>以上是按照个人习惯所进行的键位绑定, 当然, 每个人的习惯是不一样的, 可以自行修改.</p>
+<p>注意到绑定命令中出现了<code>index</code>和<code>pager</code>, 这里稍作下解释, 其中<code>index</code>代表信箱的列表页面, 而<code>pager</code>为阅读邮件的界面. 指定<code>index</code>或是<code>pager</code>来使得绑定的键位在对应的页面下生效. 有关键位绑定的更多参考, 请看: <a href="http://dev.mutt.org/doc/manual.html#bind" target="_blank" rel="external">Mutt Manual: Changing the Default Key Bindings</a>.</p>
+<p>关于Mutt的键位操作, 这里建议在<code>~/.muttrc</code>文件中设置<code>pager_stop</code>, 来避免当阅读至邮件末尾的时候, 自动跳到下一封邮件.</p>
+<figure class="highlight vala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor"># 在信件内容窗口(pager)滚动到底部时, 不自动跳到下一封邮件</span></span><br><span class="line"><span class="keyword">set</span> pager_stop</span><br></pre></td></tr></table></figure>
+<h2 id="mutt配色高亮设置">Mutt配色高亮设置</h2>
+<p>Mutt支持对各个界面进行高亮设置, 包括邮箱的列表部分<code>index</code>, 邮件内容部分<code>body</code>, 邮件头部信息部分<code>header</code>, 甚至连列表模式中的回复箭头颜色都可以设置. 在这部分, 主要分为3个部分, 分别介绍Mutt常规界面的配色, 对Patch补丁添加高亮支持以及嵌套引用中不同层的高亮区分.</p>
+<h3 id="mutt常规界面配色">Mutt常规界面配色</h3>
+<p>在介绍Mutt常规界面的配色之前, 我们先来了解下Mutt中各个界面的名称, 如前文所述, Mutt的界面主要包含有<code>index</code>, <code>body</code>和<code>header</code>, <code>index</code>就是打开Mutt时看见的界面, 通过列表的形式一一列出邮件主题和收发信息. 而查看某封邮件的内容的界面则属于<code>pager</code>. <code>pager</code>含有2个部分, 一个是邮件头部, 包含有邮件的头部信息, 这部分属于<code>header</code>. 另一部分是邮件内容的主体<code>body</code>, 包含邮件的正文. 基本上需要配置的也就这3个地方. 当然, 此外还有其它的界面, 如<code>File Brower</code>, <code>Alias Menu</code>等, 一般很少见到, 暂时就不配色了. 具体的界面和菜单介绍, 参阅: <a href="http://dev.mutt.org/doc/manual.html#concept-screens-and-menus" target="_blank" rel="external">Mutt Manual: Screens and Menus</a>.</p>
+<p>在着手自定义Mutt配色之前, 可以先看一下Github上关于Mutt配色的项目: <a href="https://github.com/altercation/mutt-colors-solarized" target="_blank" rel="external">Solarized Colorscheme for Mutt</a>, 如果觉得合适, 就不需要自己折腾配色了.</p>
+<p>事实上, solarized的配色已经相当不错, 但是如果你希望按自己的意愿来更改Mutt配色的话, 接下来我们就来介绍自定义Mutt界面配色方案.</p>
+<figure class="highlight rsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor"># basic colors -------------------------------------------------------</span></span><br><span class="line"><span class="keyword">color</span> <span class="keyword">normal</span>        white           black</span><br><span class="line"><span class="keyword">color</span> error         red             black</span><br><span class="line"><span class="keyword">color</span> tilde         white           black</span><br><span class="line"><span class="keyword">color</span> message       cyan            black</span><br><span class="line"><span class="keyword">color</span> markers       red             black</span><br><span class="line"><span class="keyword">color</span> attachment    brightred       black</span><br><span class="line"><span class="keyword">color</span> search        brightmagenta   black</span><br><span class="line"><span class="keyword">color</span> status        brightwhite     black</span><br><span class="line"><span class="keyword">color</span> indicator     white           blue</span><br><span class="line"><span class="keyword">color</span> tree          magenta         black   <span class="preprocessor"># arrows in threads</span></span><br><span class="line"></span><br><span class="line"><span class="preprocessor"># 列表部分 -------------------------------------------------------</span></span><br><span class="line"><span class="preprocessor"># 高亮不同状态的邮件, 具体的pattern(例如~N)参见mutt manual的4.2节</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">color</span> index         red             black         <span class="string">"~A"</span>                        <span class="preprocessor"># all messages</span></span><br><span class="line"><span class="keyword">color</span> index         brightred       black         <span class="string">"~E"</span>                        <span class="preprocessor"># expired messages</span></span><br><span class="line"><span class="keyword">color</span> index         brightcyan      black         <span class="string">"~N"</span>                        <span class="preprocessor"># new messages</span></span><br><span class="line"><span class="keyword">color</span> index         brightcyan      black         <span class="string">"~O"</span>                        <span class="preprocessor"># old messages</span></span><br><span class="line"><span class="keyword">color</span> index         brightmagenta   black         <span class="string">"~Q"</span>                        <span class="preprocessor"># messages that have been replied to</span></span><br><span class="line"><span class="keyword">color</span> index         white           black         <span class="string">"~R"</span>                        <span class="preprocessor"># read messages</span></span><br><span class="line"><span class="keyword">color</span> index         brightblue      black         <span class="string">"~U"</span>                        <span class="preprocessor"># unread messages</span></span><br><span class="line"><span class="keyword">color</span> index         brightblue      black         <span class="string">"~U~$"</span>                      <span class="preprocessor"># unread, unreferenced messages</span></span><br><span class="line"><span class="keyword">color</span> index         brightblue      black         <span class="string">"~v"</span>                        <span class="preprocessor"># messages part of a collapsed thread</span></span><br><span class="line"><span class="keyword">color</span> index         brightblue      black         <span class="string">"~P"</span>                        <span class="preprocessor"># messages from me</span></span><br><span class="line"><span class="keyword">color</span> index         cyan            black         <span class="string">"~p!~F"</span>                     <span class="preprocessor"># messages to me</span></span><br><span class="line"><span class="keyword">color</span> index         brightgreen     black         <span class="string">"~N~p!~F"</span>                   <span class="preprocessor"># new messages to me</span></span><br><span class="line"><span class="keyword">color</span> index         brightgreen     black         <span class="string">"~U~p!~F"</span>                   <span class="preprocessor"># unread messages to me</span></span><br><span class="line"><span class="keyword">color</span> index         green           black         <span class="string">"~R~p!~F"</span>                   <span class="preprocessor"># messages to me</span></span><br><span class="line"><span class="keyword">color</span> index         red             black         <span class="string">"~F"</span>                        <span class="preprocessor"># flagged messages</span></span><br><span class="line"><span class="keyword">color</span> index         red             black         <span class="string">"~F~p"</span>                      <span class="preprocessor"># flagged messages to me</span></span><br><span class="line"><span class="keyword">color</span> index         red             black         <span class="string">"~N~F"</span>                      <span class="preprocessor"># new flagged messages</span></span><br><span class="line"><span class="keyword">color</span> index         red             black         <span class="string">"~N~F~p"</span>                    <span class="preprocessor"># new flagged messages to me</span></span><br><span class="line"><span class="keyword">color</span> index         red             black         <span class="string">"~U~F~p"</span>                    <span class="preprocessor"># new flagged messages to me</span></span><br><span class="line"><span class="keyword">color</span> index         white           brightmagenta <span class="string">"~D"</span>                        <span class="preprocessor"># deleted messages</span></span><br><span class="line"><span class="keyword">color</span> index         white           black         <span class="string">"~v~(!~N!~O)"</span>               <span class="preprocessor"># collapsed thread with no unread</span></span><br><span class="line"><span class="keyword">color</span> index         magenta          black         <span class="string">"~v~(~N|~O)"</span>               <span class="preprocessor"># collapsed thread with some unread</span></span><br><span class="line"><span class="keyword">color</span> index         magenta           black         <span class="string">"~N~v~(~N)"</span>               <span class="preprocessor"># collapsed thread with unread parent</span></span><br><span class="line"><span class="keyword">color</span> index         red             white           <span class="string">"~v~(~F)!~N"</span>              <span class="preprocessor"># collapsed thread with flagged, no unread</span></span><br><span class="line"><span class="keyword">color</span> index         yellow          white           <span class="string">"~v~(~F~N)"</span>               <span class="preprocessor"># collapsed thread with some unread &amp; flagged</span></span><br><span class="line"><span class="keyword">color</span> index         green           white           <span class="string">"~N~v~(~F~N)"</span>             <span class="preprocessor"># collapsed thread with unread parent &amp; flagged</span></span><br><span class="line"><span class="keyword">color</span> index         green           white           <span class="string">"~N~v~(~F)"</span>               <span class="preprocessor"># collapsed thread with unread parent, no unread inside, but some flagged</span></span><br><span class="line"><span class="keyword">color</span> index         yellow          red             <span class="string">"~v~(~D)"</span>                 <span class="preprocessor"># thread with deleted (doesn't differentiate between all or partial)</span></span><br><span class="line"></span><br><span class="line"><span class="preprocessor"># 邮件内容页面邮件头部分高亮 ------------------------------------------</span></span><br><span class="line"></span><br><span class="line"><span class="preprocessor"># color header        brightcyan      default         "^"</span></span><br><span class="line"><span class="keyword">color</span> hdrdefault    brightblue      black</span><br><span class="line"><span class="keyword">color</span> header        brightgreen     black         <span class="string">"^(From)"</span></span><br><span class="line"><span class="keyword">color</span> header        brightyellow    black         <span class="string">"^(Subject)"</span></span><br></pre></td></tr></table></figure>
+<p>这里的配色方案是以Solarized为基础的, 稍作修改. 这里对以上的配色配置稍作解释.<br>
+首先, 语句的模式是</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">color <span class="tag">&lt;<span class="title">界面</span>&gt;</span> <span class="tag">&lt;<span class="title">前景色</span>&gt;</span> <span class="tag">&lt;<span class="title">背景色</span>&gt;</span> [其它选项]</span><br></pre></td></tr></table></figure>
+<p>Mutt支持8种颜色, 分别为: Black, Red, Green, Yellow, Blue, Magenta, Cyan, White<sup><a href="http://dev.mutt.org/doc/manual.html#tab-color" target="_blank" rel="external">[?]</a></sup>. 在颜色前面添加<code>bright</code>可使得字体加粗, 并使得颜色更鲜艳, 例如red就是正常粗细的暗红色字体, 但是brightred就变为加粗的鲜红字体. 这样, 我们可以使用的颜色就有16种了, 再配合上前景色背景色的各种搭配, 真是变换无穷呢 = =b</p>
+<p>对于自定义配色, 没什么好说的, 只要知道是针对<code>index</code>配色, 还是<code>pager</code>配色或者是<code>header</code>就行, 剩下就是改下颜色, 看哪里颜色变了, 就能确定语句控制的是那部分的颜色了.</p>
+<p>以上配置中, 还有一些地方相对比较难懂, 例如</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">color</span> <span class="tag">header</span>        brightyellow    black         <span class="string">"^(Subject)"</span></span><br></pre></td></tr></table></figure>
+<p>这条语句的作用是讲邮件头部的邮件主题(Subject)行显示为黑底高亮黄字. 这里使用了正则表达式来匹配需要高亮的行, <code>&quot;^(Subject)&quot;</code>匹配开头是&quot;Subject&quot;的行, 而该匹配模式又只作用与邮件头部<code>Header</code>, <code>Header</code>部分邮件主题行的行首就是&quot;Subjuect&quot;开头的. 当然, 上述配置中, 将发信人所在行用高亮绿字显示, 此外, 可以采用这种方法, 高亮任意的邮件头部行, 感兴趣的话, 可以在邮件内容页面按下<code>h</code>来显示详细的邮件头部信息.</p>
+<p>接着我们来看下下面的语句:</p>
+<figure class="highlight axapta"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">color <span class="keyword">index</span>         white           black         <span class="string">"~v~(!~N!~O)"</span></span><br></pre></td></tr></table></figure>
+<p>该语句首先针对的是<code>index</code>界面, 即列表界面, 然后前景色是白色, 背景色是黑色, 这没什么好说的, 关键在于<code>&quot;~v~(!~N!~O)&quot;</code>的解释, 这里的<code>~N</code>的表示是Mutt特有的通配符.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">通配符</th>
+<th style="text-align:left">描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">~A</td>
+<td style="text-align:left">所有邮件</td>
+</tr>
+<tr>
+<td style="text-align:left">~D</td>
+<td style="text-align:left">已删除的邮件</td>
+</tr>
+<tr>
+<td style="text-align:left">~F</td>
+<td style="text-align:left">已被标记的邮件</td>
+</tr>
+<tr>
+<td style="text-align:left">~N</td>
+<td style="text-align:left">新的未读邮件</td>
+</tr>
+<tr>
+<td style="text-align:left">~O</td>
+<td style="text-align:left">旧的未读邮件</td>
+</tr>
+<tr>
+<td style="text-align:left">~v</td>
+<td style="text-align:left">邮件列表某主题(Thread)中的邮件</td>
+</tr>
+</tbody>
+</table>
+<p>除了通配符, Mutt还支持有限的逻辑操作, 分别为: 逻辑非符号<code>!</code>, 逻辑或符号<code>|</code>和组合符号<code>()</code>, 逻辑与的话直接挨着就是.</p>
+<p>这下回头看上述语句的意思就明白了, 对于符合条件(1. 是邮件列表某个主题包含的邮件 2. 不是新的未读邮件 3. 不是旧的未读邮件)的邮件, 实际上就是已读的列表邮件,  将其所在行的颜色设置为黑底白字.</p>
+<p>以上是几个主要的通配符的解释, 以及更多的Mutt模式匹配信息, 请参阅: <a href="http://dev.mutt.org/doc/manual.html#patterns" target="_blank" rel="external">Mutt Manual: Patterns: Searching, Limiting and Tagging</a>.</p>
+<p>另外, 值得一提的是, 该通配符不仅适用与高亮设置, 同样是适用于搜索邮件, 例如, 想要查看当前邮箱下的全部未读的新邮件, 则只要在<code>index</code>界面输入<code>/</code>, 然后输入匹配模式<code>~N</code>回车即可. 当然, 还有更复杂的组合模式, 关于Mutt的查找模式匹配, 参见: <a href="http://dev.mutt.org/doc/manual.html#simple-searches" target="_blank" rel="external">Mutt Manual: Simple Searches</a>.</p>
+<p>我们在上面介绍了<code>index</code>界面和<code>header</code>界面的配色, 关于邮件内容主体<code>body</code>的配色也是一样道理.<br>
+例如, 可以将邮件正文中的表情符号显示成蓝色:</p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">color body blue black "[<span class="link_label">;:</span>][<span class="link_reference">-o</span>][<span class="link_label">)/(|</span>]"</span><br></pre></td></tr></table></figure>
+<p>这样, 正文中像<code>:-)</code>, <code>;-o</code>, <code>:-(</code>这类的卖萌表情就统统被高亮出来了 0.0</p>
+<h3 id="patch高亮支持">Patch高亮支持</h3>
+<p>对于混迹开发者列表的同学来说, 将Mutt设置成支持Patch高亮绝对是一劳永逸的一件事情之一, 但是对于普通邮件用户而言这并没有什么卵用…</p>
+<figure class="highlight processing"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"># 自定义的patch补丁高亮, 方便查看patch</span><br><span class="line"><span class="built_in">color</span>   body     <span class="built_in">red</span>            black    <span class="string">"^-.*"</span></span><br><span class="line"><span class="built_in">color</span>   body     <span class="built_in">green</span>          black    <span class="string">"^[+].*"</span></span><br><span class="line"><span class="built_in">color</span>   body     brightwhite    black    <span class="string">"^diff --git.*"</span></span><br><span class="line"><span class="built_in">color</span>   body     brightwhite    black    <span class="string">"^index [a-f0-9].*"</span></span><br><span class="line"><span class="built_in">color</span>   body     brightwhite    black    <span class="string">"^\-\-\- a.*"</span></span><br><span class="line"><span class="built_in">color</span>   body     brightwhite    black    <span class="string">"^[\+]&#123;3&#125; b.*"</span></span><br><span class="line"><span class="built_in">color</span>   body     brightyellow   black    <span class="string">"^@@.*"</span></span><br><span class="line"><span class="built_in">color</span>   body     brightmagenta  black    <span class="string">"^(Signed-off-by).*"</span></span><br><span class="line"><span class="built_in">color</span>   body     brightmagenta  black    <span class="string">"^(Reported-by).*"</span></span><br><span class="line"><span class="built_in">color</span>   body     brightmagenta  black    <span class="string">"^(Suggested-by).*"</span></span><br><span class="line"><span class="built_in">color</span>   body     brightmagenta  black    <span class="string">"^(Acked-by).*"</span></span><br><span class="line"><span class="built_in">color</span>   body     brightmagenta  black    <span class="string">"^(Reviewed-by).*"</span></span><br><span class="line"><span class="built_in">color</span>   body     brightmagenta  black    <span class="string">"^\-\-\-$"</span></span><br><span class="line"># <span class="built_in">color</span>   body     brightmagenta  black    <span class="string">"^(Cc).*"</span></span><br><span class="line"># <span class="built_in">color</span>   body     brightmagenta  black    <span class="string">"^(CC).*"</span></span><br><span class="line"><span class="built_in">color</span>   body     white          black    <span class="string">"^( \#define).*"</span></span><br><span class="line"><span class="built_in">color</span>   body     white          black    <span class="string">"^( \#include).*"</span></span><br><span class="line"><span class="built_in">color</span>   body     white          black    <span class="string">"^( \#if).*"</span></span><br><span class="line"><span class="built_in">color</span>   body     white          black    <span class="string">"^( \#el).*"</span></span><br><span class="line"><span class="built_in">color</span>   body     white          black    <span class="string">"^( \#endif).*"</span></span><br><span class="line"></span><br><span class="line"># optional highlightling</span><br><span class="line"><span class="built_in">color</span>   body    <span class="built_in">green</span>           black    <span class="string">"LGTM"</span></span><br><span class="line"><span class="built_in">color</span>   body    brightmagenta   black    <span class="string">"-- Commit Summary --"</span></span><br><span class="line"><span class="built_in">color</span>   body    brightmagenta   black    <span class="string">"-- File Changes --"</span></span><br><span class="line"><span class="built_in">color</span>   body    brightmagenta   black    <span class="string">"-- Patch Links --"</span></span><br><span class="line"><span class="built_in">color</span>   body    <span class="built_in">green</span>           black    <span class="string">"^Merged #.*"</span></span><br><span class="line"><span class="built_in">color</span>   body    <span class="built_in">red</span>             black    <span class="string">"^Closed #.*"</span></span><br><span class="line"><span class="built_in">color</span>   body    brightblue      black    <span class="string">"^Reply to this email.*"</span></span><br></pre></td></tr></table></figure>
+<p>这是本人设置的Patch高亮模式, 采用正则表达式在邮件正文(body)中进行匹配高亮对应行. 这里就不对正则表达式部分进行详细解释了.</p>
+<h3 id="嵌套引用高亮区分">嵌套引用高亮区分</h3>
+<p>Mutt很贴心的设置了引用高亮功能, 配置如下:</p>
+<figure class="highlight processing"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"># 引文起始符号设置</span><br><span class="line"># <span class="built_in">set</span> quote_regexp = <span class="string">"^([ ]t]*[|&gt;:&#125;#])+"</span></span><br><span class="line"><span class="built_in">set</span> quote_regexp = <span class="string">"^([ \t]*[&gt;])+"</span></span><br><span class="line"></span><br><span class="line"># 嵌套引文不同层的颜色</span><br><span class="line"><span class="built_in">color</span> quoted        <span class="built_in">blue</span>            black</span><br><span class="line"><span class="built_in">color</span> quoted1       magenta         black</span><br><span class="line"><span class="built_in">color</span> quoted2       cyan            black</span><br><span class="line"><span class="built_in">color</span> quoted3       yellow          black</span><br><span class="line"><span class="built_in">color</span> quoted4       <span class="built_in">red</span>             black</span><br></pre></td></tr></table></figure>
+<p>这里, quoted4代表最里层的引用内容, quoted代表最外层的引用内容. 通过给不同层的引文设置不同颜色, 就可能很迅速的区分引文和本次邮件作者的回复内容了, 非常高效!</p>
+<p>另外, 在设置引文高亮的时候, 需要设置引用符号, 常见的引用符号有:<code>&gt;</code>, <code>#</code>, <code>+</code>乃至tab缩进等, 通过<code>quote_regexp</code>变量告知Mutt要将哪些行识别为引文, 这样才能使得之后的quoted设置生效. 由于本人订阅的邮件列表采用的符号<code>&gt;</code>作为引文开头, 所以就之设置了一个引文符号, 避免不必要的混乱高亮.</p>
+<h2 id="配置procmail">配置procmail</h2>
+<p>正如前言中说的, 本人配置Mutt主要是为了阅读邮件列表, 经过上述一系列的配置, 基本已经能正常并相对高效的阅读邮件列表了. 但是邮件列表一天能有数十封乃至几百封邮件, 根据上述的配置, getmail收取的所有的邮件都直接投放到inbox目录下, 这导致了我一打开Mutt, 就是满屏的来自邮件列表的邮件, 而私人邮件和工作邮件则完全被淹没了, 虽然可以通过设置不同的高亮来区分, 但是将邮件列表的邮件直接放在inbox中实在不是一个明智的操作, 一个合理的办法是专门设置一个信箱, 例如mlist来存放来自邮件列表的邮件.</p>
+<p>当通过getmail收取到邮件的时候, 如果是来自邮件列表的邮件, 直接跳过inbox信箱, 直接投放到mlist的信箱中, 这样的话既能保持inbox信箱的清洁, 又能在想查看邮件列表的时候切换到mlist邮箱中查看. 想要完成这个功能, 我们需要在getmail和信箱目录之前添加一层邮件分拣的操作, 而这个操作, 可以通过procmail工具来完成.</p>
+<p>procmail是一个邮件分拣工具, 可以根据发信人, 主题, 信件长短, 关键词等信息对邮件进行过滤<sup><a href="http://pm-doc.sourceforge.net/doc/#what_is_procmail" target="_blank" rel="external">[?]</a></sup>.</p>
+<p>我们要利用procmail做的就是, 从收取到的邮件中过滤出来自邮件列表的邮件, 然后将其投递到<code>mlist</code>目录中. 那么显然的, 我们需要先在Mutt的工作目录下建立相应的<code>mlist</code>目录, 为了符合maildir格式, 我们还需要在mlist目录下建立<code>cur</code>, <code>new</code>, <code>tmp</code>这3个子目录.</p>
+<figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$ </span>mkdir ~<span class="regexp">/.mail/mlist</span></span><br><span class="line"><span class="variable">$ </span>cd ~<span class="regexp">/.mail/mlist</span></span><br><span class="line"><span class="variable">$ </span>mkdir cur new tmp</span><br></pre></td></tr></table></figure>
+<h3 id="修改getmail配置">修改getmail配置</h3>
+<p>我们提到过, procmail需要将getmail收取到的邮件进行过滤, 那么很明显的, procmail需要在getmail将邮件投递到Mutt的inbox目录前对邮件进行过滤. 因此, 我们需要改变getmail的投递行为, 让getmail收取邮件后, 不放到Mutt的inbox目录中, 而是将邮件交给procmail来处理, 这里我们需要对上文所述的getmailrc配置文件进行适当修改.</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ vim ~/.getmail/getmailrc</span><br></pre></td></tr></table></figure>
+<p>将<code>[destination]</code>节中的<code>type</code>和<code>path</code>字段稍作修改</p>
+<figure class="highlight vala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">[destination]</span><br><span class="line"><span class="preprocessor"># 以目录形式储存</span></span><br><span class="line"><span class="preprocessor"># type = Maildir</span></span><br><span class="line"><span class="preprocessor"># path = ~/.mail/inbox/</span></span><br><span class="line"><span class="preprocessor"># 由于采用了procmail, 收取的邮件交由procmail分拣而非直接投递到文件夹中</span></span><br><span class="line">type = MDA_external</span><br><span class="line">path = /usr/bin/procmail</span><br></pre></td></tr></table></figure>
+<h3 id="编辑procmailrc文件">编辑procmailrc文件</h3>
+<p>这样, getmail就会将收取的邮件交给procmail来做过滤了. 接下来, 我们来配置procmail. procmail的配置集中在<code>~/.procmailrc</code>文件中. 新建并对其进行编辑如下:</p>
+<figure class="highlight vala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor"># procmail用于将收到的邮件进行分拣,并发放到不同的邮箱(文件夹)中</span></span><br><span class="line"><span class="preprocessor"># 设置PATH变量以便procmail正常运行,根据文档,PATH应在第一行就设置</span></span><br><span class="line">PATH=/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin</span><br><span class="line"><span class="preprocessor"># 指定shell</span></span><br><span class="line">SHELL = /bin/bash</span><br><span class="line"><span class="preprocessor"># 指定发信工具位置</span></span><br><span class="line">SENDMAIL=/usr/bin/msmtp</span><br><span class="line"><span class="preprocessor"># Mutt邮件存放主目录</span></span><br><span class="line">MAILDIR=$HOME/.mail</span><br><span class="line"><span class="preprocessor"># 默认存放的目录</span></span><br><span class="line">DEFAULT=$MAILDIR/inbox</span><br><span class="line"><span class="preprocessor"># 日志文件存放位置</span></span><br><span class="line">LOGFILE=$MAILDIR/procmail.log</span><br><span class="line"><span class="preprocessor"># 诊断用,关闭</span></span><br><span class="line">VERBOSE=no</span><br><span class="line"></span><br><span class="line"><span class="preprocessor"># 分拣规则, procmail采用名为recipe的规则来处理,具体查看man procmailrc</span></span><br><span class="line"><span class="preprocessor"># recipe的一般格式:</span></span><br><span class="line"><span class="preprocessor">#        :0 [flags] [ : [locallockfile] ]</span></span><br><span class="line"><span class="preprocessor">#        &lt;zero or more conditions (one per line)&gt;</span></span><br><span class="line"><span class="preprocessor">#        &lt;exactly one action line&gt;</span></span><br><span class="line"><span class="preprocessor">#</span></span><br><span class="line"><span class="preprocessor"># 其中, conditions行以'*'作为开头, '*'之后跟的正则表达式完全兼容egrep形式.</span></span><br><span class="line"><span class="preprocessor"># 关于规则示例可以查看man procmailex</span></span><br><span class="line"><span class="preprocessor"># action行中,可以以'!','|','&#123;'开头,其中'|'开头之后可以跟一条bash命令,</span></span><br><span class="line"><span class="preprocessor"># 此外的任意符号被认为是邮箱文件夹, 可以采用绝对路径, 若使用相对路径,</span></span><br><span class="line"><span class="preprocessor"># 则是相对与$MAILDIR, 例如inbox/,表示$MAILDIR/inbox</span></span><br><span class="line"></span><br><span class="line">:<span class="number">0</span></span><br><span class="line">* ^To:.*my_mail@mail.com</span><br><span class="line">inbox/</span><br><span class="line"></span><br><span class="line"><span class="preprocessor"># 归档Xen的邮件列表</span></span><br><span class="line">:<span class="number">0</span></span><br><span class="line">* ^Return-Path:.*xen-devel-bounces@lists.xen.org</span><br><span class="line">xen/</span><br><span class="line"></span><br><span class="line"><span class="preprocessor"># 剩下的邮件存放至inbox目录中</span></span><br><span class="line">:<span class="number">0</span></span><br><span class="line">* .*</span><br><span class="line">inbox/</span><br></pre></td></tr></table></figure>
+<p>在上述配置文件中, 各个字段的作用注释已经说的很清楚了, 有趣的是, 我们之前一直说procmail如何过滤投递邮件, 但事实上procmail也有转发邮件的功能, 因此大家会看到字段设置中有设置发信程序的部分.</p>
+<h3 id="recipe示例讲解">recipe示例讲解</h3>
+<p>procmail配置文件中唯一需要讲解也是重点需要讲解的就是规则部分了.<br>
+promail的规则称之为recipe. 可以通过man procmailrc来查看具体信息. recipe的格式如下:</p>
+<figure class="highlight asciidoc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">:0 [flags] [ :</span> [locallockfile] ]</span><br><span class="line">&lt;zero or more conditions (one per line)&gt;</span><br><span class="line">&lt;exactly one action line&gt;</span><br></pre></td></tr></table></figure>
+<p>第一行以<code>:0</code>开头, 后面可以跟一些标志, 以及使用锁文件避免潜在冲突.<br>
+第二行是conditions, 即匹配条件, 以<code>*</code>作为开头, 后跟正则表达式用于匹配, 此处的正则表达式兼容egrep的<a href="http://www.cs.columbia.edu/~tal/3261/fall07/handout/egrep_mini-tutorial.htm" target="_blank" rel="external">extended regular expression</a>格式.<br>
+第三行是action, 即执行部分, 该行若以<code>|</code>开头, 表示之后跟一条bash命令; 如果以<code>!</code>开头, 后面则跟的是对转发(forward)地址; 如果以<code>{</code>开头, 则是嵌套recipe. <strong>此外其它的字符开头都将视为邮箱目录</strong>.</p>
+<p>在讲解具体的规则之前, 我们先来理解下procmail的recipe处理流.</p>
+<figure class="highlight livescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">           -&gt;</span> recipe1                   recipe1                  recipe1</span><br><span class="line"><span class="number">1000</span> mails/   recipe2 --- <span class="number">800</span> mails<span class="function"> --&gt;</span> recipe2 --- <span class="number">300</span> mails<span class="string">\</span>   recipe2</span><br><span class="line">              recipe3                   recipe3<span class="function">               -&gt;</span> recipe3</span><br></pre></td></tr></table></figure>
+<p>如上图所示, 假设在procmailrc文件中包含3条recipie, 从上到下分别是recipe1, recipe2, recipe3. 现在有1000封邮件, procmail将会根据规则依次过滤它们. procmail采取的默认操作是移动邮件(move), 所以我们看到, 1000封邮件在经过recipe1的规则后, 假设匹配掉了200封, 那么在进行recipe2匹配的时候, 是对剩余的800封邮件进行处理了. 从这个过程可以看出, 排在越前面的recipe优先级越高, 而且已经被recipe处理过得邮件若没有特殊指明, 是不会再被接下来的recipe处理的.</p>
+<p>以下通过几条recipe来简要讲解下:</p>
+<figure class="highlight gherkin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">:0 c</span><br><span class="line"><span class="keyword">*</span> ^To:.<span class="keyword">*</span>my_mail<span class="comment">@mail.com</span></span><br><span class="line">inbox/</span><br></pre></td></tr></table></figure>
+<p>上述recipe表示, 对于发给my_mail@mail.com的邮件, 将其<strong>复制</strong>到<code>~/.mail/inbox</code>信箱中.<br>
+注意到这里在第一行的<code>:0</code>之后加了一个<code>c</code>作为标志, 代表复制邮件, 而非移动邮件. 复制的意义在于, 该邮件通过recipe进行过滤操作, 同时留下一个副本参与之后的recipe过滤操作. 这么做实际上产生了2封重复的邮件. 关于<code>c</code>标志以及其它<code>[flags]</code>标志, 请参见man procmailrc.<br>
+然后是第三行的<code>inbox/</code>, 由于不是以<code>|</code>, <code>!</code>或是<code>{</code>开头, 因此被解释为信箱目录, 这里采用的是相对路径的形式, 当然也完全可以写成<code>~/.mail/inbox/</code>, 这里的相对路径是相对于<code>~/.procmailrc</code>配置文件中的<code>$MAILDIR</code>变量而言的, 之前我们将其设置为了<code>$HOME/.mail</code>, 因此这里的<code>inbox/</code>代表的是<code>~/.mail/inbox</code>目录.</p>
+<p>再来看一下来自邮件列表的邮件归档设置</p>
+<figure class="highlight gherkin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 归档Xen的邮件列表</span></span><br><span class="line">:0</span><br><span class="line"><span class="keyword">*</span> ^Return-Path:.<span class="keyword">*</span>xen-devel-bounces<span class="comment">@lists.xen.org</span></span><br><span class="line">xen/</span><br></pre></td></tr></table></figure>
+<p>上述recipe将来自Xen的开发者列表的邮件都投递到<code>~/.mail/xen</code>目录下. 没什么特殊的技巧, 主要起作用的是第二行的正则表达式, 这里匹配邮件头部中的<code>Return-Path</code>字段, 若该字段包含<code>xen-devel-bounces@lists.xen.org</code>, 则该邮件被认为是来自xen的邮件列表, 从而被投递到xen的信箱中.<br>
+值得一提的是, Xen的开发者邮件列表有多个地址, 例如<code>xen-devel@lists.xenproject.org</code>, <code>xen-devel@lists.xen.org</code>, <code>xen-devel@lists.xensource.com</code>, 而且不同的发信人, 可能会把邮件列表的地址写在收信人(To)一栏, 也有部分人习惯把邮件列表地址写在抄送(Cc)一栏, 如果考虑从To或是Cc字段来匹配邮件列表那就比较复杂了, 但是有意思的是不管发给哪个列表地址的邮件, 邮件头部<code>Return-Path</code>字段的地址都是<code>xen-devel-bounces@lists.xen.org</code>, 因此只需要对<code>Return-Path</code>字段进行匹配就能过滤出全部来自该邮件列表的邮件. 其它的邮件列表也是如此.</p>
+<p>最后, 我们看下如下的规则</p>
+<figure class="highlight gherkin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 剩下的邮件存放至inbox目录中</span></span><br><span class="line">:0</span><br><span class="line"><span class="keyword">*</span> .<span class="keyword">*</span></span><br><span class="line">inbox/</span><br></pre></td></tr></table></figure>
+<p>这条规则是最后一条recipe, 按照我们上面说的recipe处理流, 已经被上层recipe过滤掉的邮件并不会被这条recipie过滤, 因此, 我们这里匹配任意的邮件, 则实现的是将上层全部recipe规则之外没被匹配掉的邮件全都放到inbox信箱中.</p>
+<p>至此, procmail配置讲解结束, 关于procmail一些其它的高级功能例如转发等请查看<a href="http://pm-doc.sourceforge.net/doc/" target="_blank" rel="external">promcail manual</a>, 更多的recipe示例可以参考man procmailex.</p>
+<h2 id="hooks">Hooks</h2>
+<p>Hooks是Mutt中非常强大的功能, 不过鉴于常规使用上不怎么会用到, 亦深入研究, 先不介绍了, 如果之后用到了在将相关内容补上, 没有的话就…XD</p>
+<p>Hooks的相关介绍, 请参阅: <a href="http://dev.mutt.org/doc/manual.html#hooks" target="_blank" rel="external">Mutt Manual: Using Hooks</a></p>
+<h1 id="总结-v3">总结</h1>
+<p>本文针对邮件列表阅读这一应用场景出发, 对为什么使用Mutt, Mutt是什么, 怎么配置Mutt进行了简要的叙述, 其中参考了众多资料, 在文中相应的地方都给出了引用链接. 本文篇幅较长且行文冗余啰嗦, 无奈受限于作者文学素养不高却又想尽可能表述的清楚明白, 同时尽量将涉及到的相关内容都覆盖讲解到以更好的理解Mutt. 如前言所述, 此文主要是用来记录本人配置Mutt过程中的心得以便日后回顾, 同时也希望能帮助到一些刚接触Mutt被整的一头雾水的同学, 经过几天的使用, 越发发现Mutt真的是一个非常高效且好用的工具, 虽然前期的配置和理解较为复杂, 但是我认为完全值得. 最后, 本人水平有限, 文中若有存在不足或错误之处, 还请各位同学指出.</p>
+-->
+            
+            
+                <p>Mutt是一款优秀的邮件客户端工具, 但是在配置使用上对初学者并不友好. 本文通过讲述为什么使用Mutt, Mutt是什么, 如何配置Mutt来尽可能全面的描述Mutt, 而非仅仅简单的介绍如何配置Mutt.</p>
+<a id="more"></a>
+<h1 id="前言-v3">前言</h1>
+<p>网络上关于介绍Mutt的文章很多, 相信最有名的应该算是王垠的<a href="http://www.ctex.org/documents/shredder/mutt_frame.html" target="_blank" rel="external">Mutt使用指南</a>了吧, 这是我看过诸多讲述Mutt文章中讲的最好的, 为什么? 因为这篇文章真的只讲Mutt啊! 当然, 最后我还是无法根据这篇文章把我的Mutt配置用起来就是了. 除此之外, 网上遍布了各式各样的形如<code>(从零配置)?mutt+(getmail|fetchmail)+(msmtp|esmtp)(+procmail)?收发邮件</code>之类的文章, 那为什么我还要再造一个轮子, 哦不, 是再写这一篇文章来给互联网添加冗余的信息呢?</p>
+<ul>
+<li>
+<p>首先, 介绍下我的使用场景, 我需要使用阅读相关社区的Mailing List, 而邮件列表这种东西大家或多或少了解过, 主要的特点是邮件主题(Thread)多, 回复(Re)多, 引用(Quoted)多, 代码(Patch)多…如果你订阅(Subscribe)了一个邮件列表, 那么一天收个一百来封邮件很正常. 那么问题就来了, 这么多这么乱的邮件, 如何阅读? 如何整理? 我们常用的邮箱诸如Gmail, 163, QQmail etc. 这类的邮箱在日常使用中确实表现不错, 但是碰到邮件列表, 似乎就不怎么好用了. 此外, 还有一些邮件客户端, 诸如Outlook, Thunderbird etc. Thunderbird我没用过就不置评了, Outlook看邮件列表我没试过, 但是就是在Outlook中多几层引用回复我看起来就很费劲了, 可能是比较low吧, 并没有学习如何高效使用神器Outlook = =.</p>
+</li>
+<li>
+<p>其次, 除了邮件又杂又多的问题, 在社区的开发者列表(devel)中经常会包含很多代码, 其中有讨论代码的, 也有是使用<code>git sendmail</code>发送的Patch的, 因此邮件内容中会包含很多的代码, 其中的代码还是<code>git diff</code>格式的, 增减的代码行首有<code>+</code>有<code>-</code>, 如何能高亮修改的代码行以及其它信息是高效阅读邮件的关键, 毕竟, 时间就是金钱, 我的朋友 ;-P</p>
+</li>
+<li>
+<p>最后, 当我在网上搜索Mutt的相关介绍时候, 其实我是想找到如何配置Mutt的, 而搜索引擎返回给我的结果也确实是如何配置Mutt的, 但是很遗憾的, Mutt这个工具对于刚接触的人来说实在是太不友好了. 我只想收发邮件, 为什么还要整那么多没用的, 又是getmail, 又是msmtp的, 还有个看起来巨复杂的procmail? 然后当我困惑于这些个东西是什么关系的时候, 文章只是甩了我几个配置文件就完了? 当我半知不解的照猫画虎按照文章内容小心翼翼的编辑完配置文件后, 发现不能用亦或是根本就不对的时候, 我的内心是崩溃的(摔! 谁能告诉我配置文件的参数是什么意思, 为什么要配这个参数, 这个参数还有什么其它值, 行为是怎么样的, 还有没有其它的参数来完成XXX功能? 而当我苦苦在一篇篇文章中苦苦上下求索一无所获满头雾水的时候, 所幸最后Stackoverflow, 官网manual以及man page救了我.</p>
+</li>
+</ul>
+<p>综上, 可以看到, 我需要用Mutt来阅读邮件列表, 之所以选Mutt而不使用传统的邮件客户端或是常用的邮箱是因为其在阅读邮件列表时表现不佳, 缺乏效率. 而当我要着手配置Mutt的时候, 网络上的诸多文章仅仅只能起到参考的作用, 我希望能做到自己来定制Mutt并且是真的了解为什么这么配才去配, 而不是随手拿来一个配置文件就用. 再者, 就是本人有些许强迫症, 像Mutt和其它的一些在Unix-like环境下运行的Tools具有极强定制性的工具, 总是希望能将其尽可能的配置到顺手为止. 因此, 我才花时间来写下这篇文章, 一方面记录自己的配置过程, 方便以后回顾用, 另一方面, 若能顺便帮助下有需要的人, 那也算是意外收获了吧.</p>
+<h1 id="why-为什么使用mutt">Why: 为什么使用Mutt</h1>
+<p>如上文所述, 从阅读邮件的角度来说, 有很多很好用的邮箱, Gmail就是本人很喜欢的邮箱, 并且一直在用, 除了一些不可控的原因影响其用户体验外, 其它方面确实表现的很好. 那为什么我还要花这么大的力气去配置Mutt呢? Mutt跟其它的邮箱相比, 到底有哪些好处呢? 接下来我们来对比下集中应用场景(主要针对邮件列表阅读).</p>
+<ol>
+<li><strong>Thread视图</strong></li>
+</ol>
+<p><img src="/img/mutt/thread_in_gmail.jpg" alt="Gmail中的邮件列表视图"><br>
+<img src="/img/mutt/thread_in_mutt.png" alt="Mutt中的邮件列表视图"></p>
+<p>从上图的对比中可以看到, Gmail中的邮件列表视图是基于发信时间的, 虽然这样可以查看到最新的邮件, 但是邮件列表的上下文逻辑就看不清楚了. Mutt则是基于邮件主题的模式进行排列的, 每封邮件都按照Thread的前后回复逻辑组织在一起, 一眼看去回复关系非常清楚, 而且Mutt还能设置高亮, 例如在上图的配置中, 将未读的邮件设置成高亮的蓝色, 已读的邮件设置成白色, 未读的Thread设置成高亮蓝色, 部分已读部分未读的Thread设置成紫色, 这些高亮都是可以自定义的, 因此打开Mutt的邮件列表视图, 一眼看去就知道哪些邮件是已经看过的, 哪些邮件是完全没看过的以及哪些邮件是只看一部分未看全的.</p>
+<ol start="2">
+<li><strong>嵌套引用</strong></li>
+</ol>
+<p><img src="/img/mutt/quoted_in_gmail.png" alt="Gmail中的嵌套引用"><br>
+<img src="/img/mutt/quoted_in_mutt.png" alt="Mutt中的嵌套引用"></p>
+<p>在邮件列表的阅读中, 经常会出现多层的嵌套引用, 从上图的对比中可以看出, Gmail并未对嵌套的引文做任何处理, 而Mutt则可以使用不同的颜色区分不同层的引文, 引用次序非常清晰明了.</p>
+<ol start="3">
+<li><strong>Patch邮件</strong></li>
+</ol>
+<p><img src="/img/mutt/patch_in_gmail.png" alt="Gmail中的Patch邮件"><br>
+<img src="/img/mutt/patch_in_mutt.png" alt="Mutt中的Patch邮件"></p>
+<p>在开源社区, 在发送Patch的时候常常使用<code>git sendmail</code>来发送Patch, 而不是以附件的形式. 我们可以看到, 在Gmail中将Patch中代码的部分直接当做正文来处理, 因此很难看清楚到底Patch中对哪里做了修改, 而在Mutt中, 可以通过正则表达式的方式来匹配正文中的任意字段实现高亮, 将其应用到Patch邮件的正文中, 将增减的行高亮出来, 这样就能很清楚的看明白Patch到底对哪里进行了修改.</p>
+<p>以上例子仅仅只是针对邮件列表阅读这种特殊的应用场景而言, 之所以拿Gmail来比较是因为Gmail本身非常优秀, 也是本人最喜欢的邮箱, 并没有贬低Gmail的意思, 只是应用场景不同罢了. 事实上, 除了邮件列表和工作邮件, 本人的其它私人邮件使用的都是Gmail, 一方面UI设计简洁大方, 另一方面, 邮件搜索过滤对于日常应用来说确实非常好~</p>
+<p>在弄清楚了应用场合之后, 我们来进入正文…</p>
+<h1 id="what-mutt是什么">What: Mutt是什么</h1>
+<h2 id="mutt简介">Mutt简介</h2>
+<p>Mutt是什么? 或者说Mutt是什么样子的? 根据<a href="http://www.mutt.org" target="_blank" rel="external">Mutt官网</a>上的介绍, Mutt是Unix系统环境下一个小巧但是强大的文本邮件客户端. 小是显而易见的, 功能强大对于本人而言主要体现在以下几个<a href="http://www.mutt.org/#Features" target="_blank" rel="external">Mutt Features</a>:</p>
+<ul>
+<li>支持配色</li>
+<li>对邮件列表支持很好</li>
+<li>高度可定制, 支持键绑定和宏</li>
+<li>支持正则表达式以及内部模式匹配等多种搜索</li>
+<li>高效</li>
+</ul>
+<p>此外, Mutt还支持其它很多特性, 比如MIME(这是什么我并不知道, 估计也不会用到), PGP(没有加密邮件的习惯), 支持POP3和IMAP协议(是个邮箱都支持), 完全控制邮件头部等等等等…但是这些特性其它的邮箱也有, 有的甚至做的更好.</p>
+<p>因此, 对于Mutt, 我最看重的还是其它邮箱所没有的特性.</p>
+<ol>
+<li>
+<p>高度可定制化, 键位绑定和宏对于习惯了Vim和CLI的人来说能提高不少效率;</p>
+</li>
+<li>
+<p>对邮件列表支持完善, 这也是我之所以选用Mutt最关键的原因, Mutt针对邮件列表添加了很多很方便的设置和操作, 极大的提高了阅读和回复邮件列表邮件的效率;</p>
+</li>
+<li>
+<p>邮件内容支持配色, 这对于阅读带有代码或是多层嵌套引用的邮件来说简直是神技.</p>
+</li>
+<li>
+<p>高效, 主要反应在打开一个1000+邮件的信箱只需要1s不到时间, 很快.</p>
+</li>
+</ol>
+<p>诚然Mutt有很多优点, 但是Mutt仅仅只是一个邮件客户端, 那么问题来了, 什么是邮件客户端(Mail Client)? 通常我们认为一个邮件客户端应该像Outlook和Thunderbird那样, 能收能发能整理能查找. 但是很遗憾的, Mutt跟他们并不一样, Mutt是Unix环境下的small and powerful的邮件客户端, 按照Unix大多工具的尿性, 一般只会提供小而精的功能, 并不会做大而全的封装. Mutt也是一样, <strong>Mutt只管理邮件, 而不负责邮件的收发</strong>. 详细点说, Mutt做的事情只是从本机上的某个位置读取邮件, 或是把邮件存放到本机上的某个位置, 此外, 还负责邮件的阅读, 查找, 标记等事务, 与其说Mutt是一个邮件客户端, 不如说<strong>Mutt是一个邮件管理工具</strong>.</p>
+<h2 id="email工作原理">Email工作原理</h2>
+<p>说到这里, 我们就不得不简单的讲一下Email的工作原理了<sup><a href="http://ccm.net/contents/116-how-email-works-mta-mda-mua" target="_blank" rel="external">[?]</a></sup>.<br>
+<img src="/img/mutt/how_email_works.png" alt="Email的工作原理"></p>
+<p>从上面的原理图中, 我们可以看到整个邮件发送接收的过程. 首先, 邮件在MUA(Mail User Agent)中编辑完成, 交由MTA(Mail Transfer Agent)进行发送, 在发送的过程中, 邮件会在多个路由和MTA服务器中中转, 邮件从一个MTA服务器被传输到另一个MTA服务器, 其中使用的是名为<a href="https://zh.wikipedia.org/zh/%E7%AE%80%E5%8D%95%E9%82%AE%E4%BB%B6%E4%BC%A0%E8%BE%93%E5%8D%8F%E8%AE%AE" target="_blank" rel="external">SMTP</a>的邮件传输协议. 当邮件到达收件人所处的网络中的MTA时, MTA将邮件交给邮件服务器, 邮件服务器负责将邮件发送给指定用户的信箱中, 邮件服务器在分发邮件的时候, 具有MDA(Mail Delivery Agent)的功能, 其中可能会包含防火墙, 过滤垃圾邮件, 屏蔽黑名单等功能, 我们常见的网络邮箱的工作模式大致是这样的.</p>
+<p>另外, 如果我们使用的是邮件客户端来接收邮件的话, 客户端还需要负责从远端的信箱中拖取邮件到本地的信箱中. 这里就需要使用MRA(Mail Retrieval Agent)来完成从远端信箱收取邮件至本地的操作, 在MRA取邮件的时候, 涉及到这么一个问题, 是单纯的将远端邮箱的邮件复制来呢, 还是让本机的信箱跟远端的信箱保持同步呢, 根据收取方式的不同, 区分了两种主流的收取邮件协议<a href="https://zh.wikipedia.org/wiki/%E9%83%B5%E5%B1%80%E5%8D%94%E5%AE%9A" target="_blank" rel="external">POP3</a>和<a href="https://zh.wikipedia.org/wiki/IMAP" target="_blank" rel="external">IMAP</a>. 在邮件到达本地后, 有时在本机上, 会再次对邮件进行一部分分拣和过滤, 例如将来自邮件列表的邮件放到一个特定的文件夹中, 将包含特定文字的邮件放到垃圾邮件文件中等, 这些功能, 是通过本地的MDA来完成的. 最后, 邮件到达了特定的文件夹, MUA, 即邮件客户端从特定文件夹读取邮件, 并解码邮件格式, 展示给用户阅读. 而Mutt, 在整个邮件收发过程中, 做的也就是这个部分的事情!</p>
+<h2 id="mutt与msmtp-getmail和procmail的关系">Mutt与msmtp, getmail和procmail的关系</h2>
+<p>解释了半天, 相信大家已经被各种M*A给整懵了吧. 以下对邮件发送过程中的各个部分(Agent)做下简要的解释:</p>
+<ul>
+<li>
+<p><strong>MUA(Mail User Agent)</strong>: 邮件客户端, 负责邮件的管理, 阅读等. 一些集成度较高的MUA会带有收发邮件乃至过滤邮件的功能如Outlook和Thunderbird, Mutt也带有简单的发送邮件功能, 不过一般不采用.</p>
+</li>
+<li>
+<p><strong>MTA(Mail Transfer Agent)</strong>: 邮件传送代理, 负责邮件的发送, 处理发送过程中的主机识别, 路由跳转等问题. 对于用户而言MTA就是负责从本地发送邮件的部件. 常见的MTA有sendmail, emstp, msmtp.</p>
+</li>
+<li>
+<p><strong>MRA(Mail Retrieval Agent)</strong>: 邮件收取代理, 负责从远端的邮件服务器收取邮件至本地文件夹. 常见的MRA有fetchmail, getmail.</p>
+</li>
+<li>
+<p><strong>MDA(Mail Delivery Agent)</strong>: 邮件分发代理, 负责根据规则过滤邮件并将邮件投放到不同的文件夹中. 常见的MDA有procmail.</p>
+</li>
+</ul>
+<p>之所以讲了这么多Email的工作原理, 主要是为了两件事情.</p>
+<ol>
+<li>明确Mutt在整个邮件收发过程中的位置.</li>
+<li>解释为什么在配置Mutt的时候需要额外安装配置msmtp, getmail乃至procmail.</li>
+</ol>
+<p>当弄明白了Email的工作原理后, 其实也就不难理解为什么在网上搜索Mutt相关资料的时候, 跳出来的都是mutt+getmail+msmtp+procmail之类的文章了. 因为光一个Mutt, 根本无法完成最基本的邮件收发功能啊, 必须需要靠msmtp来发邮件, 靠getmail来收邮件, 如果还需要自定义一些邮件分类过滤行为的话, 还需要procmail来帮忙. 因此, 现在我们在谈论Mutt的时候, 我们其实实在谈论mutt+getmail+msmtp这一串东西.</p>
+<p>然后, 我想再来看看以下这张图<sup><a href="http://blog.chinaunix.net/uid-20543672-id-3349607.html" target="_blank" rel="external">[?]</a></sup>, 就明白Mutt与getmail, msmtp以及procmail之间的关系了.<br>
+<img src="/img/mutt/mutt_relation.jpg" alt="Mutt与相关工具的关系(图片版权为tekkamanninja所有)"></p>
+<h1 id="how-搭建mutt环境">How: 搭建Mutt环境</h1>
+<p>在明白了为什么用Mutt, 什么是Mutt, 已经Mutt与msmtp, getmail和procmail的关系之后, 接下来, 我们来了解下如何配置Mutt以及msmtp和getmail, 在这节中我们先不介绍procmail, 因为很多的邮箱反垃圾邮件和防火墙已经做的很好了, 用不着用户自定义规则来反垃圾邮件. Mutt+msmtp+getmail已经可以完成基础的收发管理邮件的功能.</p>
+<h2 id="安装mutt-msmtp和getmail">安装Mutt, msmtp和getmail</h2>
+<p>这步没什么好说的, 直接apt-get</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo apt-get install mutt msmtp getmail4</span><br></pre></td></tr></table></figure>
+<h2 id="配置mutt">配置Mutt</h2>
+<p>Mutt的配置主要分为2个部分: 一个是muttrc文件, 另一个是信箱目录的组织.</p>
+<h3 id="muttrc文件">muttrc文件</h3>
+<p>我们先来看一下基本的muttrc配置文件. 在用户的<code>$HOME</code>目录下创建并编辑<code>.muttrc</code>文件.</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ vim ~/.muttrc</span><br></pre></td></tr></table></figure>
+<p>一个本的muttrc文件如下所示:</p>
+<figure class="highlight vala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor"># 设置发信人名称</span></span><br><span class="line"><span class="keyword">set</span> realname = <span class="string">"Your Name"</span></span><br><span class="line"></span><br><span class="line"><span class="preprocessor"># 设置邮件发送程序</span></span><br><span class="line"><span class="keyword">set</span> sendmail = <span class="string">"/usr/bin/msmtp"</span></span><br><span class="line"></span><br><span class="line"><span class="preprocessor"># 默认的发信地址</span></span><br><span class="line"><span class="keyword">set</span> from = <span class="string">"yourmail@mail.com"</span></span><br><span class="line"></span><br><span class="line"><span class="preprocessor"># 在发送邮件时使用from域作为msmtp发送邮件的sender, 否则使用的是user@localhost</span></span><br><span class="line"><span class="keyword">set</span> envelope_from = yes</span><br><span class="line"></span><br><span class="line"><span class="preprocessor"># mutt自动生成from地址</span></span><br><span class="line"><span class="keyword">set</span> use_from = yes</span><br><span class="line"></span><br><span class="line"><span class="preprocessor"># 设置编辑时使用的编辑器</span></span><br><span class="line"><span class="keyword">set</span> editor = <span class="string">"vim"</span></span><br><span class="line"></span><br><span class="line"><span class="preprocessor"># 建立信箱, 默认信箱是inbox, 所有新邮件都会被默认发送到inbox文件夹中</span></span><br><span class="line"><span class="preprocessor"># 告知mutt邮件的存放格式(format), maildir格式要求相关文件夹下必须有tmp, new, cur这3个子目录</span></span><br><span class="line"><span class="keyword">set</span> mbox_type = maildir</span><br><span class="line"><span class="preprocessor"># 存放邮件的根目录, 在muttrc文件中用"+"或者"="表示</span></span><br><span class="line"><span class="keyword">set</span> folder = <span class="string">"~/.mail"</span></span><br><span class="line"><span class="preprocessor"># 接收到的邮件默认存放的位置, 系统会自动创建该目录, 而其它的目录需要手动创建</span></span><br><span class="line"><span class="keyword">set</span> spoolfile = <span class="string">"+inbox"</span></span><br><span class="line"><span class="preprocessor"># 从收件箱(inbox)保存的邮件存放位置</span></span><br><span class="line"><span class="keyword">set</span> mbox = <span class="string">"+mbox"</span></span><br><span class="line"><span class="preprocessor"># 延迟发送(postpone)邮件的存放位置</span></span><br><span class="line"><span class="keyword">set</span> postponed = <span class="string">"+postponed"</span></span><br><span class="line"><span class="preprocessor"># 已发送的邮件存放的位置</span></span><br><span class="line"><span class="keyword">set</span> record = <span class="string">"+sent"</span></span><br><span class="line"></span><br><span class="line"><span class="preprocessor"># 设置终端显示时采用的字符集</span></span><br><span class="line"><span class="keyword">set</span> charset = <span class="string">"utf-8"</span></span><br><span class="line"></span><br><span class="line"><span class="preprocessor"># 设置发送字符集, 根据linux内核邮件列表推荐设置</span></span><br><span class="line"><span class="keyword">set</span> send_charset = <span class="string">"us-ascii:utf-8"</span></span><br><span class="line"></span><br><span class="line"><span class="preprocessor"># 回信时引用原文是否加入原文的邮件头</span></span><br><span class="line"><span class="keyword">set</span> header = no</span><br><span class="line"></span><br><span class="line"><span class="preprocessor"># 将inbox中已读邮件自动移动到mbox文件夹中(ask-yes表示会询问, yes则直接移动)</span></span><br><span class="line"><span class="keyword">set</span> move = ask-yes</span><br><span class="line"></span><br><span class="line"><span class="preprocessor"># 在信件内容窗口(pager)滚动到底部时, 不自动跳到下一封邮件</span></span><br><span class="line"><span class="keyword">set</span> pager_stop</span><br><span class="line"></span><br><span class="line"><span class="preprocessor"># 告知mutt订阅的邮件列表,以便开启相关特性,便于阅读邮件列表</span></span><br><span class="line">subscribe xen-devel@lists.xen.org xen-devel@lists.xensource.com xen-devel@lists.xenproject.org</span><br></pre></td></tr></table></figure>
+<h3 id="指定msmtp作为邮件发送工具">指定msmtp作为邮件发送工具</h3>
+<p>由于我们采用msmtp来发送邮件, 需要告知Mutt, 以便在发送邮件的时候, Mutt可以将邮件交给msmtp进行发送. 因此, 需要指定邮件发送工具路径.</p>
+<figure class="highlight actionscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">set</span> sendmail = <span class="string">"/usr/bin/msmtp"</span></span><br></pre></td></tr></table></figure>
+<p><strong>通过上述配置, 我们将Mutt和msmtp给联系起来了.</strong></p>
+<h3 id="设置信箱目录">设置信箱目录</h3>
+<p>另外, 我们看到在muttrc配置文件中设置了很多信箱文件夹, 如下:</p>
+<figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">set</span> mbox_type = maildir</span><br><span class="line"><span class="keyword">set</span> folder = <span class="string">"~/.mail"</span></span><br><span class="line"><span class="keyword">set</span> spoolfile = <span class="string">"+inbox"</span></span><br><span class="line"><span class="keyword">set</span> mbox = <span class="string">"+mbox"</span></span><br><span class="line"><span class="keyword">set</span> postponed = <span class="string">"+postponed"</span></span><br><span class="line"><span class="keyword">set</span> <span class="type">record</span> = <span class="string">"+sent"</span></span><br></pre></td></tr></table></figure>
+<p>这里就有必要解释下其意思了. 首先, 我们看到的是<code>mbox_type</code>这个变量, 这是用来设置邮件储存格式的, 通常将其设置为<code>maildir</code>格式<sup><a href="http://dev.mutt.org/trac/wiki/MaildirFormat" target="_blank" rel="external">[?]</a></sup>. <code>maildir</code>格式要求每个信箱文件下要包含3个子文件夹, 分别为<code>cur</code>, <code>new</code>, <code>tmp</code>.</p>
+<p>说到邮件储存格式, 我们就来简单了解下Mutt管理邮件的方式. 事实上, 我们通过Mutt看到的邮件, 都是以文件的形式保存在特定的目录中的, 一封邮件就是一个文件. Mutt做的事情就是从特定的信箱目录中读取邮件, 解码文件, 然后展示内容给用户. 在把邮件从一个信箱移动到另一个信箱的时候, Mutt实际上是将邮件文件从一个目录移动或是复制到另一个目录中, 就是这么简单!</p>
+<p>例如如果inbox信箱中有邮件, 那么可以看到:</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ ls ~/.mail/inbox/cur</span><br><span class="line"><span class="number">1439889842.29259</span>_1<span class="class">.USER</span>:<span class="number">2</span>,S  <span class="number">1439890047.29915</span>_0<span class="class">.USER</span>:<span class="number">2</span>,S  <span class="number">1439890260.30560</span>_0<span class="class">.USER</span>:<span class="number">2</span>,</span><br><span class="line"><span class="number">1439889842.29260</span>_1<span class="class">.USER</span>:<span class="number">2</span>,S  <span class="number">1439890047.29916</span>_0<span class="class">.USER</span>:<span class="number">2</span>,   <span class="number">1439890260.30561</span>_0<span class="class">.USER</span>:<span class="number">2</span>,</span><br><span class="line"><span class="number">1439889843.29261</span>_0<span class="class">.USER</span>:<span class="number">2</span>,S  <span class="number">1439890047.29917</span>_0<span class="class">.USER</span>:<span class="number">2</span>,   <span class="number">1439890261.30562</span>_0<span class="class">.USER</span>:<span class="number">2</span>,</span><br></pre></td></tr></table></figure>
+<p>也可以尝试着将一个文件<code>mv</code>到另一个文件夹的<code>cur</code>子目录下, 再打开Mutt看看邮件是不是就从原先的邮箱移动到新的邮箱中了 0.0</p>
+<p>接着我们看一下变量<code>$folder</code>, 该变量即指定了Mutt读取操作邮件的&quot;根目录&quot;, 例如, 示例配置文件中, 将其设置为<code>~/.mail</code>目录, 那么在打开Mutt的时候, Mutt会默认从该目录下去读取操作邮件文件.</p>
+<p><strong>在信箱组织方面, 一般建议设置<code>$spoolfile</code>, <code>$mbox</code>, <code>$postponed</code> 和 <code>$record</code>这四个变量.</strong> 当然, 也可以都不设置, 但是Mutt会默认在<code>$folder</code>变量指定的目录下建立<code>inbox</code>目录, 并将全部的邮件都一股脑放到这个目录下. 这里, 我们都对其进行了设置, 当然, 使用前要确保这些指定目录已经建立好了, 并且每个目录下已经建立了<code>cur</code>, <code>new</code>, <code>tmp</code>这三个子目录.</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">$ mkdir ~/.mail</span><br><span class="line">$ cd ~/.mail</span><br><span class="line">$ mkdir inbox mbox postponed sent</span><br><span class="line">$ cd ~/.mail/inbox</span><br><span class="line">$ mkdir cur new tmp</span><br><span class="line"><span class="keyword">...</span></span><br></pre></td></tr></table></figure>
+<p>这里我们简要的介绍下各个目录的功能<sup><a href="http://dev.mutt.org/trac/wiki/MuttGuide/Folders" target="_blank" rel="external">[?]</a></sup></p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">muttrc中变量</th>
+<th style="text-align:left">设置的目录</th>
+<th style="text-align:left">功能</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><code>$spoolfile</code></td>
+<td style="text-align:left">inbox</td>
+<td style="text-align:left">最基本的一个目录, 默认所有的新邮件都会存放在这个目录下</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>$mbox</code></td>
+<td style="text-align:left">mbox</td>
+<td style="text-align:left">已读邮件会被移动至该目录下(需要设置<code>$move</code>变量)</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>$postponed</code></td>
+<td style="text-align:left">postponed</td>
+<td style="text-align:left">推迟发送的邮件会被保存在这里</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>$record</code></td>
+<td style="text-align:left">sent</td>
+<td style="text-align:left">已发送的邮件会被保存在这里</td>
+</tr>
+</tbody>
+</table>
+<p>P.S. 在指定信箱目录的时候我们使用了<code>+</code>符号, 在muttrc文件中, <code>+</code>号代表<code>$folder</code>变量, 例如示例中设置了<code>$folder</code>变量为<code>~/.mail</code>目录, 那么<code>+inbox</code>表示的就是<code>~/.mail/inbox</code>目录<sup><a href="http://dev.mutt.org/trac/wiki/MuttGuide/Folders" target="_blank" rel="external">[?]</a></sup>.</p>
+<h3 id="mutt其它配置项">Mutt其它配置项</h3>
+<figure class="highlight dos"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">set</span> <span class="built_in">move</span> = ask-yes</span><br></pre></td></tr></table></figure>
+<p><code>$move</code>变量有四个值, 分别为<code>yes</code>, <code>no</code>, <code>ask-yes</code>和<code>ask-no</code>. <code>$move</code>变量的意义在于指定是否将inbox信箱中已读的邮件自动移动到mbox目录中. 默认是不移动, 此处将其设置为<code>ask-yes</code>, 即表示自动将已读邮件移动至<code>mbox</code>目录中, 但是在移动前会提示用户是否执行. 这样可以保持<code>inbox</code>目录的整洁, 避免每次打开mutt, 上来就看到一堆已经读过的邮件.</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="operator"><span class="keyword">set</span> <span class="keyword">charset</span> = <span class="string">"utf-8"</span></span><br><span class="line"><span class="keyword">set</span> send_charset = <span class="string">"us-ascii:utf-8"</span></span></span><br></pre></td></tr></table></figure>
+<p>这里主要是字符集的设置, 因为本人使用Mutt来阅读以及回复邮件列表, 因此需要设置通用的字符集来避免收信人接受到乱码邮件的问题, 此处的设置是参考Linux内核邮件列表对邮件客户端的<a href="http://git.kernel.org/cgit/linux/kernel/git/torvalds/linux.git/tree/Documentation/email-clients.txt?id=HEAD" target="_blank" rel="external">建议设置</a></p>
+<p>关于其它项的配置, 注释已经写的比较详细了, 就不再赘述了. 最后, 实际上Mutt是带有简单的收发邮件模块的, 因此有些用户可能需要在<code>.muttrc</code>文件中写入邮箱的账户和明文密码, 因此, 最好还是需要将<code>.muttrc</code>的权限设置为600.</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ chmod 600 ~/.muttrc</span><br></pre></td></tr></table></figure>
+<h2 id="配置msmtp">配置msmtp</h2>
+<p>msmtp是一个SMTP客户端<sup><a href="http://msmtp.sourceforge.net/" target="_blank" rel="external">[?]</a></sup>. 在整个Mutt收发系统中负责发送邮件的功能.</p>
+<p><strong>msmtp的配置文件为<code>~/.msmtprc</code></strong>.</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ vim ~/.msmtprc</span><br></pre></td></tr></table></figure>
+<p>一个基本的msmtprc文件如下:</p>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="title">defaults</span></span><br><span class="line">tls <span class="built_in">off</span></span><br><span class="line">tls_certcheck <span class="built_in">off</span></span><br><span class="line">logfile ~/.mail/msmtp.log</span><br><span class="line"></span><br><span class="line">account your_account</span><br><span class="line">host <span class="variable">$smtp</span>.your_smtp_server.com</span><br><span class="line">from <span class="variable">$your_mailaddress</span><span class="variable">@mail</span>.com</span><br><span class="line">port <span class="number">25</span></span><br><span class="line">user <span class="variable">$username</span></span><br><span class="line">password <span class="variable">$password</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Set a default account</span></span><br><span class="line">account default : <span class="variable">$username</span></span><br></pre></td></tr></table></figure>
+<p>注: 文件中带<code>$</code>符号的都是需要根据具体情况修改的信息.</p>
+<p>由于msmtp是负责发送邮件的, 而之前我们说过, 邮件发送涉及到的协议主要是SMTP, 因此, 需要告知msmtp SMTP服务器的host地址, 一般的邮箱STMP地址都比较简单, 例如新浪邮箱的host为<code>smtp.sina.com</code>, Gmail的host为<code>smtp.gmail.com</code>. 而大部分邮箱的SMTP服务端口号为默认的25, Gmail的话使用的是465和587, 具体的还请查看官方的介绍.</p>
+<p><strong>设置权限, 保护配置文件</strong><br>
+在知晓了SMTP服务器地址后, msmtp会访问SMTP服务器, 此时需要登录账户密码, 因此, 这些信息也要写入msmtprc以告知msmtp, 需要注意的是, 密码是明文保存的, 因此, 安全起见, 需要设置msmtprc文件的权限.</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ chmod 600 ~/.msmtprc</span><br></pre></td></tr></table></figure>
+<p>有关于msmtp更详细的配置, 请参见<a href="http://msmtp.sourceforge.net/documentation.html" target="_blank" rel="external">官方文档</a></p>
+<p>P.S. 本人使用的是公司的邮箱, 因此需要关闭TLS. 但是如果使用的Gmail则需要相关的设置, 具体方法网上随便一搜都是, 不再赘述.</p>
+<p>在配置msmtp后, 不妨测试下在Mutt中能否正常发送邮件:</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ echo &#34;&#27979;&#35797;&#37038;&#20214;&#20869;&#23481;&#34; | mutt -s &#34;&#27979;&#35797;&#37038;&#20214;&#26631;&#39064;&#34; test_mail@address.com</span><br></pre></td></tr></table></figure>
+<p>如果在测试邮箱中收到测试邮件, 即表明msmtp配置成功, 并且Mutt能顺利调用msmtp来发送邮件.</p>
+<h2 id="配置getmail">配置getmail</h2>
+<p>getmail是一个邮件收取工具, 用于从不同的邮件服务器上收取用户不同账户的邮件. 同时getmail也被设计来取代其它的一些邮件收取工具例如fetchmail<sup><a href="http://pyropus.ca/software/getmail/documentation.html#features" target="_blank" rel="external">[?]</a></sup>.</p>
+<p>在配置getmail前, 需要先建立getmail相应的目录<code>~/.getmail</code>, 之后在目录下新建并编辑配置文件getmailrc. 由于配置文件中包含邮箱账户以及明文密码, 因此限制<code>.getmail</code>目录的权限.</p>
+<figure class="highlight smalltalk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="char">$ </span>mkdir -m <span class="number">700</span> ~/.getmail</span><br><span class="line"><span class="char">$ </span>vim ~/.getmail/getmailrc</span><br></pre></td></tr></table></figure>
+<p>P.S. 如果你有多个邮箱, 需要在<code>~/.getmail</code>目录下为每个邮箱都建立一个getmailrc文件, 可以通过后缀来区分不同的getmailrc文件, 例如<code>getmailrc.gmail</code>或是<code>getmailrc.163</code>, 但需要注意的是, 文件名的前半部分必须是<code>getmailrc</code>, 及配置文件的命名规范为<code>getmailrc.xxx</code>.</p>
+<p><code>getmailrc</code>配置的文件是以节(section)为基础的, <code>getmailrc</code>文件至少应该有2个节:</p>
+<ol>
+<li><code>[retriever]</code>, 用于告知getmail邮箱的账户信息以便getmail能从邮件服务器上收取邮件.</li>
+<li><code>[destination]</code>, 用于告知getmail如何处理已经收取到的邮件.<br>
+此外, 还可以添加一个额外的<code>[optional]</code>节, 包含一些笼统的设置诸如日志文件路径设置等<sup><a href="http://pyropus.ca/software/getmail/configuration.html#rcfile" target="_blank" rel="external">[?]</a></sup></li>
+</ol>
+<figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">[retriever]</span><br><span class="line"><span class="comment"># type = SimplePOP3SSLRetriever</span></span><br><span class="line"><span class="comment"># port = 995</span></span><br><span class="line"><span class="constant">type</span> = SimpleIMAPSSLRetriever</span><br><span class="line"><span class="constant">server</span> = $mailserver.com</span><br><span class="line"><span class="constant">username</span> = $username</span><br><span class="line"><span class="constant">password</span> = $password</span><br><span class="line"></span><br><span class="line">[destination]</span><br><span class="line"><span class="comment"># 以Maildir格式储存</span></span><br><span class="line"><span class="constant">type</span> = Maildir</span><br><span class="line"><span class="constant">path</span> = ~/.mail/inbox/</span><br><span class="line"></span><br><span class="line">[option]</span><br><span class="line"><span class="comment"># 默认为True, 每次执行getmail收取全部邮件, False表示只收取未收取过的邮件</span></span><br><span class="line"><span class="constant">read_all</span> = False</span><br><span class="line"><span class="comment"># 本地删除服务器是否也删除邮件</span></span><br><span class="line"><span class="constant">delete</span> = False</span><br><span class="line"><span class="constant">message_log</span> = ~/.getmail/getmail.log</span><br></pre></td></tr></table></figure>
+<p>注: 上述配置文件中带<code>$</code>部分是需要根据实际邮箱信息更改的.</p>
+<p>首先让我们先来看一下<code>[retriever]</code>节, 关键字段为<code>type</code>, 用于告知getmail你打算以哪种协议收取邮件, 这里指的收取协议主要是POP3和IMAP.</p>
+<ul>
+<li>
+<p>POP3: 从远端邮件服务器上收取邮件, 同时服务器上保留邮件, 本地的对邮件的删除移动不影响到远端邮件服务器. 例如通过POP3协议收取完邮件后, 将本地的邮件删除, 服务器上依旧保存有该封邮件.</p>
+</li>
+<li>
+<p>IMAP: 本地邮件与远端邮件服务器上的邮件同步, 也就是说如果本地对邮件执行了删除或者移动也会同步到邮件服务器上.</p>
+</li>
+</ul>
+<p>如果采用POP3协议, 那么就将<code>type</code>设置成<code>SimplePOP3SSLRetrieve</code>, 如果用IMAP, 就设置成<code>SimpleIMAPSSLRetriever</code>. 事实上, 还可以设置成<code>SimplePOP3Retriever</code>和<code>SimpleIMAPRetriever</code>, 不过带SSL的表示使用SSL加密, 因此会更安全.</p>
+<p>关于POP3和IMAP协议收取邮件, 在本人的具体实践过程中, 发现并不是严格的遵守其协议行为, 即便是采用IMAP协议, 在本地删除了邮件的情况下, 邮件服务器上仍旧会保留邮件, 这跟getmail的配置有关, 同时可能还和邮件服务器的配置有关.</p>
+<p>注意到在上述的rc文件的<code>[option]</code>节中, 包含字段<code>delete</code>的设置, 用于指明在本地删除邮件后服务器是否也删除. 如果设置为<code>True</code>, 则在getmail会在成功收取邮件后删除邮件服务器上的对应邮件, 若设置为<code>False</code>, 则保留, 默认值是<code>False</code>. 该字段可能会影响POP3和IMAP收取协议, 因为本人通过反复设置POP3和IMAP, 以及<code>detele</code>字段, 发现不管怎么样邮件服务器上的邮件都会被保留, 但这可能是邮件服务器本身设置的原因, 因此无法验证. 为了保险起见, 建议初次设置getmail的时候采用POP3协议收取, 同时<code>delete</code>设置为<code>False</code>, 便于熟悉与验证. 不然手一抖把本地的邮件删了, 发现服务器上的邮件也没了就不好玩了. 当然, 也可以自己给自己发几封验证邮件, 然后在本地删除或是移动看看邮件服务器上的变化来验证getmail的配置.</p>
+<p>本人在设置协议的时候采用IMAP来收取协议, 主要的原因在于在使用过程中一些邮件服务器的POP3功能不稳定, 会出现一些邮件收不到, 收不及时或是重复收取的情况, 而IMAP则每次都能正确收取邮件, 相对而言, IMAP比POP3稳定<sup><a href="https://support.google.com/mail/troubleshooter/1668960?hl=zh-Hans" target="_blank" rel="external">[?]</a></sup>.</p>
+<p>如果你在使用getmail收取邮件时, 出现了重复收取邮件的情况, 不妨在<code>[option]</code>节中将<code>read_all</code>字段设置为<code>False</code>. 表示每次getmail收取邮件的时候只收取未收取过的邮件, 避免重复收取邮件. 那么, 从实现角度, getmail是如何完成识别邮件是否已经收取过了, 从而决定是否要收取邮件呢. 可以发现, 在使用getmail收取邮件后, 在<code>~/.getmail</code>目录下会多出一个<code>oldmail-mailserver.com-port-username-INBOX</code>的文件, 该文件的作用就是用来记录哪些邮件是已经收取过了的, 从而在下次收取的时候, 避免收取文件中已包含的邮件. 可以做个实验, 将该文件删除, 那么再使用getmail收取邮件的时候, 就又会收取全部的邮件了.</p>
+<p><strong>设置权限, 保护配置文件</strong><br>
+和其它配置文件一样的, 由于getmailrc文件中包含了明文的密码, 因此最好设定权限:</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chmod 600 ~/.getmail/getmailrc</span><br></pre></td></tr></table></figure>
+<p>关于getmailrc文件的更多信息, 请参见<a href="http://pyropus.ca/software/getmail/configuration.html" target="_blank" rel="external">官方文档</a>, 官网同时提供了多种getmailrc文件<a href="http://pyropus.ca/software/getmail/getmailrc-examples" target="_blank" rel="external">模板</a>以供参考.</p>
+<p>在配置完getmail后, 需要测试下getmail是否正常工作了, 执行getmail收取邮件.</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ getmail -n</span><br></pre></td></tr></table></figure>
+<p><code>-n</code>代表只收取新邮件. 执行命令后, getmail将会按照配置文件中的设置, 将邮件投递到<code>path</code>所指定的目录<code>~/.mail/inbox</code>下. 而该目录在Mutt的配置文件中被指定为<code>spoolfile</code>所使用的目录, 即<code>inbox</code>收件箱的目录, 因此, 打开mutt, mutt就会自动从该目录下获取邮件, 查看是否收取了邮件来验证getmail是否正常工作. getmail就是通过这个目录将邮件交给Mutt的, 二者的联系, 仅此而已.</p>
+<p><strong>设置crontab定时收取邮件</strong><br>
+getmail的收取邮件是通过执行getmail命令来实现的, 因此, 要想及时获取新的邮件, 就需要定时的执行getmail来收取邮件, 这个任务交给cron守护进程最好不多了.</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ crontab -e</span><br></pre></td></tr></table></figure>
+<p>执行crontab命令, <code>-e</code>代表对crontab进行编辑, 在crontab的最后一行添加:</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">*/10 * * * * /usr/bin/getmail -n</span><br></pre></td></tr></table></figure>
+<p>表示每隔10分钟执行一次<code>getmail -n</code>命令来收取邮件.</p>
+<p><strong>至此, 基础的Mutt环境已经搭建完毕, 可以使用Mutt来正常的收发, 查阅, 发送, 回复邮件了.</strong></p>
+<hr>
+<h1 id="misc-额外部分">Misc: 额外部分</h1>
+<h2 id="vim风格键位绑定">Vim风格键位绑定</h2>
+<p>Mutt默认的键位设置以及相关操作, 请参阅: <a href="http://dev.mutt.org/doc/manual.html#gettingstarted" target="_blank" rel="external">Mutt Manual: Chapter 2</a></p>
+<p>对于习惯了Vim操作的用户而言, 再重新去适应Mutt的一些基本翻页按键着实显得有些浪费时间, 所以不妨按照Vim的习惯对Mutt的键位进行相应的绑定.</p>
+<p>绑定设置同样是在<code>~/.muttrc</code>中完成的, 在<code>~/.muttrc</code>文件中添加:</p>
+<figure class="highlight perl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Vim式键位映射, \c表示ctrl键</span></span><br><span class="line"><span class="keyword">bind</span> pager G bottom</span><br><span class="line"><span class="keyword">bind</span> pager j <span class="keyword">next</span>-line</span><br><span class="line"><span class="keyword">bind</span> pager k previous-line</span><br><span class="line"><span class="keyword">bind</span> pager \cf <span class="keyword">next</span>-page</span><br><span class="line"><span class="keyword">bind</span> pager \cb previous-page</span><br><span class="line"><span class="keyword">bind</span> pager \cj <span class="keyword">next</span>-entry</span><br><span class="line"><span class="keyword">bind</span> pager \ck previous-entry</span><br><span class="line"><span class="keyword">bind</span> pager gg top</span><br><span class="line"><span class="keyword">bind</span> pager G bottom</span><br><span class="line"><span class="keyword">bind</span> <span class="keyword">index</span> gg first-entry</span><br><span class="line"><span class="keyword">bind</span> <span class="keyword">index</span> G <span class="keyword">last</span>-entry</span><br><span class="line"><span class="keyword">bind</span> <span class="keyword">index</span> R group-reply</span><br><span class="line"><span class="keyword">bind</span> <span class="keyword">index</span> \cf <span class="keyword">next</span>-page</span><br><span class="line"><span class="keyword">bind</span> <span class="keyword">index</span> \cb previous-page</span><br><span class="line"><span class="keyword">bind</span> <span class="keyword">index</span> &#125; bottom-page</span><br><span class="line"><span class="keyword">bind</span> <span class="keyword">index</span> f change-folder</span><br></pre></td></tr></table></figure>
+<p>以上是按照个人习惯所进行的键位绑定, 当然, 每个人的习惯是不一样的, 可以自行修改.</p>
+<p>注意到绑定命令中出现了<code>index</code>和<code>pager</code>, 这里稍作下解释, 其中<code>index</code>代表信箱的列表页面, 而<code>pager</code>为阅读邮件的界面. 指定<code>index</code>或是<code>pager</code>来使得绑定的键位在对应的页面下生效. 有关键位绑定的更多参考, 请看: <a href="http://dev.mutt.org/doc/manual.html#bind" target="_blank" rel="external">Mutt Manual: Changing the Default Key Bindings</a>.</p>
+<p>关于Mutt的键位操作, 这里建议在<code>~/.muttrc</code>文件中设置<code>pager_stop</code>, 来避免当阅读至邮件末尾的时候, 自动跳到下一封邮件.</p>
+<figure class="highlight vala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor"># 在信件内容窗口(pager)滚动到底部时, 不自动跳到下一封邮件</span></span><br><span class="line"><span class="keyword">set</span> pager_stop</span><br></pre></td></tr></table></figure>
+<h2 id="mutt配色高亮设置">Mutt配色高亮设置</h2>
+<p>Mutt支持对各个界面进行高亮设置, 包括邮箱的列表部分<code>index</code>, 邮件内容部分<code>body</code>, 邮件头部信息部分<code>header</code>, 甚至连列表模式中的回复箭头颜色都可以设置. 在这部分, 主要分为3个部分, 分别介绍Mutt常规界面的配色, 对Patch补丁添加高亮支持以及嵌套引用中不同层的高亮区分.</p>
+<h3 id="mutt常规界面配色">Mutt常规界面配色</h3>
+<p>在介绍Mutt常规界面的配色之前, 我们先来了解下Mutt中各个界面的名称, 如前文所述, Mutt的界面主要包含有<code>index</code>, <code>body</code>和<code>header</code>, <code>index</code>就是打开Mutt时看见的界面, 通过列表的形式一一列出邮件主题和收发信息. 而查看某封邮件的内容的界面则属于<code>pager</code>. <code>pager</code>含有2个部分, 一个是邮件头部, 包含有邮件的头部信息, 这部分属于<code>header</code>. 另一部分是邮件内容的主体<code>body</code>, 包含邮件的正文. 基本上需要配置的也就这3个地方. 当然, 此外还有其它的界面, 如<code>File Brower</code>, <code>Alias Menu</code>等, 一般很少见到, 暂时就不配色了. 具体的界面和菜单介绍, 参阅: <a href="http://dev.mutt.org/doc/manual.html#concept-screens-and-menus" target="_blank" rel="external">Mutt Manual: Screens and Menus</a>.</p>
+<p>在着手自定义Mutt配色之前, 可以先看一下Github上关于Mutt配色的项目: <a href="https://github.com/altercation/mutt-colors-solarized" target="_blank" rel="external">Solarized Colorscheme for Mutt</a>, 如果觉得合适, 就不需要自己折腾配色了.</p>
+<p>事实上, solarized的配色已经相当不错, 但是如果你希望按自己的意愿来更改Mutt配色的话, 接下来我们就来介绍自定义Mutt界面配色方案.</p>
+<figure class="highlight rsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor"># basic colors -------------------------------------------------------</span></span><br><span class="line"><span class="keyword">color</span> <span class="keyword">normal</span>        white           black</span><br><span class="line"><span class="keyword">color</span> error         red             black</span><br><span class="line"><span class="keyword">color</span> tilde         white           black</span><br><span class="line"><span class="keyword">color</span> message       cyan            black</span><br><span class="line"><span class="keyword">color</span> markers       red             black</span><br><span class="line"><span class="keyword">color</span> attachment    brightred       black</span><br><span class="line"><span class="keyword">color</span> search        brightmagenta   black</span><br><span class="line"><span class="keyword">color</span> status        brightwhite     black</span><br><span class="line"><span class="keyword">color</span> indicator     white           blue</span><br><span class="line"><span class="keyword">color</span> tree          magenta         black   <span class="preprocessor"># arrows in threads</span></span><br><span class="line"></span><br><span class="line"><span class="preprocessor"># 列表部分 -------------------------------------------------------</span></span><br><span class="line"><span class="preprocessor"># 高亮不同状态的邮件, 具体的pattern(例如~N)参见mutt manual的4.2节</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">color</span> index         red             black         <span class="string">"~A"</span>                        <span class="preprocessor"># all messages</span></span><br><span class="line"><span class="keyword">color</span> index         brightred       black         <span class="string">"~E"</span>                        <span class="preprocessor"># expired messages</span></span><br><span class="line"><span class="keyword">color</span> index         brightcyan      black         <span class="string">"~N"</span>                        <span class="preprocessor"># new messages</span></span><br><span class="line"><span class="keyword">color</span> index         brightcyan      black         <span class="string">"~O"</span>                        <span class="preprocessor"># old messages</span></span><br><span class="line"><span class="keyword">color</span> index         brightmagenta   black         <span class="string">"~Q"</span>                        <span class="preprocessor"># messages that have been replied to</span></span><br><span class="line"><span class="keyword">color</span> index         white           black         <span class="string">"~R"</span>                        <span class="preprocessor"># read messages</span></span><br><span class="line"><span class="keyword">color</span> index         brightblue      black         <span class="string">"~U"</span>                        <span class="preprocessor"># unread messages</span></span><br><span class="line"><span class="keyword">color</span> index         brightblue      black         <span class="string">"~U~$"</span>                      <span class="preprocessor"># unread, unreferenced messages</span></span><br><span class="line"><span class="keyword">color</span> index         brightblue      black         <span class="string">"~v"</span>                        <span class="preprocessor"># messages part of a collapsed thread</span></span><br><span class="line"><span class="keyword">color</span> index         brightblue      black         <span class="string">"~P"</span>                        <span class="preprocessor"># messages from me</span></span><br><span class="line"><span class="keyword">color</span> index         cyan            black         <span class="string">"~p!~F"</span>                     <span class="preprocessor"># messages to me</span></span><br><span class="line"><span class="keyword">color</span> index         brightgreen     black         <span class="string">"~N~p!~F"</span>                   <span class="preprocessor"># new messages to me</span></span><br><span class="line"><span class="keyword">color</span> index         brightgreen     black         <span class="string">"~U~p!~F"</span>                   <span class="preprocessor"># unread messages to me</span></span><br><span class="line"><span class="keyword">color</span> index         green           black         <span class="string">"~R~p!~F"</span>                   <span class="preprocessor"># messages to me</span></span><br><span class="line"><span class="keyword">color</span> index         red             black         <span class="string">"~F"</span>                        <span class="preprocessor"># flagged messages</span></span><br><span class="line"><span class="keyword">color</span> index         red             black         <span class="string">"~F~p"</span>                      <span class="preprocessor"># flagged messages to me</span></span><br><span class="line"><span class="keyword">color</span> index         red             black         <span class="string">"~N~F"</span>                      <span class="preprocessor"># new flagged messages</span></span><br><span class="line"><span class="keyword">color</span> index         red             black         <span class="string">"~N~F~p"</span>                    <span class="preprocessor"># new flagged messages to me</span></span><br><span class="line"><span class="keyword">color</span> index         red             black         <span class="string">"~U~F~p"</span>                    <span class="preprocessor"># new flagged messages to me</span></span><br><span class="line"><span class="keyword">color</span> index         white           brightmagenta <span class="string">"~D"</span>                        <span class="preprocessor"># deleted messages</span></span><br><span class="line"><span class="keyword">color</span> index         white           black         <span class="string">"~v~(!~N!~O)"</span>               <span class="preprocessor"># collapsed thread with no unread</span></span><br><span class="line"><span class="keyword">color</span> index         magenta          black         <span class="string">"~v~(~N|~O)"</span>               <span class="preprocessor"># collapsed thread with some unread</span></span><br><span class="line"><span class="keyword">color</span> index         magenta           black         <span class="string">"~N~v~(~N)"</span>               <span class="preprocessor"># collapsed thread with unread parent</span></span><br><span class="line"><span class="keyword">color</span> index         red             white           <span class="string">"~v~(~F)!~N"</span>              <span class="preprocessor"># collapsed thread with flagged, no unread</span></span><br><span class="line"><span class="keyword">color</span> index         yellow          white           <span class="string">"~v~(~F~N)"</span>               <span class="preprocessor"># collapsed thread with some unread &amp; flagged</span></span><br><span class="line"><span class="keyword">color</span> index         green           white           <span class="string">"~N~v~(~F~N)"</span>             <span class="preprocessor"># collapsed thread with unread parent &amp; flagged</span></span><br><span class="line"><span class="keyword">color</span> index         green           white           <span class="string">"~N~v~(~F)"</span>               <span class="preprocessor"># collapsed thread with unread parent, no unread inside, but some flagged</span></span><br><span class="line"><span class="keyword">color</span> index         yellow          red             <span class="string">"~v~(~D)"</span>                 <span class="preprocessor"># thread with deleted (doesn't differentiate between all or partial)</span></span><br><span class="line"></span><br><span class="line"><span class="preprocessor"># 邮件内容页面邮件头部分高亮 ------------------------------------------</span></span><br><span class="line"></span><br><span class="line"><span class="preprocessor"># color header        brightcyan      default         "^"</span></span><br><span class="line"><span class="keyword">color</span> hdrdefault    brightblue      black</span><br><span class="line"><span class="keyword">color</span> header        brightgreen     black         <span class="string">"^(From)"</span></span><br><span class="line"><span class="keyword">color</span> header        brightyellow    black         <span class="string">"^(Subject)"</span></span><br></pre></td></tr></table></figure>
+<p>这里的配色方案是以Solarized为基础的, 稍作修改. 这里对以上的配色配置稍作解释.<br>
+首先, 语句的模式是</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">color <span class="tag">&lt;<span class="title">界面</span>&gt;</span> <span class="tag">&lt;<span class="title">前景色</span>&gt;</span> <span class="tag">&lt;<span class="title">背景色</span>&gt;</span> [其它选项]</span><br></pre></td></tr></table></figure>
+<p>Mutt支持8种颜色, 分别为: Black, Red, Green, Yellow, Blue, Magenta, Cyan, White<sup><a href="http://dev.mutt.org/doc/manual.html#tab-color" target="_blank" rel="external">[?]</a></sup>. 在颜色前面添加<code>bright</code>可使得字体加粗, 并使得颜色更鲜艳, 例如red就是正常粗细的暗红色字体, 但是brightred就变为加粗的鲜红字体. 这样, 我们可以使用的颜色就有16种了, 再配合上前景色背景色的各种搭配, 真是变换无穷呢 = =b</p>
+<p>对于自定义配色, 没什么好说的, 只要知道是针对<code>index</code>配色, 还是<code>pager</code>配色或者是<code>header</code>就行, 剩下就是改下颜色, 看哪里颜色变了, 就能确定语句控制的是那部分的颜色了.</p>
+<p>以上配置中, 还有一些地方相对比较难懂, 例如</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">color</span> <span class="tag">header</span>        brightyellow    black         <span class="string">"^(Subject)"</span></span><br></pre></td></tr></table></figure>
+<p>这条语句的作用是讲邮件头部的邮件主题(Subject)行显示为黑底高亮黄字. 这里使用了正则表达式来匹配需要高亮的行, <code>&quot;^(Subject)&quot;</code>匹配开头是&quot;Subject&quot;的行, 而该匹配模式又只作用与邮件头部<code>Header</code>, <code>Header</code>部分邮件主题行的行首就是&quot;Subjuect&quot;开头的. 当然, 上述配置中, 将发信人所在行用高亮绿字显示, 此外, 可以采用这种方法, 高亮任意的邮件头部行, 感兴趣的话, 可以在邮件内容页面按下<code>h</code>来显示详细的邮件头部信息.</p>
+<p>接着我们来看下下面的语句:</p>
+<figure class="highlight axapta"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">color <span class="keyword">index</span>         white           black         <span class="string">"~v~(!~N!~O)"</span></span><br></pre></td></tr></table></figure>
+<p>该语句首先针对的是<code>index</code>界面, 即列表界面, 然后前景色是白色, 背景色是黑色, 这没什么好说的, 关键在于<code>&quot;~v~(!~N!~O)&quot;</code>的解释, 这里的<code>~N</code>的表示是Mutt特有的通配符.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">通配符</th>
+<th style="text-align:left">描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">~A</td>
+<td style="text-align:left">所有邮件</td>
+</tr>
+<tr>
+<td style="text-align:left">~D</td>
+<td style="text-align:left">已删除的邮件</td>
+</tr>
+<tr>
+<td style="text-align:left">~F</td>
+<td style="text-align:left">已被标记的邮件</td>
+</tr>
+<tr>
+<td style="text-align:left">~N</td>
+<td style="text-align:left">新的未读邮件</td>
+</tr>
+<tr>
+<td style="text-align:left">~O</td>
+<td style="text-align:left">旧的未读邮件</td>
+</tr>
+<tr>
+<td style="text-align:left">~v</td>
+<td style="text-align:left">邮件列表某主题(Thread)中的邮件</td>
+</tr>
+</tbody>
+</table>
+<p>除了通配符, Mutt还支持有限的逻辑操作, 分别为: 逻辑非符号<code>!</code>, 逻辑或符号<code>|</code>和组合符号<code>()</code>, 逻辑与的话直接挨着就是.</p>
+<p>这下回头看上述语句的意思就明白了, 对于符合条件(1. 是邮件列表某个主题包含的邮件 2. 不是新的未读邮件 3. 不是旧的未读邮件)的邮件, 实际上就是已读的列表邮件,  将其所在行的颜色设置为黑底白字.</p>
+<p>以上是几个主要的通配符的解释, 以及更多的Mutt模式匹配信息, 请参阅: <a href="http://dev.mutt.org/doc/manual.html#patterns" target="_blank" rel="external">Mutt Manual: Patterns: Searching, Limiting and Tagging</a>.</p>
+<p>另外, 值得一提的是, 该通配符不仅适用与高亮设置, 同样是适用于搜索邮件, 例如, 想要查看当前邮箱下的全部未读的新邮件, 则只要在<code>index</code>界面输入<code>/</code>, 然后输入匹配模式<code>~N</code>回车即可. 当然, 还有更复杂的组合模式, 关于Mutt的查找模式匹配, 参见: <a href="http://dev.mutt.org/doc/manual.html#simple-searches" target="_blank" rel="external">Mutt Manual: Simple Searches</a>.</p>
+<p>我们在上面介绍了<code>index</code>界面和<code>header</code>界面的配色, 关于邮件内容主体<code>body</code>的配色也是一样道理.<br>
+例如, 可以将邮件正文中的表情符号显示成蓝色:</p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">color body blue black "[<span class="link_label">;:</span>][<span class="link_reference">-o</span>][<span class="link_label">)/(|</span>]"</span><br></pre></td></tr></table></figure>
+<p>这样, 正文中像<code>:-)</code>, <code>;-o</code>, <code>:-(</code>这类的卖萌表情就统统被高亮出来了 0.0</p>
+<h3 id="patch高亮支持">Patch高亮支持</h3>
+<p>对于混迹开发者列表的同学来说, 将Mutt设置成支持Patch高亮绝对是一劳永逸的一件事情之一, 但是对于普通邮件用户而言这并没有什么卵用…</p>
+<figure class="highlight processing"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"># 自定义的patch补丁高亮, 方便查看patch</span><br><span class="line"><span class="built_in">color</span>   body     <span class="built_in">red</span>            black    <span class="string">"^-.*"</span></span><br><span class="line"><span class="built_in">color</span>   body     <span class="built_in">green</span>          black    <span class="string">"^[+].*"</span></span><br><span class="line"><span class="built_in">color</span>   body     brightwhite    black    <span class="string">"^diff --git.*"</span></span><br><span class="line"><span class="built_in">color</span>   body     brightwhite    black    <span class="string">"^index [a-f0-9].*"</span></span><br><span class="line"><span class="built_in">color</span>   body     brightwhite    black    <span class="string">"^\-\-\- a.*"</span></span><br><span class="line"><span class="built_in">color</span>   body     brightwhite    black    <span class="string">"^[\+]&#123;3&#125; b.*"</span></span><br><span class="line"><span class="built_in">color</span>   body     brightyellow   black    <span class="string">"^@@.*"</span></span><br><span class="line"><span class="built_in">color</span>   body     brightmagenta  black    <span class="string">"^(Signed-off-by).*"</span></span><br><span class="line"><span class="built_in">color</span>   body     brightmagenta  black    <span class="string">"^(Reported-by).*"</span></span><br><span class="line"><span class="built_in">color</span>   body     brightmagenta  black    <span class="string">"^(Suggested-by).*"</span></span><br><span class="line"><span class="built_in">color</span>   body     brightmagenta  black    <span class="string">"^(Acked-by).*"</span></span><br><span class="line"><span class="built_in">color</span>   body     brightmagenta  black    <span class="string">"^(Reviewed-by).*"</span></span><br><span class="line"><span class="built_in">color</span>   body     brightmagenta  black    <span class="string">"^\-\-\-$"</span></span><br><span class="line"># <span class="built_in">color</span>   body     brightmagenta  black    <span class="string">"^(Cc).*"</span></span><br><span class="line"># <span class="built_in">color</span>   body     brightmagenta  black    <span class="string">"^(CC).*"</span></span><br><span class="line"><span class="built_in">color</span>   body     white          black    <span class="string">"^( \#define).*"</span></span><br><span class="line"><span class="built_in">color</span>   body     white          black    <span class="string">"^( \#include).*"</span></span><br><span class="line"><span class="built_in">color</span>   body     white          black    <span class="string">"^( \#if).*"</span></span><br><span class="line"><span class="built_in">color</span>   body     white          black    <span class="string">"^( \#el).*"</span></span><br><span class="line"><span class="built_in">color</span>   body     white          black    <span class="string">"^( \#endif).*"</span></span><br><span class="line"></span><br><span class="line"># optional highlightling</span><br><span class="line"><span class="built_in">color</span>   body    <span class="built_in">green</span>           black    <span class="string">"LGTM"</span></span><br><span class="line"><span class="built_in">color</span>   body    brightmagenta   black    <span class="string">"-- Commit Summary --"</span></span><br><span class="line"><span class="built_in">color</span>   body    brightmagenta   black    <span class="string">"-- File Changes --"</span></span><br><span class="line"><span class="built_in">color</span>   body    brightmagenta   black    <span class="string">"-- Patch Links --"</span></span><br><span class="line"><span class="built_in">color</span>   body    <span class="built_in">green</span>           black    <span class="string">"^Merged #.*"</span></span><br><span class="line"><span class="built_in">color</span>   body    <span class="built_in">red</span>             black    <span class="string">"^Closed #.*"</span></span><br><span class="line"><span class="built_in">color</span>   body    brightblue      black    <span class="string">"^Reply to this email.*"</span></span><br></pre></td></tr></table></figure>
+<p>这是本人设置的Patch高亮模式, 采用正则表达式在邮件正文(body)中进行匹配高亮对应行. 这里就不对正则表达式部分进行详细解释了.</p>
+<h3 id="嵌套引用高亮区分">嵌套引用高亮区分</h3>
+<p>Mutt很贴心的设置了引用高亮功能, 配置如下:</p>
+<figure class="highlight processing"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"># 引文起始符号设置</span><br><span class="line"># <span class="built_in">set</span> quote_regexp = <span class="string">"^([ ]t]*[|&gt;:&#125;#])+"</span></span><br><span class="line"><span class="built_in">set</span> quote_regexp = <span class="string">"^([ \t]*[&gt;])+"</span></span><br><span class="line"></span><br><span class="line"># 嵌套引文不同层的颜色</span><br><span class="line"><span class="built_in">color</span> quoted        <span class="built_in">blue</span>            black</span><br><span class="line"><span class="built_in">color</span> quoted1       magenta         black</span><br><span class="line"><span class="built_in">color</span> quoted2       cyan            black</span><br><span class="line"><span class="built_in">color</span> quoted3       yellow          black</span><br><span class="line"><span class="built_in">color</span> quoted4       <span class="built_in">red</span>             black</span><br></pre></td></tr></table></figure>
+<p>这里, quoted4代表最里层的引用内容, quoted代表最外层的引用内容. 通过给不同层的引文设置不同颜色, 就可能很迅速的区分引文和本次邮件作者的回复内容了, 非常高效!</p>
+<p>另外, 在设置引文高亮的时候, 需要设置引用符号, 常见的引用符号有:<code>&gt;</code>, <code>#</code>, <code>+</code>乃至tab缩进等, 通过<code>quote_regexp</code>变量告知Mutt要将哪些行识别为引文, 这样才能使得之后的quoted设置生效. 由于本人订阅的邮件列表采用的符号<code>&gt;</code>作为引文开头, 所以就之设置了一个引文符号, 避免不必要的混乱高亮.</p>
+<h2 id="配置procmail">配置procmail</h2>
+<p>正如前言中说的, 本人配置Mutt主要是为了阅读邮件列表, 经过上述一系列的配置, 基本已经能正常并相对高效的阅读邮件列表了. 但是邮件列表一天能有数十封乃至几百封邮件, 根据上述的配置, getmail收取的所有的邮件都直接投放到inbox目录下, 这导致了我一打开Mutt, 就是满屏的来自邮件列表的邮件, 而私人邮件和工作邮件则完全被淹没了, 虽然可以通过设置不同的高亮来区分, 但是将邮件列表的邮件直接放在inbox中实在不是一个明智的操作, 一个合理的办法是专门设置一个信箱, 例如mlist来存放来自邮件列表的邮件.</p>
+<p>当通过getmail收取到邮件的时候, 如果是来自邮件列表的邮件, 直接跳过inbox信箱, 直接投放到mlist的信箱中, 这样的话既能保持inbox信箱的清洁, 又能在想查看邮件列表的时候切换到mlist邮箱中查看. 想要完成这个功能, 我们需要在getmail和信箱目录之前添加一层邮件分拣的操作, 而这个操作, 可以通过procmail工具来完成.</p>
+<p>procmail是一个邮件分拣工具, 可以根据发信人, 主题, 信件长短, 关键词等信息对邮件进行过滤<sup><a href="http://pm-doc.sourceforge.net/doc/#what_is_procmail" target="_blank" rel="external">[?]</a></sup>.</p>
+<p>我们要利用procmail做的就是, 从收取到的邮件中过滤出来自邮件列表的邮件, 然后将其投递到<code>mlist</code>目录中. 那么显然的, 我们需要先在Mutt的工作目录下建立相应的<code>mlist</code>目录, 为了符合maildir格式, 我们还需要在mlist目录下建立<code>cur</code>, <code>new</code>, <code>tmp</code>这3个子目录.</p>
+<figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$ </span>mkdir ~<span class="regexp">/.mail/mlist</span></span><br><span class="line"><span class="variable">$ </span>cd ~<span class="regexp">/.mail/mlist</span></span><br><span class="line"><span class="variable">$ </span>mkdir cur new tmp</span><br></pre></td></tr></table></figure>
+<h3 id="修改getmail配置">修改getmail配置</h3>
+<p>我们提到过, procmail需要将getmail收取到的邮件进行过滤, 那么很明显的, procmail需要在getmail将邮件投递到Mutt的inbox目录前对邮件进行过滤. 因此, 我们需要改变getmail的投递行为, 让getmail收取邮件后, 不放到Mutt的inbox目录中, 而是将邮件交给procmail来处理, 这里我们需要对上文所述的getmailrc配置文件进行适当修改.</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ vim ~/.getmail/getmailrc</span><br></pre></td></tr></table></figure>
+<p>将<code>[destination]</code>节中的<code>type</code>和<code>path</code>字段稍作修改</p>
+<figure class="highlight vala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">[destination]</span><br><span class="line"><span class="preprocessor"># 以目录形式储存</span></span><br><span class="line"><span class="preprocessor"># type = Maildir</span></span><br><span class="line"><span class="preprocessor"># path = ~/.mail/inbox/</span></span><br><span class="line"><span class="preprocessor"># 由于采用了procmail, 收取的邮件交由procmail分拣而非直接投递到文件夹中</span></span><br><span class="line">type = MDA_external</span><br><span class="line">path = /usr/bin/procmail</span><br></pre></td></tr></table></figure>
+<h3 id="编辑procmailrc文件">编辑procmailrc文件</h3>
+<p>这样, getmail就会将收取的邮件交给procmail来做过滤了. 接下来, 我们来配置procmail. procmail的配置集中在<code>~/.procmailrc</code>文件中. 新建并对其进行编辑如下:</p>
+<figure class="highlight vala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor"># procmail用于将收到的邮件进行分拣,并发放到不同的邮箱(文件夹)中</span></span><br><span class="line"><span class="preprocessor"># 设置PATH变量以便procmail正常运行,根据文档,PATH应在第一行就设置</span></span><br><span class="line">PATH=/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin</span><br><span class="line"><span class="preprocessor"># 指定shell</span></span><br><span class="line">SHELL = /bin/bash</span><br><span class="line"><span class="preprocessor"># 指定发信工具位置</span></span><br><span class="line">SENDMAIL=/usr/bin/msmtp</span><br><span class="line"><span class="preprocessor"># Mutt邮件存放主目录</span></span><br><span class="line">MAILDIR=$HOME/.mail</span><br><span class="line"><span class="preprocessor"># 默认存放的目录</span></span><br><span class="line">DEFAULT=$MAILDIR/inbox</span><br><span class="line"><span class="preprocessor"># 日志文件存放位置</span></span><br><span class="line">LOGFILE=$MAILDIR/procmail.log</span><br><span class="line"><span class="preprocessor"># 诊断用,关闭</span></span><br><span class="line">VERBOSE=no</span><br><span class="line"></span><br><span class="line"><span class="preprocessor"># 分拣规则, procmail采用名为recipe的规则来处理,具体查看man procmailrc</span></span><br><span class="line"><span class="preprocessor"># recipe的一般格式:</span></span><br><span class="line"><span class="preprocessor">#        :0 [flags] [ : [locallockfile] ]</span></span><br><span class="line"><span class="preprocessor">#        &lt;zero or more conditions (one per line)&gt;</span></span><br><span class="line"><span class="preprocessor">#        &lt;exactly one action line&gt;</span></span><br><span class="line"><span class="preprocessor">#</span></span><br><span class="line"><span class="preprocessor"># 其中, conditions行以'*'作为开头, '*'之后跟的正则表达式完全兼容egrep形式.</span></span><br><span class="line"><span class="preprocessor"># 关于规则示例可以查看man procmailex</span></span><br><span class="line"><span class="preprocessor"># action行中,可以以'!','|','&#123;'开头,其中'|'开头之后可以跟一条bash命令,</span></span><br><span class="line"><span class="preprocessor"># 此外的任意符号被认为是邮箱文件夹, 可以采用绝对路径, 若使用相对路径,</span></span><br><span class="line"><span class="preprocessor"># 则是相对与$MAILDIR, 例如inbox/,表示$MAILDIR/inbox</span></span><br><span class="line"></span><br><span class="line">:<span class="number">0</span></span><br><span class="line">* ^To:.*my_mail@mail.com</span><br><span class="line">inbox/</span><br><span class="line"></span><br><span class="line"><span class="preprocessor"># 归档Xen的邮件列表</span></span><br><span class="line">:<span class="number">0</span></span><br><span class="line">* ^Return-Path:.*xen-devel-bounces@lists.xen.org</span><br><span class="line">xen/</span><br><span class="line"></span><br><span class="line"><span class="preprocessor"># 剩下的邮件存放至inbox目录中</span></span><br><span class="line">:<span class="number">0</span></span><br><span class="line">* .*</span><br><span class="line">inbox/</span><br></pre></td></tr></table></figure>
+<p>在上述配置文件中, 各个字段的作用注释已经说的很清楚了, 有趣的是, 我们之前一直说procmail如何过滤投递邮件, 但事实上procmail也有转发邮件的功能, 因此大家会看到字段设置中有设置发信程序的部分.</p>
+<h3 id="recipe示例讲解">recipe示例讲解</h3>
+<p>procmail配置文件中唯一需要讲解也是重点需要讲解的就是规则部分了.<br>
+promail的规则称之为recipe. 可以通过man procmailrc来查看具体信息. recipe的格式如下:</p>
+<figure class="highlight asciidoc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">:0 [flags] [ :</span> [locallockfile] ]</span><br><span class="line">&lt;zero or more conditions (one per line)&gt;</span><br><span class="line">&lt;exactly one action line&gt;</span><br></pre></td></tr></table></figure>
+<p>第一行以<code>:0</code>开头, 后面可以跟一些标志, 以及使用锁文件避免潜在冲突.<br>
+第二行是conditions, 即匹配条件, 以<code>*</code>作为开头, 后跟正则表达式用于匹配, 此处的正则表达式兼容egrep的<a href="http://www.cs.columbia.edu/~tal/3261/fall07/handout/egrep_mini-tutorial.htm" target="_blank" rel="external">extended regular expression</a>格式.<br>
+第三行是action, 即执行部分, 该行若以<code>|</code>开头, 表示之后跟一条bash命令; 如果以<code>!</code>开头, 后面则跟的是对转发(forward)地址; 如果以<code>{</code>开头, 则是嵌套recipe. <strong>此外其它的字符开头都将视为邮箱目录</strong>.</p>
+<p>在讲解具体的规则之前, 我们先来理解下procmail的recipe处理流.</p>
+<figure class="highlight livescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">           -&gt;</span> recipe1                   recipe1                  recipe1</span><br><span class="line"><span class="number">1000</span> mails/   recipe2 --- <span class="number">800</span> mails<span class="function"> --&gt;</span> recipe2 --- <span class="number">300</span> mails<span class="string">\</span>   recipe2</span><br><span class="line">              recipe3                   recipe3<span class="function">               -&gt;</span> recipe3</span><br></pre></td></tr></table></figure>
+<p>如上图所示, 假设在procmailrc文件中包含3条recipie, 从上到下分别是recipe1, recipe2, recipe3. 现在有1000封邮件, procmail将会根据规则依次过滤它们. procmail采取的默认操作是移动邮件(move), 所以我们看到, 1000封邮件在经过recipe1的规则后, 假设匹配掉了200封, 那么在进行recipe2匹配的时候, 是对剩余的800封邮件进行处理了. 从这个过程可以看出, 排在越前面的recipe优先级越高, 而且已经被recipe处理过得邮件若没有特殊指明, 是不会再被接下来的recipe处理的.</p>
+<p>以下通过几条recipe来简要讲解下:</p>
+<figure class="highlight gherkin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">:0 c</span><br><span class="line"><span class="keyword">*</span> ^To:.<span class="keyword">*</span>my_mail<span class="comment">@mail.com</span></span><br><span class="line">inbox/</span><br></pre></td></tr></table></figure>
+<p>上述recipe表示, 对于发给my_mail@mail.com的邮件, 将其<strong>复制</strong>到<code>~/.mail/inbox</code>信箱中.<br>
+注意到这里在第一行的<code>:0</code>之后加了一个<code>c</code>作为标志, 代表复制邮件, 而非移动邮件. 复制的意义在于, 该邮件通过recipe进行过滤操作, 同时留下一个副本参与之后的recipe过滤操作. 这么做实际上产生了2封重复的邮件. 关于<code>c</code>标志以及其它<code>[flags]</code>标志, 请参见man procmailrc.<br>
+然后是第三行的<code>inbox/</code>, 由于不是以<code>|</code>, <code>!</code>或是<code>{</code>开头, 因此被解释为信箱目录, 这里采用的是相对路径的形式, 当然也完全可以写成<code>~/.mail/inbox/</code>, 这里的相对路径是相对于<code>~/.procmailrc</code>配置文件中的<code>$MAILDIR</code>变量而言的, 之前我们将其设置为了<code>$HOME/.mail</code>, 因此这里的<code>inbox/</code>代表的是<code>~/.mail/inbox</code>目录.</p>
+<p>再来看一下来自邮件列表的邮件归档设置</p>
+<figure class="highlight gherkin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 归档Xen的邮件列表</span></span><br><span class="line">:0</span><br><span class="line"><span class="keyword">*</span> ^Return-Path:.<span class="keyword">*</span>xen-devel-bounces<span class="comment">@lists.xen.org</span></span><br><span class="line">xen/</span><br></pre></td></tr></table></figure>
+<p>上述recipe将来自Xen的开发者列表的邮件都投递到<code>~/.mail/xen</code>目录下. 没什么特殊的技巧, 主要起作用的是第二行的正则表达式, 这里匹配邮件头部中的<code>Return-Path</code>字段, 若该字段包含<code>xen-devel-bounces@lists.xen.org</code>, 则该邮件被认为是来自xen的邮件列表, 从而被投递到xen的信箱中.<br>
+值得一提的是, Xen的开发者邮件列表有多个地址, 例如<code>xen-devel@lists.xenproject.org</code>, <code>xen-devel@lists.xen.org</code>, <code>xen-devel@lists.xensource.com</code>, 而且不同的发信人, 可能会把邮件列表的地址写在收信人(To)一栏, 也有部分人习惯把邮件列表地址写在抄送(Cc)一栏, 如果考虑从To或是Cc字段来匹配邮件列表那就比较复杂了, 但是有意思的是不管发给哪个列表地址的邮件, 邮件头部<code>Return-Path</code>字段的地址都是<code>xen-devel-bounces@lists.xen.org</code>, 因此只需要对<code>Return-Path</code>字段进行匹配就能过滤出全部来自该邮件列表的邮件. 其它的邮件列表也是如此.</p>
+<p>最后, 我们看下如下的规则</p>
+<figure class="highlight gherkin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 剩下的邮件存放至inbox目录中</span></span><br><span class="line">:0</span><br><span class="line"><span class="keyword">*</span> .<span class="keyword">*</span></span><br><span class="line">inbox/</span><br></pre></td></tr></table></figure>
+<p>这条规则是最后一条recipe, 按照我们上面说的recipe处理流, 已经被上层recipe过滤掉的邮件并不会被这条recipie过滤, 因此, 我们这里匹配任意的邮件, 则实现的是将上层全部recipe规则之外没被匹配掉的邮件全都放到inbox信箱中.</p>
+<p>至此, procmail配置讲解结束, 关于procmail一些其它的高级功能例如转发等请查看<a href="http://pm-doc.sourceforge.net/doc/" target="_blank" rel="external">promcail manual</a>, 更多的recipe示例可以参考man procmailex.</p>
+<h2 id="hooks">Hooks</h2>
+<p>Hooks是Mutt中非常强大的功能, 不过鉴于常规使用上不怎么会用到, 亦深入研究, 先不介绍了, 如果之后用到了在将相关内容补上, 没有的话就…XD</p>
+<p>Hooks的相关介绍, 请参阅: <a href="http://dev.mutt.org/doc/manual.html#hooks" target="_blank" rel="external">Mutt Manual: Using Hooks</a></p>
+<h1 id="总结-v3">总结</h1>
+<p>本文针对邮件列表阅读这一应用场景出发, 对为什么使用Mutt, Mutt是什么, 怎么配置Mutt进行了简要的叙述, 其中参考了众多资料, 在文中相应的地方都给出了引用链接. 本文篇幅较长且行文冗余啰嗦, 无奈受限于作者文学素养不高却又想尽可能表述的清楚明白, 同时尽量将涉及到的相关内容都覆盖讲解到以更好的理解Mutt. 如前言所述, 此文主要是用来记录本人配置Mutt过程中的心得以便日后回顾, 同时也希望能帮助到一些刚接触Mutt被整的一头雾水的同学, 经过几天的使用, 越发发现Mutt真的是一个非常高效且好用的工具, 虽然前期的配置和理解较为复杂, 但是我认为完全值得. 最后, 本人水平有限, 文中若有存在不足或错误之处, 还请各位同学指出.</p>
+
+            
+      
+    </div>
+    <footer class="article-footer">
+      
+        <a data-url="http://fancyseeker.github.io/2015/08/19/mutt/" data-id="cil06sjjf001i1k4zx7ppq0zl" class="article-share-link" data-share="baidu">分享到</a>
+      
+
+      
+        <a href="http://fancyseeker.github.io/2015/08/19/mutt/#ds-thread" class="article-comment-link">评论</a>
+      
+
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/email/">email<span class="article-tag-list-count">1</span></a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/getmail/">getmail<span class="article-tag-list-count">1</span></a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/msmtp/">msmtp<span class="article-tag-list-count">1</span></a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/mutt/">mutt<span class="article-tag-list-count">1</span></a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/procmail/">procmail<span class="article-tag-list-count">1</span></a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/tools/">tools<span class="article-tag-list-count">1</span></a></li></ul>
+
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2015/04/08/wordpress2hexo/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong>
+      <div class="article-nav-title">
+          正式完成从Wordpress迁移至Hexo
+      </div>
+      </strong>
+    </a>
+  
+</nav>
+
+
+  
+</article>
+
+
+  <section id="comments">
+    <div id="ds-thread" class="ds-thread" data-thread-key="2015/08/19/mutt/" data-title="Mutt: 阅读邮件列表" data-url="http://fancyseeker.github.io/2015/08/19/mutt/"></div>
+  </section>
+
+</section>
+      
+        
+          <div id="toc-wrap">
+            <div id="toc" class="toc-article">
+              <div id="toc-title">目录</div>
+              <div id="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#前言-v3"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#why-为什么使用mutt"><span class="toc-number">2.</span> <span class="toc-text">Why: 为什么使用Mutt</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#what-mutt是什么"><span class="toc-number">3.</span> <span class="toc-text">What: Mutt是什么</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#mutt简介"><span class="toc-number">3.1.</span> <span class="toc-text">Mutt简介</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#email工作原理"><span class="toc-number">3.2.</span> <span class="toc-text">Email工作原理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#mutt与msmtp-getmail和procmail的关系"><span class="toc-number">3.3.</span> <span class="toc-text">Mutt与msmtp, getmail和procmail的关系</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#how-搭建mutt环境"><span class="toc-number">4.</span> <span class="toc-text">How: 搭建Mutt环境</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#安装mutt-msmtp和getmail"><span class="toc-number">4.1.</span> <span class="toc-text">安装Mutt, msmtp和getmail</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#配置mutt"><span class="toc-number">4.2.</span> <span class="toc-text">配置Mutt</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#muttrc文件"><span class="toc-number">4.2.1.</span> <span class="toc-text">muttrc文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#指定msmtp作为邮件发送工具"><span class="toc-number">4.2.2.</span> <span class="toc-text">指定msmtp作为邮件发送工具</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#设置信箱目录"><span class="toc-number">4.2.3.</span> <span class="toc-text">设置信箱目录</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#mutt其它配置项"><span class="toc-number">4.2.4.</span> <span class="toc-text">Mutt其它配置项</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#配置msmtp"><span class="toc-number">4.3.</span> <span class="toc-text">配置msmtp</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#配置getmail"><span class="toc-number">4.4.</span> <span class="toc-text">配置getmail</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#misc-额外部分"><span class="toc-number">5.</span> <span class="toc-text">Misc: 额外部分</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#vim风格键位绑定"><span class="toc-number">5.1.</span> <span class="toc-text">Vim风格键位绑定</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#mutt配色高亮设置"><span class="toc-number">5.2.</span> <span class="toc-text">Mutt配色高亮设置</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#mutt常规界面配色"><span class="toc-number">5.2.1.</span> <span class="toc-text">Mutt常规界面配色</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#patch高亮支持"><span class="toc-number">5.2.2.</span> <span class="toc-text">Patch高亮支持</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#嵌套引用高亮区分"><span class="toc-number">5.2.3.</span> <span class="toc-text">嵌套引用高亮区分</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#配置procmail"><span class="toc-number">5.3.</span> <span class="toc-text">配置procmail</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#修改getmail配置"><span class="toc-number">5.3.1.</span> <span class="toc-text">修改getmail配置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#编辑procmailrc文件"><span class="toc-number">5.3.2.</span> <span class="toc-text">编辑procmailrc文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#recipe示例讲解"><span class="toc-number">5.3.3.</span> <span class="toc-text">recipe示例讲解</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#hooks"><span class="toc-number">5.4.</span> <span class="toc-text">Hooks</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#总结-v3"><span class="toc-number">6.</span> <span class="toc-text">总结</span></a></li></ol></div>
+            </div>
+          </div>
+        
+    
+    </div>
+    <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2016 fancyseeker<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+      .
+      Based on <a href="https://github.com/xiangming/landscape-plus" target="_blank">Landscape-plus</a>
+    </div>
+  </div>
+</footer>
+
+  </div>
+  <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+    <a href="/about" class="mobile-nav-link">About</a>
+  
+</nav>
+  <!-- totop start -->
+<div id="totop">
+<a title="返回顶部"><img src="/img/scrollup.png"/></a>
+</div>
+
+<!-- totop end -->
+
+<!-- 多说公共js代码 start -->
+<script type="text/javascript">
+var duoshuoQuery = {short_name:"fancyseeker"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+     || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+  </script>
+<!-- 多说公共js代码 end -->
+
+
+<!-- 百度分享 start -->
+
+<div id="article-share-box" class="article-share-box">
+  <div id="bdshare" class="bdsharebuttonbox article-share-links">
+    <a class="article-share-weibo" data-cmd="tsina" title="分享到新浪微博"></a>
+    <a class="article-share-weixin" data-cmd="weixin" title="分享到微信"></a>
+    <a class="article-share-qq" data-cmd="sqq" title="分享到QQ"></a>
+    <a class="article-share-renren" data-cmd="renren" title="分享到人人网"></a>
+    <a class="article-share-more" data-cmd="more" title="更多"></a>
+  </div>
+</div>
+<script>window._bd_share_config={"common":{},"share":{"bdCustomStyle":"/css/bdshare.css"}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?cdnversion='+~(-new Date()/36e5)];</script>
+
+<!-- 百度分享 end -->
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+
+
+
+
+<script src="/js/script.js" type="text/javascript"></script>
+
+</div>
+</body>
+</html>
+

@@ -1,0 +1,443 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>SSH配置-在Windows下远程登陆Linux服务器Shell | FancySeeker</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="SSH是访问远程Linux主机的主要手段, 特别是当用户需要操作Linux和Windows主机的时候, 在Windows上能非常方便的通过SSH访问Linux主机. 本文介绍了如何在Linux主机下生成SSH密钥对并在Windows中配置SSH客户端来使用公钥登录远程Linux主机.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="SSH配置-在Windows下远程登陆Linux服务器Shell">
+<meta property="og:url" content="http://fancyseeker.github.io/2013/12/31/ssh_connect/index.html">
+<meta property="og:site_name" content="FancySeeker">
+<meta property="og:description" content="SSH是访问远程Linux主机的主要手段, 特别是当用户需要操作Linux和Windows主机的时候, 在Windows上能非常方便的通过SSH访问Linux主机. 本文介绍了如何在Linux主机下生成SSH密钥对并在Windows中配置SSH客户端来使用公钥登录远程Linux主机.">
+<meta property="og:image" content="/img/ssh_connect/puttygen.jpg">
+<meta property="og:image" content="/img/ssh_connect/PuTTYgen_all.jpg">
+<meta property="og:image" content="/img/ssh_connect/PuTTYgen_pk.jpg">
+<meta property="og:image" content="/img/ssh_connect/passphrase.jpg">
+<meta property="og:image" content="/img/ssh_connect/pksucc.jpg">
+<meta property="og:image" content="/img/ssh_connect/PuTTYconfig.jpg">
+<meta property="og:image" content="/img/ssh_connect/pkpos.jpg">
+<meta property="og:image" content="/img/ssh_connect/session.jpg">
+<meta property="og:image" content="/img/ssh_connect/testPuTTY.jpg">
+<meta property="og:image" content="/img/ssh_connect/sshlogin.jpg">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="SSH配置-在Windows下远程登陆Linux服务器Shell">
+<meta name="twitter:description" content="SSH是访问远程Linux主机的主要手段, 特别是当用户需要操作Linux和Windows主机的时候, 在Windows上能非常方便的通过SSH访问Linux主机. 本文介绍了如何在Linux主机下生成SSH密钥对并在Windows中配置SSH客户端来使用公钥登录远程Linux主机.">
+  
+    <link rel="alternative" href="/atom.xml" title="FancySeeker" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.ico">
+  
+  <link rel="stylesheet" href="/css/style.css" type="text/css">
+  <!--[if lt IE 9]><script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7/html5shiv.min.js"></script><![endif]-->
+  
+</head>
+<body>
+<div id="container">
+  <div id="wrap">
+    <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-img"></div>
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">FancySeeker</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">Welcome, my friends.</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <!-- <a id="main-nav-toggle" class="nav-icon"></a> -->
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+          <a class="main-nav-link" href="/about">About</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="http://www.baidu.com/baidu" method="get" accept-charset="utf-8" class="search-form">
+          <input type="search" name="word" maxlength="20" class="search-form-input" placeholder="Search">
+          <input type="submit" value="" class="search-form-submit">
+          <input name=tn type=hidden value="bds">
+          <input name=cl type=hidden value="3">
+          <input name=ct type=hidden value="2097152">
+          <input type="hidden" name="si" value="fancyseeker.github.io">
+        </form>
+      </div>
+    </div>
+	
+  </div>
+</header>
+    <div class="outer">
+      <section id="main"><article id="post-ssh_connect" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+          <div class="article-meta">
+            
+            <a href="/2013/12/31/ssh_connect/" class="article-date">
+  <time datetime="2013-12-31T09:24:47.000Z" itemprop="datePublished">2013-12-31</time>
+</a>
+            <p class="article-time">
+                <a href="/2013/12/31/ssh_connect/" class="article-time">
+  <time datetime="2013-12-31T09:24:47.000Z" itemprop="datePublished">17:24:47</time>
+</a>
+
+            </p>
+          </div>
+        
+        
+  
+    <h1 class="article-title" itemprop="name">
+      SSH配置-在Windows下远程登陆Linux服务器Shell
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+       <!--<p>SSH是访问远程Linux主机的主要手段, 特别是当用户需要操作Linux和Windows主机的时候, 在Windows上能非常方便的通过SSH访问Linux主机. 本文介绍了如何在Linux主机下生成SSH密钥对并在Windows中配置SSH客户端来使用公钥登录远程Linux主机.</p>
+<a id="more"></a>
+<h1 id="background">Background</h1>
+<p>这几天需要在实验室空闲电脑上配置一个samba服务器用于共享文件, 而那台电脑所在座位上刚好来了一个人临时要在这边待几个星期, 因此无法直接在服务器前进行配置, 于是乎想到了利用SSH来远程登陆服务器进行操作. 其实说是远程, 也就隔了不到5米, 但是通过自己的电脑操控另一台电脑的感觉真的还是很美妙的. 想象一下此刻你正处于地球上不知道哪个地方, 然后通过庞大的互联网, 连接到了与你距离十万八千里的某台主机上进行操作, 想想还有点小激动呢.</p>
+<hr>
+<h1 id="系统环境">系统环境</h1>
+<p>服务器: CentOS 6.4 x86_64    OpenSSH<br>
+SSH客户机: Windows 7 64bit    PuTTY</p>
+<hr>
+<h1 id="安装启动ssh服务">安装启动SSH服务</h1>
+<p>在CentOS上查看是否安装了ssh相关的包.</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">[fancyseeker@localhost ~]$ rpm -qa | grep ssh</span><br><span class="line">openssh-<span class="number">5.3</span>p1-<span class="number">94</span>.el6.x86_64</span><br><span class="line">openssh-askpass-<span class="number">5.3</span>p1-<span class="number">94</span>.el6.x86_64</span><br><span class="line">libssh2-<span class="number">1.4</span>.<span class="number">2</span>-<span class="number">1</span>.el6.x86_64</span><br><span class="line">openssh-server-<span class="number">5.3</span>p1-<span class="number">94</span>.el6.x86_64</span><br><span class="line">openssh-clients-<span class="number">5.3</span>p1-<span class="number">94</span>.el6.x86_64</span><br><span class="line">openssh-ldap-<span class="number">5.3</span>p1-<span class="number">94</span>.el6.x86_64</span><br></pre></td></tr></table></figure>
+<p>如果没有安装, 那么需要手动安装下</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"># yum install openssh*</span><br></pre></td></tr></table></figure>
+<ol start="2">
+<li>设置开机启动SSH服务</li>
+</ol>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"># chkconfig sshd on</span><br></pre></td></tr></table></figure>
+<ol start="3">
+<li>开启SSH服务</li>
+</ol>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"># /etc/init.d/sshd start</span><br></pre></td></tr></table></figure>
+<ol start="4">
+<li>查看SSH服务运行状态</li>
+</ol>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"># /etc/init.d/sshd status</span><br></pre></td></tr></table></figure>
+<hr>
+<h1 id="配置ssh服务">配置SSH服务</h1>
+<p>SSH服务配置 SSH服务的配置文件主要有2个, 分别为 <code>/etc/ssh/ssh_config</code> 以及 <code>/etc/ssh/sshd_config</code></p>
+<h2 id="ssh-config配置文件">ssh_config配置文件</h2>
+<p>这里我们先对<code>ssh_config</code>配置文件进行修改, 添加或修改如下几项</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 使用RSA算法进行安全验证</span></span><br><span class="line">RSAAuthentication yes</span><br><span class="line"><span class="comment"># 关闭密码验证</span></span><br><span class="line">PasswordAuthentication no</span><br><span class="line"><span class="comment"># 强制使用的SSH2</span></span><br><span class="line">Protocol <span class="number">2</span></span><br></pre></td></tr></table></figure>
+<p>由于接下来我们会选用RSA算法来产生密钥对, 因此将<code>RSAAuthentication</code>设置成<code>yes</code>, <code>PasswordAuthentication</code>设置成<code>no</code>使得客户端无法通过不安全的账户密码方式登录, 增强安全性. <code>Protocol 2</code>设定强制使用SSH的第二版. 当然, 如果希望仅在某一个网段内进行SSH连接, 那么可以设置 <code>Host *</code>选项, 将<code>*</code>换成允许的网段, 例如<code>192.168.1.</code>代表IP地址为<code>192.168.1.x</code>的电脑可以进行SSH连接, 而其他IP地址的电脑则无法连接. 关于<code>ssh_config</code>文件的具体选项的解释如下所示<sup>[<a href="http://blog.lizhigang.net/archives/249" target="_blank" rel="external">1</a></sup></p>
+<figure class="highlight vala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">Host *</span><br><span class="line"><span class="preprocessor"># 选项“Host”只对能够匹配后面字串的计算机有效。“*”表示所有的计算机。</span></span><br><span class="line">ForwardAgent no</span><br><span class="line"><span class="preprocessor"># “ForwardAgent”设置连接是否经过验证代理（如果存在）转发给远程计算机。</span></span><br><span class="line">ForwardX11 no</span><br><span class="line"><span class="preprocessor"># “ForwardX11”设置X11连接是否被自动重定向到安全的通道和显示集（DISPLAY set）。</span></span><br><span class="line">RhostsAuthentication no</span><br><span class="line"><span class="preprocessor"># “RhostsAuthentication”设置是否使用基于rhosts的安全验证。</span></span><br><span class="line">RhostsRSAAuthentication no</span><br><span class="line"><span class="preprocessor"># “RhostsRSAAuthentication”设置是否使用用RSA算法的基于rhosts的安全验证。</span></span><br><span class="line">RSAAuthentication yes</span><br><span class="line"><span class="preprocessor"># “RSAAuthentication”设置是否使用RSA算法进行安全验证。</span></span><br><span class="line">PasswordAuthentication no</span><br><span class="line"><span class="preprocessor"># “PasswordAuthentication”设置是否使用口令验证。</span></span><br><span class="line">FallBackToRsh no</span><br><span class="line"><span class="preprocessor"># “FallBackToRsh”设置如果用ssh连接出现错误是否自动使用rsh。</span></span><br><span class="line">UseRsh no</span><br><span class="line"><span class="preprocessor"># “UseRsh”设置是否在这台计算机上使用“rlogin/rsh”。</span></span><br><span class="line">BatchMode no</span><br><span class="line"><span class="preprocessor"># “BatchMode”如果设为“yes”，passphrase/password（交互式输入口令）的提示将被禁止。当不能交互式输入口令的时候，这个选项对脚本文件和批处理任务十分有用。</span></span><br><span class="line">CheckHostIP yes</span><br><span class="line"><span class="preprocessor"># “CheckHostIP”设置ssh是否查看连接到服务器的主机的IP地址以防止DNS欺骗。建议设置为“yes”。</span></span><br><span class="line">StrictHostKeyChecking no</span><br><span class="line"><span class="preprocessor"># “StrictHostKeyChecking”如果设置成“yes”，ssh就不会自动把计算机的密匙加入“$HOME/.ssh/known_hosts”文件，并且一旦计算机的密匙发生了变化，就拒绝连接。</span></span><br><span class="line">IdentityFile ~/.ssh/identity</span><br><span class="line"><span class="preprocessor"># “IdentityFile”设置从哪个文件读取用户的RSA安全验证标识。</span></span><br><span class="line">Port <span class="number">22</span></span><br><span class="line"><span class="preprocessor"># “Port”设置连接到远程主机的端口。</span></span><br><span class="line">Cipher blowfish</span><br><span class="line"><span class="preprocessor"># “Cipher”设置加密用的密码。</span></span><br><span class="line">EscapeChar ~</span><br><span class="line"><span class="preprocessor"># “EscapeChar”设置escape字符。</span></span><br></pre></td></tr></table></figure>
+<h2 id="sshd-config配置文件">sshd_config配置文件</h2>
+<p>在sshd_config文件中添加或修改如下选项</p>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="title">PermitRootLogin</span> <span class="built_in">no</span></span><br><span class="line">PermitEmptyPasswords <span class="built_in">no</span></span><br></pre></td></tr></table></figure>
+<p>出于安全性的考虑, 我们不允许客户端直接用root账户进行登录, 故将<code>PermitRootLogin</code>设置成<code>no</code>(当然, 可以在登陆了其他用户后切换至root用户), 同时不允许空密码. <code>sshd_config</code>文件的其它具体选项的解释如下所示<sup>[<a href="http://blog.lizhigang.net/archives/249" target="_blank" rel="external">1</a></sup></p>
+<figure class="highlight vala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line">Port <span class="number">22</span></span><br><span class="line"><span class="preprocessor"># “Port”设置sshd监听的端口号。</span></span><br><span class="line">ListenAddress <span class="number">192.168</span><span class="number">.1</span><span class="number">.1</span></span><br><span class="line"><span class="preprocessor"># “ListenAddress”设置sshd服务器绑定的IP地址。</span></span><br><span class="line">HostKey /etc/ssh/ssh_host_key</span><br><span class="line"><span class="preprocessor"># “HostKey”设置包含计算机私人密匙的文件。</span></span><br><span class="line">ServerKeyBits <span class="number">1024</span></span><br><span class="line"><span class="preprocessor"># “ServerKeyBits”定义服务器密匙的位数。</span></span><br><span class="line">LoginGraceTime <span class="number">600</span></span><br><span class="line"><span class="preprocessor"># “LoginGraceTime”设置如果用户不能成功登录，在切断连接之前服务器需要等待的时间（以秒为单位）。</span></span><br><span class="line">KeyRegenerationInterval <span class="number">3600</span></span><br><span class="line"><span class="preprocessor"># “KeyRegenerationInterval”设置在多少秒之后自动重新生成服务器的密匙（如果使用密匙）。重新生成密匙是为了防止用盗用的密匙解密被截获的信息。</span></span><br><span class="line">PermitRootLogin no</span><br><span class="line"><span class="preprocessor"># “PermitRootLogin”设置root能不能用ssh登录。这个选项一定不要设成“yes”。</span></span><br><span class="line">IgnoreRhosts yes</span><br><span class="line"><span class="preprocessor"># “IgnoreRhosts”设置验证的时候是否使用“rhosts”和“shosts”文件。</span></span><br><span class="line">IgnoreUserKnownHosts yes</span><br><span class="line"><span class="preprocessor"># “IgnoreUserKnownHosts”设置ssh daemon是否在进行RhostsRSAAuthentication安全验证的时候忽略用户的“$HOME/.ssh/known_hosts”</span></span><br><span class="line">StrictModes yes</span><br><span class="line"><span class="preprocessor"># “StrictModes”设置ssh在接收登录请求之前是否检查用户家目录和rhosts文件的权限和所有权。这通常是必要的，因为新手经常会把自己的目录和文件设成任何人都有写权限。</span></span><br><span class="line">X11Forwarding no</span><br><span class="line"><span class="preprocessor"># “X11Forwarding”设置是否允许X11转发。</span></span><br><span class="line">PrintMotd yes</span><br><span class="line"><span class="preprocessor"># “PrintMotd”设置sshd是否在用户登录的时候显示“/etc/motd”中的信息。</span></span><br><span class="line">SyslogFacility AUTH</span><br><span class="line"><span class="preprocessor"># “SyslogFacility”设置在记录来自sshd的消息的时候，是否给出“facility code”。</span></span><br><span class="line">LogLevel INFO</span><br><span class="line"><span class="preprocessor"># “LogLevel”设置记录sshd日志消息的层次。INFO是一个好的选择。查看sshd的man帮助页，已获取更多的信息。</span></span><br><span class="line">RhostsAuthentication no</span><br><span class="line"><span class="preprocessor"># “RhostsAuthentication”设置只用rhosts或“/etc/hosts.equiv”进行安全验证是否已经足够了。</span></span><br><span class="line">RhostsRSAAuthentication no</span><br><span class="line"><span class="preprocessor"># “RhostsRSA”设置是否允许用rhosts或“/etc/hosts.equiv”加上RSA进行安全验证。</span></span><br><span class="line">RSAAuthentication yes</span><br><span class="line"><span class="preprocessor"># “RSAAuthentication”设置是否允许只有RSA安全验证。</span></span><br><span class="line">PasswordAuthentication no</span><br><span class="line"><span class="preprocessor"># “PasswordAuthentication”设置是否允许口令验证。</span></span><br><span class="line">PermitEmptyPasswords no</span><br><span class="line"><span class="preprocessor"># “PermitEmptyPasswords”设置是否允许用口令为空的帐号登录。</span></span><br><span class="line">AllowUsers admin</span><br><span class="line"><span class="preprocessor"># “AllowUsers”的后面可以跟着任意的数量的用户名的匹配串（patterns）或user@host这样的匹配串，这些字符串用空格隔开。主机名可以是DNS名或IP地址。</span></span><br></pre></td></tr></table></figure>
+<hr>
+<h1 id="密钥对配置">密钥对配置</h1>
+<p>在上面的设置中, 我们已经禁止了用户通过提供账号密码这种不太安全的方式进行登录, 因此, 用户只能通过公钥认证这种方式登录. 公钥认证登录方式相对而言安全, 而且方便, 不要输入密码. 关于公钥认证的原理请看上一篇文章<a href="">&lt;SSH连接认证原理概述&gt;</a>. 接下来, 需要生成密钥对, 即一组配对的公钥<code>Public Key</code>和私钥<code>Private Key</code>. 登录一个普通用户, 利用<code>$ ssh-keygen -t rsa</code>命令为其生成密钥对, <code>-t rsa</code>开关代表利用RSA算法产生密钥对.</p>
+<figure class="highlight oxygene"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">[fancyseeker@localhost ~]$ who </span><br><span class="line">fancyseeker pts/<span class="number">0</span> <span class="number">2013</span>-<span class="number">12</span>-<span class="number">30</span> <span class="number">17</span>:<span class="number">49</span> (<span class="number">192.168</span>.<span class="number">1.9</span>)</span><br><span class="line">[fancyseeker@localhost ~]$ ssh-keygen -t rsa</span><br><span class="line">Generating <span class="keyword">public</span>/<span class="keyword">private</span> rsa key pair.</span><br><span class="line">Enter file <span class="keyword">in</span> which <span class="keyword">to</span> save the key (/home/fancyseeker/.ssh/id_rsa): <span class="comment">//此处设置私钥存放目录,直接回车即可,将私钥保存在~/.ssh/id_rsa</span></span><br><span class="line">Enter passphrase (<span class="keyword">empty</span> <span class="keyword">for</span> no passphrase): <span class="comment">//此处设置公钥认证密码,直接回车表示不设置</span></span><br><span class="line">Enter same passphrase again:</span><br><span class="line">Your identification <span class="keyword">has</span> been saved <span class="keyword">in</span> /home/fancyseeker/.ssh/id_rsa. <span class="comment">//私钥</span></span><br><span class="line">Your <span class="keyword">public</span> key <span class="keyword">has</span> been saved <span class="keyword">in</span> /home/fancyseeker/.ssh/id_rsa.pub. <span class="comment">//公钥</span></span><br><span class="line">The key fingerprint <span class="keyword">is</span>:</span><br><span class="line"><span class="number">9</span>b:f3:bf:f6:<span class="number">39</span>:<span class="number">70</span>:c9:<span class="number">66</span>:d2:<span class="number">1</span>c:<span class="number">99</span>:c6:<span class="number">71</span>:<span class="number">6</span>a:b8:a9 fancyseeker@localhost.localdomain</span><br><span class="line">The key<span class="string">'s randomart image is:</span><br><span class="line">+--[ RSA 2048]----+</span><br><span class="line">|                 |</span><br><span class="line">|              . .|</span><br><span class="line">|             o * |</span><br><span class="line">|            . O  |</span><br><span class="line">|        S    O o |</span><br><span class="line">|         o  = O  |</span><br><span class="line">|        +  . *   |</span><br><span class="line">|         oE . .. |</span><br><span class="line">|          .oooo. |</span><br><span class="line">+-----------------+</span></span><br></pre></td></tr></table></figure>
+<p>注: 运行<code>ssh-keygen</code>命令并不需要切换至特定的用户 (比如你想要通过sample_user这个用户来进行ssh登陆, 但是并不一定要求说需要切换至sample_user来执行<code>ssh-keygen</code>这个命令), 同样的也不需要指定在服务器还是客户端执行, 执行<code>ssh-keygen</code>的目的仅仅是为了得到一个密钥对, 与谁来执行, 在哪执行没有特别的关系. 当然, 生成的密钥对会默认存放在当前用户的<code>~/.ssh</code>文件夹下, 因此如果用特定用户来执行<code>ssh-keygen</code>会省事很多. 在得到密钥对之后, 将公钥和私钥设置好权限之后放置在合适的目录下即可. 具体的权限和位置请看接下来的部分.</p>
+<p>这时候, 可以查看下<code>~/.ssh</code>目录下生成的公钥和私钥文件.</p>
+<figure class="highlight brainfuck"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="title">[</span><span class="comment">fancyseeker@localhost</span> <span class="string">.</span><span class="comment">ssh</span><span class="title">]</span><span class="comment">$</span> <span class="comment">ll</span> <span class="comment">~/</span><span class="string">.</span><span class="comment">ssh</span></span><br><span class="line"><span class="literal">-</span><span class="comment">rw</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span> <span class="comment">1</span> <span class="comment">fancyseeker</span> <span class="comment">fancyseeker</span> <span class="comment">1679</span> <span class="comment">Dec</span> <span class="comment">31</span> <span class="comment">14:12</span> <span class="comment">id_rsa</span></span><br><span class="line"><span class="literal">-</span><span class="comment">rw</span><span class="literal">-</span><span class="comment">r</span><span class="literal">-</span><span class="literal">-</span><span class="comment">r</span><span class="literal">-</span><span class="literal">-</span> <span class="comment">1</span> <span class="comment">fancyseeker</span> <span class="comment">fancyseeker</span>  <span class="comment">410</span> <span class="comment">Dec</span> <span class="comment">31</span> <span class="comment">14:12</span> <span class="comment">id_rsa</span><span class="string">.</span><span class="comment">pub</span></span><br></pre></td></tr></table></figure>
+<p>这里可以看到<code>ssh-keygen</code>命令生成了公钥 <strong><code>id_rsa.pub</code></strong> 和私钥 **<code>id_rsa</code>**文件.</p>
+<p>接下来, 需要做的就是把公钥文件留在服务器特定用户的 <code>~/.ssh</code> 文件夹下, 而将私钥文件放置于客户端.</p>
+<h2 id="公钥处理">公钥处理</h2>
+<p>首先, 将公钥 <code>id_rsa.pub</code> 文件重命名为 **<code>authorized_keys</code>**放置于服务器端指定登陆用户的 <code>~/.ssh</code> 文件夹下.</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[fancyseeker<span class="variable">@localhost</span> .ssh]<span class="variable">$ </span>cat ~<span class="regexp">/.ssh/id</span>_rsa.pub <span class="prompt">&gt;&gt; </span>~<span class="regexp">/.ssh/authorized</span>_keys</span><br></pre></td></tr></table></figure>
+<p>这里有几点要说明下, 关于为什么要将公钥名称更改为<code>authorized_keys</code>, 这是因为ssh服务会在客户端发起连接请求的时候在对应用户家目录的<code>.ssh</code>文件夹下寻找 <code>authorized_keys</code> 文件, 并打开访问文件中包含的公钥. 除此之外, <code>authorized_keys</code> 文件中可以包含多个公钥, 因此上述的命令中用了<code>&gt;&gt;</code>指令将之前生成的公钥追加至<code>authorized_keys</code>文件的尾部.</p>
+<p>为了使登陆更加安全, 我们需要将公钥的权限设置为只有所有者可读, 同时删除之前的 <code>id_rsa.pub</code> 文件, 即</p>
+<figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[fancyseeker<span class="variable">@localhost</span> .ssh]<span class="variable">$ </span>chmod <span class="number">400</span> ~<span class="regexp">/.ssh/authorized</span>_keys</span><br><span class="line">[fancyseeker<span class="variable">@localhost</span> .ssh]<span class="variable">$ </span>rm -f id_rsa.pub</span><br><span class="line">[fancyseeker<span class="variable">@localhost</span> .ssh]<span class="variable">$ </span>ll</span><br><span class="line">-r-------- <span class="number">1</span> fancyseeker fancyseeker  <span class="number">410</span> <span class="constant">Dec </span><span class="number">29</span> <span class="number">20</span><span class="symbol">:</span><span class="number">51</span> authorized_keys</span><br><span class="line">-rw------- <span class="number">1</span> fancyseeker fancyseeker <span class="number">1679</span> <span class="constant">Dec </span><span class="number">31</span> <span class="number">14</span><span class="symbol">:</span><span class="number">12</span> id_rsa</span><br></pre></td></tr></table></figure>
+<p>至此, 服务器端的配置结束. 接下来介绍Windows客户端PuTTY的配置和使用.</p>
+<hr>
+<h1 id="windows下使用putty登陆">Windows下使用PuTTY登陆</h1>
+<p><a href="http://www.putty.org/" target="_blank" rel="external">PuTTY</a>是Windows环境下一个简单易用的SSH客户端软件.</p>
+<p>首先, 我们需要利用一种安全的方式(可以用U盘, 移动硬盘之类的存储介质, 也可以使用scp(secure copy)协议进行安全传输), 将服务器端产生的私钥文件 <code>id_rsa</code> 移动到客户端上来.</p>
+<h2 id="转换私钥格式">转换私钥格式</h2>
+<p>由于服务器端产生的私钥文件<code>id_rsa</code>的格式PuTTY无法识别, 因此需要先利用<code>PuTTYgen</code>工具转换成PuTTY识别的格式.(PuTTYgen工具需要<a href="http://www.chiark.greenend.org.uk/~sgtatham/putty/download.html" target="_blank" rel="external">此处</a>下载)</p>
+<p>运行PuTTYgen工具, 点击 Load, 选择要转换的私钥文件.</p>
+<p><img src="/img/ssh_connect/puttygen.jpg" alt="PuTTYgen"></p>
+<p>找到之前存放私钥文件的地方.</p>
+<p><img src="/img/ssh_connect/PuTTYgen_all.jpg" alt=""></p>
+<p>这里需要将文件名后面的文件类型更改为All File(<em>.</em>)才能看到服务器端产生的私钥文件.</p>
+<p><img src="/img/ssh_connect/PuTTYgen_pk.jpg" alt=""></p>
+<p>此时, PuTTYgen会要求你输入passphrase口令, 该口令是之前在服务器端利用<code>ssh-keygen</code>生成密钥对时,由用户输入的一个口令, 如果为空, 直接回车即可.</p>
+<p><img src="/img/ssh_connect/passphrase.jpg" alt=""></p>
+<p>输入口令, 点击ok, PuTTYgen会提示私钥格式转换成功</p>
+<p><img src="/img/ssh_connect/pksucc.jpg" alt=""></p>
+<p>点击 Save private key 将转换成功后的 ppk 文件保存至自己想要的指定位置. 此时, 私钥的转换工作结束, 接下来配置PuTTY.</p>
+<h2 id="导入私钥">导入私钥</h2>
+<p>双击打开PuTTY, 在左侧的列表中找到<code>Connection-SSH-Auth</code>, 在右边的窗口中, 选择需要导入的私钥.</p>
+<p><img src="/img/ssh_connect/PuTTYconfig.jpg" alt=""></p>
+<p>然后找到刚才利用PuTTYgen转换得到的ppk私钥文件</p>
+<p><img src="/img/ssh_connect/pkpos.jpg" alt=""></p>
+<h2 id="配置会话session">配置会话Session</h2>
+<p>之后点击左侧列表中的Session, 来配置SSH会话, 即连接的具体参数</p>
+<p><img src="/img/ssh_connect/session.jpg" alt=""></p>
+<p>此处需要配置服务器的IP地址, 以及要保存的连接名称(任意取), 设定完后点击右侧的 <code>Save</code> 按钮将连接保存, 这样下次就不需要设置而能快速访问了.</p>
+<p>至此, SSH的服务器端和客户端的配置全部结束, 接下来是测试过程.</p>
+<h2 id="测试登录">测试登录</h2>
+<p>双击打开PuTTY, 选中之前我们保存的名为 Whatever you like 的连接, 点击<code>Open</code>, 发起SSH连接<br>
+<img src="/img/ssh_connect/testPuTTY.jpg" alt=""><br>
+我们会看到一个黑色的连接对话框, 在输入要登陆的用户名以及在生成密钥对时要求的passphrase后, 成功地登陆了远程服务器.</p>
+<p><img src="/img/ssh_connect/sshlogin.jpg" alt=""></p>
+<p>有几点需要在本文的最后稍微做下说明.</p>
+<ol>
+<li>SSH配置的关键在于首先需要先生成一个密钥对, 该密钥对是由哪个用户生成以及是在服务器端生成还是在客户端生成的都不重要, 重要的是最后这个密钥对中的公钥必须要在服务器端的特定用户家目录下的.ssh文件夹中,并命名为authorized_keys,而私钥则必须经由客户端转换后导入客户端软件,这样才能满足SSH连接的需求.</li>
+<li>服务器端的公钥权限不对,无法被读取有可能导致在进行SSH登陆的时候被服务器端拒绝.</li>
+<li>一个萝卜一个坑, 不同用户不可共同使用同一组密钥对, 否则可能导致登陆失败.</li>
+<li>服务器之所以接受该用户利用SSH登陆是因为在服务器端的改用户家目录的.ssh文件夹下有公钥文件, 并且和发起请求客户端的私钥文件是配对的. 显然的, 如果发起请求的用户在服务器端的家目录.ssh文件夹下没有公钥文件, 那么便无法成功登陆.</li>
+</ol>
+<p>至此, 本文结束.</p>
+-->
+            
+            
+                <p>SSH是访问远程Linux主机的主要手段, 特别是当用户需要操作Linux和Windows主机的时候, 在Windows上能非常方便的通过SSH访问Linux主机. 本文介绍了如何在Linux主机下生成SSH密钥对并在Windows中配置SSH客户端来使用公钥登录远程Linux主机.</p>
+<a id="more"></a>
+<h1 id="background">Background</h1>
+<p>这几天需要在实验室空闲电脑上配置一个samba服务器用于共享文件, 而那台电脑所在座位上刚好来了一个人临时要在这边待几个星期, 因此无法直接在服务器前进行配置, 于是乎想到了利用SSH来远程登陆服务器进行操作. 其实说是远程, 也就隔了不到5米, 但是通过自己的电脑操控另一台电脑的感觉真的还是很美妙的. 想象一下此刻你正处于地球上不知道哪个地方, 然后通过庞大的互联网, 连接到了与你距离十万八千里的某台主机上进行操作, 想想还有点小激动呢.</p>
+<hr>
+<h1 id="系统环境">系统环境</h1>
+<p>服务器: CentOS 6.4 x86_64    OpenSSH<br>
+SSH客户机: Windows 7 64bit    PuTTY</p>
+<hr>
+<h1 id="安装启动ssh服务">安装启动SSH服务</h1>
+<p>在CentOS上查看是否安装了ssh相关的包.</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">[fancyseeker@localhost ~]$ rpm -qa | grep ssh</span><br><span class="line">openssh-<span class="number">5.3</span>p1-<span class="number">94</span>.el6.x86_64</span><br><span class="line">openssh-askpass-<span class="number">5.3</span>p1-<span class="number">94</span>.el6.x86_64</span><br><span class="line">libssh2-<span class="number">1.4</span>.<span class="number">2</span>-<span class="number">1</span>.el6.x86_64</span><br><span class="line">openssh-server-<span class="number">5.3</span>p1-<span class="number">94</span>.el6.x86_64</span><br><span class="line">openssh-clients-<span class="number">5.3</span>p1-<span class="number">94</span>.el6.x86_64</span><br><span class="line">openssh-ldap-<span class="number">5.3</span>p1-<span class="number">94</span>.el6.x86_64</span><br></pre></td></tr></table></figure>
+<p>如果没有安装, 那么需要手动安装下</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"># yum install openssh*</span><br></pre></td></tr></table></figure>
+<ol start="2">
+<li>设置开机启动SSH服务</li>
+</ol>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"># chkconfig sshd on</span><br></pre></td></tr></table></figure>
+<ol start="3">
+<li>开启SSH服务</li>
+</ol>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"># /etc/init.d/sshd start</span><br></pre></td></tr></table></figure>
+<ol start="4">
+<li>查看SSH服务运行状态</li>
+</ol>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"># /etc/init.d/sshd status</span><br></pre></td></tr></table></figure>
+<hr>
+<h1 id="配置ssh服务">配置SSH服务</h1>
+<p>SSH服务配置 SSH服务的配置文件主要有2个, 分别为 <code>/etc/ssh/ssh_config</code> 以及 <code>/etc/ssh/sshd_config</code></p>
+<h2 id="ssh-config配置文件">ssh_config配置文件</h2>
+<p>这里我们先对<code>ssh_config</code>配置文件进行修改, 添加或修改如下几项</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 使用RSA算法进行安全验证</span></span><br><span class="line">RSAAuthentication yes</span><br><span class="line"><span class="comment"># 关闭密码验证</span></span><br><span class="line">PasswordAuthentication no</span><br><span class="line"><span class="comment"># 强制使用的SSH2</span></span><br><span class="line">Protocol <span class="number">2</span></span><br></pre></td></tr></table></figure>
+<p>由于接下来我们会选用RSA算法来产生密钥对, 因此将<code>RSAAuthentication</code>设置成<code>yes</code>, <code>PasswordAuthentication</code>设置成<code>no</code>使得客户端无法通过不安全的账户密码方式登录, 增强安全性. <code>Protocol 2</code>设定强制使用SSH的第二版. 当然, 如果希望仅在某一个网段内进行SSH连接, 那么可以设置 <code>Host *</code>选项, 将<code>*</code>换成允许的网段, 例如<code>192.168.1.</code>代表IP地址为<code>192.168.1.x</code>的电脑可以进行SSH连接, 而其他IP地址的电脑则无法连接. 关于<code>ssh_config</code>文件的具体选项的解释如下所示<sup>[<a href="http://blog.lizhigang.net/archives/249" target="_blank" rel="external">1</a></sup></p>
+<figure class="highlight vala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">Host *</span><br><span class="line"><span class="preprocessor"># 选项“Host”只对能够匹配后面字串的计算机有效。“*”表示所有的计算机。</span></span><br><span class="line">ForwardAgent no</span><br><span class="line"><span class="preprocessor"># “ForwardAgent”设置连接是否经过验证代理（如果存在）转发给远程计算机。</span></span><br><span class="line">ForwardX11 no</span><br><span class="line"><span class="preprocessor"># “ForwardX11”设置X11连接是否被自动重定向到安全的通道和显示集（DISPLAY set）。</span></span><br><span class="line">RhostsAuthentication no</span><br><span class="line"><span class="preprocessor"># “RhostsAuthentication”设置是否使用基于rhosts的安全验证。</span></span><br><span class="line">RhostsRSAAuthentication no</span><br><span class="line"><span class="preprocessor"># “RhostsRSAAuthentication”设置是否使用用RSA算法的基于rhosts的安全验证。</span></span><br><span class="line">RSAAuthentication yes</span><br><span class="line"><span class="preprocessor"># “RSAAuthentication”设置是否使用RSA算法进行安全验证。</span></span><br><span class="line">PasswordAuthentication no</span><br><span class="line"><span class="preprocessor"># “PasswordAuthentication”设置是否使用口令验证。</span></span><br><span class="line">FallBackToRsh no</span><br><span class="line"><span class="preprocessor"># “FallBackToRsh”设置如果用ssh连接出现错误是否自动使用rsh。</span></span><br><span class="line">UseRsh no</span><br><span class="line"><span class="preprocessor"># “UseRsh”设置是否在这台计算机上使用“rlogin/rsh”。</span></span><br><span class="line">BatchMode no</span><br><span class="line"><span class="preprocessor"># “BatchMode”如果设为“yes”，passphrase/password（交互式输入口令）的提示将被禁止。当不能交互式输入口令的时候，这个选项对脚本文件和批处理任务十分有用。</span></span><br><span class="line">CheckHostIP yes</span><br><span class="line"><span class="preprocessor"># “CheckHostIP”设置ssh是否查看连接到服务器的主机的IP地址以防止DNS欺骗。建议设置为“yes”。</span></span><br><span class="line">StrictHostKeyChecking no</span><br><span class="line"><span class="preprocessor"># “StrictHostKeyChecking”如果设置成“yes”，ssh就不会自动把计算机的密匙加入“$HOME/.ssh/known_hosts”文件，并且一旦计算机的密匙发生了变化，就拒绝连接。</span></span><br><span class="line">IdentityFile ~/.ssh/identity</span><br><span class="line"><span class="preprocessor"># “IdentityFile”设置从哪个文件读取用户的RSA安全验证标识。</span></span><br><span class="line">Port <span class="number">22</span></span><br><span class="line"><span class="preprocessor"># “Port”设置连接到远程主机的端口。</span></span><br><span class="line">Cipher blowfish</span><br><span class="line"><span class="preprocessor"># “Cipher”设置加密用的密码。</span></span><br><span class="line">EscapeChar ~</span><br><span class="line"><span class="preprocessor"># “EscapeChar”设置escape字符。</span></span><br></pre></td></tr></table></figure>
+<h2 id="sshd-config配置文件">sshd_config配置文件</h2>
+<p>在sshd_config文件中添加或修改如下选项</p>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="title">PermitRootLogin</span> <span class="built_in">no</span></span><br><span class="line">PermitEmptyPasswords <span class="built_in">no</span></span><br></pre></td></tr></table></figure>
+<p>出于安全性的考虑, 我们不允许客户端直接用root账户进行登录, 故将<code>PermitRootLogin</code>设置成<code>no</code>(当然, 可以在登陆了其他用户后切换至root用户), 同时不允许空密码. <code>sshd_config</code>文件的其它具体选项的解释如下所示<sup>[<a href="http://blog.lizhigang.net/archives/249" target="_blank" rel="external">1</a></sup></p>
+<figure class="highlight vala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line">Port <span class="number">22</span></span><br><span class="line"><span class="preprocessor"># “Port”设置sshd监听的端口号。</span></span><br><span class="line">ListenAddress <span class="number">192.168</span><span class="number">.1</span><span class="number">.1</span></span><br><span class="line"><span class="preprocessor"># “ListenAddress”设置sshd服务器绑定的IP地址。</span></span><br><span class="line">HostKey /etc/ssh/ssh_host_key</span><br><span class="line"><span class="preprocessor"># “HostKey”设置包含计算机私人密匙的文件。</span></span><br><span class="line">ServerKeyBits <span class="number">1024</span></span><br><span class="line"><span class="preprocessor"># “ServerKeyBits”定义服务器密匙的位数。</span></span><br><span class="line">LoginGraceTime <span class="number">600</span></span><br><span class="line"><span class="preprocessor"># “LoginGraceTime”设置如果用户不能成功登录，在切断连接之前服务器需要等待的时间（以秒为单位）。</span></span><br><span class="line">KeyRegenerationInterval <span class="number">3600</span></span><br><span class="line"><span class="preprocessor"># “KeyRegenerationInterval”设置在多少秒之后自动重新生成服务器的密匙（如果使用密匙）。重新生成密匙是为了防止用盗用的密匙解密被截获的信息。</span></span><br><span class="line">PermitRootLogin no</span><br><span class="line"><span class="preprocessor"># “PermitRootLogin”设置root能不能用ssh登录。这个选项一定不要设成“yes”。</span></span><br><span class="line">IgnoreRhosts yes</span><br><span class="line"><span class="preprocessor"># “IgnoreRhosts”设置验证的时候是否使用“rhosts”和“shosts”文件。</span></span><br><span class="line">IgnoreUserKnownHosts yes</span><br><span class="line"><span class="preprocessor"># “IgnoreUserKnownHosts”设置ssh daemon是否在进行RhostsRSAAuthentication安全验证的时候忽略用户的“$HOME/.ssh/known_hosts”</span></span><br><span class="line">StrictModes yes</span><br><span class="line"><span class="preprocessor"># “StrictModes”设置ssh在接收登录请求之前是否检查用户家目录和rhosts文件的权限和所有权。这通常是必要的，因为新手经常会把自己的目录和文件设成任何人都有写权限。</span></span><br><span class="line">X11Forwarding no</span><br><span class="line"><span class="preprocessor"># “X11Forwarding”设置是否允许X11转发。</span></span><br><span class="line">PrintMotd yes</span><br><span class="line"><span class="preprocessor"># “PrintMotd”设置sshd是否在用户登录的时候显示“/etc/motd”中的信息。</span></span><br><span class="line">SyslogFacility AUTH</span><br><span class="line"><span class="preprocessor"># “SyslogFacility”设置在记录来自sshd的消息的时候，是否给出“facility code”。</span></span><br><span class="line">LogLevel INFO</span><br><span class="line"><span class="preprocessor"># “LogLevel”设置记录sshd日志消息的层次。INFO是一个好的选择。查看sshd的man帮助页，已获取更多的信息。</span></span><br><span class="line">RhostsAuthentication no</span><br><span class="line"><span class="preprocessor"># “RhostsAuthentication”设置只用rhosts或“/etc/hosts.equiv”进行安全验证是否已经足够了。</span></span><br><span class="line">RhostsRSAAuthentication no</span><br><span class="line"><span class="preprocessor"># “RhostsRSA”设置是否允许用rhosts或“/etc/hosts.equiv”加上RSA进行安全验证。</span></span><br><span class="line">RSAAuthentication yes</span><br><span class="line"><span class="preprocessor"># “RSAAuthentication”设置是否允许只有RSA安全验证。</span></span><br><span class="line">PasswordAuthentication no</span><br><span class="line"><span class="preprocessor"># “PasswordAuthentication”设置是否允许口令验证。</span></span><br><span class="line">PermitEmptyPasswords no</span><br><span class="line"><span class="preprocessor"># “PermitEmptyPasswords”设置是否允许用口令为空的帐号登录。</span></span><br><span class="line">AllowUsers admin</span><br><span class="line"><span class="preprocessor"># “AllowUsers”的后面可以跟着任意的数量的用户名的匹配串（patterns）或user@host这样的匹配串，这些字符串用空格隔开。主机名可以是DNS名或IP地址。</span></span><br></pre></td></tr></table></figure>
+<hr>
+<h1 id="密钥对配置">密钥对配置</h1>
+<p>在上面的设置中, 我们已经禁止了用户通过提供账号密码这种不太安全的方式进行登录, 因此, 用户只能通过公钥认证这种方式登录. 公钥认证登录方式相对而言安全, 而且方便, 不要输入密码. 关于公钥认证的原理请看上一篇文章<a href="">&lt;SSH连接认证原理概述&gt;</a>. 接下来, 需要生成密钥对, 即一组配对的公钥<code>Public Key</code>和私钥<code>Private Key</code>. 登录一个普通用户, 利用<code>$ ssh-keygen -t rsa</code>命令为其生成密钥对, <code>-t rsa</code>开关代表利用RSA算法产生密钥对.</p>
+<figure class="highlight oxygene"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">[fancyseeker@localhost ~]$ who </span><br><span class="line">fancyseeker pts/<span class="number">0</span> <span class="number">2013</span>-<span class="number">12</span>-<span class="number">30</span> <span class="number">17</span>:<span class="number">49</span> (<span class="number">192.168</span>.<span class="number">1.9</span>)</span><br><span class="line">[fancyseeker@localhost ~]$ ssh-keygen -t rsa</span><br><span class="line">Generating <span class="keyword">public</span>/<span class="keyword">private</span> rsa key pair.</span><br><span class="line">Enter file <span class="keyword">in</span> which <span class="keyword">to</span> save the key (/home/fancyseeker/.ssh/id_rsa): <span class="comment">//此处设置私钥存放目录,直接回车即可,将私钥保存在~/.ssh/id_rsa</span></span><br><span class="line">Enter passphrase (<span class="keyword">empty</span> <span class="keyword">for</span> no passphrase): <span class="comment">//此处设置公钥认证密码,直接回车表示不设置</span></span><br><span class="line">Enter same passphrase again:</span><br><span class="line">Your identification <span class="keyword">has</span> been saved <span class="keyword">in</span> /home/fancyseeker/.ssh/id_rsa. <span class="comment">//私钥</span></span><br><span class="line">Your <span class="keyword">public</span> key <span class="keyword">has</span> been saved <span class="keyword">in</span> /home/fancyseeker/.ssh/id_rsa.pub. <span class="comment">//公钥</span></span><br><span class="line">The key fingerprint <span class="keyword">is</span>:</span><br><span class="line"><span class="number">9</span>b:f3:bf:f6:<span class="number">39</span>:<span class="number">70</span>:c9:<span class="number">66</span>:d2:<span class="number">1</span>c:<span class="number">99</span>:c6:<span class="number">71</span>:<span class="number">6</span>a:b8:a9 fancyseeker@localhost.localdomain</span><br><span class="line">The key<span class="string">'s randomart image is:</span><br><span class="line">+--[ RSA 2048]----+</span><br><span class="line">|                 |</span><br><span class="line">|              . .|</span><br><span class="line">|             o * |</span><br><span class="line">|            . O  |</span><br><span class="line">|        S    O o |</span><br><span class="line">|         o  = O  |</span><br><span class="line">|        +  . *   |</span><br><span class="line">|         oE . .. |</span><br><span class="line">|          .oooo. |</span><br><span class="line">+-----------------+</span></span><br></pre></td></tr></table></figure>
+<p>注: 运行<code>ssh-keygen</code>命令并不需要切换至特定的用户 (比如你想要通过sample_user这个用户来进行ssh登陆, 但是并不一定要求说需要切换至sample_user来执行<code>ssh-keygen</code>这个命令), 同样的也不需要指定在服务器还是客户端执行, 执行<code>ssh-keygen</code>的目的仅仅是为了得到一个密钥对, 与谁来执行, 在哪执行没有特别的关系. 当然, 生成的密钥对会默认存放在当前用户的<code>~/.ssh</code>文件夹下, 因此如果用特定用户来执行<code>ssh-keygen</code>会省事很多. 在得到密钥对之后, 将公钥和私钥设置好权限之后放置在合适的目录下即可. 具体的权限和位置请看接下来的部分.</p>
+<p>这时候, 可以查看下<code>~/.ssh</code>目录下生成的公钥和私钥文件.</p>
+<figure class="highlight brainfuck"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="title">[</span><span class="comment">fancyseeker@localhost</span> <span class="string">.</span><span class="comment">ssh</span><span class="title">]</span><span class="comment">$</span> <span class="comment">ll</span> <span class="comment">~/</span><span class="string">.</span><span class="comment">ssh</span></span><br><span class="line"><span class="literal">-</span><span class="comment">rw</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span> <span class="comment">1</span> <span class="comment">fancyseeker</span> <span class="comment">fancyseeker</span> <span class="comment">1679</span> <span class="comment">Dec</span> <span class="comment">31</span> <span class="comment">14:12</span> <span class="comment">id_rsa</span></span><br><span class="line"><span class="literal">-</span><span class="comment">rw</span><span class="literal">-</span><span class="comment">r</span><span class="literal">-</span><span class="literal">-</span><span class="comment">r</span><span class="literal">-</span><span class="literal">-</span> <span class="comment">1</span> <span class="comment">fancyseeker</span> <span class="comment">fancyseeker</span>  <span class="comment">410</span> <span class="comment">Dec</span> <span class="comment">31</span> <span class="comment">14:12</span> <span class="comment">id_rsa</span><span class="string">.</span><span class="comment">pub</span></span><br></pre></td></tr></table></figure>
+<p>这里可以看到<code>ssh-keygen</code>命令生成了公钥 <strong><code>id_rsa.pub</code></strong> 和私钥 **<code>id_rsa</code>**文件.</p>
+<p>接下来, 需要做的就是把公钥文件留在服务器特定用户的 <code>~/.ssh</code> 文件夹下, 而将私钥文件放置于客户端.</p>
+<h2 id="公钥处理">公钥处理</h2>
+<p>首先, 将公钥 <code>id_rsa.pub</code> 文件重命名为 **<code>authorized_keys</code>**放置于服务器端指定登陆用户的 <code>~/.ssh</code> 文件夹下.</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[fancyseeker<span class="variable">@localhost</span> .ssh]<span class="variable">$ </span>cat ~<span class="regexp">/.ssh/id</span>_rsa.pub <span class="prompt">&gt;&gt; </span>~<span class="regexp">/.ssh/authorized</span>_keys</span><br></pre></td></tr></table></figure>
+<p>这里有几点要说明下, 关于为什么要将公钥名称更改为<code>authorized_keys</code>, 这是因为ssh服务会在客户端发起连接请求的时候在对应用户家目录的<code>.ssh</code>文件夹下寻找 <code>authorized_keys</code> 文件, 并打开访问文件中包含的公钥. 除此之外, <code>authorized_keys</code> 文件中可以包含多个公钥, 因此上述的命令中用了<code>&gt;&gt;</code>指令将之前生成的公钥追加至<code>authorized_keys</code>文件的尾部.</p>
+<p>为了使登陆更加安全, 我们需要将公钥的权限设置为只有所有者可读, 同时删除之前的 <code>id_rsa.pub</code> 文件, 即</p>
+<figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[fancyseeker<span class="variable">@localhost</span> .ssh]<span class="variable">$ </span>chmod <span class="number">400</span> ~<span class="regexp">/.ssh/authorized</span>_keys</span><br><span class="line">[fancyseeker<span class="variable">@localhost</span> .ssh]<span class="variable">$ </span>rm -f id_rsa.pub</span><br><span class="line">[fancyseeker<span class="variable">@localhost</span> .ssh]<span class="variable">$ </span>ll</span><br><span class="line">-r-------- <span class="number">1</span> fancyseeker fancyseeker  <span class="number">410</span> <span class="constant">Dec </span><span class="number">29</span> <span class="number">20</span><span class="symbol">:</span><span class="number">51</span> authorized_keys</span><br><span class="line">-rw------- <span class="number">1</span> fancyseeker fancyseeker <span class="number">1679</span> <span class="constant">Dec </span><span class="number">31</span> <span class="number">14</span><span class="symbol">:</span><span class="number">12</span> id_rsa</span><br></pre></td></tr></table></figure>
+<p>至此, 服务器端的配置结束. 接下来介绍Windows客户端PuTTY的配置和使用.</p>
+<hr>
+<h1 id="windows下使用putty登陆">Windows下使用PuTTY登陆</h1>
+<p><a href="http://www.putty.org/" target="_blank" rel="external">PuTTY</a>是Windows环境下一个简单易用的SSH客户端软件.</p>
+<p>首先, 我们需要利用一种安全的方式(可以用U盘, 移动硬盘之类的存储介质, 也可以使用scp(secure copy)协议进行安全传输), 将服务器端产生的私钥文件 <code>id_rsa</code> 移动到客户端上来.</p>
+<h2 id="转换私钥格式">转换私钥格式</h2>
+<p>由于服务器端产生的私钥文件<code>id_rsa</code>的格式PuTTY无法识别, 因此需要先利用<code>PuTTYgen</code>工具转换成PuTTY识别的格式.(PuTTYgen工具需要<a href="http://www.chiark.greenend.org.uk/~sgtatham/putty/download.html" target="_blank" rel="external">此处</a>下载)</p>
+<p>运行PuTTYgen工具, 点击 Load, 选择要转换的私钥文件.</p>
+<p><img src="/img/ssh_connect/puttygen.jpg" alt="PuTTYgen"></p>
+<p>找到之前存放私钥文件的地方.</p>
+<p><img src="/img/ssh_connect/PuTTYgen_all.jpg" alt=""></p>
+<p>这里需要将文件名后面的文件类型更改为All File(<em>.</em>)才能看到服务器端产生的私钥文件.</p>
+<p><img src="/img/ssh_connect/PuTTYgen_pk.jpg" alt=""></p>
+<p>此时, PuTTYgen会要求你输入passphrase口令, 该口令是之前在服务器端利用<code>ssh-keygen</code>生成密钥对时,由用户输入的一个口令, 如果为空, 直接回车即可.</p>
+<p><img src="/img/ssh_connect/passphrase.jpg" alt=""></p>
+<p>输入口令, 点击ok, PuTTYgen会提示私钥格式转换成功</p>
+<p><img src="/img/ssh_connect/pksucc.jpg" alt=""></p>
+<p>点击 Save private key 将转换成功后的 ppk 文件保存至自己想要的指定位置. 此时, 私钥的转换工作结束, 接下来配置PuTTY.</p>
+<h2 id="导入私钥">导入私钥</h2>
+<p>双击打开PuTTY, 在左侧的列表中找到<code>Connection-SSH-Auth</code>, 在右边的窗口中, 选择需要导入的私钥.</p>
+<p><img src="/img/ssh_connect/PuTTYconfig.jpg" alt=""></p>
+<p>然后找到刚才利用PuTTYgen转换得到的ppk私钥文件</p>
+<p><img src="/img/ssh_connect/pkpos.jpg" alt=""></p>
+<h2 id="配置会话session">配置会话Session</h2>
+<p>之后点击左侧列表中的Session, 来配置SSH会话, 即连接的具体参数</p>
+<p><img src="/img/ssh_connect/session.jpg" alt=""></p>
+<p>此处需要配置服务器的IP地址, 以及要保存的连接名称(任意取), 设定完后点击右侧的 <code>Save</code> 按钮将连接保存, 这样下次就不需要设置而能快速访问了.</p>
+<p>至此, SSH的服务器端和客户端的配置全部结束, 接下来是测试过程.</p>
+<h2 id="测试登录">测试登录</h2>
+<p>双击打开PuTTY, 选中之前我们保存的名为 Whatever you like 的连接, 点击<code>Open</code>, 发起SSH连接<br>
+<img src="/img/ssh_connect/testPuTTY.jpg" alt=""><br>
+我们会看到一个黑色的连接对话框, 在输入要登陆的用户名以及在生成密钥对时要求的passphrase后, 成功地登陆了远程服务器.</p>
+<p><img src="/img/ssh_connect/sshlogin.jpg" alt=""></p>
+<p>有几点需要在本文的最后稍微做下说明.</p>
+<ol>
+<li>SSH配置的关键在于首先需要先生成一个密钥对, 该密钥对是由哪个用户生成以及是在服务器端生成还是在客户端生成的都不重要, 重要的是最后这个密钥对中的公钥必须要在服务器端的特定用户家目录下的.ssh文件夹中,并命名为authorized_keys,而私钥则必须经由客户端转换后导入客户端软件,这样才能满足SSH连接的需求.</li>
+<li>服务器端的公钥权限不对,无法被读取有可能导致在进行SSH登陆的时候被服务器端拒绝.</li>
+<li>一个萝卜一个坑, 不同用户不可共同使用同一组密钥对, 否则可能导致登陆失败.</li>
+<li>服务器之所以接受该用户利用SSH登陆是因为在服务器端的改用户家目录的.ssh文件夹下有公钥文件, 并且和发起请求客户端的私钥文件是配对的. 显然的, 如果发起请求的用户在服务器端的家目录.ssh文件夹下没有公钥文件, 那么便无法成功登陆.</li>
+</ol>
+<p>至此, 本文结束.</p>
+
+            
+      
+    </div>
+    <footer class="article-footer">
+      
+        <a data-url="http://fancyseeker.github.io/2013/12/31/ssh_connect/" data-id="cil06sjja000w1k4zvt8664x0" class="article-share-link" data-share="baidu">分享到</a>
+      
+
+      
+        <a href="http://fancyseeker.github.io/2013/12/31/ssh_connect/#ds-thread" class="article-comment-link">评论</a>
+      
+
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/PuTTY/">PuTTY<span class="article-tag-list-count">1</span></a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/shell/">shell<span class="article-tag-list-count">1</span></a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ssh/">ssh<span class="article-tag-list-count">2</span></a></li></ul>
+
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2014/05/15/vim1/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong>
+      <div class="article-nav-title">
+        
+          Vim(1) -- 认识Vim
+        
+      </div>
+      </strong>
+    </a>
+  
+  
+    <a href="/2013/12/30/ssh_overview/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong>
+      <div class="article-nav-title">
+          SSH连接认证原理概述
+      </div>
+      </strong>
+    </a>
+  
+</nav>
+
+
+  
+</article>
+
+
+  <section id="comments">
+    <div id="ds-thread" class="ds-thread" data-thread-key="2013/12/31/ssh_connect/" data-title="SSH配置-在Windows下远程登陆Linux服务器Shell" data-url="http://fancyseeker.github.io/2013/12/31/ssh_connect/"></div>
+  </section>
+
+</section>
+      
+        
+          <div id="toc-wrap">
+            <div id="toc" class="toc-article">
+              <div id="toc-title">目录</div>
+              <div id="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#background"><span class="toc-number">1.</span> <span class="toc-text">Background</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#系统环境"><span class="toc-number">2.</span> <span class="toc-text">系统环境</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#安装启动ssh服务"><span class="toc-number">3.</span> <span class="toc-text">安装启动SSH服务</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#配置ssh服务"><span class="toc-number">4.</span> <span class="toc-text">配置SSH服务</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#ssh-config配置文件"><span class="toc-number">4.1.</span> <span class="toc-text">ssh_config配置文件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#sshd-config配置文件"><span class="toc-number">4.2.</span> <span class="toc-text">sshd_config配置文件</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#密钥对配置"><span class="toc-number">5.</span> <span class="toc-text">密钥对配置</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#公钥处理"><span class="toc-number">5.1.</span> <span class="toc-text">公钥处理</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#windows下使用putty登陆"><span class="toc-number">6.</span> <span class="toc-text">Windows下使用PuTTY登陆</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#转换私钥格式"><span class="toc-number">6.1.</span> <span class="toc-text">转换私钥格式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#导入私钥"><span class="toc-number">6.2.</span> <span class="toc-text">导入私钥</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#配置会话session"><span class="toc-number">6.3.</span> <span class="toc-text">配置会话Session</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#测试登录"><span class="toc-number">6.4.</span> <span class="toc-text">测试登录</span></a></li></ol></li></ol></div>
+            </div>
+          </div>
+        
+    
+    </div>
+    <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2016 fancyseeker<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+      .
+      Based on <a href="https://github.com/xiangming/landscape-plus" target="_blank">Landscape-plus</a>
+    </div>
+  </div>
+</footer>
+
+  </div>
+  <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+    <a href="/about" class="mobile-nav-link">About</a>
+  
+</nav>
+  <!-- totop start -->
+<div id="totop">
+<a title="返回顶部"><img src="/img/scrollup.png"/></a>
+</div>
+
+<!-- totop end -->
+
+<!-- 多说公共js代码 start -->
+<script type="text/javascript">
+var duoshuoQuery = {short_name:"fancyseeker"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+     || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+  </script>
+<!-- 多说公共js代码 end -->
+
+
+<!-- 百度分享 start -->
+
+<div id="article-share-box" class="article-share-box">
+  <div id="bdshare" class="bdsharebuttonbox article-share-links">
+    <a class="article-share-weibo" data-cmd="tsina" title="分享到新浪微博"></a>
+    <a class="article-share-weixin" data-cmd="weixin" title="分享到微信"></a>
+    <a class="article-share-qq" data-cmd="sqq" title="分享到QQ"></a>
+    <a class="article-share-renren" data-cmd="renren" title="分享到人人网"></a>
+    <a class="article-share-more" data-cmd="more" title="更多"></a>
+  </div>
+</div>
+<script>window._bd_share_config={"common":{},"share":{"bdCustomStyle":"/css/bdshare.css"}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?cdnversion='+~(-new Date()/36e5)];</script>
+
+<!-- 百度分享 end -->
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+
+
+
+
+<script src="/js/script.js" type="text/javascript"></script>
+
+</div>
+</body>
+</html>
+
