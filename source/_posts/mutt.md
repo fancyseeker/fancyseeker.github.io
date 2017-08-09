@@ -276,24 +276,22 @@ $ vim ~/.msmtprc
 
 一个基本的msmtprc文件如下:
 
-```
+```sh
 defaults
-tls off
-tls_certcheck off
-logfile ~/.mail/msmtp.log
+tls on
+auth on
+tls_trust_file /etc/ssl/certs/ca-certificates.crt
 
-account your_account
-host $smtp.your_smtp_server.com
-from $your_mailaddress@mail.com
-port 25
-user $username
+account default
+host smtp.gmail.com
+port 587
+user $username@gmail.com
 password $password
-
-# Set a default account
-account default : $username
+from $username@mail.com
+logfile ~/.mail/msmtp.log
 ```
 
-注: 文件中带`$`符号的都是需要根据具体情况修改的信息.
+注: 文件中带`$`符号的都是需要根据具体情况修改的信息. 如果Gmail开启了两步验证(2-Step Verification), 使用邮箱原有的密码可能无法登录, 可以考虑使用一次性的App Password, 即在Gmail账户中申请一个一次性专用于某一个程序的密码.
 
 由于msmtp是负责发送邮件的, 而之前我们说过, 邮件发送涉及到的协议主要是SMTP, 因此, 需要告知msmtp SMTP服务器的host地址, 一般的邮箱STMP地址都比较简单, 例如新浪邮箱的host为`smtp.sina.com`, Gmail的host为`smtp.gmail.com`. 而大部分邮箱的SMTP服务端口号为默认的25, Gmail的话使用的是465和587, 具体的还请查看官方的介绍.
 
@@ -305,8 +303,6 @@ $ chmod 600 ~/.msmtprc
 ```
 
 有关于msmtp更详细的配置, 请参见[官方文档](http://msmtp.sourceforge.net/documentation.html)
-
-P.S. 本人使用的是公司的邮箱, 因此需要关闭TLS. 但是如果使用的Gmail则需要相关的设置, 具体方法网上随便一搜都是, 不再赘述.
 
 在配置msmtp后, 不妨测试下在Mutt中能否正常发送邮件:
 
@@ -337,12 +333,12 @@ P.S. 如果你有多个邮箱, 需要在`~/.getmail`目录下为每个邮箱都�
 
 ```
 [retriever]
-# type = SimplePOP3SSLRetriever
-# port = 995
 type = SimpleIMAPSSLRetriever
-server = $mailserver.com
+server = imap.gmail.com
+mailboxes = ("[Gmail]/All Mail",)
 username = $username
 password = $password
+mailboxes = ("[Gmail]/All Mail",)
 
 [destination]
 # 以Maildir格式储存
@@ -368,6 +364,8 @@ message_log = ~/.getmail/getmail.log
 如果采用POP3协议, 那么就将`type`设置成`SimplePOP3SSLRetrieve`, 如果用IMAP, 就设置成`SimpleIMAPSSLRetriever`. 事实上, 还可以设置成`SimplePOP3Retriever`和`SimpleIMAPRetriever`, 不过带SSL的表示使用SSL加密, 因此会更安全.
 
 关于POP3和IMAP协议收取邮件, 在本人的具体实践过程中, 发现并不是严格的遵守其协议行为, 即便是采用IMAP协议, 在本地删除了邮件的情况下, 邮件服务器上仍旧会保留邮件, 这跟getmail的配置有关, 同时可能还和邮件服务器的配置有关.
+
+> 对于Gmail, 建议使用`SimpleIMAPSSLRetriever`, 若使用`SimplePOP3SSLRetrieve`则`mailboxes`参数失效进而导致无法收取全部的Gmail邮件. 同时, 即便是使用IMAP协议, Gmail服务器并不会删除服务器端的邮件.
 
 注意到在上述的rc文件的`[option]`节中, 包含字段`delete`的设置, 用于指明在本地删除邮件后服务器是否也删除. 如果设置为`True`, 则在getmail会在成功收取邮件后删除邮件服务器上的对应邮件, 若设置为`False`, 则保留, 默认值是`False`. 该字段可能会影响POP3和IMAP收取协议, 因为本人通过反复设置POP3和IMAP, 以及`detele`字段, 发现不管怎么样邮件服务器上的邮件都会被保留, 但这可能是邮件服务器本身设置的原因, 因此无法验证. 为了保险起见, 建议初次设置getmail的时候采用POP3协议收取, 同时`delete`设置为`False`, 便于熟悉与验证. 不然手一抖把本地的邮件删了, 发现服务器上的邮件也没了就不好玩了. 当然, 也可以自己给自己发几封验证邮件, 然后在本地删除或是移动看看邮件服务器上的变化来验证getmail的配置.
 
