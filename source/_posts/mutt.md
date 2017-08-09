@@ -776,7 +776,39 @@ inbox/
 
 至此, procmail配置讲解结束, 关于procmail一些其它的高级功能例如转发等请查看[promcail manual](http://pm-doc.sourceforge.net/doc/), 更多的recipe示例可以参考man procmailex.
 
+## 定期删除邮件
 
+如果你真的订阅了邮件列表, 那么你会发现文件夹内的邮件每天都在以上百封的速度疯狂增加. 过多的邮件不仅会占用磁盘空间, 还会严重的增加Mutt读取邮件文件夹所花的时间.
+
+可以使用`archivemail`工具来将文件夹的邮件进行压缩存档同时移除指定邮件.
+
+**安装**
+
+```sh
+apt-get install archivemail
+```
+
+**使用**
+
+```sh
+archivemail -d 90 /home/user/.mail/mbox /home/user/.mail/linux
+```
+上述命令将文件夹`mbox`, `linux`内接收时间超过90天的邮件进行压缩归档保存, 并将这些邮件从文件夹中移除. 这里的`-d 90`表示的是自邮件接收到本地之日起计算, 而非邮件服务器收到的日期开始计算.
+
+如果不需要进行压缩存档, 可以选择直接删除邮件
+```sh
+archivemail -d 90 --delete /home/user/.mail/mbox /home/user/.mail/linux
+```
+
+**定期执行**
+
+`archivemail`本质上说来和Mutt或者Getmail没有什么联系, `archivemail`的作用就是在给定的文件夹内搜索邮件并执行指定的操作. 另外一点需要注意的是`archivemail`是用Python写的, 所以在执行速度上可能相对比较慢, 不过一般我们都将其放到cron中去在后台定期执行, 这点也就无关紧要了.
+
+```sh
+crontab -e
+#在打开的文件末尾添加一行
+* 12 1 * * archivemail -d 90 --delete  ~/.mail/linux ~/.mail/qemu ~/.mail/libvirt
+```
 ## Hooks
 
 Hooks是Mutt中非常强大的功能, 不过鉴于常规使用上不怎么会用到, 亦深入研究, 先不介绍了, 如果之后用到了在将相关内容补上, 没有的话就...XD
